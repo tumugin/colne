@@ -1,12 +1,26 @@
 import type { NextPage } from "next"
 import React from "react"
-import { Header, SpaceBetween } from "@cloudscape-design/components"
+import {
+  Button,
+  Container,
+  ContentLayout,
+  Header,
+} from "@cloudscape-design/components"
 
 const Home: NextPage = () => {
   return (
-    <SpaceBetween size="m">
-      <Header variant="h1">Hello World!</Header>
-    </SpaceBetween>
+    <ContentLayout
+      header={
+        <Header
+          variant="h1"
+          actions={<Button variant="primary">ログイン</Button>}
+        >
+          チェキを管理するやつ(仮)
+        </Header>
+      }
+    >
+      <Container>あああああ</Container>
+    </ContentLayout>
   )
 }
 

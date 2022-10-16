@@ -1,9 +1,43 @@
-import '../styles/globals.css'
+import "../styles/globals.css"
 import "@cloudscape-design/global-styles/index.css"
-import type { AppProps } from 'next/app'
+import type { AppProps } from "next/app"
+import { AppLayout, TopNavigation } from "@cloudscape-design/components"
+import React, { useCallback, useEffect, useState } from "react"
+import { applyMode } from "@cloudscape-design/global-styles"
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+  const [navigationOpen, setNavigationOpen] = useState(false)
+  const toggleNavigation = useCallback(() => {
+    setNavigationOpen((prev) => !prev)
+  }, [])
+  useEffect(() => {
+    applyMode(null)
+  }, [])
+
+  return (
+    <>
+      <TopNavigation
+        identity={{
+          href: "/",
+          title: "チェキを管理するやつ(仮)",
+        }}
+        i18nStrings={{
+          searchIconAriaLabel: "Search",
+          searchDismissIconAriaLabel: "Close search",
+          overflowMenuTriggerText: "More",
+          overflowMenuTitleText: "All",
+          overflowMenuBackIconAriaLabel: "Back",
+          overflowMenuDismissIconAriaLabel: "Close menu",
+        }}
+      />
+      <AppLayout
+        content={<Component {...pageProps} />}
+        onNavigationChange={toggleNavigation}
+        navigationOpen={navigationOpen}
+        toolsHide
+      />
+    </>
+  )
 }
 
 export default MyApp
