@@ -10,6 +10,11 @@ const nextConfig = {
 }
 
 module.exports = () => {
-  const plugins = [withTranspileModules(['@cloudscape-design/components'])]
+  const plugins = [
+    withTranspileModules([
+      '@cloudscape-design/components',
+      '@cloudscape-design/design-tokens',
+    ]),
+  ]
   return plugins.reduce((acc, plugin) => plugin(acc), nextConfig)
 }
