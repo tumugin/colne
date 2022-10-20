@@ -7,8 +7,8 @@ import * as awsui from '@cloudscape-design/design-tokens'
 const ContentGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  place-items: center;
-  gap: ${awsui.spaceScaledM};
+  gap: ${awsui.spaceScaledXxxl};
+  place-items: start center;
   
   @media screen and (max-width: 768px) {
     grid-template-columns: 1fr 1fr;
@@ -20,7 +20,8 @@ const ContentGrid = styled.div`
 `
 
 const ContentBox = styled(Box)`
-  max-width: 500px;
+  width: 100%;
+  max-width: 400px;
 `
 
 export function TopHeaderContent(_: {}) {
