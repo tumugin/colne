@@ -1,11 +1,11 @@
-import type { NextPage } from "next"
-import React from "react"
+import type { NextPage } from 'next'
+import React from 'react'
 import {
   Button,
   Container,
   ContentLayout,
   Header,
-} from "@cloudscape-design/components"
+} from '@cloudscape-design/components'
 
 const Home: NextPage = () => {
   return (
