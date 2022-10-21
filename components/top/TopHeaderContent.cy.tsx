@@ -1,7 +1,12 @@
 import { TopHeaderContent } from './TopHeaderContent'
 
 describe('<TopHeaderContent>', () => {
-  it('mounts', () => {
+  it('mounts with smartphone', () => {
+    cy.mount(<TopHeaderContent />)
+    cy.matchImage()
+  })
+  it('mounts with pc', () => {
+    cy.viewport(1920, 1080)
     cy.mount(<TopHeaderContent />)
     cy.matchImage()
   })
