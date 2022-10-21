@@ -2,6 +2,7 @@ import { TopHeaderContent } from './TopHeaderContent'
 
 describe('<TopHeaderContent>', () => {
   it('mounts with smartphone', () => {
+    cy.viewport('iphone-xr')
     cy.mount(<TopHeaderContent />)
     cy.matchImage()
   })
