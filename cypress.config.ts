@@ -5,10 +5,11 @@ export default defineConfig({
   component: {
     devServer: {
       framework: 'next',
-      bundler: 'webpack',
+      bundler: 'webpack'
     },
     setupNodeEvents(on, config) {
       initPlugin(on, config)
-    },
+    }
   },
+  video: false,
 })

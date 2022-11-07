@@ -12,7 +12,7 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "cypress": "cypress run --component",
-    "cypress:update-screenshot": "cypress run --component --env \"pluginVisualRegressionUpdateImages=true"
+    "cypress:update-screenshot": "cypress run --component --env pluginVisualRegressionUpdateImages=true"
   },
   "dependencies": {
     "@cloudscape-design/components": "^3.0.106",
