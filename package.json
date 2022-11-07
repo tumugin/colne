@@ -11,6 +11,7 @@
     "prettier:check": "prettier --check --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json,css}'",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
+    "typecheck": "tsc --noEmit",
     "cypress": "cypress run --component",
     "cypress:update-screenshot": "cypress run --component --env pluginVisualRegressionUpdateImages=true"
   },
