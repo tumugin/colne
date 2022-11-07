@@ -11,4 +11,6 @@ export const parameters = {
   },
 }
 
-export const decorators = [renderStory => <ThemeWrapper>{renderStory()}</ThemeWrapper>]
+export const decorators = [
+  (renderStory) => <ThemeWrapper>{renderStory()}</ThemeWrapper>,
+]

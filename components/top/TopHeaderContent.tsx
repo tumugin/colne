@@ -9,7 +9,7 @@ const ContentGrid = styled.div`
   grid-template-columns: 1fr 1fr 1fr;
   gap: ${awsui.spaceScaledXxxl};
   place-items: start center;
-  
+
   @media screen and (max-width: 768px) {
     grid-template-columns: 1fr 1fr;
   }
