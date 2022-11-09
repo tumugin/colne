@@ -16,7 +16,7 @@
     "cypress:update-screenshot": "cypress run --component --env pluginVisualRegressionUpdateImages=true"
   },
   "dependencies": {
-    "@cloudscape-design/components": "^3.0.106",
+    "@cloudscape-design/components": "^3.0.109",
     "@cloudscape-design/design-tokens": "^3.0.6",
     "@cloudscape-design/global-styles": "^1.0.1",
     "next": "13.0.2",
