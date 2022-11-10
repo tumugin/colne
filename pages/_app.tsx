@@ -5,18 +5,9 @@ import { AppLayout, TopNavigation } from '@cloudscape-design/components'
 import React, { useCallback, useEffect, useState } from 'react'
 import { applyMode, Mode } from '@cloudscape-design/global-styles'
 import { useDarkTheme } from 'libs/dom/useDarkTheme'
-import { store } from '../store'
-import { Provider } from 'react-redux'
+import { wrapper } from '../store'
 
-export default function ColneApp(props: AppProps) {
-  return (
-    <Provider store={store}>
-      <AppWithLayout {...props} />
-    </Provider>
-  )
-}
-
-function AppWithLayout({ Component, pageProps }: AppProps) {
+function ColneAppWithLayout({ Component, pageProps }: AppProps) {
   const [navigationOpen, setNavigationOpen] = useState(false)
   const isDarkTheme = useDarkTheme()
   const toggleNavigation = useCallback(() => {
@@ -51,3 +42,5 @@ function AppWithLayout({ Component, pageProps }: AppProps) {
     </>
   )
 }
+
+export default wrapper.withRedux(ColneAppWithLayout)
