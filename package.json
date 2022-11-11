@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.2",
-    "@frsource/cypress-plugin-visual-regression-diff": "^3.1.2",
+    "@frsource/cypress-plugin-visual-regression-diff": "^3.1.4",
     "@storybook/addon-actions": "^6.5.13",
     "@storybook/addon-essentials": "^6.5.13",
     "@storybook/addon-interactions": "^6.5.13",
