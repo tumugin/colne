@@ -17,14 +17,10 @@ module.exports = () => {
       '@cloudscape-design/components',
       '@cloudscape-design/design-tokens',
     ]),
-    withSentryConfig(
-      {
-        sentry: {},
-      },
-      {
+    (config) =>
+      withSentryConfig(config, {
         silent: true,
-      }
-    ),
+      }),
   ]
   return plugins.reduce((acc, plugin) => plugin(acc), nextConfig)
 }
