@@ -18,9 +18,12 @@ module.exports = () => {
       '@cloudscape-design/design-tokens',
     ]),
     (config) =>
-      withSentryConfig(config, {
-        silent: true,
-      }),
+      process.env.NEXT_PUBLIC_SENTRY_DSN
+        ? withSentryConfig(config, {
+            silent: true,
+            hideSourceMaps: true,
+          })
+        : config,
   ]
   return plugins.reduce((acc, plugin) => plugin(acc), nextConfig)
 }
