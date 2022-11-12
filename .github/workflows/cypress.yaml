@@ -18,5 +18,6 @@ jobs:
         with:
           node-version-file: '.nvmrc'
           cache: 'yarn'
+      - run: sudo apt install fonts-noto-cjk
       - run: yarn install
       - run: yarn run cypress
