@@ -10,6 +10,7 @@ import { Provider } from 'react-redux'
 import { updateCurrentUserState } from 'store/user/userHooks'
 import { getRequestHeaderFromAppContext } from 'utils/headers'
 import App from 'next/app'
+import { updateCSRFToken } from 'store/common/commonHooks'
 
 function ColneAppWithLayout({ Component, pageProps }: AppProps) {
   const [navigationOpen, setNavigationOpen] = useState(false)
@@ -59,6 +60,9 @@ function ColneApp(appProps: AppProps) {
 
 ColneApp.getInitialProps = wrapper.getInitialAppProps(
   (store) => async (ctx) => {
+    await store.dispatch((d) =>
+      updateCSRFToken(d, getRequestHeaderFromAppContext(ctx))
+    )
     await store.dispatch((d) =>
       updateCurrentUserState(d, getRequestHeaderFromAppContext(ctx))
     )

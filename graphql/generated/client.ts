@@ -533,6 +533,10 @@ export type UserSerializer = {
   userUpdatedAt: Scalars['String']
 }
 
+export type GetCsrfTokenQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetCsrfTokenQuery = { __typename?: 'Query'; getCsrfToken: string }
+
 export type GetCurrentUserQueryVariables = Exact<{ [key: string]: never }>
 
 export type GetCurrentUserQuery = {
@@ -548,6 +552,11 @@ export type GetCurrentUserQuery = {
   } | null
 }
 
+export const GetCsrfTokenDocument = gql`
+  query GetCSRFToken {
+    getCsrfToken
+  }
+`
 export const GetCurrentUserDocument = gql`
   query GetCurrentUser {
     currentUser {
@@ -578,6 +587,20 @@ export function getSdk(
   withWrapper: SdkFunctionWrapper = defaultWrapper
 ) {
   return {
+    GetCSRFToken(
+      variables?: GetCsrfTokenQueryVariables,
+      requestHeaders?: Dom.RequestInit['headers']
+    ): Promise<GetCsrfTokenQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<GetCsrfTokenQuery>(GetCsrfTokenDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'GetCSRFToken',
+        'query'
+      )
+    },
     GetCurrentUser(
       variables?: GetCurrentUserQueryVariables,
       requestHeaders?: Dom.RequestInit['headers']
