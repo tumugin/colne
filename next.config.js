@@ -9,6 +9,9 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
+  sentry: {
+    hideSourceMaps: true,
+  },
 }
 
 module.exports = () => {
@@ -21,7 +24,6 @@ module.exports = () => {
       process.env.NEXT_PUBLIC_SENTRY_DSN
         ? withSentryConfig(config, {
             silent: true,
-            hideSourceMaps: true,
           })
         : config,
   ]
