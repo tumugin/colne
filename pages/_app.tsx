@@ -9,11 +9,13 @@ import { getRequestHeaderFromAppContext } from 'utils/headers'
 import App from 'next/app'
 import { updateCSRFToken } from 'store/common/commonHooks'
 import { ColneAppWithLayout } from 'components/common/ColneAppWithLayout'
+import { GlobalThemeHandler } from 'components/common/GlobalThemeHandler'
 
 function ColneApp(appProps: AppProps) {
   const { store, props } = wrapper.useWrappedStore(appProps)
   return (
     <Provider store={store}>
+      <GlobalThemeHandler />
       <ColneAppWithLayout {...props} />
     </Provider>
   )
