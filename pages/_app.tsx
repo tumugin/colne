@@ -6,6 +6,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { applyMode, Mode } from '@cloudscape-design/global-styles'
 import { useDarkTheme } from 'libs/dom/useDarkTheme'
 import { wrapper } from '../store'
+import { Provider } from 'react-redux'
 
 function ColneAppWithLayout({ Component, pageProps }: AppProps) {
   const [navigationOpen, setNavigationOpen] = useState(false)
@@ -43,4 +44,11 @@ function ColneAppWithLayout({ Component, pageProps }: AppProps) {
   )
 }
 
-export default wrapper.withRedux(ColneAppWithLayout)
+export default function ColneApp(appProps: AppProps) {
+  const { store, props } = wrapper.useWrappedStore(appProps)
+  return (
+    <Provider store={store}>
+      <ColneAppWithLayout {...props} />
+    </Provider>
+  )
+}
