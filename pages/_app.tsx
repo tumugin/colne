@@ -5,26 +5,22 @@ import { AppLayout, TopNavigation } from '@cloudscape-design/components'
 import React, { useCallback, useEffect, useState } from 'react'
 import { applyMode, Mode } from '@cloudscape-design/global-styles'
 import { useDarkTheme } from 'libs/dom/useDarkTheme'
-import { useAppDispatch, wrapper } from '../store'
+import { wrapper } from '../store'
 import { Provider } from 'react-redux'
-import { useInitialCurrentUserState } from '../store/user/userHooks'
+import { updateCurrentUserState } from '../store/user/userHooks'
+import { getRequestHeaderFromAppContext } from '../utils/headers'
+import App from 'next/app'
 
 function ColneAppWithLayout({ Component, pageProps }: AppProps) {
-  const dispatch = useAppDispatch()
   const [navigationOpen, setNavigationOpen] = useState(false)
   const isDarkTheme = useDarkTheme()
   const toggleNavigation = useCallback(() => {
     setNavigationOpen((prev) => !prev)
   }, [])
-  const initialCurrentUserState = useInitialCurrentUserState()
 
   useEffect(() => {
     applyMode(isDarkTheme ? Mode.Dark : Mode.Light)
   }, [isDarkTheme])
-
-  useEffect(() => {
-    dispatch(initialCurrentUserState)
-  }, [dispatch, initialCurrentUserState])
 
   return (
     <>
@@ -52,7 +48,7 @@ function ColneAppWithLayout({ Component, pageProps }: AppProps) {
   )
 }
 
-export default function ColneApp(appProps: AppProps) {
+function ColneApp(appProps: AppProps) {
   const { store, props } = wrapper.useWrappedStore(appProps)
   return (
     <Provider store={store}>
@@ -60,3 +56,18 @@ export default function ColneApp(appProps: AppProps) {
     </Provider>
   )
 }
+
+ColneApp.getInitialProps = wrapper.getInitialAppProps(
+  (store) => async (ctx) => {
+    await store.dispatch((d) =>
+      updateCurrentUserState(d, getRequestHeaderFromAppContext(ctx))
+    )
+    return {
+      pageProps: {
+        ...(await App.getInitialProps(ctx)).pageProps,
+      },
+    }
+  }
+)
+
+export default ColneApp
