@@ -1,7 +1,7 @@
 import { AnyAction, combineReducers, configureStore } from '@reduxjs/toolkit'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import { createWrapper, HYDRATE } from 'next-redux-wrapper'
-import { userSlice } from './user'
+import { userSlice } from './user/userStore'
 
 const combinedReducer = combineReducers({
   user: userSlice.reducer,
