@@ -5,20 +5,26 @@ import { AppLayout, TopNavigation } from '@cloudscape-design/components'
 import React, { useCallback, useEffect, useState } from 'react'
 import { applyMode, Mode } from '@cloudscape-design/global-styles'
 import { useDarkTheme } from 'libs/dom/useDarkTheme'
-import { wrapper } from '../store'
+import { useAppDispatch, wrapper } from '../store'
 import { Provider } from 'react-redux'
-import { updateCurrentUserState } from '../store/user/userHooks'
+import { useInitialCurrentUserState } from '../store/user/userHooks'
 
 function ColneAppWithLayout({ Component, pageProps }: AppProps) {
+  const dispatch = useAppDispatch()
   const [navigationOpen, setNavigationOpen] = useState(false)
   const isDarkTheme = useDarkTheme()
   const toggleNavigation = useCallback(() => {
     setNavigationOpen((prev) => !prev)
   }, [])
+  const initialCurrentUserState = useInitialCurrentUserState()
 
   useEffect(() => {
     applyMode(isDarkTheme ? Mode.Dark : Mode.Light)
   }, [isDarkTheme])
+
+  useEffect(() => {
+    dispatch(initialCurrentUserState)
+  }, [dispatch, initialCurrentUserState])
 
   return (
     <>
@@ -54,9 +60,3 @@ export default function ColneApp(appProps: AppProps) {
     </Provider>
   )
 }
-
-ColneApp.getInitialPageProps = wrapper.getInitialPageProps(
-  (store) => async () => {
-    await updateCurrentUserState(store.dispatch)
-  }
-)
