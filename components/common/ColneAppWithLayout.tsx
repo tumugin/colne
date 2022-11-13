@@ -4,8 +4,10 @@ import { AppLayout, TopNavigation } from '@cloudscape-design/components'
 import { useAppSelector } from 'store'
 import { useCSRFToken } from 'store/common/commonHooks'
 import { ColneSideNavigation } from 'components/common/ColneSideNavigation'
+import { useRouter } from 'next/router'
 
 export function ColneAppWithLayout({ Component, pageProps }: AppProps) {
+  const router = useRouter()
   const [navigationOpen, setNavigationOpen] = useState(false)
   const toggleNavigation = useCallback(() => {
     setNavigationOpen((prev) => !prev)
@@ -20,6 +22,10 @@ export function ColneAppWithLayout({ Component, pageProps }: AppProps) {
         identity={{
           href: '/',
           title: 'チェキを管理するやつ(仮)',
+          onFollow: async (e) => {
+            e.preventDefault()
+            await router.push('/')
+          },
         }}
         i18nStrings={{
           searchIconAriaLabel: 'Search',
