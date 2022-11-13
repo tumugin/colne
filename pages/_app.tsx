@@ -23,12 +23,15 @@ function ColneApp(appProps: AppProps) {
 
 ColneApp.getInitialProps = wrapper.getInitialAppProps(
   (store) => async (ctx) => {
-    await store.dispatch((d) =>
-      updateCSRFToken(d, getRequestHeaderFromAppContext(ctx))
-    )
-    await store.dispatch((d) =>
-      updateCurrentUserState(d, getRequestHeaderFromAppContext(ctx))
-    )
+    await Promise.all([
+      store.dispatch((d) =>
+        updateCSRFToken(d, getRequestHeaderFromAppContext(ctx))
+      ),
+      store.dispatch((d) =>
+        updateCurrentUserState(d, getRequestHeaderFromAppContext(ctx))
+      ),
+    ])
+
     return {
       pageProps: {
         ...(await App.getInitialProps(ctx)).pageProps,
