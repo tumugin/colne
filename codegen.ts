@@ -9,6 +9,7 @@ const config: CodegenConfig = {
       plugins: [
         'typescript',
         'typescript-operations',
+        'typescript-graphql-request',
       ],
       config: {
         withHooks: true,
