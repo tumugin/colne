@@ -1,4 +1,4 @@
-import { TopHeaderContent } from '../../components/top/TopHeaderContent'
+import { TopHeaderContent } from 'components/top/TopHeaderContent'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 
 const componentMeta: ComponentMeta<typeof TopHeaderContent> = {

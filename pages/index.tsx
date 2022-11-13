@@ -1,10 +1,10 @@
 import type { NextPage } from 'next'
 import React from 'react'
 import { Button, ContentLayout, Header } from '@cloudscape-design/components'
-import { TopHeaderContent } from '../components/top/TopHeaderContent'
+import { TopHeaderContent } from 'components/top/TopHeaderContent'
 import styled from 'styled-components'
 import * as awsui from '@cloudscape-design/design-tokens'
-import { useAppSelector } from '../store'
+import { useAppSelector } from 'store'
 
 const ActionButtons = styled.div`
   display: flex;

@@ -5,10 +5,10 @@ import { AppLayout, TopNavigation } from '@cloudscape-design/components'
 import React, { useCallback, useEffect, useState } from 'react'
 import { applyMode, Mode } from '@cloudscape-design/global-styles'
 import { useDarkTheme } from 'libs/dom/useDarkTheme'
-import { wrapper } from '../store'
+import { wrapper } from 'store'
 import { Provider } from 'react-redux'
-import { updateCurrentUserState } from '../store/user/userHooks'
-import { getRequestHeaderFromAppContext } from '../utils/headers'
+import { updateCurrentUserState } from 'store/user/userHooks'
+import { getRequestHeaderFromAppContext } from 'utils/headers'
 import App from 'next/app'
 
 function ColneAppWithLayout({ Component, pageProps }: AppProps) {

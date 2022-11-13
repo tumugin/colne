@@ -1,4 +1,4 @@
-import { Box, Container, Grid, Header } from '@cloudscape-design/components'
+import { Box, Container, Header } from '@cloudscape-design/components'
 import React from 'react'
 import { Graph } from './Graph'
 import styled from 'styled-components'

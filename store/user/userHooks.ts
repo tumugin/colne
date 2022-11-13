@@ -1,6 +1,6 @@
 import { AppDispatch, useAppSelector } from '../index'
 import { userSlice } from './userStore'
-import { colneGraphQLSdk } from '../../graphql/client'
+import { colneGraphQLSdk } from 'graphql/client'
 
 export function useUpdateCurrentUserState() {
   return async function (dispatch: AppDispatch) {
