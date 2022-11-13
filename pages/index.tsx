@@ -5,6 +5,7 @@ import { TopHeaderContent } from 'components/top/TopHeaderContent'
 import styled from 'styled-components'
 import * as awsui from '@cloudscape-design/design-tokens'
 import { useAppSelector } from 'store'
+import { loginPath } from 'utils/urls'
 
 const ActionButtons = styled.div`
   display: flex;
@@ -21,8 +22,12 @@ const Home: NextPage = () => {
           actions={
             !userState.currentUser ? (
               <ActionButtons>
-                <Button variant="primary">ログイン</Button>
-                <Button variant="primary">新規登録</Button>
+                <Button variant="primary" href={loginPath}>
+                  ログイン
+                </Button>
+                <Button variant="primary" href={loginPath}>
+                  新規登録
+                </Button>
               </ActionButtons>
             ) : null
           }
