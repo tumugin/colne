@@ -17,7 +17,7 @@
     "codegen": "graphql-codegen --config codegen.ts"
   },
   "dependencies": {
-    "@cloudscape-design/components": "^3.0.111",
+    "@cloudscape-design/components": "^3.0.114",
     "@cloudscape-design/design-tokens": "^3.0.6",
     "@cloudscape-design/global-styles": "^1.0.1",
     "@reduxjs/toolkit": "^1.9.0",
