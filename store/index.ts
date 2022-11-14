@@ -3,10 +3,12 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import { createWrapper, HYDRATE } from 'next-redux-wrapper'
 import { userSlice } from './user/userStore'
 import { commonSlice } from 'store/common/commonStore'
+import { chekiSlice } from 'store/cheki/chekiStore'
 
 const combinedReducer = combineReducers({
   user: userSlice.reducer,
   common: commonSlice.reducer,
+  cheki: chekiSlice.reducer,
 })
 
 // https://stackoverflow.com/questions/70426965/how-to-use-next-redux-wrapper-with-next-js-redux-toolkit-and-typescript-p

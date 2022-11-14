@@ -552,6 +552,27 @@ export type GetCurrentUserQuery = {
   } | null
 }
 
+export type GetUserChekiIdolCountQueryVariables = Exact<{
+  chekiShotAtStart: Scalars['String']
+  chekiShotAtEnd: Scalars['String']
+}>
+
+export type GetUserChekiIdolCountQuery = {
+  __typename?: 'Query'
+  currentUserChekis: {
+    __typename?: 'UserChekis'
+    getUserChekiIdolCount: Array<{
+      __typename?: 'ChekiIdolCountSerializer'
+      chekiCount: number
+      idol?: {
+        __typename?: 'IdolSerializer'
+        idolId: string
+        idolName: string
+      } | null
+    }>
+  }
+}
+
 export const GetCsrfTokenDocument = gql`
   query GetCSRFToken {
     getCsrfToken
@@ -566,6 +587,27 @@ export const GetCurrentUserDocument = gql`
       userId
       userName
       userUpdatedAt
+    }
+  }
+`
+export const GetUserChekiIdolCountDocument = gql`
+  query GetUserChekiIdolCount(
+    $chekiShotAtStart: String!
+    $chekiShotAtEnd: String!
+  ) {
+    currentUserChekis {
+      getUserChekiIdolCount(
+        params: {
+          chekiShotAtStart: $chekiShotAtStart
+          chekiShotAtEnd: $chekiShotAtEnd
+        }
+      ) {
+        chekiCount
+        idol {
+          idolId
+          idolName
+        }
+      }
     }
   }
 `
@@ -613,6 +655,21 @@ export function getSdk(
             { ...requestHeaders, ...wrappedRequestHeaders }
           ),
         'GetCurrentUser',
+        'query'
+      )
+    },
+    GetUserChekiIdolCount(
+      variables: GetUserChekiIdolCountQueryVariables,
+      requestHeaders?: Dom.RequestInit['headers']
+    ): Promise<GetUserChekiIdolCountQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<GetUserChekiIdolCountQuery>(
+            GetUserChekiIdolCountDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders }
+          ),
+        'GetUserChekiIdolCount',
         'query'
       )
     },
