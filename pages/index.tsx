@@ -4,8 +4,14 @@ import { Button, ContentLayout, Header } from '@cloudscape-design/components'
 import { TopHeaderContent } from 'components/top/TopHeaderContent'
 import styled from 'styled-components'
 import * as awsui from '@cloudscape-design/design-tokens'
-import { useAppSelector } from 'store'
+import { useAppSelector, wrapper } from 'store'
 import { loginPath } from 'utils/urls'
+import {
+  createThisMonthDateRange,
+  updateCurrentUserChekiIdolCount,
+} from 'store/cheki/chekiHooks'
+import { getRequestHeaderFromContext } from 'utils/headers'
+import dayjs from 'dayjs'
 
 const ActionButtons = styled.div`
   display: flex;
@@ -38,5 +44,18 @@ const Home: NextPage = () => {
     </ContentLayout>
   )
 }
+
+Home.getInitialProps = wrapper.getInitialPageProps((store) => async (ctx) => {
+  if (!store.getState().user.currentUser) {
+    return
+  }
+  await store.dispatch((dispatch) =>
+    updateCurrentUserChekiIdolCount(
+      { ...createThisMonthDateRange(dayjs()) },
+      dispatch,
+      getRequestHeaderFromContext(ctx)
+    )
+  )
+})
 
 export default Home

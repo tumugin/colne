@@ -27,3 +27,10 @@ export async function updateCurrentUserChekiIdolCount(
     )
   )
 }
+
+export function createThisMonthDateRange(today: dayjs.Dayjs) {
+  return {
+    startDate: today.startOf('month'),
+    endDate: today.endOf('month'),
+  }
+}
