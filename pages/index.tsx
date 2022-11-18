@@ -12,6 +12,7 @@ import {
 } from 'store/cheki/chekiHooks'
 import { getRequestHeaderFromContext } from 'utils/headers'
 import dayjs from 'dayjs'
+import { MonthlyChekiCounts } from 'components/top/MonthlyChekiCounts'
 
 const ActionButtons = styled.div`
   display: flex;
@@ -19,6 +20,9 @@ const ActionButtons = styled.div`
 `
 const Home: NextPage = () => {
   const userState = useAppSelector((state) => state.user)
+  const chekiCounts = useAppSelector(
+    (state) => state.cheki.currentUserChekiIdolCount
+  )
 
   return (
     <ContentLayout
@@ -40,7 +44,11 @@ const Home: NextPage = () => {
         />
       }
     >
-      <TopHeaderContent />
+      {userState.currentUser ? (
+        <MonthlyChekiCounts chekiCounts={chekiCounts ?? []} />
+      ) : (
+        <TopHeaderContent />
+      )}
     </ContentLayout>
   )
 }
