@@ -12,8 +12,8 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "typecheck": "tsc --noEmit",
-    "cypress": "cypress run --component",
-    "cypress:update-screenshot": "cypress run --component --env pluginVisualRegressionUpdateImages=true",
+    "cypress": "cypress run --component --port 8081",
+    "cypress:update-screenshot": "cypress run --component --port 8081 --env pluginVisualRegressionUpdateImages=true",
     "codegen": "graphql-codegen --config codegen.ts"
   },
   "dependencies": {
