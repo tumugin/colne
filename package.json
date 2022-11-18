@@ -58,7 +58,7 @@
     "babel-plugin-styled-components": "^2.0.7",
     "cypress": "^11.1.0",
     "eslint": "8.27.0",
-    "eslint-config-next": "13.0.3",
+    "eslint-config-next": "13.0.4",
     "eslint-plugin-storybook": "^0.6.7",
     "next-transpile-modules": "^10.0.0",
     "prettier": "2.7.1",
