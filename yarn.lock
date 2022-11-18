@@ -6404,10 +6404,10 @@ cyclist@^1.0.1:
   resolved "https://registry.yarnpkg.com/cyclist/-/cyclist-1.0.1.tgz#596e9698fd0c80e12038c2b82d6eb1b35b6224d9"
   integrity sha512-NJGVKPS81XejHcLhaLJS7plab0fK3slPh11mESeeDq2W4ZI5kUKK/LRRdVDvjJseojbPB7ZwjnyOybg3Igea/A==
 
-cypress@^11.0.1:
-  version "11.0.1"
-  resolved "https://registry.yarnpkg.com/cypress/-/cypress-11.0.1.tgz#5332a1825b37ab3f4f81d74389930c55cc7cf31d"
-  integrity sha512-NuEfd0Vim492RJ3m/+bbTZ3OZrqXgfAfuLaZfIQ9D5lKocS3EDr2tyAarZdAhKwLyoh7OJ33jwMeMFIDbzYqog==
+cypress@^11.1.0:
+  version "11.1.0"
+  resolved "https://registry.yarnpkg.com/cypress/-/cypress-11.1.0.tgz#b8f16495a8a5d8f9a7dd3374ae7b2cef45e9c779"
+  integrity sha512-kzizbG9s3p3ahWqxUwG/21NqLWEGtScMevMyUPeYlcmMX9RzVxWM18MkA3B4Cb3jKx72hSyIE2mHgHymfCM1bg==
   dependencies:
     "@cypress/request" "^2.88.10"
     "@cypress/xvfb" "^1.2.4"
@@ -6486,12 +6486,7 @@ date-fns@^2.25.0:
   resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.29.3.tgz#27402d2fc67eb442b511b70bbdf98e6411cd68a8"
   integrity sha512-dDCnyH2WnnKusqvZZ6+jA1O51Ibt8ZMRNkDZdyAyK4YfbDwa/cEmuztzG5pk6hqlp9aSBPYcjOlktquahGwGeA==
 
-dayjs@^1.10.4:
-  version "1.11.5"
-  resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.11.5.tgz#00e8cc627f231f9499c19b38af49f56dc0ac5e93"
-  integrity sha512-CAdX5Q3YW3Gclyo5Vpqkgpj8fSdLQcRuzfX6mC6Phy0nfJ0eGYOeS7m4mt2plDWLAtA4TqTakvbboHvUxfe4iA==
-
-dayjs@^1.11.6:
+dayjs@^1.10.4, dayjs@^1.11.6:
   version "1.11.6"
   resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.11.6.tgz#2e79a226314ec3ec904e3ee1dd5a4f5e5b1c7afb"
   integrity sha512-zZbY5giJAinCG+7AGaw0wIhNZ6J8AhWuSXKvuc1KAyMiRsvGQWqh4L+MomvhdAYjN+lqvVCMq1I41e3YHvXkyQ==
