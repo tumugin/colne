@@ -7,7 +7,7 @@ describe('<TopHeaderContent>', () => {
     cy.matchImage()
   })
   it('mounts with pc', () => {
-    cy.viewport(1920, 1080)
+    cy.viewport('macbook-16')
     cy.mount(<TopHeaderContent />)
     cy.matchImage()
   })

@@ -6,12 +6,12 @@ import * as awsui from '@cloudscape-design/design-tokens'
 
 const ContentGrid = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: ${awsui.spaceScaledXxxl};
   place-items: start center;
 
   @media screen and (max-width: 768px) {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
   }
 
   @media screen and (max-width: 500px) {
