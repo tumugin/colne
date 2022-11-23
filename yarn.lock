@@ -1524,14 +1524,14 @@
   resolved "https://registry.yarnpkg.com/@frsource/base64/-/base64-1.0.4.tgz#cb51e2970942844b1c8a55b6cee01431f362a840"
   integrity sha512-IphM1ro1cvV5CqJWzX/LvPJcUE26cwgt/zMtBdssvTrfSNhh9KjfS2VXTA8SivkvPHK1DsdPnoMoXitmx8c3Cg==
 
-"@frsource/cypress-plugin-visual-regression-diff@^3.1.5":
-  version "3.1.5"
-  resolved "https://registry.yarnpkg.com/@frsource/cypress-plugin-visual-regression-diff/-/cypress-plugin-visual-regression-diff-3.1.5.tgz#1af1d9e1673dd5195c371cc46690d760c56bae1b"
-  integrity sha512-kIKBChTuLOGq3bISVyvHeg51A60mO+JC+v9eplDTG8rTVyN+TR1khlgwXe4bN0vuaJyoBuG6k7Oz027XBJO0cw==
+"@frsource/cypress-plugin-visual-regression-diff@^3.1.6":
+  version "3.1.6"
+  resolved "https://registry.yarnpkg.com/@frsource/cypress-plugin-visual-regression-diff/-/cypress-plugin-visual-regression-diff-3.1.6.tgz#b6f5af1eef2f2d97e6230863f00a488f432ba158"
+  integrity sha512-REKVdGB90MmoavrQCyOXENhP8mAEZfUiIWQup7ChlY7hTGtWOfURrqi/BrutIohfeYrqRVEbo5DfZHwuXUoCsA==
   dependencies:
     "@frsource/base64" "1.0.4"
     glob "8.0.3"
-    meta-png "1.0.4"
+    meta-png "1.0.5"
     move-file "2.1.0"
     pixelmatch "5.3.0"
     pngjs "6.0.0"
@@ -10149,10 +10149,10 @@ meros@1.2.1:
   resolved "https://registry.yarnpkg.com/meros/-/meros-1.2.1.tgz#056f7a76e8571d0aaf3c7afcbe7eb6407ff7329e"
   integrity sha512-R2f/jxYqCAGI19KhAvaxSOxALBMkaXWH2a7rOyqQw+ZmizX5bKkEYWLzdhC+U82ZVVPVp6MCXe3EkVligh+12g==
 
-meta-png@1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/meta-png/-/meta-png-1.0.4.tgz#85d08f8229716bc950a69feebd4a1bfde7fe99f1"
-  integrity sha512-BLGGneBYi+nFZFpCXzjldno9tS+mema9A6/qgcwLRQqb0ffYF06QZvS1UMblLdJat0u6rqeATDlwmjjOD6zxUA==
+meta-png@1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/meta-png/-/meta-png-1.0.5.tgz#60310eea21d4910827e5cb2e31d40c0422efdb35"
+  integrity sha512-kR/npdqfnlB8HycaDImcpauYh/l1ldvuDoT/QhWazSD9jDHJ8v9tankLhjN5ea8OKV1Amp4v/xxNYG2WiQYEgg==
 
 methods@~1.1.2:
   version "1.1.2"
