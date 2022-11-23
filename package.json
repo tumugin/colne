@@ -21,7 +21,7 @@
     "@cloudscape-design/design-tokens": "^3.0.6",
     "@cloudscape-design/global-styles": "^1.0.2",
     "@reduxjs/toolkit": "^1.9.0",
-    "@sentry/nextjs": "^7.20.0",
+    "@sentry/nextjs": "^7.21.1",
     "dayjs": "^1.11.6",
     "graphql": "^16.6.0",
     "graphql-request": "^5.0.0",
