@@ -1430,17 +1430,17 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
-"@frsource/base64@1.0.4":
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/@frsource/base64/-/base64-1.0.4.tgz#cb51e2970942844b1c8a55b6cee01431f362a840"
-  integrity sha512-IphM1ro1cvV5CqJWzX/LvPJcUE26cwgt/zMtBdssvTrfSNhh9KjfS2VXTA8SivkvPHK1DsdPnoMoXitmx8c3Cg==
+"@frsource/base64@1.0.5":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@frsource/base64/-/base64-1.0.5.tgz#02d1194535b356c4de43a61231b06558a5236700"
+  integrity sha512-RIlQtKezeRhNuxIpIc2BuM4kNqAakIarKV/TCgx2EC+zgj1NxX3+Mc80AkJCCMO8dZUuGzbULG7295YeBQZlSA==
 
-"@frsource/cypress-plugin-visual-regression-diff@^3.1.7":
-  version "3.1.7"
-  resolved "https://registry.yarnpkg.com/@frsource/cypress-plugin-visual-regression-diff/-/cypress-plugin-visual-regression-diff-3.1.7.tgz#0df25732909b318cb9b60733fb0bb331d8d865a2"
-  integrity sha512-kQpSKgaVAf758YIwarQZMIPxjevcvB1NDxPX9F80Cfi6VxpSWD9GmCsVHDjl3RwCjV1j/RNeotIAZHmfleXVKQ==
+"@frsource/cypress-plugin-visual-regression-diff@^3.2.3":
+  version "3.2.3"
+  resolved "https://registry.yarnpkg.com/@frsource/cypress-plugin-visual-regression-diff/-/cypress-plugin-visual-regression-diff-3.2.3.tgz#2e7b2ef4b765f82a9a0d90d0a4e45e1ae9dff446"
+  integrity sha512-lMtdDZy2RFCXnMcenpiXB160KuanXWjj5h/MyRDlZfZFEmi6V2znXUcRG3STvcrH9AXctb+IFRrhFQxbfyegrQ==
   dependencies:
-    "@frsource/base64" "1.0.4"
+    "@frsource/base64" "1.0.5"
     glob "8.0.3"
     meta-png "1.0.5"
     move-file "2.1.0"

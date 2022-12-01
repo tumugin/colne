@@ -35,7 +35,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.5",
-    "@frsource/cypress-plugin-visual-regression-diff": "^3.1.7",
+    "@frsource/cypress-plugin-visual-regression-diff": "^3.2.3",
     "@graphql-codegen/cli": "2.15.0",
     "@graphql-codegen/client-preset": "1.2.0",
     "@graphql-codegen/typed-document-node": "^2.3.6",
