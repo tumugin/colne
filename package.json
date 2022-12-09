@@ -19,7 +19,7 @@
   "dependencies": {
     "@cloudscape-design/components": "^3.0.126",
     "@cloudscape-design/design-tokens": "^3.0.6",
-    "@cloudscape-design/global-styles": "^1.0.5",
+    "@cloudscape-design/global-styles": "^1.0.6",
     "@reduxjs/toolkit": "^1.9.1",
     "@sentry/nextjs": "^7.22.0",
     "dayjs": "^1.11.6",
