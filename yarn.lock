@@ -1265,10 +1265,10 @@
     tslib "^2.4.0"
     weekstart "^1.1.0"
 
-"@cloudscape-design/design-tokens@^3.0.6":
-  version "3.0.6"
-  resolved "https://registry.yarnpkg.com/@cloudscape-design/design-tokens/-/design-tokens-3.0.6.tgz#86ee1f9920dba84ac3dbe9a14b8294d108519368"
-  integrity sha512-fsJcv1EbybKpRJSke5Pw5wkr4zrsfqVdLKNjRbfxVhEVrJUjE49LOHm1y+CHjScDdEZ51/4AgUB/XEWAfI47mg==
+"@cloudscape-design/design-tokens@^3.0.7":
+  version "3.0.7"
+  resolved "https://registry.yarnpkg.com/@cloudscape-design/design-tokens/-/design-tokens-3.0.7.tgz#61c84e27c87c21edbdc5ee7a9f1f0470d499d8db"
+  integrity sha512-U3bPHwxvRhbcSpz48RhEDzPDxuL9K5zv3x3u4BebbakQ2E+tC2ox8xMsEy0/Tinp2nH3pEl1ui5De1ZYJGUQUQ==
 
 "@cloudscape-design/global-styles@^1.0.6":
   version "1.0.6"
