@@ -1,7 +1,7 @@
 version: '3.9'
 services:
   cypress:
-    image: cypress/included:11.1.0
+    image: cypress/included:12.2.0
     volumes:
       - .:/e2e
       - node_modules:/e2e/node_modules
@@ -9,7 +9,7 @@ services:
     working_dir: /e2e
     entrypoint: bash -c "yarn install && yarn exec cypress install && yarn run cypress"
   cypress-update-screenshot:
-    image: cypress/included:11.1.0
+    image: cypress/included:12.2.0
     volumes:
       - .:/e2e
       - node_modules:/e2e/node_modules
