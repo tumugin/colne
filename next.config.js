@@ -1,4 +1,3 @@
-const withTranspileModules = require('next-transpile-modules')
 const { withSentryConfig } = require('@sentry/nextjs')
 
 /** @type {import('next').NextConfig} */
@@ -12,20 +11,14 @@ const nextConfig = {
   sentry: {
     hideSourceMaps: true,
   },
+  transpilePackages: [
+    '@cloudscape-design/components',
+    '@cloudscape-design/design-tokens',
+  ],
 }
 
-module.exports = () => {
-  const plugins = [
-    withTranspileModules([
-      '@cloudscape-design/components',
-      '@cloudscape-design/design-tokens',
-    ]),
-    (config) =>
-      process.env.NEXT_PUBLIC_SENTRY_DSN
-        ? withSentryConfig(config, {
-            silent: true,
-          })
-        : config,
-  ]
-  return plugins.reduce((acc, plugin) => plugin(acc), nextConfig)
-}
+module.exports = process.env.NEXT_PUBLIC_SENTRY_DSN
+  ? withSentryConfig(nextConfig, {
+      silent: true,
+    })
+  : nextConfig
