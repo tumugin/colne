@@ -533,6 +533,30 @@ export type UserSerializer = {
   userUpdatedAt: Scalars['String']
 }
 
+export type AddIdolMutationVariables = Exact<{
+  idol: AddOrUpdateIdolParamsInput
+}>
+
+export type AddIdolMutation = {
+  __typename?: 'Mutation'
+  idol: {
+    __typename?: 'IdolMutationServices'
+    addIdol: {
+      __typename?: 'IdolSerializer'
+      idolCreatedAt: string
+      idolId: string
+      idolName: string
+      idolStatus: string
+      idolUpdatedAt: string
+      user?: {
+        __typename?: 'LimitedUserSerializer'
+        userId: string
+        userName: string
+      } | null
+    }
+  }
+}
+
 export type GetCsrfTokenQueryVariables = Exact<{ [key: string]: never }>
 
 export type GetCsrfTokenQuery = { __typename?: 'Query'; getCsrfToken: string }
@@ -573,6 +597,23 @@ export type GetUserChekiIdolCountQuery = {
   }
 }
 
+export const AddIdolDocument = gql`
+  mutation AddIdol($idol: AddOrUpdateIdolParamsInput!) {
+    idol {
+      addIdol(params: $idol) {
+        idolCreatedAt
+        idolId
+        idolName
+        idolStatus
+        idolUpdatedAt
+        user {
+          userId
+          userName
+        }
+      }
+    }
+  }
+`
 export const GetCsrfTokenDocument = gql`
   query GetCSRFToken {
     getCsrfToken
@@ -629,6 +670,20 @@ export function getSdk(
   withWrapper: SdkFunctionWrapper = defaultWrapper
 ) {
   return {
+    AddIdol(
+      variables: AddIdolMutationVariables,
+      requestHeaders?: Dom.RequestInit['headers']
+    ): Promise<AddIdolMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<AddIdolMutation>(AddIdolDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'AddIdol',
+        'mutation'
+      )
+    },
     GetCSRFToken(
       variables?: GetCsrfTokenQueryVariables,
       requestHeaders?: Dom.RequestInit['headers']

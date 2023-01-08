@@ -2,15 +2,18 @@ import { NextPage } from 'next'
 import { wrapper } from 'store'
 import { redirectIfNotLoggedIn } from 'utils/no-login-redirect'
 import { ContentLayout } from '@cloudscape-design/components'
-import {
-  IdolCreateForm,
-} from 'components/idols/create/IdolCreateForm'
-import React, { useState } from 'react'
+import { IdolCreateForm } from 'components/idols/create/IdolCreateForm'
+import React, { useCallback, useState } from 'react'
+import Router from 'next/router'
 
 const IdolCreate: NextPage = () => {
+  const handleOnCancel = useCallback(() => {
+    Router.back()
+  }, [])
+
   return (
     <ContentLayout>
-      <IdolCreateForm />
+      <IdolCreateForm onCancel={handleOnCancel} />
     </ContentLayout>
   )
 }
