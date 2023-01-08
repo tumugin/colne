@@ -9,17 +9,17 @@ import {
   Select,
   SpaceBetween,
 } from '@cloudscape-design/components'
-import React, { useCallback } from 'react'
+import React, { useCallback, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 
 export interface IdolCreateFormContents {
   name: string
-  idolStatus: 'private' | 'public'
+  status: 'private' | 'public'
 }
 
 const idolStatusOptions: {
   label: string
-  value: IdolCreateFormContents['idolStatus']
+  value: IdolCreateFormContents['status']
 }[] = [
   { label: '非公開', value: 'private' },
   { label: '公開', value: 'public' },
@@ -29,29 +29,32 @@ export function IdolCreateForm({
   onSubmit,
   onCancel,
 }: {
-  onSubmit?: (data: IdolCreateFormContents) => void
+  onSubmit?: (data: IdolCreateFormContents) => Promise<unknown> | void
   onCancel?: () => void
 }) {
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const { control, getValues, formState } = useForm<IdolCreateFormContents>({
     defaultValues: {
       name: '',
-      idolStatus: 'private',
+      status: 'private',
     },
     mode: 'all',
   })
-  const handleOnSubmit = useCallback(() => {
-    if (!formState.isValid) {
+  const handleOnSubmit = useCallback(async () => {
+    if (!formState.isValid || isSubmitting) {
       return
     }
-    onSubmit && onSubmit(getValues())
-  }, [formState.isValid, getValues, onSubmit])
+    setIsSubmitting(true)
+    onSubmit && (await onSubmit(getValues()))
+    setIsSubmitting(false)
+  }, [formState.isValid, getValues, isSubmitting, onSubmit])
 
   return (
     <Container header={<Header variant="h2">アイドルを新しく登録する</Header>}>
       <form
         onSubmit={(e) => {
           e.preventDefault()
-          handleOnSubmit()
+          void handleOnSubmit()
         }}
       >
         <Form
@@ -91,7 +94,7 @@ export function IdolCreateForm({
             />
 
             <Controller
-              name="idolStatus"
+              name="status"
               control={control}
               rules={{ required: true }}
               render={({ field, fieldState }) => (
