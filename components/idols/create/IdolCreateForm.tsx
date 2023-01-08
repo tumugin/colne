@@ -17,10 +17,13 @@ export interface IdolCreateFormContents {
   idolStatus: 'private' | 'public'
 }
 
-const idolStatusOptions = [
+const idolStatusOptions: {
+  label: string
+  value: IdolCreateFormContents['idolStatus']
+}[] = [
   { label: '非公開', value: 'private' },
   { label: '公開', value: 'public' },
-] as const
+]
 
 export function IdolCreateForm({
   onSubmit,
