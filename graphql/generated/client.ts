@@ -349,7 +349,7 @@ export type IdolSerializer = {
   idolCreatedAt: Scalars['String']
   idolId: Scalars['ID']
   idolName: Scalars['String']
-  idolStatus: Scalars['String']
+  idolStatus: IdolStatus
   idolUpdatedAt: Scalars['String']
   user?: Maybe<LimitedUserSerializer>
   userId?: Maybe<Scalars['ID']>
@@ -546,7 +546,7 @@ export type AddIdolMutation = {
       idolCreatedAt: string
       idolId: string
       idolName: string
-      idolStatus: string
+      idolStatus: IdolStatus
       idolUpdatedAt: string
       user?: {
         __typename?: 'LimitedUserSerializer'
