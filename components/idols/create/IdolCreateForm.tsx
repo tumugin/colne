@@ -9,33 +9,26 @@ import {
   Select,
   SpaceBetween,
 } from '@cloudscape-design/components'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
+import { Controller, useForm } from 'react-hook-form'
 
 export interface IdolCreateFormContents {
   name: string
   idolStatus: 'private' | 'public'
 }
 
-export function IdolCreateForm({
-  onUpdateFormContents,
-}: {
-  onUpdateFormContents: (formContents: IdolCreateFormContents) => void
-}) {
-  const [idolName, setIdolName] = React.useState('')
-  const idolStatusOptions = [
-    { label: '非公開', value: 'private' },
-    { label: '公開', value: 'public' },
-  ] as const
-  const [idolStatus, setIdolStatus] = useState<
-    typeof idolStatusOptions[number]
-  >({ label: '非公開', value: 'private' })
+const idolStatusOptions = [
+  { label: '非公開', value: 'private' },
+  { label: '公開', value: 'public' },
+] as const
 
-  useEffect(() => {
-    onUpdateFormContents({
-      name: idolName,
-      idolStatus: idolStatus.value,
-    })
-  }, [idolName, idolStatus.value, onUpdateFormContents])
+export function IdolCreateForm() {
+  const { control } = useForm<IdolCreateFormContents>({
+    defaultValues: {
+      name: '',
+      idolStatus: 'private',
+    },
+  })
 
   return (
     <Container header={<Header variant="h2">アイドルを新しく登録する</Header>}>
@@ -52,22 +45,32 @@ export function IdolCreateForm({
         >
           <SpaceBetween direction="vertical" size="m">
             <FormField label="アイドル名">
-              <Input
-                value={idolName}
-                onChange={(event) => setIdolName(event.detail.value)}
-                autoFocus
+              <Controller
+                name="name"
+                control={control}
+                rules={{ required: true, min: 1, max: 255 }}
+                render={({ field, fieldState }) => (
+                  <Input {...field} autoFocus invalid={!!fieldState.error} />
+                )}
               />
             </FormField>
             <FormField label="アイドルの公開状態">
-              <Select
-                selectedOption={idolStatus}
-                onChange={({ detail }) =>
-                  setIdolStatus(
-                    detail.selectedOption as typeof idolStatusOptions[number]
-                  )
-                }
-                options={idolStatusOptions}
-                selectedAriaLabel="Selected"
+              <Controller
+                name="idolStatus"
+                control={control}
+                rules={{ required: true }}
+                render={({ field, fieldState }) => (
+                  <Select
+                    selectedOption={
+                      idolStatusOptions.find((x) => x.value === field.value)!
+                    }
+                    onChange={({ detail }) =>
+                      field.onChange(detail.selectedOption.value)
+                    }
+                    options={idolStatusOptions}
+                    invalid={!!fieldState.error}
+                  />
+                )}
               />
             </FormField>
             <Alert>

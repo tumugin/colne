@@ -4,17 +4,13 @@ import { redirectIfNotLoggedIn } from 'utils/no-login-redirect'
 import { ContentLayout } from '@cloudscape-design/components'
 import {
   IdolCreateForm,
-  IdolCreateFormContents,
 } from 'components/idols/create/IdolCreateForm'
 import React, { useState } from 'react'
 
 const IdolCreate: NextPage = () => {
-  const [formContents, setFormContents] =
-    useState<IdolCreateFormContents | null>(null)
-
   return (
     <ContentLayout>
-      <IdolCreateForm onUpdateFormContents={setFormContents} />
+      <IdolCreateForm />
     </ContentLayout>
   )
 }
