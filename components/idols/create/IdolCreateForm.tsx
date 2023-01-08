@@ -9,7 +9,7 @@ import {
   Select,
   SpaceBetween,
 } from '@cloudscape-design/components'
-import React from 'react'
+import React, { useCallback } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 
 export interface IdolCreateFormContents {
@@ -22,22 +22,39 @@ const idolStatusOptions = [
   { label: '公開', value: 'public' },
 ] as const
 
-export function IdolCreateForm() {
-  const { control } = useForm<IdolCreateFormContents>({
+export function IdolCreateForm({
+  onSubmit,
+  onCancel,
+}: {
+  onSubmit?: (data: IdolCreateFormContents) => void
+  onCancel?: () => void
+}) {
+  const { control, getValues, formState } = useForm<IdolCreateFormContents>({
     defaultValues: {
       name: '',
       idolStatus: 'private',
     },
     mode: 'all',
   })
+  const handleOnSubmit = useCallback(() => {
+    if (!formState.isValid) {
+      return
+    }
+    onSubmit && onSubmit(getValues())
+  }, [formState.isValid, getValues, onSubmit])
 
   return (
     <Container header={<Header variant="h2">アイドルを新しく登録する</Header>}>
-      <form onSubmit={(e) => e.preventDefault()}>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault()
+          handleOnSubmit()
+        }}
+      >
         <Form
           actions={
             <SpaceBetween direction="horizontal" size="xs">
-              <Button formAction="none" variant="link">
+              <Button formAction="none" variant="link" onClick={onCancel}>
                 キャンセル
               </Button>
               <Button variant="primary">登録する</Button>
@@ -50,7 +67,10 @@ export function IdolCreateForm() {
               control={control}
               rules={{
                 required: 'アイドル名の入力は必須です',
-                maxLength: { value: 255, message: 'アイドル名の入力上限は255文字です' },
+                maxLength: {
+                  value: 255,
+                  message: 'アイドル名の入力上限は255文字です',
+                },
               }}
               render={({ field, fieldState }) => (
                 <FormField
