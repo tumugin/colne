@@ -1,10 +1,10 @@
 query GetCurrentUser {
-    currentUser {
-        userCreatedAt
-        userEmail
-        userEmailVerifiedAt
-        userId
-        userName
-        userUpdatedAt
-    }
+  currentUser {
+    userCreatedAt
+    userEmail
+    userEmailVerifiedAt
+    userId
+    userName
+    userUpdatedAt
+  }
 }

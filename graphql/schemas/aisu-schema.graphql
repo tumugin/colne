@@ -1,363 +1,384 @@
 schema {
-    query: Query
-    mutation: Mutation
+  query: Query
+  mutation: Mutation
 }
 
 "Marks the field, argument, input field or enum value as deprecated"
 directive @deprecated(
-    "The reason for the deprecation"
-    reason: String = "No longer supported"
+  "The reason for the deprecation"
+  reason: String = "No longer supported"
 ) on FIELD_DEFINITION | ARGUMENT_DEFINITION | ENUM_VALUE | INPUT_FIELD_DEFINITION
 
 "Directs the executor to include this field or fragment only when the `if` argument is true"
 directive @include(
-    "Included when true."
-    if: Boolean!
+  "Included when true."
+  if: Boolean!
 ) on FIELD | FRAGMENT_SPREAD | INLINE_FRAGMENT
 
 "Directs the executor to skip this field or fragment when the `if` argument is true."
 directive @skip(
-    "Skipped when true."
-    if: Boolean!
+  "Skipped when true."
+  if: Boolean!
 ) on FIELD | FRAGMENT_SPREAD | INLINE_FRAGMENT
 
 "Exposes a URL that specifies the behaviour of this scalar."
 directive @specifiedBy(
-    "The URL that specifies the behaviour of this scalar."
-    url: String!
+  "The URL that specifies the behaviour of this scalar."
+  url: String!
 ) on SCALAR
 
 interface PaginationSerializer {
-    count: Int!
-    currentPage: Int!
-    pageCount: Int!
+  count: Int!
+  currentPage: Int!
+  pageCount: Int!
 }
 
 type AdminMutationServices {
-    adminUser: AdminUserMutationService!
+  adminUser: AdminUserMutationService!
 }
 
 type AdminQueryServices {
-    adminUserAuth: AdminUserAuthQueryService!
-    adminUsers: AdminUsersQueryService!
+  adminUserAuth: AdminUserAuthQueryService!
+  adminUsers: AdminUsersQueryService!
 }
 
 type AdminUserAuthMutationService {
-    adminUserLogin(params: AdminUserLoginParamsInput!): AdminUserSerializer!
-    adminUserLogout: String!
+  adminUserLogin(params: AdminUserLoginParamsInput!): AdminUserSerializer!
+  adminUserLogout: String!
 }
 
 type AdminUserAuthQueryService {
-    currentAuthAdminUser: AdminUserSerializer!
+  currentAuthAdminUser: AdminUserSerializer!
 }
 
 type AdminUserMutationService {
-    addAdminUser(params: AddAdminUserParamsInput!): AdminUserSerializer!
-    updateAdminUser(adminUserId: ID!, params: UpdateAdminUserParamsInput!): AdminUserSerializer!
-    updateAdminUserPassword(adminUserId: ID!, params: UpdateAdminUserPasswordParamsInput!): AdminUserSerializer!
+  addAdminUser(params: AddAdminUserParamsInput!): AdminUserSerializer!
+  updateAdminUser(
+    adminUserId: ID!
+    params: UpdateAdminUserParamsInput!
+  ): AdminUserSerializer!
+  updateAdminUserPassword(
+    adminUserId: ID!
+    params: UpdateAdminUserPasswordParamsInput!
+  ): AdminUserSerializer!
 }
 
 type AdminUserPaginationSerializer implements PaginationSerializer {
-    adminUsers: [AdminUserSerializer!]!
-    count: Int!
-    currentPage: Int!
-    pageCount: Int!
+  adminUsers: [AdminUserSerializer!]!
+  count: Int!
+  currentPage: Int!
+  pageCount: Int!
 }
 
 type AdminUserSerializer {
-    adminUserCreatedAt: String!
-    adminUserEmail: String!
-    adminUserId: ID!
-    adminUserName: String!
-    adminUserUpdatedAt: String!
+  adminUserCreatedAt: String!
+  adminUserEmail: String!
+  adminUserId: ID!
+  adminUserName: String!
+  adminUserUpdatedAt: String!
 }
 
 type AdminUsersQueryService {
-    getAdminUser(adminUserID: ID!): AdminUserSerializer
-    getAdminUserList(page: Int!): AdminUserPaginationSerializer!
+  getAdminUser(adminUserID: ID!): AdminUserSerializer
+  getAdminUserList(page: Int!): AdminUserPaginationSerializer!
 }
 
 type ChekiIdolCountSerializer {
-    chekiCount: Int!
-    idol: IdolSerializer
-    idolId: ID!
+  chekiCount: Int!
+  idol: IdolSerializer
+  idolId: ID!
 }
 
 type ChekiMonthIdolCountSerializer {
-    chekiCount: Int!
-    chekiShotAtMonth: ChekiShotAtMonthSerializer!
-    idol: IdolSerializer
-    idolId: ID!
+  chekiCount: Int!
+  chekiShotAtMonth: ChekiShotAtMonthSerializer!
+  idol: IdolSerializer
+  idolId: ID!
 }
 
 type ChekiMutationServices {
-    addCheki(params: AddOrUpdateChekiParamsInput!): ChekiSerializer!
-    deleteCheki(chekiId: ID!): String!
-    updateCheki(chekiId: ID!, params: AddOrUpdateChekiParamsInput!): ChekiSerializer!
+  addCheki(params: AddOrUpdateChekiParamsInput!): ChekiSerializer!
+  deleteCheki(chekiId: ID!): String!
+  updateCheki(
+    chekiId: ID!
+    params: AddOrUpdateChekiParamsInput!
+  ): ChekiSerializer!
 }
 
 type ChekiSerializer {
-    chekiCreatedAt: String!
-    chekiId: ID!
-    chekiQuantity: Int!
-    chekiShotAt: String!
-    chekiUpdatedAt: String!
-    idol: IdolSerializer
-    idolId: ID
-    regulation: RegulationSerializer
-    regulationId: ID
-    user: LimitedUserSerializer
-    userId: ID!
+  chekiCreatedAt: String!
+  chekiId: ID!
+  chekiQuantity: Int!
+  chekiShotAt: String!
+  chekiUpdatedAt: String!
+  idol: IdolSerializer
+  idolId: ID
+  regulation: RegulationSerializer
+  regulationId: ID
+  user: LimitedUserSerializer
+  userId: ID!
 }
 
 type ChekiShotAtMonthSerializer {
-    baseTimezone: String!
-    month: Int!
-    year: Int!
+  baseTimezone: String!
+  month: Int!
+  year: Int!
 }
 
 type CurrentUserGroups {
-    getGroupsCreatedByUser(page: Int!): GroupPaginationSerializer!
+  getGroupsCreatedByUser(page: Int!): GroupPaginationSerializer!
 }
 
 type CurrentUserIdols {
-    getIdolsCreatedByUser(page: Int!): IdolPaginationSerializer!
+  getIdolsCreatedByUser(page: Int!): IdolPaginationSerializer!
 }
 
 type FavoriteGroupMutationServices {
-    addFavoriteGroup(groupId: ID!): FavoriteGroupSerializer!
-    deleteFavoriteGroup(favoriteGroupID: ID!): String!
+  addFavoriteGroup(groupId: ID!): FavoriteGroupSerializer!
+  deleteFavoriteGroup(favoriteGroupID: ID!): String!
 }
 
 type FavoriteGroupSerializer {
-    favoriteGroupId: ID!
-    group: GroupSerializer
-    groupId: ID!
-    user: LimitedUserSerializer
-    userId: ID!
+  favoriteGroupId: ID!
+  group: GroupSerializer
+  groupId: ID!
+  user: LimitedUserSerializer
+  userId: ID!
 }
 
 type FavoriteGroupWithGroupSerializer {
-    favoriteGroupId: ID!
-    group: GroupSerializer
-    groupId: ID!
-    user: LimitedUserSerializer
-    userId: ID!
+  favoriteGroupId: ID!
+  group: GroupSerializer
+  groupId: ID!
+  user: LimitedUserSerializer
+  userId: ID!
 }
 
 type GroupMutationServices {
-    addGroup(params: AddOrUpdateGroupParamsInput!): GroupSerializer!
-    addIdolToGroup(groupId: ID!, idolId: ID!): GroupSerializer!
-    deleteGroup(groupId: ID!): String!
-    removeIdolFromGroup(groupId: ID!, idolId: ID!): GroupSerializer!
-    updateGroup(groupId: ID!, params: AddOrUpdateGroupParamsInput!): GroupSerializer!
+  addGroup(params: AddOrUpdateGroupParamsInput!): GroupSerializer!
+  addIdolToGroup(groupId: ID!, idolId: ID!): GroupSerializer!
+  deleteGroup(groupId: ID!): String!
+  removeIdolFromGroup(groupId: ID!, idolId: ID!): GroupSerializer!
+  updateGroup(
+    groupId: ID!
+    params: AddOrUpdateGroupParamsInput!
+  ): GroupSerializer!
 }
 
 type GroupPaginationSerializer implements PaginationSerializer {
-    count: Int!
-    currentPage: Int!
-    groups: [GroupSerializer!]!
-    pageCount: Int!
+  count: Int!
+  currentPage: Int!
+  groups: [GroupSerializer!]!
+  pageCount: Int!
 }
 
 type GroupSerializer {
-    groupCreatedAt: String!
-    groupId: ID!
-    groupName: String!
-    groupStatus: String!
-    groupUpdatedAt: String!
-    user: LimitedUserSerializer
-    userId: ID
+  groupCreatedAt: String!
+  groupId: ID!
+  groupName: String!
+  groupStatus: String!
+  groupUpdatedAt: String!
+  user: LimitedUserSerializer
+  userId: ID
 }
 
 type IdolMutationServices {
-    addIdol(params: AddOrUpdateIdolParamsInput!): IdolSerializer!
-    deleteIdol(idolId: ID!): String!
-    updateIdol(idolId: ID!, params: AddOrUpdateIdolParamsInput!): IdolSerializer!
+  addIdol(params: AddOrUpdateIdolParamsInput!): IdolSerializer!
+  deleteIdol(idolId: ID!): String!
+  updateIdol(idolId: ID!, params: AddOrUpdateIdolParamsInput!): IdolSerializer!
 }
 
 type IdolPaginationSerializer implements PaginationSerializer {
-    count: Int!
-    currentPage: Int!
-    idols: [IdolSerializer!]!
-    pageCount: Int!
+  count: Int!
+  currentPage: Int!
+  idols: [IdolSerializer!]!
+  pageCount: Int!
 }
 
 type IdolSerializer {
-    idolCreatedAt: String!
-    idolId: ID!
-    idolName: String!
-    idolStatus: String!
-    idolUpdatedAt: String!
-    user: LimitedUserSerializer
-    userId: ID
+  idolCreatedAt: String!
+  idolId: ID!
+  idolName: String!
+  idolStatus: IdolStatus!
+  idolUpdatedAt: String!
+  user: LimitedUserSerializer
+  userId: ID
 }
 
 type LimitedUserSerializer {
-    userId: ID!
-    userName: String!
+  userId: ID!
+  userName: String!
 }
 
 type Mutation {
-    admin: AdminMutationServices!
-    adminUserAuth: AdminUserAuthMutationService!
-    cheki: ChekiMutationServices!
-    favoriteGroup: FavoriteGroupMutationServices!
-    group: GroupMutationServices!
-    idol: IdolMutationServices!
-    regulation: RegulationMutationServices!
-    user: UserMutationServices!
+  admin: AdminMutationServices!
+  adminUserAuth: AdminUserAuthMutationService!
+  cheki: ChekiMutationServices!
+  favoriteGroup: FavoriteGroupMutationServices!
+  group: GroupMutationServices!
+  idol: IdolMutationServices!
+  regulation: RegulationMutationServices!
+  user: UserMutationServices!
 }
 
 type Query {
-    admin: AdminQueryServices!
-    currentUser: UserSerializer
-    currentUserChekis: UserChekis!
-    currentUserGroups: CurrentUserGroups!
-    currentUserIdols: CurrentUserIdols!
-    getAllIdols(page: Int!): IdolPaginationSerializer!
-    getCheki(chekiId: ID!): ChekiSerializer!
-    getCsrfToken: String!
-    getGroup(groupId: ID!): GroupSerializer!
-    getIdol(idolId: ID!): IdolSerializer!
-    getRegulation(regulationId: ID!): RegulationSerializer!
-    userFavoriteGroups: UserFavoriteGroup!
+  admin: AdminQueryServices!
+  currentUser: UserSerializer
+  currentUserChekis: UserChekis!
+  currentUserGroups: CurrentUserGroups!
+  currentUserIdols: CurrentUserIdols!
+  getAllIdols(page: Int!): IdolPaginationSerializer!
+  getCheki(chekiId: ID!): ChekiSerializer!
+  getCsrfToken: String!
+  getGroup(groupId: ID!): GroupSerializer!
+  getIdol(idolId: ID!): IdolSerializer!
+  getRegulation(regulationId: ID!): RegulationSerializer!
+  userFavoriteGroups: UserFavoriteGroup!
 }
 
 type RegulationMutationServices {
-    addRegulation(params: AddOrUpdateRegulationParamsInput!): RegulationSerializer!
-    deleteRegulation(regulationId: ID!): String!
-    updateRegulation(params: AddOrUpdateRegulationParamsInput!, regulationId: ID!): RegulationSerializer!
+  addRegulation(
+    params: AddOrUpdateRegulationParamsInput!
+  ): RegulationSerializer!
+  deleteRegulation(regulationId: ID!): String!
+  updateRegulation(
+    params: AddOrUpdateRegulationParamsInput!
+    regulationId: ID!
+  ): RegulationSerializer!
 }
 
 type RegulationSerializer {
-    group: GroupSerializer
-    groupId: ID!
-    regulationComment: String!
-    regulationCreatedAt: String!
-    regulationId: ID!
-    regulationName: String!
-    regulationStatus: String!
-    regulationUnitPrice: Int!
-    regulationUpdatedAt: String!
-    user: LimitedUserSerializer
-    userId: ID
+  group: GroupSerializer
+  groupId: ID!
+  regulationComment: String!
+  regulationCreatedAt: String!
+  regulationId: ID!
+  regulationName: String!
+  regulationStatus: String!
+  regulationUnitPrice: Int!
+  regulationUpdatedAt: String!
+  user: LimitedUserSerializer
+  userId: ID
 }
 
 type UserChekis {
-    getChekiMonthIdolCount(params: GetChekiMonthIdolCountParamsInput!): [ChekiMonthIdolCountSerializer!]!
-    getUserChekiIdolCount(params: GetUserChekiIdolCountParamsInput!): [ChekiIdolCountSerializer!]!
-    getUserChekis(params: GetUserChekisParamsInput!): [ChekiSerializer!]!
+  getChekiMonthIdolCount(
+    params: GetChekiMonthIdolCountParamsInput!
+  ): [ChekiMonthIdolCountSerializer!]!
+  getUserChekiIdolCount(
+    params: GetUserChekiIdolCountParamsInput!
+  ): [ChekiIdolCountSerializer!]!
+  getUserChekis(params: GetUserChekisParamsInput!): [ChekiSerializer!]!
 }
 
 type UserFavoriteGroup {
-    favoriteGroups: [FavoriteGroupWithGroupSerializer!]!
+  favoriteGroups: [FavoriteGroupWithGroupSerializer!]!
 }
 
 type UserMutationServices {
-    userCreate(params: UserCreateParamsInput!): UserSerializer!
-    userLogin(params: UserLoginParamsInput!): UserSerializer!
-    userLogout: String!
+  userCreate(params: UserCreateParamsInput!): UserSerializer!
+  userLogin(params: UserLoginParamsInput!): UserSerializer!
+  userLogout: String!
 }
 
 type UserSerializer {
-    userCreatedAt: String!
-    userEmail: String
-    userEmailVerifiedAt: String
-    userId: ID!
-    userName: String!
-    userUpdatedAt: String!
+  userCreatedAt: String!
+  userEmail: String
+  userEmailVerifiedAt: String
+  userId: ID!
+  userName: String!
+  userUpdatedAt: String!
 }
 
 enum GroupStatus {
-    OPERATION_DELETED
-    PRIVATE_ACTIVE
-    PRIVATE_NOT_ACTIVE
-    PUBLIC_ACTIVE
-    PUBLIC_NOT_ACTIVE
+  OPERATION_DELETED
+  PRIVATE_ACTIVE
+  PRIVATE_NOT_ACTIVE
+  PUBLIC_ACTIVE
+  PUBLIC_NOT_ACTIVE
 }
 
 enum IdolStatus {
-    OPERATION_DELETED
-    PRIVATE_ACTIVE
-    PRIVATE_NOT_ACTIVE
-    PUBLIC_ACTIVE
-    PUBLIC_NOT_ACTIVE
+  OPERATION_DELETED
+  PRIVATE_ACTIVE
+  PRIVATE_NOT_ACTIVE
+  PUBLIC_ACTIVE
+  PUBLIC_NOT_ACTIVE
 }
 
 enum RegulationStatus {
-    ACTIVE
-    NOT_ACTIVE
-    OPERATION_DELETED
+  ACTIVE
+  NOT_ACTIVE
+  OPERATION_DELETED
 }
 
 input AddAdminUserParamsInput {
-    email: String!
-    name: String!
-    password: String!
+  email: String!
+  name: String!
+  password: String!
 }
 
 input AddOrUpdateChekiParamsInput {
-    chekiQuantity: Int!
-    chekiShotAt: String!
-    idolId: ID!
-    regulationId: ID
+  chekiQuantity: Int!
+  chekiShotAt: String!
+  idolId: ID!
+  regulationId: ID
 }
 
 input AddOrUpdateGroupParamsInput {
-    groupName: String!
-    groupStatus: GroupStatus!
+  groupName: String!
+  groupStatus: GroupStatus!
 }
 
 input AddOrUpdateIdolParamsInput {
-    idolName: String!
-    idolStatus: IdolStatus!
+  idolName: String!
+  idolStatus: IdolStatus!
 }
 
 input AddOrUpdateRegulationParamsInput {
-    groupId: ID!
-    regulationComment: String!
-    regulationName: String!
-    regulationStatus: RegulationStatus!
-    regulationUnitPrice: Int!
+  groupId: ID!
+  regulationComment: String!
+  regulationName: String!
+  regulationStatus: RegulationStatus!
+  regulationUnitPrice: Int!
 }
 
 input AdminUserLoginParamsInput {
-    email: String!
-    password: String!
+  email: String!
+  password: String!
 }
 
 input GetChekiMonthIdolCountParamsInput {
-    baseTimezone: String!
+  baseTimezone: String!
 }
 
 input GetUserChekiIdolCountParamsInput {
-    chekiShotAtEnd: String!
-    chekiShotAtStart: String!
+  chekiShotAtEnd: String!
+  chekiShotAtStart: String!
 }
 
 input GetUserChekisParamsInput {
-    chekiShotAtEnd: String!
-    chekiShotAtStart: String!
-    idolId: ID
+  chekiShotAtEnd: String!
+  chekiShotAtStart: String!
+  idolId: ID
 }
 
 input UpdateAdminUserParamsInput {
-    email: String!
-    name: String!
+  email: String!
+  name: String!
 }
 
 input UpdateAdminUserPasswordParamsInput {
-    password: String!
+  password: String!
 }
 
 input UserCreateParamsInput {
-    email: String!
-    name: String!
-    password: String!
+  email: String!
+  name: String!
+  password: String!
 }
 
 input UserLoginParamsInput {
-    email: String!
-    password: String!
+  email: String!
+  password: String!
 }
