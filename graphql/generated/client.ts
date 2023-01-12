@@ -346,6 +346,7 @@ export type IdolPaginationSerializer = PaginationSerializer & {
 
 export type IdolSerializer = {
   __typename?: 'IdolSerializer'
+  groups: Array<Maybe<GroupSerializer>>
   idolCreatedAt: Scalars['String']
   idolId: Scalars['ID']
   idolName: Scalars['String']
