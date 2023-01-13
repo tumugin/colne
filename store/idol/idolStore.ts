@@ -18,15 +18,35 @@ interface Idol {
     userId: string
     userName: string
   } | null
+  groups: {
+    groupId: string
+    groupName: string
+  }[]
 }
 
 interface State {
   idols: {
     [idolId: string]: Idol
   }
+  userCreatedIdols: {
+    isLoaded: boolean
+    count: number | null
+    currentPage: number
+    pageCount: number | null
+    idols: Idol[]
+  }
 }
 
-const initialState: State = { idols: {} }
+const initialState: State = {
+  idols: {},
+  userCreatedIdols: {
+    isLoaded: false,
+    count: null,
+    currentPage: 1,
+    pageCount: null,
+    idols: [],
+  },
+}
 
 export const idolSlice = createSlice({
   name: 'idol',
@@ -34,6 +54,20 @@ export const idolSlice = createSlice({
   reducers: {
     updateOrAddIdol(state, action: PayloadAction<Idol>) {
       state.idols[action.payload.idolId] = action.payload
+    },
+    updateUserCreatedIdols(
+      state,
+      action: PayloadAction<State['userCreatedIdols']>
+    ) {
+      state.userCreatedIdols = action.payload
+    },
+    setUserCreatedIdolsToLoading(
+      state,
+      action: PayloadAction<{ page: number }>
+    ) {
+      state.userCreatedIdols.currentPage = action.payload.page
+      state.userCreatedIdols.isLoaded = false
+      state.userCreatedIdols.idols = []
     },
   },
 })

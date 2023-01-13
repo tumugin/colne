@@ -1,0 +1,21 @@
+query GetUserCreatedIdolList($page: Int!) {
+    currentUserIdols {
+        getIdolsCreatedByUser(page: $page) {
+            count
+            currentPage
+            pageCount
+            idols {
+                idolName
+                idolId
+                idolStatus
+                userId
+                idolUpdatedAt
+                idolCreatedAt
+                groups {
+                    groupName
+                    groupId
+                }
+            }
+        }
+    }
+}
