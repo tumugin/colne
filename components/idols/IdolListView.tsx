@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Cards,
   Container,
   Header,
@@ -8,6 +9,8 @@ import {
 } from '@cloudscape-design/components'
 import React from 'react'
 import { IdolStatusBadge } from 'components/idols/IdolStatusBadge'
+import { useRouter } from 'next/router'
+import { onFollowNextLink } from 'utils/router'
 
 export interface IdolListViewIdolItem {
   name: string
@@ -34,10 +37,19 @@ export function IdolListView({
   currentPage: number
   onPageChange: (page: number) => void
 }) {
+  const router = useRouter()
+
   return (
     <Container
       header={<Header variant="h2">ユーザーが登録したアイドル一覧</Header>}
     >
+      <Button
+        href="/idols/create"
+        variant="primary"
+        onFollow={(e) => onFollowNextLink(router, e, '/idols/create')}
+      >
+        新しく登録する
+      </Button>
       <Cards
         cardDefinition={{
           header: (item) => <Link fontSize="heading-m">{item.name}</Link>,
@@ -57,7 +69,7 @@ export function IdolListView({
             },
           ],
         }}
-        cardsPerRow={[{ cards: 1 }, { minWidth: 500, cards: 2 }]}
+        cardsPerRow={[{ cards: 1 }, { minWidth: 500, cards: 3 }]}
         items={idols}
         loadingText="読み込み中..."
         loading={isLoading}

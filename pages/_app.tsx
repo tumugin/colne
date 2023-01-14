@@ -10,6 +10,7 @@ import App from 'next/app'
 import { updateCSRFToken } from 'store/common/commonHooks'
 import { ColneAppWithLayout } from 'components/common/ColneAppWithLayout'
 import { GlobalThemeHandler } from 'components/common/GlobalThemeHandler'
+import { dummyPromise } from 'utils/promise'
 
 function ColneApp(appProps: AppProps) {
   const { store, props } = wrapper.useWrappedStore(appProps)
@@ -23,13 +24,18 @@ function ColneApp(appProps: AppProps) {
 
 ColneApp.getInitialProps = wrapper.getInitialAppProps(
   (store) => async (ctx) => {
+    const currentState = store.getState()
     await Promise.all([
-      store.dispatch((d) =>
-        updateCSRFToken(d, getRequestHeaderFromAppContext(ctx))
-      ),
-      store.dispatch((d) =>
-        updateCurrentUserState(d, getRequestHeaderFromAppContext(ctx))
-      ),
+      currentState.common.csrfToken
+        ? dummyPromise()
+        : store.dispatch((d) =>
+            updateCSRFToken(d, getRequestHeaderFromAppContext(ctx))
+          ),
+      currentState.user.currentUser
+        ? dummyPromise()
+        : store.dispatch((d) =>
+            updateCurrentUserState(d, getRequestHeaderFromAppContext(ctx))
+          ),
     ])
 
     return {
