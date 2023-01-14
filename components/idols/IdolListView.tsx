@@ -6,6 +6,7 @@ import {
   Header,
   Link,
   Pagination,
+  SpaceBetween,
 } from '@cloudscape-design/components'
 import React from 'react'
 import { IdolStatusBadge } from 'components/idols/IdolStatusBadge'
@@ -40,16 +41,7 @@ export function IdolListView({
   const router = useRouter()
 
   return (
-    <Container
-      header={<Header variant="h2">ユーザーが登録したアイドル一覧</Header>}
-    >
-      <Button
-        href="/idols/create"
-        variant="primary"
-        onFollow={(e) => onFollowNextLink(router, e, '/idols/create')}
-      >
-        新しく登録する
-      </Button>
+    <Container>
       <Cards
         cardDefinition={{
           header: (item) => <Link fontSize="heading-m">{item.name}</Link>,
@@ -81,16 +73,30 @@ export function IdolListView({
             </Box>
           </Box>
         }
+        pagination={
+          <Pagination
+            currentPageIndex={currentPage}
+            onChange={({ detail }) => onPageChange(detail.currentPageIndex)}
+            pagesCount={totalPages ?? 0}
+          />
+        }
         header={
           <Header
             actions={
-              <Pagination
-                currentPageIndex={currentPage}
-                onChange={({ detail }) => onPageChange(detail.currentPageIndex)}
-                pagesCount={totalPages ?? 0}
-              />
+              <SpaceBetween size="s" direction="horizontal">
+                <Button
+                  href="/idols/create"
+                  variant="primary"
+                  onFollow={(e) => onFollowNextLink(router, e, '/idols/create')}
+                >
+                  新しく登録する
+                </Button>
+              </SpaceBetween>
             }
-          />
+            variant="h2"
+          >
+            ユーザーが登録したアイドル一覧
+          </Header>
         }
       />
     </Container>
