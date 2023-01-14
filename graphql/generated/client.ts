@@ -346,6 +346,7 @@ export type IdolPaginationSerializer = PaginationSerializer & {
 
 export type IdolSerializer = {
   __typename?: 'IdolSerializer'
+  groups: Array<Maybe<GroupSerializer>>
   idolCreatedAt: Scalars['String']
   idolId: Scalars['ID']
   idolName: Scalars['String']
@@ -597,6 +598,37 @@ export type GetUserChekiIdolCountQuery = {
   }
 }
 
+export type GetUserCreatedIdolListQueryVariables = Exact<{
+  page: Scalars['Int']
+}>
+
+export type GetUserCreatedIdolListQuery = {
+  __typename?: 'Query'
+  currentUserIdols: {
+    __typename?: 'CurrentUserIdols'
+    getIdolsCreatedByUser: {
+      __typename?: 'IdolPaginationSerializer'
+      count: number
+      currentPage: number
+      pageCount: number
+      idols: Array<{
+        __typename?: 'IdolSerializer'
+        idolName: string
+        idolId: string
+        idolStatus: IdolStatus
+        userId?: string | null
+        idolUpdatedAt: string
+        idolCreatedAt: string
+        groups: Array<{
+          __typename?: 'GroupSerializer'
+          groupName: string
+          groupId: string
+        } | null>
+      }>
+    }
+  }
+}
+
 export const AddIdolDocument = gql`
   mutation AddIdol($idol: AddOrUpdateIdolParamsInput!) {
     idol {
@@ -647,6 +679,29 @@ export const GetUserChekiIdolCountDocument = gql`
         idol {
           idolId
           idolName
+        }
+      }
+    }
+  }
+`
+export const GetUserCreatedIdolListDocument = gql`
+  query GetUserCreatedIdolList($page: Int!) {
+    currentUserIdols {
+      getIdolsCreatedByUser(page: $page) {
+        count
+        currentPage
+        pageCount
+        idols {
+          idolName
+          idolId
+          idolStatus
+          userId
+          idolUpdatedAt
+          idolCreatedAt
+          groups {
+            groupName
+            groupId
+          }
         }
       }
     }
@@ -725,6 +780,21 @@ export function getSdk(
             { ...requestHeaders, ...wrappedRequestHeaders }
           ),
         'GetUserChekiIdolCount',
+        'query'
+      )
+    },
+    GetUserCreatedIdolList(
+      variables: GetUserCreatedIdolListQueryVariables,
+      requestHeaders?: Dom.RequestInit['headers']
+    ): Promise<GetUserCreatedIdolListQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<GetUserCreatedIdolListQuery>(
+            GetUserCreatedIdolListDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders }
+          ),
+        'GetUserCreatedIdolList',
         'query'
       )
     },

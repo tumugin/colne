@@ -196,6 +196,7 @@ type IdolPaginationSerializer implements PaginationSerializer {
 }
 
 type IdolSerializer {
+  groups: [GroupSerializer]!
   idolCreatedAt: String!
   idolId: ID!
   idolName: String!
