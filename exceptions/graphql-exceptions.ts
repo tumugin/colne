@@ -15,16 +15,16 @@ export function mapAisuExceptionToColneExceptionAndThrow(
 
   // NOT_FOUND
   const isResourceNotFoundError = aisuException.response.errors?.some(
-    (error) => error.extensions?.type === 'NOT_FOUND'
+    (error) => error.extensions?.type === 'NotFound'
   )
   // HAS_NO_PERMISSION
   const isResourceHasNoPermissionException =
     aisuException.response.errors?.some(
-      (error) => error.extensions?.type === 'HAS_NO_PERMISSION'
+      (error) => error.extensions?.type === 'HasNoPermission'
     )
   // NOT_AUTHORIZED
   const isNotAuthorizedException = aisuException.response.errors?.some(
-    (error) => error.extensions?.type === 'NOT_AUTHORIZED'
+    (error) => error.extensions?.type === 'NotAuthorized'
   )
 
   if (isResourceNotFoundError) {
