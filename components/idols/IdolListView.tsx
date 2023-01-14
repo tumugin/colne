@@ -41,7 +41,7 @@ export function IdolListView({
   const router = useRouter()
 
   return (
-    <Container>
+    <Box>
       <Cards
         cardDefinition={{
           header: (item) => <Link fontSize="heading-m">{item.name}</Link>,
@@ -99,6 +99,6 @@ export function IdolListView({
           </Header>
         }
       />
-    </Container>
+    </Box>
   )
 }
