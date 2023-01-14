@@ -5,23 +5,24 @@ import { useAppSelector, wrapper } from 'store'
 import { redirectIfNotLoggedIn } from 'utils/no-login-redirect'
 import { IdolListView } from 'components/idols/IdolListView'
 import { useRouter } from 'next/router'
-import {
-  getUserCreatedIdols,
-  useGetUserCreatedIdols,
-} from 'store/idol/idolHooks'
+import { getUserCreatedIdols } from 'store/idol/idolHooks'
 import { getRequestHeaderFromContext } from 'utils/headers'
 import { asSingleNumberParam } from 'utils/query-params'
 
 const IdolList: NextPage = () => {
   const router = useRouter()
-  const page = router.query.page ? asSingleNumberParam(router.query.page) : 1
-  const getUserCreatedIdols = useGetUserCreatedIdols()
   const userCreatedIdolsStore = useAppSelector(
     (state) => state.idol.userCreatedIdols
   )
-  const onPageChange = useCallback(async () => {
-    await getUserCreatedIdols({ page })
-  }, [getUserCreatedIdols, page])
+  const onPageChange = useCallback(
+    async (newPageNumber: number) => {
+      await router.push({
+        pathname: router.pathname,
+        query: { page: newPageNumber },
+      })
+    },
+    [router]
+  )
 
   return (
     <ContentLayout>

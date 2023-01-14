@@ -46,7 +46,9 @@ export function IdolListView({
               id: 'groups',
               header: '所属グループ',
               content: (item) =>
-                item.groups.map((group) => group.name).join(', '),
+                item.groups.length === 0
+                  ? '-'
+                  : item.groups.map((group) => group.name).join(', '),
             },
             {
               id: 'status',
