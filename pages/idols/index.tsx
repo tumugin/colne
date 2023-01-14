@@ -1,21 +1,44 @@
 import { NextPage } from 'next'
-import React from 'react'
+import React, { useCallback } from 'react'
 import { ContentLayout } from '@cloudscape-design/components'
-import { wrapper } from 'store'
+import { useAppSelector, wrapper } from 'store'
 import { redirectIfNotLoggedIn } from 'utils/no-login-redirect'
 import { IdolListView } from 'components/idols/IdolListView'
+import { useRouter } from 'next/router'
+import {
+  getUserCreatedIdols,
+  useGetUserCreatedIdols,
+} from 'store/idol/idolHooks'
+import { getRequestHeaderFromContext } from 'utils/headers'
+import { asSingleNumberParam } from 'utils/query-params'
 
 const IdolList: NextPage = () => {
-  const [currentPage, setCurrentPage] = React.useState(1)
+  const router = useRouter()
+  const page = router.query.page ? asSingleNumberParam(router.query.page) : 1
+  const getUserCreatedIdols = useGetUserCreatedIdols()
+  const userCreatedIdolsStore = useAppSelector(
+    (state) => state.idol.userCreatedIdols
+  )
+  const onPageChange = useCallback(async () => {
+    await getUserCreatedIdols({ page })
+  }, [getUserCreatedIdols, page])
 
   return (
     <ContentLayout>
       <IdolListView
-        idols={[]}
-        isLoading={false}
-        totalPages={1}
-        currentPage={currentPage}
-        onPageChange={setCurrentPage}
+        idols={userCreatedIdolsStore.idols.map((idol) => ({
+          name: idol.idolName,
+          id: idol.idolId,
+          status: idol.idolStatus,
+          groups: idol.groups.map((group) => ({
+            id: group.groupId,
+            name: group.groupName,
+          })),
+        }))}
+        isLoading={!userCreatedIdolsStore.isLoaded}
+        totalPages={userCreatedIdolsStore.pageCount}
+        currentPage={userCreatedIdolsStore.currentPage}
+        onPageChange={onPageChange}
       />
     </ContentLayout>
   )
@@ -27,6 +50,13 @@ IdolList.getInitialProps = wrapper.getInitialPageProps(
     if (!currentUser) {
       await redirectIfNotLoggedIn(ctx)
     }
+    await store.dispatch((dispatch) =>
+      getUserCreatedIdols(
+        dispatch,
+        { page: ctx.query.page ? asSingleNumberParam(ctx.query.page) : 1 },
+        getRequestHeaderFromContext(ctx)
+      )
+    )
   }
 )
 
