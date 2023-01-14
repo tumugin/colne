@@ -1,5 +1,5 @@
 import { SideNavigation } from '@cloudscape-design/components'
-import { loginPath } from 'utils/urls'
+import { loginPath, userCreatedIdolListPath } from 'utils/urls'
 import { useRouter } from 'next/router'
 import { useLogoutForm } from 'components/common/LogoutForm'
 
@@ -33,6 +33,12 @@ export function ColneSideNavigation({
           { type: 'divider' },
           ...(isLoggedIn
             ? ([
+                {
+                  type: 'link',
+                  text: '登録したアイドル一覧',
+                  href: userCreatedIdolListPath,
+                },
+                { type: 'divider' },
                 {
                   type: 'link',
                   text: 'ログアウト',

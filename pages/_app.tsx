@@ -12,6 +12,12 @@ import { ColneAppWithLayout } from 'components/common/ColneAppWithLayout'
 import { GlobalThemeHandler } from 'components/common/GlobalThemeHandler'
 import { dummyPromise } from 'utils/promise'
 
+// workaround: https://www.codewithyou.com/blog/cloudscape-design-with-nextjs
+// dismiss warning for cloudscape design library
+if (typeof window === 'undefined') {
+  React.useLayoutEffect = () => {}
+}
+
 function ColneApp(appProps: AppProps) {
   const { store, props } = wrapper.useWrappedStore(appProps)
   return (

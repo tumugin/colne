@@ -577,6 +577,33 @@ export type GetCurrentUserQuery = {
   } | null
 }
 
+export type GetIdolQueryVariables = Exact<{
+  idolId: Scalars['ID']
+}>
+
+export type GetIdolQuery = {
+  __typename?: 'Query'
+  getIdol: {
+    __typename?: 'IdolSerializer'
+    idolCreatedAt: string
+    idolId: string
+    idolName: string
+    idolStatus: IdolStatus
+    idolUpdatedAt: string
+    userId?: string | null
+    groups: Array<{
+      __typename?: 'GroupSerializer'
+      groupName: string
+      groupId: string
+    } | null>
+    user?: {
+      __typename?: 'LimitedUserSerializer'
+      userId: string
+      userName: string
+    } | null
+  }
+}
+
 export type GetUserChekiIdolCountQueryVariables = Exact<{
   chekiShotAtStart: Scalars['String']
   chekiShotAtEnd: Scalars['String']
@@ -660,6 +687,26 @@ export const GetCurrentUserDocument = gql`
       userId
       userName
       userUpdatedAt
+    }
+  }
+`
+export const GetIdolDocument = gql`
+  query GetIdol($idolId: ID!) {
+    getIdol(idolId: $idolId) {
+      idolCreatedAt
+      idolId
+      idolName
+      idolStatus
+      idolUpdatedAt
+      userId
+      groups {
+        groupName
+        groupId
+      }
+      user {
+        userId
+        userName
+      }
     }
   }
 `
@@ -765,6 +812,20 @@ export function getSdk(
             { ...requestHeaders, ...wrappedRequestHeaders }
           ),
         'GetCurrentUser',
+        'query'
+      )
+    },
+    GetIdol(
+      variables: GetIdolQueryVariables,
+      requestHeaders?: Dom.RequestInit['headers']
+    ): Promise<GetIdolQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<GetIdolQuery>(GetIdolDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'GetIdol',
         'query'
       )
     },
