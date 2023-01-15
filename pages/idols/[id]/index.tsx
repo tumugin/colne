@@ -16,6 +16,7 @@ interface Props extends ErrorAwarePageProps {
 
 const IdolDetails: NextPage<Props> = (props) => {
   const idol = useAppSelector((state) => state.idol.idols[props.idolId])
+  const user = useAppSelector((state) => state.user.currentUser)
 
   if (props.error) {
     return <Error statusCode={props.error.statusCode} />
@@ -33,7 +34,9 @@ const IdolDetails: NextPage<Props> = (props) => {
               id: group.groupId,
               name: group.groupName,
             })),
+            authorId: idol.user?.userId,
           }}
+          currentUserId={user?.userId}
         />
       )}
     </ContentLayout>
