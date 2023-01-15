@@ -1,8 +1,10 @@
-import { NextPageContext } from 'next'
+import { GetServerSidePropsContext, NextPageContext } from 'next'
 import { IncomingHttpHeaders } from 'http'
 import { AppContext } from 'next/app'
 
-export function getRequestHeaderFromContext(ctx: NextPageContext) {
+export function getRequestHeaderFromContext(
+  ctx: NextPageContext | GetServerSidePropsContext
+) {
   if (!ctx.req) {
     return undefined
   }

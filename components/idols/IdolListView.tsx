@@ -12,6 +12,7 @@ import React from 'react'
 import { IdolStatusBadge } from 'components/idols/IdolStatusBadge'
 import { useRouter } from 'next/router'
 import { onFollowNextLink } from 'utils/router'
+import { idolDetailPage } from 'utils/urls'
 
 export interface IdolListViewIdolItem {
   name: string
@@ -44,7 +45,15 @@ export function IdolListView({
     <Box>
       <Cards
         cardDefinition={{
-          header: (item) => <Link fontSize="heading-m">{item.name}</Link>,
+          header: (item) => (
+            <Link
+              fontSize="heading-m"
+              href={idolDetailPage(item.id)}
+              onFollow={(e) => onFollowNextLink(router, e)}
+            >
+              {item.name}
+            </Link>
+          ),
           sections: [
             {
               id: 'groups',

@@ -1,0 +1,18 @@
+query GetIdol($idolId: ID!) {
+  getIdol(idolId: $idolId) {
+    idolCreatedAt
+    idolId
+    idolName
+    idolStatus
+    idolUpdatedAt
+    userId
+    groups {
+      groupName
+      groupId
+    }
+    user {
+      userId
+      userName
+    }
+  }
+}

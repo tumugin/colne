@@ -26,7 +26,7 @@ interface Idol {
 
 interface State {
   idols: {
-    [idolId: string]: Idol
+    [idolId: string]: Idol | undefined
   }
   userCreatedIdols: {
     isLoaded: boolean
