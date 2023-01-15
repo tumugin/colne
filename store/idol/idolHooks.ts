@@ -18,6 +18,7 @@ export async function addIdol(
   await dispatch(
     idolSlice.actions.updateOrAddIdol({ ...idol.idol.addIdol, groups: [] })
   )
+  return idol.idol.addIdol
 }
 
 export function useAddIdol() {

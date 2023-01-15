@@ -7,18 +7,20 @@ import {
   IdolCreateFormContents,
 } from 'components/idols/create/IdolCreateForm'
 import React, { useCallback } from 'react'
-import Router from 'next/router'
 import { useAddIdol } from 'store/idol/idolHooks'
 import { IdolStatus } from 'graphql/generated/client'
+import { useRouter } from 'next/router'
+import { idolDetailPage } from 'utils/urls'
 
 const IdolCreate: NextPage = () => {
+  const router = useRouter()
   const handleOnCancel = useCallback(() => {
-    Router.back()
-  }, [])
+    router.back()
+  }, [router])
   const addIdol = useAddIdol()
   const handleOnAddIdol = useCallback(
     async (idol: IdolCreateFormContents) => {
-      await addIdol({
+      const result = await addIdol({
         idol: {
           idolName: idol.name,
           idolStatus:
@@ -27,8 +29,9 @@ const IdolCreate: NextPage = () => {
               : IdolStatus.PrivateActive,
         },
       })
+      await router.push(idolDetailPage(result.idolId))
     },
-    [addIdol]
+    [addIdol, router]
   )
 
   return (
