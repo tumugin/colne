@@ -2,7 +2,7 @@ import { NextRouter } from 'next/router'
 
 export async function onFollowNextLink(
   router: NextRouter,
-  event: CustomEvent<{ href: string } | null>,
+  event: CustomEvent<{ href: string | undefined } | null>,
   path?: string
 ) {
   console.log(event)
