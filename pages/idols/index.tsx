@@ -53,12 +53,6 @@ IdolList.getInitialProps = wrapper.getInitialPageProps(
     }
 
     const page = ctx.query.page ? asSingleNumberParam(ctx.query.page) : 1
-    if (
-      store.getState().idol.userCreatedIdols.currentPage === page &&
-      store.getState().idol.userCreatedIdols.isLoaded
-    ) {
-      return
-    }
 
     await store.dispatch((dispatch) =>
       getUserCreatedIdols(dispatch, { page }, getRequestHeaderFromContext(ctx))
