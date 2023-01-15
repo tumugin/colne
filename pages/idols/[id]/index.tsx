@@ -44,7 +44,7 @@ IdolDetails.getInitialProps = wrapper.getInitialPageProps(
   (store) =>
     async (ctx): Promise<Props> => {
       const idolId = ctx.query.id as string
-      
+
       try {
         await getIdol(
           store.dispatch,
