@@ -1,5 +1,15 @@
 import React from 'react'
 import { IdolChekiStatsView } from 'components/idols/idolChekiStatsView'
+import {
+  Container,
+  DateRangePicker,
+  DateRangePickerProps,
+  Header,
+} from '@cloudscape-design/components'
+import {
+  ColneDataRangePicker,
+  ColneDateRange,
+} from 'components/parts/ColneDataRangePicker'
 
 interface StatItem {
   name: string
@@ -10,6 +20,8 @@ interface StatItem {
 export function IdolChekiStats({
   isLoading,
   chekis,
+  dateRange,
+  onDateRangeChange,
 }: {
   isLoading: boolean
   chekis: {
@@ -31,6 +43,28 @@ export function IdolChekiStats({
       }
     }
   }[]
+  dateRange: ColneDateRange | null
+  onDateRangeChange: (dateRange: ColneDateRange | null) => void
 }) {
-  return <IdolChekiStatsView isLoading={isLoading} stats={[]} />
+  return (
+    <>
+      <Container
+        header={
+          <Header
+            variant="h2"
+            actions={
+              <ColneDataRangePicker
+                dateRange={dateRange}
+                onDateRangeChange={onDateRangeChange}
+              />
+            }
+          >
+            チェキ撮影枚数統計
+          </Header>
+        }
+        disableContentPaddings
+      />
+      <IdolChekiStatsView isLoading={isLoading} stats={[]} />
+    </>
+  )
 }

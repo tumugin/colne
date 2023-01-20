@@ -52,7 +52,7 @@ IdolList.getInitialProps = wrapper.getInitialPageProps(
       await redirectIfNotLoggedIn(ctx)
     }
 
-    const page = ctx.query.page ? asSingleNumberParam(ctx.query.page) : 1
+    const page = asSingleNumberParam(ctx.query.page, 1)
 
     await store.dispatch((dispatch) =>
       getUserCreatedIdols(dispatch, { page }, getRequestHeaderFromContext(ctx))

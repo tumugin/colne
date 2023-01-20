@@ -1,5 +1,5 @@
 import { NextPage } from 'next'
-import { ContentLayout } from '@cloudscape-design/components'
+import { ContentLayout, SpaceBetween } from '@cloudscape-design/components'
 import { getRequestHeaderFromContext } from 'utils/headers'
 import { useAppSelector, wrapper } from 'store'
 import { getIdol } from 'store/idol/idolHooks'
@@ -9,6 +9,12 @@ import {
 } from 'utils/error-aware-page-utils'
 import Error from 'next/error'
 import { IdolDetailsView } from 'components/idols/IdolDetailsView'
+import { IdolChekiStats } from 'components/idols/idolChekiStats'
+import React, { useCallback } from 'react'
+import { ColneDateRange } from 'components/parts/ColneDataRangePicker'
+import { asSingleStringParam } from 'utils/query-params'
+import dayjs from 'dayjs'
+import { updateIdolChekisWithDateRange } from 'store/cheki/chekiHooks'
 
 interface Props extends ErrorAwarePageProps {
   idolId: string
@@ -17,6 +23,13 @@ interface Props extends ErrorAwarePageProps {
 const IdolDetails: NextPage<Props> = (props) => {
   const idol = useAppSelector((state) => state.idol.idols[props.idolId])
   const user = useAppSelector((state) => state.user.currentUser)
+  const idolChekis = useAppSelector(
+    (state) => state.cheki.idolChekis[props.idolId]
+  )
+  const onDataTimeRangeChange = useCallback(
+    (dateRange: ColneDateRange | null) => {},
+    []
+  )
 
   if (props.error) {
     return <Error statusCode={props.error.statusCode} />
@@ -24,21 +37,34 @@ const IdolDetails: NextPage<Props> = (props) => {
 
   return (
     <ContentLayout>
-      {idol && (
-        <IdolDetailsView
-          idol={{
-            name: idol.idolName,
-            id: idol.idolId,
-            status: idol.idolStatus,
-            groups: idol.groups.map((group) => ({
-              id: group.groupId,
-              name: group.groupName,
-            })),
-            authorId: idol.user?.userId,
-          }}
-          currentUserId={user?.userId}
-        />
-      )}
+      <SpaceBetween size="xxl">
+        {idol && (
+          <IdolDetailsView
+            idol={{
+              name: idol.idolName,
+              id: idol.idolId,
+              status: idol.idolStatus,
+              groups: idol.groups.map((group) => ({
+                id: group.groupId,
+                name: group.groupName,
+              })),
+              authorId: idol.user?.userId,
+            }}
+            currentUserId={user?.userId}
+          />
+        )}
+        {user && idolChekis && (
+          <IdolChekiStats
+            isLoading={!idolChekis.isLoaded}
+            chekis={idolChekis.chekis}
+            dateRange={{
+              startISOString: idolChekis.dateTimeRangeStart,
+              endISOString: idolChekis.dateTimeRangeEnd,
+            }}
+            onDateRangeChange={onDataTimeRangeChange}
+          />
+        )}
+      </SpaceBetween>
     </ContentLayout>
   )
 }
@@ -47,11 +73,28 @@ IdolDetails.getInitialProps = wrapper.getInitialPageProps(
   (store) =>
     async (ctx): Promise<Props> => {
       const idolId = ctx.query.id as string
+      const chekisStartDateTime = asSingleStringParam(
+        ctx.query.cheki_start,
+        dayjs().subtract(1, 'months').toISOString()
+      )
+      const chekisEndDateTime = asSingleStringParam(
+        ctx.query.cheki_end,
+        dayjs().toISOString()
+      )
 
       try {
         await getIdol(
           store.dispatch,
           { idolId },
+          getRequestHeaderFromContext(ctx)
+        )
+        await updateIdolChekisWithDateRange(
+          idolId,
+          {
+            startDate: dayjs(chekisStartDateTime),
+            endDate: dayjs(chekisEndDateTime),
+          },
+          store.dispatch,
           getRequestHeaderFromContext(ctx)
         )
       } catch (e) {
