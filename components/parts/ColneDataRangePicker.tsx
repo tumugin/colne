@@ -2,7 +2,7 @@ import {
   DateRangePicker,
   DateRangePickerProps,
 } from '@cloudscape-design/components'
-import React, { useEffect } from 'react'
+import React, { useCallback } from 'react'
 import dayjs from 'dayjs'
 
 export interface ColneDateRange {
@@ -27,29 +27,35 @@ export function ColneDataRangePicker({
       : null
   )
 
-  useEffect(() => {
-    if (value) {
-      if (value.type === 'absolute') {
-        onDateRangeChange({
-          startISOString: dayjs(value.startDate).toISOString(),
-          endISOString: dayjs(value.endDate).toISOString(),
-        })
+  const onChangeForListner = useCallback(
+    (value: DateRangePickerProps.Value | null) => {
+      if (value) {
+        if (value.type === 'absolute') {
+          onDateRangeChange({
+            startISOString: dayjs(value.startDate).toISOString(),
+            endISOString: dayjs(value.endDate).toISOString(),
+          })
+        } else {
+          onDateRangeChange({
+            startISOString: dayjs()
+              .subtract(value.amount, value.unit)
+              .toISOString(),
+            endISOString: dayjs().toISOString(),
+          })
+        }
       } else {
-        onDateRangeChange({
-          startISOString: dayjs()
-            .subtract(value.amount, value.unit)
-            .toISOString(),
-          endISOString: dayjs().toISOString(),
-        })
+        onDateRangeChange(null)
       }
-    } else {
-      onDateRangeChange(null)
-    }
-  }, [onDateRangeChange, value])
+    },
+    [onDateRangeChange]
+  )
 
   return (
     <DateRangePicker
-      onChange={({ detail }) => setValue(detail.value)}
+      onChange={({ detail }) => {
+        setValue(detail.value)
+        onChangeForListner(detail.value)
+      }}
       value={value}
       relativeOptions={[
         {

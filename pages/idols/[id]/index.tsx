@@ -30,12 +30,6 @@ const IdolDetails: NextPage<Props> = (props) => {
   const router = useRouter()
   const onDataTimeRangeChange = useCallback(
     (dateRange: ColneDateRange | null) => {
-      if (
-        dateRange?.startISOString === idolChekis?.dateTimeRangeStart &&
-        dateRange?.endISOString === idolChekis?.dateTimeRangeEnd
-      ) {
-        return
-      }
       router.push({
         query: {
           ...router.query,
