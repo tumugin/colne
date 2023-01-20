@@ -15,6 +15,7 @@ import { ColneDateRange } from 'components/parts/ColneDataRangePicker'
 import { asSingleStringParam } from 'utils/query-params'
 import dayjs from 'dayjs'
 import { updateIdolChekisWithDateRange } from 'store/cheki/chekiHooks'
+import { useRouter } from 'next/router'
 
 interface Props extends ErrorAwarePageProps {
   idolId: string
@@ -26,9 +27,18 @@ const IdolDetails: NextPage<Props> = (props) => {
   const idolChekis = useAppSelector(
     (state) => state.cheki.idolChekis[props.idolId]
   )
+  const router = useRouter()
   const onDataTimeRangeChange = useCallback(
-    (dateRange: ColneDateRange | null) => {},
-    []
+    (dateRange: ColneDateRange | null) => {
+      router.push({
+        query: {
+          ...router.query,
+          cheki_start: dateRange?.startISOString,
+          cheki_end: dateRange?.endISOString,
+        },
+      })
+    },
+    [router]
   )
 
   if (props.error) {
