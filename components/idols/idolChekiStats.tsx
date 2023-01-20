@@ -1,22 +1,15 @@
 import React, { useMemo } from 'react'
-import { IdolChekiStatsView } from 'components/idols/idolChekiStatsView'
 import {
-  Container,
-  DateRangePicker,
-  DateRangePickerProps,
-  Header,
-} from '@cloudscape-design/components'
+  IdolChekiStatsView,
+  StatItem,
+} from 'components/idols/idolChekiStatsView'
+import { Container, Header, SpaceBetween } from '@cloudscape-design/components'
 import {
   ColneDataRangePicker,
   ColneDateRange,
 } from 'components/parts/ColneDataRangePicker'
 import dayjs from 'dayjs'
-
-interface StatItem {
-  name: string
-  value: number
-  unitName: string
-}
+import { nonNullable } from 'utils/array'
 
 export function IdolChekiStats({
   isLoading,
@@ -67,30 +60,60 @@ export function IdolChekiStats({
         .reduce((sum, element) => sum + element, 0),
     [chekis]
   )
+  const regulations = useMemo(
+    () =>
+      chekis
+        .map((c) => c.regulation)
+        .filter(nonNullable)
+        .map(
+          (c) =>
+            `${c.regulationName} - ${c.group?.groupName ?? '不明なグループ'}`
+        ),
+    [chekis]
+  )
+  const bestUsedRegulation = useMemo(
+    () =>
+      regulations
+        .sort(
+          (a, b) =>
+            regulations.filter((v) => v === a).length -
+            regulations.filter((v) => v === b).length
+        )
+        .pop() ?? '-',
+    [regulations]
+  )
   const statItems = useMemo<StatItem[]>(
     () => [
       {
+        id: '1',
         name: 'チェキ撮影枚数',
         value: chekiQuantity,
         unitName: '枚',
       },
       {
+        id: '2',
         name: 'チェキ撮影枚数/週',
         value: chekiQuantityByWeek,
         unitName: '枚/週',
       },
       {
+        id: '3',
+        name: '一番使用されたレギュレーション',
+        value: bestUsedRegulation,
+      },
+      {
+        id: '4',
         name: '合計使用金額',
         value: totalPrice,
         unitName: '円',
         defaultHidden: true,
       },
     ],
-    [chekiQuantity, chekiQuantityByWeek, totalPrice]
+    [bestUsedRegulation, chekiQuantity, chekiQuantityByWeek, totalPrice]
   )
 
   return (
-    <>
+    <SpaceBetween size="xl">
       <Container
         header={
           <Header
@@ -108,6 +131,6 @@ export function IdolChekiStats({
         disableContentPaddings
       />
       <IdolChekiStatsView isLoading={isLoading} stats={statItems} />
-    </>
+    </SpaceBetween>
   )
 }

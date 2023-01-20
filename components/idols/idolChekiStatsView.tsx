@@ -8,7 +8,8 @@ import {
 import React from 'react'
 import styled from 'styled-components'
 
-interface StatItem {
+export interface StatItem {
+  id: string
   name: string
   value: number | string
   unitName?: string
@@ -36,8 +37,8 @@ export function IdolChekiStatsView({
       <Cards
         cardDefinition={{
           header: (item) => (
-            <SpaceBetween size="m" direction="horizontal">
-              {item.name}
+            <SpaceBetween size="xs" direction="horizontal">
+              <Box>{item.name}</Box>
               <Toggle
                 onChange={({ detail }) =>
                   setShowHiddenStats((s) => ({
@@ -57,6 +58,7 @@ export function IdolChekiStatsView({
           ),
           sections: [
             {
+              id: 'main',
               content: (item) => (
                 <BottomAlignText size="xs" direction="horizontal">
                   <Box fontSize={item.smallText ? 'heading-xl' : 'display-l'}>
@@ -82,6 +84,7 @@ export function IdolChekiStatsView({
           { minWidth: 700, cards: 3 },
           { minWidth: 1000, cards: 4 },
         ]}
+        trackBy={(item) => item.id}
         items={stats}
         loadingText="読み込み中..."
         loading={isLoading}
