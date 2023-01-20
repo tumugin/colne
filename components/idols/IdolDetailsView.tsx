@@ -1,6 +1,7 @@
 import {
   Badge,
   Box,
+  Button,
   Container,
   Header,
   SpaceBetween,
@@ -11,6 +12,7 @@ import { IdolStatusBadge } from 'components/idols/IdolStatusBadge'
 
 export function IdolDetailsView({
   idol,
+  currentUserId,
 }: {
   idol: {
     name: string
@@ -22,10 +24,21 @@ export function IdolDetailsView({
       | 'PUBLIC_ACTIVE'
       | 'PUBLIC_NOT_ACTIVE'
     groups: { id: string; name: string }[]
+    authorId?: string
   }
+  currentUserId?: string
 }) {
   return (
-    <Container header={<Header variant="h2">{idol.name}</Header>}>
+    <Container
+      header={
+        <Header
+          variant="h2"
+          actions={<Button variant="primary">アイドルを編集する</Button>}
+        >
+          {idol.name}
+        </Header>
+      }
+    >
       <TextContent>
         <SpaceBetween size="xs" direction="vertical">
           <Box>

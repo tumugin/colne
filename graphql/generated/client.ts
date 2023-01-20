@@ -604,6 +604,50 @@ export type GetIdolQuery = {
   }
 }
 
+export type GetIdolChekisByDateRangeAndIdolIdQueryVariables = Exact<{
+  chekiShotAtStart: Scalars['String']
+  chekiShotAtEnd: Scalars['String']
+  idolId: Scalars['ID']
+}>
+
+export type GetIdolChekisByDateRangeAndIdolIdQuery = {
+  __typename?: 'Query'
+  currentUserChekis: {
+    __typename?: 'UserChekis'
+    getUserChekis: Array<{
+      __typename?: 'ChekiSerializer'
+      chekiCreatedAt: string
+      chekiId: string
+      chekiQuantity: number
+      chekiShotAt: string
+      chekiUpdatedAt: string
+      idolId?: string | null
+      regulationId?: string | null
+      userId: string
+      regulation?: {
+        __typename?: 'RegulationSerializer'
+        groupId: string
+        regulationComment: string
+        regulationCreatedAt: string
+        regulationId: string
+        regulationName: string
+        regulationStatus: string
+        regulationUnitPrice: number
+        regulationUpdatedAt: string
+        userId?: string | null
+        group?: {
+          __typename?: 'GroupSerializer'
+          groupCreatedAt: string
+          groupId: string
+          groupName: string
+          groupStatus: string
+          groupUpdatedAt: string
+        } | null
+      } | null
+    }>
+  }
+}
+
 export type GetUserChekiIdolCountQueryVariables = Exact<{
   chekiShotAtStart: Scalars['String']
   chekiShotAtEnd: Scalars['String']
@@ -706,6 +750,50 @@ export const GetIdolDocument = gql`
       user {
         userId
         userName
+      }
+    }
+  }
+`
+export const GetIdolChekisByDateRangeAndIdolIdDocument = gql`
+  query GetIdolChekisByDateRangeAndIdolId(
+    $chekiShotAtStart: String!
+    $chekiShotAtEnd: String!
+    $idolId: ID!
+  ) {
+    currentUserChekis {
+      getUserChekis(
+        params: {
+          chekiShotAtStart: $chekiShotAtStart
+          chekiShotAtEnd: $chekiShotAtEnd
+          idolId: $idolId
+        }
+      ) {
+        chekiCreatedAt
+        chekiId
+        chekiQuantity
+        chekiShotAt
+        chekiUpdatedAt
+        idolId
+        regulationId
+        userId
+        regulation {
+          groupId
+          regulationComment
+          regulationCreatedAt
+          regulationId
+          regulationName
+          regulationStatus
+          regulationUnitPrice
+          regulationUpdatedAt
+          userId
+          group {
+            groupCreatedAt
+            groupId
+            groupName
+            groupStatus
+            groupUpdatedAt
+          }
+        }
       }
     }
   }
@@ -826,6 +914,21 @@ export function getSdk(
             ...wrappedRequestHeaders,
           }),
         'GetIdol',
+        'query'
+      )
+    },
+    GetIdolChekisByDateRangeAndIdolId(
+      variables: GetIdolChekisByDateRangeAndIdolIdQueryVariables,
+      requestHeaders?: Dom.RequestInit['headers']
+    ): Promise<GetIdolChekisByDateRangeAndIdolIdQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<GetIdolChekisByDateRangeAndIdolIdQuery>(
+            GetIdolChekisByDateRangeAndIdolIdDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders }
+          ),
+        'GetIdolChekisByDateRangeAndIdolId',
         'query'
       )
     },
