@@ -1,11 +1,16 @@
 export function asSingleStringParam<T>(
   value: string | string[] | undefined,
-  defaultValue: T
+  defaultValue: T,
+  denyEmpty: boolean = false
 ): string | T {
   if (value === undefined) {
     return defaultValue
   }
-  return Array.isArray(value) ? value[0] : value
+  const evaluatedValue = Array.isArray(value) ? value[0] : value
+  if (denyEmpty) {
+    return evaluatedValue === '' ? defaultValue : evaluatedValue
+  }
+  return evaluatedValue
 }
 
 export function asSingleNumberParam<T>(

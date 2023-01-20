@@ -38,7 +38,7 @@ const IdolDetails: NextPage<Props> = (props) => {
         },
       })
     },
-    [idolChekis?.dateTimeRangeEnd, idolChekis?.dateTimeRangeStart, router]
+    [router]
   )
 
   if (props.error) {
@@ -85,11 +85,13 @@ IdolDetails.getInitialProps = wrapper.getInitialPageProps(
       const idolId = ctx.query.id as string
       const chekisStartDateTime = asSingleStringParam(
         ctx.query.cheki_start,
-        dayjs().subtract(1, 'months').toISOString()
+        dayjs().subtract(1, 'months').toISOString(),
+        true
       )
       const chekisEndDateTime = asSingleStringParam(
         ctx.query.cheki_end,
-        dayjs().toISOString()
+        dayjs().toISOString(),
+        true
       )
 
       try {
