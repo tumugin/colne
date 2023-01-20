@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { IdolChekiStatsView } from 'components/idols/idolChekiStatsView'
 import {
   Container,
@@ -10,6 +10,7 @@ import {
   ColneDataRangePicker,
   ColneDateRange,
 } from 'components/parts/ColneDataRangePicker'
+import dayjs from 'dayjs'
 
 interface StatItem {
   name: string
@@ -43,9 +44,38 @@ export function IdolChekiStats({
       }
     }
   }[]
-  dateRange: ColneDateRange | null
+  dateRange: ColneDateRange
   onDateRangeChange: (dateRange: ColneDateRange | null) => void
 }) {
+  const chekiQuantity = useMemo(
+    () =>
+      chekis
+        .map((c) => c.chekiQuantity)
+        .reduce((sum, element) => sum + element, 0),
+    [chekis]
+  )
+  const chekiQuantityByWeek = useMemo(
+    () =>
+      chekiQuantity /
+      dayjs(dateRange.endISOString).diff(dateRange.startISOString, 'week'),
+    [chekiQuantity, dateRange.endISOString, dateRange.startISOString]
+  )
+  const statItems = useMemo<StatItem[]>(
+    () => [
+      {
+        name: 'チェキ撮影枚数',
+        value: chekiQuantity,
+        unitName: '枚',
+      },
+      {
+        name: 'チェキ撮影枚数/週',
+        value: chekiQuantityByWeek,
+        unitName: '枚/週',
+      },
+    ],
+    [chekiQuantity, chekiQuantityByWeek]
+  )
+
   return (
     <>
       <Container
@@ -64,7 +94,7 @@ export function IdolChekiStats({
         }
         disableContentPaddings
       />
-      <IdolChekiStatsView isLoading={isLoading} stats={[]} />
+      <IdolChekiStatsView isLoading={isLoading} stats={statItems} />
     </>
   )
 }
