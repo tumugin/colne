@@ -60,6 +60,13 @@ export function IdolChekiStats({
       dayjs(dateRange.endISOString).diff(dateRange.startISOString, 'week'),
     [chekiQuantity, dateRange.endISOString, dateRange.startISOString]
   )
+  const totalPrice = useMemo(
+    () =>
+      chekis
+        .map((c) => (c.regulation?.regulationUnitPrice ?? 0) * c.chekiQuantity)
+        .reduce((sum, element) => sum + element, 0),
+    [chekis]
+  )
   const statItems = useMemo<StatItem[]>(
     () => [
       {
@@ -72,8 +79,14 @@ export function IdolChekiStats({
         value: chekiQuantityByWeek,
         unitName: '枚/週',
       },
+      {
+        name: '合計使用金額',
+        value: totalPrice,
+        unitName: '円',
+        defaultHidden: true,
+      },
     ],
-    [chekiQuantity, chekiQuantityByWeek]
+    [chekiQuantity, chekiQuantityByWeek, totalPrice]
   )
 
   return (
