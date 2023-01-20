@@ -52,7 +52,7 @@ export function IdolChekiStatsView({
                     : item.defaultHidden ?? false
                 }
               >
-                非表示にする
+                非表示
               </Toggle>
             </SpaceBetween>
           ),
