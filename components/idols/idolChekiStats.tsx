@@ -3,11 +3,7 @@ import {
   IdolChekiStatsView,
   StatItem,
 } from 'components/idols/idolChekiStatsView'
-import {
-  Box,
-  Container,
-  Header,
-} from '@cloudscape-design/components'
+import { Box, Container, Header } from '@cloudscape-design/components'
 import {
   ColneDataRangePicker,
   ColneDateRange,
