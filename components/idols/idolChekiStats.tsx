@@ -3,13 +3,14 @@ import {
   IdolChekiStatsView,
   StatItem,
 } from 'components/idols/idolChekiStatsView'
-import { Container, Header, SpaceBetween } from '@cloudscape-design/components'
+import { Box, Container, Header } from '@cloudscape-design/components'
 import {
   ColneDataRangePicker,
   ColneDateRange,
 } from 'components/parts/ColneDataRangePicker'
 import dayjs from 'dayjs'
 import { nonNullable } from 'utils/array'
+import { IdolChekiListView } from 'components/idols/idolChekiListView'
 
 export function IdolChekiStats({
   isLoading,
@@ -47,11 +48,13 @@ export function IdolChekiStats({
         .reduce((sum, element) => sum + element, 0),
     [chekis]
   )
+  const weekCount = useMemo(
+    () => dayjs(dateRange.endISOString).diff(dateRange.startISOString, 'week'),
+    [dateRange.endISOString, dateRange.startISOString]
+  )
   const chekiQuantityByWeek = useMemo(
-    () =>
-      chekiQuantity /
-      dayjs(dateRange.endISOString).diff(dateRange.startISOString, 'week'),
-    [chekiQuantity, dateRange.endISOString, dateRange.startISOString]
+    () => (weekCount !== 0 ? chekiQuantity / weekCount : '-'),
+    [chekiQuantity, weekCount]
   )
   const totalPrice = useMemo(
     () =>
@@ -113,24 +116,26 @@ export function IdolChekiStats({
   )
 
   return (
-    <SpaceBetween size="xl">
-      <Container
-        header={
-          <Header
-            variant="h2"
-            actions={
-              <ColneDataRangePicker
-                dateRange={dateRange}
-                onDateRangeChange={onDateRangeChange}
-              />
-            }
-          >
-            チェキ撮影枚数統計
-          </Header>
-        }
-        disableContentPaddings
-      />
+    <>
+      <Box padding={{ bottom: 'l' }}>
+        <Container
+          header={
+            <Header
+              variant="h2"
+              actions={
+                <ColneDataRangePicker
+                  dateRange={dateRange}
+                  onDateRangeChange={onDateRangeChange}
+                />
+              }
+            >
+              チェキ撮影枚数統計
+            </Header>
+          }
+        />
+      </Box>
       <IdolChekiStatsView isLoading={isLoading} stats={statItems} />
-    </SpaceBetween>
+      <IdolChekiListView isLoading={isLoading} chekis={chekis} />
+    </>
   )
 }

@@ -1,10 +1,4 @@
-import {
-  Box,
-  Cards,
-  Header,
-  SpaceBetween,
-  Toggle,
-} from '@cloudscape-design/components'
+import { Box, Cards, SpaceBetween, Toggle } from '@cloudscape-design/components'
 import React from 'react'
 import styled from 'styled-components'
 
