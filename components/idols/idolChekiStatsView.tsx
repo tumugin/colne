@@ -1,7 +1,6 @@
 import {
   Box,
   Cards,
-  Header,
   SpaceBetween,
   Toggle,
 } from '@cloudscape-design/components'
