@@ -15,11 +15,22 @@ const CustomBigButton = styled.button`
   border: none;
   background: transparent;
   cursor: pointer;
-  color: ${awsui.colorTextButtonNormalActive};
+  transition: color ${awsui.motionDurationExpressive};
+  color: ${awsui.colorTextInteractiveDefault};
 
   &:hover {
-    color: ${awsui.colorTextButtonNormalHover};
+    color: ${awsui.colorTextInteractiveHover};
   }
+`
+
+const CustomBigNumberInput = styled.input`
+  appearance: none;
+  border: none;
+  background: transparent;
+  font-family: ${awsui.fontFamilyMonospace};
+  font-size: ${awsui.spaceScaledXxl};
+  text-align: center;
+  width: 100px;
 `
 
 export function ChekiAddCounter({ countValue }: { countValue: number }) {
@@ -28,7 +39,7 @@ export function ChekiAddCounter({ countValue }: { countValue: number }) {
       <CustomBigButton>
         <Icon name="angle-down" size="big" variant="normal" />
       </CustomBigButton>
-      <Input value={countValue.toString()} inputMode="numeric" type="number" />
+      <CustomBigNumberInput value={countValue.toString()} type="number" />
       <CustomBigButton>
         <Icon name="angle-up" size="big" variant="normal" />
       </CustomBigButton>
