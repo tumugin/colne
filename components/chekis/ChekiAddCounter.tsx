@@ -23,7 +23,7 @@ const CustomBigButton = styled.button`
   }
 `
 
-const CustomBigNumberInput = styled.input`
+const CustomBigNumberInput = styled.input<{ triggerAnimation: boolean }>`
   appearance: none;
   border: none;
   background: transparent;
@@ -36,6 +36,33 @@ const CustomBigNumberInput = styled.input`
   &::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
+  }
+
+  animation: ${(props) =>
+    props.triggerAnimation ? 'shake 0.5s linear' : 'none'};
+
+  @keyframes shake {
+    0% {
+      transform: translate(0, 0) rotate(0);
+    }
+    16.66% {
+      transform: translate(4px, -2px) rotate(-5deg);
+    }
+    33.32% {
+      transform: translate(4px, 2px) rotate(5deg);
+    }
+    49.98% {
+      transform: translate(0, 0) rotate(0);
+    }
+    66.64% {
+      transform: translate(-4px, -2px) rotate(5deg);
+    }
+    83.30% {
+      transform: translate(-4px, 2px) rotate(-5deg);
+    }
+    100% {
+      transform: translate(0, 0) rotate(0);
+    }
   }
 `
 
@@ -50,11 +77,14 @@ export function ChekiAddCounter({
   maxValue?: number
   onChange?: (value: number) => void
 }) {
+  const [triggerAnimation, setTriggerAnimation] = React.useState(false)
   const handleOnIncrease = useCallback(() => {
     onChange && onChange(countValue + 1)
+    setTriggerAnimation(true)
   }, [countValue, onChange])
   const handleOnDecrease = useCallback(() => {
     onChange && onChange(countValue - 1)
+    setTriggerAnimation(true)
   }, [countValue, onChange])
 
   return (
@@ -70,6 +100,7 @@ export function ChekiAddCounter({
         type="number"
         min={minValue}
         max={maxValue}
+        triggerAnimation={triggerAnimation}
       />
       <CustomBigButton
         onClick={handleOnIncrease}
