@@ -33,13 +33,23 @@ const CustomBigNumberInput = styled.input`
   width: 100px;
 `
 
-export function ChekiAddCounter({ countValue }: { countValue: number }) {
+export function ChekiAddCounter({
+  countValue,
+  minValue,
+}: {
+  countValue: number
+  minValue?: number
+}) {
   return (
     <Wrapper>
       <CustomBigButton>
         <Icon name="angle-down" size="big" variant="normal" />
       </CustomBigButton>
-      <CustomBigNumberInput value={countValue.toString()} type="number" />
+      <CustomBigNumberInput
+        value={countValue.toString()}
+        type="number"
+        min={minValue}
+      />
       <CustomBigButton>
         <Icon name="angle-up" size="big" variant="normal" />
       </CustomBigButton>

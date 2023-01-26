@@ -16,4 +16,5 @@ export const Primary = Template.bind({})
 
 Primary.args = {
   countValue: 1,
+  minValue: 1,
 }
