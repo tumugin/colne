@@ -2,6 +2,7 @@ import { Icon, Input } from '@cloudscape-design/components'
 import React, { useCallback } from 'react'
 import styled from 'styled-components'
 import * as awsui from '@cloudscape-design/design-tokens'
+import { vibrateCompat } from "utils/vibrate"
 
 const Wrapper = styled.div`
   display: flex;
@@ -39,29 +40,23 @@ const CustomBigNumberInput = styled.input<{ triggerAnimation: boolean }>`
   }
 
   animation: ${(props) =>
-    props.triggerAnimation ? 'shake 0.5s linear' : 'none'};
+    props.triggerAnimation ? 'shake 0.2s linear' : 'none'};
 
   @keyframes shake {
     0% {
-      transform: translate(0, 0) rotate(0);
+      transform: translate(0, 0);
     }
-    16.66% {
-      transform: translate(4px, -2px) rotate(-5deg);
+    25% {
+      transform: translate(0, 4px);
     }
-    33.32% {
-      transform: translate(4px, 2px) rotate(5deg);
+    50% {
+      transform: translate(0, 0);
     }
-    49.98% {
-      transform: translate(0, 0) rotate(0);
-    }
-    66.64% {
-      transform: translate(-4px, -2px) rotate(5deg);
-    }
-    83.30% {
-      transform: translate(-4px, 2px) rotate(-5deg);
+    75% {
+      transform: translate(0, -4px);
     }
     100% {
-      transform: translate(0, 0) rotate(0);
+      transform: translate(0, 0);
     }
   }
 `
@@ -78,14 +73,22 @@ export function ChekiAddCounter({
   onChange?: (value: number) => void
 }) {
   const [triggerAnimation, setTriggerAnimation] = React.useState(false)
+  const performTriggerAnimation = useCallback(() => {
+    setTriggerAnimation(false)
+    setTriggerAnimation(true)
+    vibrateCompat(50)
+    setTimeout(() => {
+      setTriggerAnimation(false)
+    }, 200)
+  }, [])
   const handleOnIncrease = useCallback(() => {
     onChange && onChange(countValue + 1)
-    setTriggerAnimation(true)
-  }, [countValue, onChange])
+    performTriggerAnimation()
+  }, [countValue, onChange, performTriggerAnimation])
   const handleOnDecrease = useCallback(() => {
     onChange && onChange(countValue - 1)
-    setTriggerAnimation(true)
-  }, [countValue, onChange])
+    performTriggerAnimation()
+  }, [countValue, onChange, performTriggerAnimation])
 
   return (
     <Wrapper>
