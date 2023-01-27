@@ -36,9 +36,12 @@ export function ChekiAddPanel({
     >
       <ChekiAddForm>
         <Controller
-          rules={{ required: true }}
-          render={({ field }) => (
-            <FormField label="チェキ撮影日">
+          rules={{ required: '日付の入力は必須です' }}
+          render={({ field, fieldState }) => (
+            <FormField
+              label="チェキ撮影日"
+              errorText={fieldState.error && fieldState.error.message}
+            >
               <DatePicker
                 onChange={({ detail }) => field.onChange(detail.value)}
                 value={field.value}
@@ -46,6 +49,7 @@ export function ChekiAddPanel({
                 placeholder="YYYY/MM/DD"
                 previousMonthAriaLabel="前の月"
                 todayAriaLabel="今日"
+                invalid={!!fieldState.error}
               />
             </FormField>
           )}

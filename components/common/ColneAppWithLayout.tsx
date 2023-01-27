@@ -89,6 +89,9 @@ export function ColneAppWithLayout({ Component, pageProps }: AppProps) {
           <ColneSideNavigation isLoggedIn={isLoggedIn} csrfToken={csrfToken} />
         }
         splitPanelOpen={splitPanelState.splitPanelOpen}
+        onSplitPanelToggle={(e) =>
+          setSplitPanelState((s) => ({ ...s, splitPanelOpen: e.detail.open }))
+        }
         splitPanel={splitPanelState.children}
         toolsHide
       />

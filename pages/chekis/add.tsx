@@ -5,7 +5,8 @@ import { redirectIfNotLoggedIn } from 'utils/no-login-redirect'
 import { WithSplitPanelPageProps } from 'components/common/ColneAppWithLayout'
 import { SplitPanel } from '@cloudscape-design/components'
 import { ChekiAddPanel } from 'components/chekis/ChekiAddPanel'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
+import { ChekiAddIdolSelectView } from 'components/chekis/ChekiAddIdolSelectView'
 
 export interface ChekiAddContents {
   idolId: string
@@ -42,6 +43,7 @@ const ChekisAdd: NextPage<WithSplitPanelPageProps> = ({
           preferencesTitle: '表示位置変更',
           resizeHandleAriaLabel: 'リサイズ',
         }}
+        closeBehavior="collapse"
       >
         <ChekiAddPanel control={control} />
       </SplitPanel>
@@ -61,7 +63,18 @@ const ChekisAdd: NextPage<WithSplitPanelPageProps> = ({
     }
   }, [setSplitPanelState, splitPanelUI])
 
-  return <></>
+  return (
+    <Controller
+      render={({ field }) => (
+        <ChekiAddIdolSelectView
+          selectedIdolId={field.value}
+          setSelectedIdolId={field.onChange}
+        />
+      )}
+      name="idolId"
+      control={control}
+    />
+  )
 }
 
 ChekisAdd.getInitialProps = wrapper.getInitialPageProps(
