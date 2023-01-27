@@ -1,14 +1,31 @@
 import { NextPage } from 'next'
-import React, { useEffect, useMemo } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { wrapper } from 'store'
 import { redirectIfNotLoggedIn } from 'utils/no-login-redirect'
 import { WithSplitPanelPageProps } from 'components/common/ColneAppWithLayout'
 import { SplitPanel } from '@cloudscape-design/components'
+import { ChekiAddPanel } from 'components/chekis/ChekiAddPanel'
+import { useForm } from 'react-hook-form'
+
+export interface ChekiAddContents {
+  idolId: string
+  regulationId: string
+  chekiQuantity: number
+  chekiShotAt: string
+}
 
 const ChekisAdd: NextPage<WithSplitPanelPageProps> = ({
   splitPanelState,
   setSplitPanelState,
 }) => {
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const { control, getValues, formState } = useForm<ChekiAddContents>({
+    defaultValues: {
+      chekiQuantity: 1,
+    },
+    mode: 'all',
+  })
+
   const splitPanelUI = useMemo(
     () => (
       <SplitPanel
@@ -26,10 +43,10 @@ const ChekisAdd: NextPage<WithSplitPanelPageProps> = ({
           resizeHandleAriaLabel: 'リサイズ',
         }}
       >
-        TODO
+        <ChekiAddPanel control={control} />
       </SplitPanel>
     ),
-    []
+    [control]
   )
   useEffect(() => {
     setSplitPanelState({
