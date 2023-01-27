@@ -7,6 +7,7 @@ import { vibrateCompat } from 'utils/vibrate'
 const Wrapper = styled.div`
   display: flex;
   gap: ${awsui.spaceScaledXs};
+  align-items: center;
 `
 
 const CustomBigButton = styled.button`
