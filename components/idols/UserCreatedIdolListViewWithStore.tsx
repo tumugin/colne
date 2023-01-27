@@ -8,7 +8,7 @@ export function UserCreatedIdolListViewWithStore({
   onSelectionChange,
   selectedIdolId,
   hideHeader,
-  hideIdolStatus
+  hideIdolStatus,
 }: {
   isSelectable?: boolean
   onSelectionChange?: (selectedIdolId: string) => void
