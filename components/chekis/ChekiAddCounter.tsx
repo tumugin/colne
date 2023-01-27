@@ -1,8 +1,8 @@
-import { Icon, Input } from '@cloudscape-design/components'
-import React, { useCallback } from 'react'
+import { Icon } from '@cloudscape-design/components'
+import React, { ChangeEvent, useCallback } from 'react'
 import styled from 'styled-components'
 import * as awsui from '@cloudscape-design/design-tokens'
-import { vibrateCompat } from "utils/vibrate"
+import { vibrateCompat } from 'utils/vibrate'
 
 const Wrapper = styled.div`
   display: flex;
@@ -89,6 +89,22 @@ export function ChekiAddCounter({
     onChange && onChange(countValue - 1)
     performTriggerAnimation()
   }, [countValue, onChange, performTriggerAnimation])
+  const handleOnChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      if (e.target.value === '') {
+        onChange && onChange(0)
+        return
+      }
+      if (
+        (minValue ? parseInt(e.target.value) < minValue : false) ||
+        (maxValue ? parseInt(e.target.value) > maxValue : false)
+      ) {
+        return
+      }
+      onChange && onChange(parseInt(e.target.value))
+    },
+    [maxValue, minValue, onChange]
+  )
 
   return (
     <Wrapper>
@@ -104,6 +120,7 @@ export function ChekiAddCounter({
         min={minValue}
         max={maxValue}
         triggerAnimation={triggerAnimation}
+        onChange={handleOnChange}
       />
       <CustomBigButton
         onClick={handleOnIncrease}
