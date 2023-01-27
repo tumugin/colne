@@ -32,12 +32,22 @@ export function IdolListView({
   totalPages,
   currentPage,
   onPageChange,
+  isSelectable,
+  onSelectionChange,
+  selectedIdolId,
+  hideHeader,
+  hideIdolStatus,
 }: {
   idols: IdolListViewIdolItem[]
   isLoading: boolean
   totalPages: number | null
   currentPage: number
   onPageChange: (page: number) => void
+  isSelectable?: boolean
+  onSelectionChange?: (selectedIdolId: string) => void
+  selectedIdolId?: string
+  hideHeader?: boolean
+  hideIdolStatus?: boolean
 }) {
   const router = useRouter()
 
@@ -63,16 +73,29 @@ export function IdolListView({
                   ? '-'
                   : item.groups.map((group) => group.name).join(', '),
             },
-            {
-              id: 'status',
-              header: '状態',
-              content: (item) => <IdolStatusBadge status={item.status} />,
-            },
+            ...(hideIdolStatus
+              ? []
+              : [
+                  {
+                    id: 'status',
+                    header: '状態',
+                    content: (item: IdolListViewIdolItem) => (
+                      <IdolStatusBadge status={item.status} />
+                    ),
+                  },
+                ]),
           ],
         }}
         cardsPerRow={[{ cards: 1 }, { minWidth: 500, cards: 3 }]}
         items={idols}
         loadingText="読み込み中..."
+        selectionType={isSelectable ? 'single' : undefined}
+        selectedItems={
+          selectedIdolId ? idols.filter((i) => i.id === selectedIdolId) : []
+        }
+        onSelectionChange={(e) =>
+          onSelectionChange && onSelectionChange(e.detail.selectedItems[0].id)
+        }
         loading={isLoading}
         empty={
           <Box textAlign="center" color="inherit">
@@ -90,22 +113,26 @@ export function IdolListView({
           />
         }
         header={
-          <Header
-            actions={
-              <SpaceBetween size="s" direction="horizontal">
-                <Button
-                  href="/idols/create"
-                  variant="primary"
-                  onFollow={(e) => onFollowNextLink(router, e, '/idols/create')}
-                >
-                  新しく登録する
-                </Button>
-              </SpaceBetween>
-            }
-            variant="h2"
-          >
-            ユーザーが登録したアイドル一覧
-          </Header>
+          !hideHeader && (
+            <Header
+              actions={
+                <SpaceBetween size="s" direction="horizontal">
+                  <Button
+                    href="/idols/create"
+                    variant="primary"
+                    onFollow={(e) =>
+                      onFollowNextLink(router, e, '/idols/create')
+                    }
+                  >
+                    新しく登録する
+                  </Button>
+                </SpaceBetween>
+              }
+              variant="h2"
+            >
+              ユーザーが登録したアイドル一覧
+            </Header>
+          )
         }
       />
     </Box>

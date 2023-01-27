@@ -1,14 +1,32 @@
 import { NextPage } from 'next'
-import React, { useEffect, useMemo } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { wrapper } from 'store'
 import { redirectIfNotLoggedIn } from 'utils/no-login-redirect'
 import { WithSplitPanelPageProps } from 'components/common/ColneAppWithLayout'
 import { SplitPanel } from '@cloudscape-design/components'
+import { ChekiAddPanel } from 'components/chekis/ChekiAddPanel'
+import { Controller, useForm } from 'react-hook-form'
+import { ChekiAddIdolSelectView } from 'components/chekis/ChekiAddIdolSelectView'
+
+export interface ChekiAddContents {
+  idolId: string
+  regulationId: string
+  chekiQuantity: number
+  chekiShotAt: string
+}
 
 const ChekisAdd: NextPage<WithSplitPanelPageProps> = ({
   splitPanelState,
   setSplitPanelState,
 }) => {
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const { control, getValues, formState } = useForm<ChekiAddContents>({
+    defaultValues: {
+      chekiQuantity: 1,
+    },
+    mode: 'all',
+  })
+
   const splitPanelUI = useMemo(
     () => (
       <SplitPanel
@@ -25,11 +43,12 @@ const ChekisAdd: NextPage<WithSplitPanelPageProps> = ({
           preferencesTitle: '表示位置変更',
           resizeHandleAriaLabel: 'リサイズ',
         }}
+        closeBehavior="collapse"
       >
-        TODO
+        <ChekiAddPanel control={control} />
       </SplitPanel>
     ),
-    []
+    [control]
   )
   useEffect(() => {
     setSplitPanelState({
@@ -44,7 +63,18 @@ const ChekisAdd: NextPage<WithSplitPanelPageProps> = ({
     }
   }, [setSplitPanelState, splitPanelUI])
 
-  return <></>
+  return (
+    <Controller
+      render={({ field }) => (
+        <ChekiAddIdolSelectView
+          selectedIdolId={field.value}
+          setSelectedIdolId={field.onChange}
+        />
+      )}
+      name="idolId"
+      control={control}
+    />
+  )
 }
 
 ChekisAdd.getInitialProps = wrapper.getInitialPageProps(
