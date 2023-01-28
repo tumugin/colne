@@ -1,6 +1,7 @@
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import gql from 'graphql-tag'
+
 export type Maybe<T> = T | null
 export type InputMaybe<T> = Maybe<T>
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -304,6 +305,7 @@ export type GroupSerializer = {
   groupName: Scalars['String']
   groupStatus: Scalars['String']
   groupUpdatedAt: Scalars['String']
+  regulations: Array<RegulationSerializer>
   user?: Maybe<LimitedUserSerializer>
   userId?: Maybe<Scalars['ID']>
 }
@@ -964,4 +966,5 @@ export function getSdk(
     },
   }
 }
+
 export type Sdk = ReturnType<typeof getSdk>
