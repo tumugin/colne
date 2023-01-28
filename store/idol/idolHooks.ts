@@ -2,6 +2,7 @@ import { AppDispatch, useAppDispatch } from 'store/index'
 import { colneGraphQLSdk } from 'graphql/client'
 import {
   AddIdolMutationVariables,
+  GetIdolDetailsForChekiAddQueryVariables,
   GetIdolQueryVariables,
   GetUserCreatedIdolListQueryVariables,
 } from 'graphql/generated/client'
@@ -80,5 +81,26 @@ export function useGetUserCreatedIdols() {
   const dispatch = useAppDispatch()
   return function (params: GetUserCreatedIdolListQueryVariables) {
     return getUserCreatedIdols(dispatch, params)
+  }
+}
+
+export async function getIdolForChekiAdd(
+  dispatch: AppDispatch,
+  params: GetIdolDetailsForChekiAddQueryVariables,
+  headers?: Record<string, string>
+) {
+  const idol = await colneGraphQLSdk.GetIdolDetailsForChekiAdd(params)
+  await dispatch(
+    idolSlice.actions.updateOrAddIdolForChekiAdd({
+      ...idol.getIdol,
+      groups: idol.getIdol.groups.filter(nonNullable),
+    })
+  )
+}
+
+export function useGetIdolForChekiAdd() {
+  const dispatch = useAppDispatch()
+  return function (params: GetIdolDetailsForChekiAddQueryVariables) {
+    return getIdolForChekiAdd(dispatch, params)
   }
 }
