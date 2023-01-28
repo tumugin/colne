@@ -89,7 +89,7 @@ export async function getIdolForChekiAdd(
   params: GetIdolDetailsForChekiAddQueryVariables,
   headers?: Record<string, string>
 ) {
-  const idol = await colneGraphQLSdk.GetIdolDetailsForChekiAdd(params)
+  const idol = await colneGraphQLSdk.GetIdolDetailsForChekiAdd(params, headers)
   await dispatch(
     idolSlice.actions.updateOrAddIdolForChekiAdd({
       ...idol.getIdol,
