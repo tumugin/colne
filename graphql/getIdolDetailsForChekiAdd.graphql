@@ -1,0 +1,27 @@
+query GetIdolDetailsForChekiAdd($idolId: ID!) {
+  getIdol(idolId: $idolId) {
+    idolCreatedAt
+    idolId
+    idolName
+    idolStatus
+    idolUpdatedAt
+    userId
+    groups {
+      groupName
+      groupId
+      regulations {
+        regulationComment
+        regulationCreatedAt
+        regulationId
+        regulationName
+        regulationStatus
+        regulationUnitPrice
+        regulationUpdatedAt
+      }
+    }
+    user {
+      userId
+      userName
+    }
+  }
+}
