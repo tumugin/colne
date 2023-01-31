@@ -1,10 +1,11 @@
 import {
   Button,
+  Cards,
   DatePicker,
   FormField,
   Grid,
 } from '@cloudscape-design/components'
-import React from 'react'
+import React, { useMemo } from 'react'
 import { ChekiAddCounter } from 'components/chekis/ChekiAddCounter'
 import styled from 'styled-components'
 import { Control, Controller } from 'react-hook-form'
@@ -22,11 +23,39 @@ const CenterItem = styled.div`
   justify-content: center;
 `
 
+interface ChekiAddRegulation {
+  groupId: string
+  groupName: string
+  regulationId: string | null
+  regulationName: string
+  regulationComment: string
+  regulationUnitPrice: number
+}
+
+const emptyItem: ChekiAddRegulation = {
+  groupId: '',
+  groupName: '-',
+  regulationId: null,
+  regulationName: '選択なし',
+  regulationComment: '-',
+  regulationUnitPrice: 0,
+}
+
 export function ChekiAddPanel({
   control,
+  regulations,
+  isRegulationLoading,
+  onSubmit,
 }: {
   control: Control<ChekiAddContents>
+  regulations: ChekiAddRegulation[]
+  isRegulationLoading: boolean
+  onSubmit: () => void
 }) {
+  const regulationsWithEmptyItem = useMemo(
+    () => [emptyItem, ...regulations],
+    [regulations]
+  )
   return (
     <Grid
       gridDefinition={[
@@ -74,11 +103,64 @@ export function ChekiAddPanel({
           control={control}
         />
         <CenterItem>
-          <Button variant="primary">チェキを追加する</Button>
+          <Button variant="primary" onClick={onSubmit}>
+            チェキを追加する
+          </Button>
         </CenterItem>
       </ChekiAddForm>
       <div>
-        <FormField label="レギュレーション"></FormField>
+        <Controller
+          rules={{
+            validate: (value) =>
+              regulationsWithEmptyItem.some((i) => i.regulationId === value) ||
+              'レギュレーションの選択は必須です',
+          }}
+          render={({ field, fieldState }) => (
+            <FormField
+              label="レギュレーション"
+              errorText={fieldState.error && fieldState.error.message}
+            >
+              <Cards
+                items={regulationsWithEmptyItem}
+                selectionType="single"
+                selectedItems={regulationsWithEmptyItem.filter(
+                  (i) => i.regulationId === field.value
+                )}
+                onSelectionChange={(selectedItems) =>
+                  field.onChange(
+                    selectedItems.detail.selectedItems[0].regulationId
+                  )
+                }
+                cardDefinition={{
+                  header: (item) => item.regulationName,
+                  sections: [
+                    {
+                      header: 'グループ',
+                      content: (item) => item.groupName,
+                    },
+                    {
+                      header: '単価',
+                      content: (item) => item.regulationUnitPrice + '円',
+                    },
+                    {
+                      header: '備考',
+                      content: (item) => item.regulationComment,
+                    },
+                  ],
+                }}
+                cardsPerRow={[
+                  { cards: 1 },
+                  { minWidth: 500, cards: 2 },
+                  { minWidth: 700, cards: 3 },
+                  { minWidth: 1000, cards: 4 },
+                ]}
+                loading={isRegulationLoading}
+              />
+            </FormField>
+          )}
+          name="regulationId"
+          control={control}
+        />
       </div>
     </Grid>
   )

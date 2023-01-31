@@ -304,6 +304,7 @@ export type GroupSerializer = {
   groupName: Scalars['String']
   groupStatus: Scalars['String']
   groupUpdatedAt: Scalars['String']
+  regulations: Array<RegulationSerializer>
   user?: Maybe<LimitedUserSerializer>
   userId?: Maybe<Scalars['ID']>
 }
@@ -648,6 +649,43 @@ export type GetIdolChekisByDateRangeAndIdolIdQuery = {
   }
 }
 
+export type GetIdolDetailsForChekiAddQueryVariables = Exact<{
+  idolId: Scalars['ID']
+}>
+
+export type GetIdolDetailsForChekiAddQuery = {
+  __typename?: 'Query'
+  getIdol: {
+    __typename?: 'IdolSerializer'
+    idolCreatedAt: string
+    idolId: string
+    idolName: string
+    idolStatus: IdolStatus
+    idolUpdatedAt: string
+    userId?: string | null
+    groups: Array<{
+      __typename?: 'GroupSerializer'
+      groupName: string
+      groupId: string
+      regulations: Array<{
+        __typename?: 'RegulationSerializer'
+        regulationComment: string
+        regulationCreatedAt: string
+        regulationId: string
+        regulationName: string
+        regulationStatus: string
+        regulationUnitPrice: number
+        regulationUpdatedAt: string
+      }>
+    } | null>
+    user?: {
+      __typename?: 'LimitedUserSerializer'
+      userId: string
+      userName: string
+    } | null
+  }
+}
+
 export type GetUserChekiIdolCountQueryVariables = Exact<{
   chekiShotAtStart: Scalars['String']
   chekiShotAtEnd: Scalars['String']
@@ -798,6 +836,35 @@ export const GetIdolChekisByDateRangeAndIdolIdDocument = gql`
     }
   }
 `
+export const GetIdolDetailsForChekiAddDocument = gql`
+  query GetIdolDetailsForChekiAdd($idolId: ID!) {
+    getIdol(idolId: $idolId) {
+      idolCreatedAt
+      idolId
+      idolName
+      idolStatus
+      idolUpdatedAt
+      userId
+      groups {
+        groupName
+        groupId
+        regulations {
+          regulationComment
+          regulationCreatedAt
+          regulationId
+          regulationName
+          regulationStatus
+          regulationUnitPrice
+          regulationUpdatedAt
+        }
+      }
+      user {
+        userId
+        userName
+      }
+    }
+  }
+`
 export const GetUserChekiIdolCountDocument = gql`
   query GetUserChekiIdolCount(
     $chekiShotAtStart: String!
@@ -929,6 +996,21 @@ export function getSdk(
             { ...requestHeaders, ...wrappedRequestHeaders }
           ),
         'GetIdolChekisByDateRangeAndIdolId',
+        'query'
+      )
+    },
+    GetIdolDetailsForChekiAdd(
+      variables: GetIdolDetailsForChekiAddQueryVariables,
+      requestHeaders?: Dom.RequestInit['headers']
+    ): Promise<GetIdolDetailsForChekiAddQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<GetIdolDetailsForChekiAddQuery>(
+            GetIdolDetailsForChekiAddDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders }
+          ),
+        'GetIdolDetailsForChekiAdd',
         'query'
       )
     },

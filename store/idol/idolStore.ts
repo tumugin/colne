@@ -24,9 +24,37 @@ interface Idol {
   }[]
 }
 
+interface IdolForChekiAdd {
+  idolCreatedAt: string
+  idolId: string
+  idolName: string
+  idolStatus: IdolStatus
+  idolUpdatedAt: string
+  user?: {
+    userId: string
+    userName: string
+  } | null
+  groups: {
+    groupId: string
+    groupName: string
+    regulations: {
+      regulationComment: string
+      regulationCreatedAt: string
+      regulationId: string
+      regulationName: string
+      regulationStatus: string
+      regulationUnitPrice: number
+      regulationUpdatedAt: string
+    }[]
+  }[]
+}
+
 interface State {
   idols: {
     [idolId: string]: Idol | undefined
+  }
+  idolForChekiAdd: {
+    [idolId: string]: IdolForChekiAdd | undefined
   }
   userCreatedIdols: {
     isLoaded: boolean
@@ -39,6 +67,7 @@ interface State {
 
 const initialState: State = {
   idols: {},
+  idolForChekiAdd: {},
   userCreatedIdols: {
     isLoaded: false,
     count: null,
@@ -54,6 +83,9 @@ export const idolSlice = createSlice({
   reducers: {
     updateOrAddIdol(state, action: PayloadAction<Idol>) {
       state.idols[action.payload.idolId] = action.payload
+    },
+    updateOrAddIdolForChekiAdd(state, action: PayloadAction<IdolForChekiAdd>) {
+      state.idolForChekiAdd[action.payload.idolId] = action.payload
     },
     updateUserCreatedIdols(
       state,

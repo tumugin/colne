@@ -1,16 +1,17 @@
 import { NextPage } from 'next'
-import React, { useEffect, useMemo, useState } from 'react'
-import { wrapper } from 'store'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import { useAppSelector, wrapper } from 'store'
 import { redirectIfNotLoggedIn } from 'utils/no-login-redirect'
 import { WithSplitPanelPageProps } from 'components/common/ColneAppWithLayout'
 import { SplitPanel } from '@cloudscape-design/components'
 import { ChekiAddPanel } from 'components/chekis/ChekiAddPanel'
 import { Controller, useForm } from 'react-hook-form'
 import { ChekiAddIdolSelectView } from 'components/chekis/ChekiAddIdolSelectView'
+import { useGetIdolForChekiAdd } from 'store/idol/idolHooks'
 
 export interface ChekiAddContents {
   idolId: string
-  regulationId: string
+  regulationId: string | null
   chekiQuantity: number
   chekiShotAt: string
 }
@@ -20,12 +21,44 @@ const ChekisAdd: NextPage<WithSplitPanelPageProps> = ({
   setSplitPanelState,
 }) => {
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const { control, getValues, formState } = useForm<ChekiAddContents>({
+  const { control, watch, trigger } = useForm<ChekiAddContents>({
     defaultValues: {
+      idolId: '',
       chekiQuantity: 1,
+      regulationId: null,
+      chekiShotAt: '',
     },
     mode: 'all',
   })
+  const getIdolForChekiAdd = useGetIdolForChekiAdd()
+
+  const selectedIdolId = watch('idolId')
+  const selectedIdolDetails = useAppSelector(
+    (state) => state.idol.idolForChekiAdd[selectedIdolId]
+  )
+  useEffect(() => {
+    if (selectedIdolId && !selectedIdolDetails) {
+      void getIdolForChekiAdd({ idolId: selectedIdolId })
+    }
+  }, [getIdolForChekiAdd, selectedIdolDetails, selectedIdolId])
+  const regulations = useMemo(
+    () =>
+      selectedIdolDetails?.groups.flatMap((g) =>
+        g.regulations.map((r) => ({
+          groupId: g.groupId,
+          groupName: g.groupName,
+          regulationId: r.regulationId,
+          regulationName: r.regulationName,
+          regulationComment: r.regulationComment,
+          regulationUnitPrice: r.regulationUnitPrice,
+        }))
+      ) ?? [],
+    [selectedIdolDetails?.groups]
+  )
+
+  const onSubmit = useCallback(async () => {
+    await trigger()
+  }, [trigger])
 
   const splitPanelUI = useMemo(
     () => (
@@ -45,10 +78,15 @@ const ChekisAdd: NextPage<WithSplitPanelPageProps> = ({
         }}
         closeBehavior="collapse"
       >
-        <ChekiAddPanel control={control} />
+        <ChekiAddPanel
+          control={control}
+          regulations={regulations}
+          isRegulationLoading={selectedIdolId ? !selectedIdolDetails : false}
+          onSubmit={onSubmit}
+        />
       </SplitPanel>
     ),
-    [control]
+    [control, onSubmit, regulations, selectedIdolDetails, selectedIdolId]
   )
   useEffect(() => {
     setSplitPanelState({

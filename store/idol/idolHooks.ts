@@ -2,12 +2,15 @@ import { AppDispatch, useAppDispatch } from 'store/index'
 import { colneGraphQLSdk } from 'graphql/client'
 import {
   AddIdolMutationVariables,
+  GetIdolDetailsForChekiAddQueryVariables,
   GetIdolQueryVariables,
   GetUserCreatedIdolListQueryVariables,
 } from 'graphql/generated/client'
 import { idolSlice } from 'store/idol/idolStore'
 import { nonNullable } from 'utils/array'
 import { mapAisuExceptionToColneExceptionAndThrow } from 'exceptions/graphql-exceptions'
+import { useDispatch } from 'react-redux'
+import { useCallback } from 'react'
 
 export async function addIdol(
   dispatch: AppDispatch,
@@ -23,9 +26,12 @@ export async function addIdol(
 
 export function useAddIdol() {
   const dispatch = useAppDispatch()
-  return function (params: AddIdolMutationVariables) {
-    return addIdol(dispatch, params)
-  }
+  return useCallback(
+    (params: AddIdolMutationVariables) => {
+      return addIdol(dispatch, params)
+    },
+    [dispatch]
+  )
 }
 
 export async function getIdol(
@@ -48,9 +54,12 @@ export async function getIdol(
 
 export function useGetIdol() {
   const dispatch = useAppDispatch()
-  return function (params: GetIdolQueryVariables) {
-    return getIdol(dispatch, params)
-  }
+  return useCallback(
+    (params: GetIdolQueryVariables) => {
+      return getIdol(dispatch, params)
+    },
+    [dispatch]
+  )
 }
 
 export async function getUserCreatedIdols(
@@ -78,7 +87,34 @@ export async function getUserCreatedIdols(
 
 export function useGetUserCreatedIdols() {
   const dispatch = useAppDispatch()
-  return function (params: GetUserCreatedIdolListQueryVariables) {
-    return getUserCreatedIdols(dispatch, params)
-  }
+  return useCallback(
+    (params: GetUserCreatedIdolListQueryVariables) => {
+      return getUserCreatedIdols(dispatch, params)
+    },
+    [dispatch]
+  )
+}
+
+export async function getIdolForChekiAdd(
+  dispatch: AppDispatch,
+  params: GetIdolDetailsForChekiAddQueryVariables,
+  headers?: Record<string, string>
+) {
+  const idol = await colneGraphQLSdk.GetIdolDetailsForChekiAdd(params, headers)
+  await dispatch(
+    idolSlice.actions.updateOrAddIdolForChekiAdd({
+      ...idol.getIdol,
+      groups: idol.getIdol.groups.filter(nonNullable),
+    })
+  )
+}
+
+export function useGetIdolForChekiAdd() {
+  const dispatch = useAppDispatch()
+  return useCallback(
+    (params: GetIdolDetailsForChekiAddQueryVariables) => {
+      return getIdolForChekiAdd(dispatch, params)
+    },
+    [dispatch]
+  )
 }
