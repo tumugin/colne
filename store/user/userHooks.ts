@@ -11,12 +11,15 @@ export function useUpdateCurrentUserState() {
 
 export function useInitialCurrentUserState() {
   const userState = useAppSelector((state) => state.user)
-  return useCallback((dispatch: AppDispatch) => {
-    if (userState.currentUser !== null) {
-      return
-    }
-    return updateCurrentUserState(dispatch)
-  }, [userState.currentUser])
+  return useCallback(
+    (dispatch: AppDispatch) => {
+      if (userState.currentUser !== null) {
+        return
+      }
+      return updateCurrentUserState(dispatch)
+    },
+    [userState.currentUser]
+  )
 }
 
 export async function updateCurrentUserState(
