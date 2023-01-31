@@ -22,10 +22,21 @@ const CenterItem = styled.div`
   justify-content: center;
 `
 
+interface ChekiAddRegulation {
+  groupId: string
+  groupName: string
+  regulationId: string
+  regulationName: string
+  regulationComment: string
+  regulationUnitPrice: number
+}
+
 export function ChekiAddPanel({
   control,
+  regulations,
 }: {
   control: Control<ChekiAddContents>
+  regulations: ChekiAddRegulation[]
 }) {
   return (
     <Grid

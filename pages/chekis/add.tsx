@@ -1,12 +1,13 @@
 import { NextPage } from 'next'
 import React, { useEffect, useMemo, useState } from 'react'
-import { wrapper } from 'store'
+import { useAppSelector, wrapper } from 'store'
 import { redirectIfNotLoggedIn } from 'utils/no-login-redirect'
 import { WithSplitPanelPageProps } from 'components/common/ColneAppWithLayout'
 import { SplitPanel } from '@cloudscape-design/components'
 import { ChekiAddPanel } from 'components/chekis/ChekiAddPanel'
 import { Controller, useForm } from 'react-hook-form'
 import { ChekiAddIdolSelectView } from 'components/chekis/ChekiAddIdolSelectView'
+import { useGetIdolForChekiAdd } from 'store/idol/idolHooks'
 
 export interface ChekiAddContents {
   idolId: string
@@ -20,12 +21,37 @@ const ChekisAdd: NextPage<WithSplitPanelPageProps> = ({
   setSplitPanelState,
 }) => {
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const { control, getValues, formState } = useForm<ChekiAddContents>({
+  const { control, getValues, formState, watch } = useForm<ChekiAddContents>({
     defaultValues: {
       chekiQuantity: 1,
     },
     mode: 'all',
   })
+  const getIdolForChekiAdd = useGetIdolForChekiAdd()
+
+  const selectedIdolId = watch('idolId')
+  useEffect(() => {
+    if (selectedIdolId) {
+      void getIdolForChekiAdd({ idolId: selectedIdolId })
+    }
+  }, [getIdolForChekiAdd, selectedIdolId])
+  const selectedIdolDetails = useAppSelector(
+    (state) => state.idol.idolForChekiAdd[selectedIdolId]
+  )
+  const regulations = useMemo(
+    () =>
+      selectedIdolDetails?.groups.flatMap((g) =>
+        g.regulations.map((r) => ({
+          groupId: g.groupId,
+          groupName: g.groupName,
+          regulationId: r.regulationId,
+          regulationName: r.regulationName,
+          regulationComment: r.regulationComment,
+          regulationUnitPrice: r.regulationUnitPrice,
+        }))
+      ) ?? [],
+    [selectedIdolDetails?.groups]
+  )
 
   const splitPanelUI = useMemo(
     () => (
@@ -45,10 +71,10 @@ const ChekisAdd: NextPage<WithSplitPanelPageProps> = ({
         }}
         closeBehavior="collapse"
       >
-        <ChekiAddPanel control={control} />
+        <ChekiAddPanel control={control} regulations={regulations} />
       </SplitPanel>
     ),
-    [control]
+    [control, regulations]
   )
   useEffect(() => {
     setSplitPanelState({
