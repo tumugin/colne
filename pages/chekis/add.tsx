@@ -30,14 +30,14 @@ const ChekisAdd: NextPage<WithSplitPanelPageProps> = ({
   const getIdolForChekiAdd = useGetIdolForChekiAdd()
 
   const selectedIdolId = watch('idolId')
-  useEffect(() => {
-    if (selectedIdolId) {
-      void getIdolForChekiAdd({ idolId: selectedIdolId })
-    }
-  }, [getIdolForChekiAdd, selectedIdolId])
   const selectedIdolDetails = useAppSelector(
     (state) => state.idol.idolForChekiAdd[selectedIdolId]
   )
+  useEffect(() => {
+    if (selectedIdolId && !selectedIdolDetails) {
+      void getIdolForChekiAdd({ idolId: selectedIdolId })
+    }
+  }, [getIdolForChekiAdd, selectedIdolDetails, selectedIdolId])
   const regulations = useMemo(
     () =>
       selectedIdolDetails?.groups.flatMap((g) =>

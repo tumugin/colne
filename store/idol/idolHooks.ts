@@ -9,6 +9,8 @@ import {
 import { idolSlice } from 'store/idol/idolStore'
 import { nonNullable } from 'utils/array'
 import { mapAisuExceptionToColneExceptionAndThrow } from 'exceptions/graphql-exceptions'
+import { useDispatch } from 'react-redux'
+import { useCallback } from 'react'
 
 export async function addIdol(
   dispatch: AppDispatch,
@@ -24,9 +26,12 @@ export async function addIdol(
 
 export function useAddIdol() {
   const dispatch = useAppDispatch()
-  return function (params: AddIdolMutationVariables) {
-    return addIdol(dispatch, params)
-  }
+  return useCallback(
+    (params: AddIdolMutationVariables) => {
+      return addIdol(dispatch, params)
+    },
+    [dispatch]
+  )
 }
 
 export async function getIdol(
@@ -49,9 +54,12 @@ export async function getIdol(
 
 export function useGetIdol() {
   const dispatch = useAppDispatch()
-  return function (params: GetIdolQueryVariables) {
-    return getIdol(dispatch, params)
-  }
+  return useCallback(
+    (params: GetIdolQueryVariables) => {
+      return getIdol(dispatch, params)
+    },
+    [dispatch]
+  )
 }
 
 export async function getUserCreatedIdols(
@@ -79,9 +87,12 @@ export async function getUserCreatedIdols(
 
 export function useGetUserCreatedIdols() {
   const dispatch = useAppDispatch()
-  return function (params: GetUserCreatedIdolListQueryVariables) {
-    return getUserCreatedIdols(dispatch, params)
-  }
+  return useCallback(
+    (params: GetUserCreatedIdolListQueryVariables) => {
+      return getUserCreatedIdols(dispatch, params)
+    },
+    [dispatch]
+  )
 }
 
 export async function getIdolForChekiAdd(
@@ -100,7 +111,10 @@ export async function getIdolForChekiAdd(
 
 export function useGetIdolForChekiAdd() {
   const dispatch = useAppDispatch()
-  return function (params: GetIdolDetailsForChekiAddQueryVariables) {
-    return getIdolForChekiAdd(dispatch, params)
-  }
+  return useCallback(
+    (params: GetIdolDetailsForChekiAddQueryVariables) => {
+      return getIdolForChekiAdd(dispatch, params)
+    },
+    [dispatch]
+  )
 }
