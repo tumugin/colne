@@ -9,7 +9,7 @@ services:
       - node_modules:/e2e/node_modules
       - cache:/root/.cache/
     working_dir: /e2e
-    entrypoint: bash -c "apt-get update && apt-get install -y fonts-noto-cjk && yarn install && yarn exec cypress install && yarn run cypress"
+    entrypoint: bash -c "yarn install && yarn exec cypress install && yarn run cypress"
   cypress-update-screenshot:
     build:
       context: ./cypress-docker/
@@ -19,7 +19,7 @@ services:
       - node_modules:/e2e/node_modules
       - cache:/root/.cache/
     working_dir: /e2e
-    entrypoint: bash -c "apt-get update && apt-get install -y fonts-noto-cjk && yarn install && yarn exec cypress install && yarn run cypress:update-screenshot"
+    entrypoint: bash -c "yarn install && yarn exec cypress install && yarn run cypress:update-screenshot"
 volumes:
   node_modules: {}
   cache: {}
