@@ -11,7 +11,7 @@ import { useGetIdolForChekiAdd } from 'store/idol/idolHooks'
 
 export interface ChekiAddContents {
   idolId: string
-  regulationId: string
+  regulationId: string | null
   chekiQuantity: number
   chekiShotAt: string
 }
@@ -24,6 +24,7 @@ const ChekisAdd: NextPage<WithSplitPanelPageProps> = ({
   const { control, getValues, formState, watch } = useForm<ChekiAddContents>({
     defaultValues: {
       chekiQuantity: 1,
+      regulationId: null,
     },
     mode: 'all',
   })
@@ -71,10 +72,14 @@ const ChekisAdd: NextPage<WithSplitPanelPageProps> = ({
         }}
         closeBehavior="collapse"
       >
-        <ChekiAddPanel control={control} regulations={regulations} />
+        <ChekiAddPanel
+          control={control}
+          regulations={regulations}
+          isRegulationLoading={selectedIdolId ? !selectedIdolDetails : false}
+        />
       </SplitPanel>
     ),
-    [control, regulations]
+    [control, regulations, selectedIdolDetails, selectedIdolId]
   )
   useEffect(() => {
     setSplitPanelState({
