@@ -45,10 +45,12 @@ export function ChekiAddPanel({
   control,
   regulations,
   isRegulationLoading,
+  onSubmit,
 }: {
   control: Control<ChekiAddContents>
   regulations: ChekiAddRegulation[]
   isRegulationLoading: boolean
+  onSubmit: () => void
 }) {
   const regulationsWithEmptyItem = useMemo(
     () => [emptyItem, ...regulations],
@@ -101,13 +103,23 @@ export function ChekiAddPanel({
           control={control}
         />
         <CenterItem>
-          <Button variant="primary">チェキを追加する</Button>
+          <Button variant="primary" onClick={onSubmit}>
+            チェキを追加する
+          </Button>
         </CenterItem>
       </ChekiAddForm>
       <div>
-        <FormField label="レギュレーション">
-          <Controller
-            render={({ field }) => (
+        <Controller
+          rules={{
+            validate: (value) =>
+              regulationsWithEmptyItem.some((i) => i.regulationId === value) ||
+              'レギュレーションの選択は必須です',
+          }}
+          render={({ field, fieldState }) => (
+            <FormField
+              label="レギュレーション"
+              errorText={fieldState.error && fieldState.error.message}
+            >
               <Cards
                 items={regulationsWithEmptyItem}
                 selectionType="single"
@@ -144,11 +156,11 @@ export function ChekiAddPanel({
                 ]}
                 loading={isRegulationLoading}
               />
-            )}
-            name="regulationId"
-            control={control}
-          />
-        </FormField>
+            </FormField>
+          )}
+          name="regulationId"
+          control={control}
+        />
       </div>
     </Grid>
   )

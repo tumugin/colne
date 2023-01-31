@@ -1,5 +1,5 @@
 import { NextPage } from 'next'
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { useAppSelector, wrapper } from 'store'
 import { redirectIfNotLoggedIn } from 'utils/no-login-redirect'
 import { WithSplitPanelPageProps } from 'components/common/ColneAppWithLayout'
@@ -21,10 +21,12 @@ const ChekisAdd: NextPage<WithSplitPanelPageProps> = ({
   setSplitPanelState,
 }) => {
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const { control, getValues, formState, watch } = useForm<ChekiAddContents>({
+  const { control, watch, trigger } = useForm<ChekiAddContents>({
     defaultValues: {
+      idolId: '',
       chekiQuantity: 1,
       regulationId: null,
+      chekiShotAt: '',
     },
     mode: 'all',
   })
@@ -54,6 +56,10 @@ const ChekisAdd: NextPage<WithSplitPanelPageProps> = ({
     [selectedIdolDetails?.groups]
   )
 
+  const onSubmit = useCallback(async () => {
+    await trigger()
+  }, [trigger])
+
   const splitPanelUI = useMemo(
     () => (
       <SplitPanel
@@ -76,10 +82,11 @@ const ChekisAdd: NextPage<WithSplitPanelPageProps> = ({
           control={control}
           regulations={regulations}
           isRegulationLoading={selectedIdolId ? !selectedIdolDetails : false}
+          onSubmit={onSubmit}
         />
       </SplitPanel>
     ),
-    [control, regulations, selectedIdolDetails, selectedIdolId]
+    [control, onSubmit, regulations, selectedIdolDetails, selectedIdolId]
   )
   useEffect(() => {
     setSplitPanelState({

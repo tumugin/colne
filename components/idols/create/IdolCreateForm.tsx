@@ -33,7 +33,7 @@ export function IdolCreateForm({
   onCancel?: () => void
 }) {
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const { control, getValues, formState } = useForm<IdolCreateFormContents>({
+  const { control, getValues, formState, trigger } = useForm<IdolCreateFormContents>({
     defaultValues: {
       name: '',
       status: 'private',
@@ -41,6 +41,7 @@ export function IdolCreateForm({
     mode: 'all',
   })
   const handleOnSubmit = useCallback(async () => {
+    await trigger()
     if (!formState.isValid || isSubmitting) {
       return
     }
