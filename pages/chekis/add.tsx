@@ -101,6 +101,7 @@ const ChekisAdd: NextPage<WithSplitPanelPageProps> = ({
     isSubmitting,
     toastStyles.error,
     toastStyles.success,
+    toastStyles.warning,
     trigger,
   ])
 
@@ -132,6 +133,7 @@ const ChekisAdd: NextPage<WithSplitPanelPageProps> = ({
     ),
     [control, onSubmit, regulations, selectedIdolDetails, selectedIdolId]
   )
+
   useEffect(() => {
     setSplitPanelState({
       splitPanelOpen: true,
