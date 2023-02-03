@@ -2,6 +2,18 @@ import { AppDispatch } from 'store/index'
 import dayjs from 'dayjs'
 import { colneGraphQLSdk } from 'graphql/client'
 import { chekiSlice } from './chekiStore'
+import { AddOrUpdateChekiParamsInput } from 'graphql/generated/client'
+import { useCallback } from 'react'
+
+export async function addCheki(params: AddOrUpdateChekiParamsInput) {
+  await colneGraphQLSdk.AddCheki({ cheki: params })
+}
+
+export function useAddCheki() {
+  return useCallback((params: AddOrUpdateChekiParamsInput) => {
+    return addCheki(params)
+  }, [])
+}
 
 export async function updateCurrentUserChekiIdolCount(
   params: {

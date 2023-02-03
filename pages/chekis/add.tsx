@@ -8,6 +8,10 @@ import { ChekiAddPanel } from 'components/chekis/ChekiAddPanel'
 import { Controller, useForm } from 'react-hook-form'
 import { ChekiAddIdolSelectView } from 'components/chekis/ChekiAddIdolSelectView'
 import { useGetIdolForChekiAdd } from 'store/idol/idolHooks'
+import { useToastTheme } from 'libs/dom/toast-theme-hooks'
+import toast from 'react-hot-toast'
+import { useAddCheki } from 'store/cheki/chekiHooks'
+import dayjs from 'dayjs'
 
 export interface ChekiAddContents {
   idolId: string
@@ -17,19 +21,20 @@ export interface ChekiAddContents {
 }
 
 const ChekisAdd: NextPage<WithSplitPanelPageProps> = ({
-  splitPanelState,
   setSplitPanelState,
 }) => {
+  const toastStyles = useToastTheme()
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const { control, watch, trigger } = useForm<ChekiAddContents>({
-    defaultValues: {
-      idolId: '',
-      chekiQuantity: 1,
-      regulationId: null,
-      chekiShotAt: '',
-    },
-    mode: 'all',
-  })
+  const { control, watch, trigger, formState, getValues } =
+    useForm<ChekiAddContents>({
+      defaultValues: {
+        idolId: '',
+        chekiQuantity: 1,
+        regulationId: null,
+        chekiShotAt: '',
+      },
+      mode: 'all',
+    })
   const getIdolForChekiAdd = useGetIdolForChekiAdd()
 
   const selectedIdolId = watch('idolId')
@@ -56,9 +61,49 @@ const ChekisAdd: NextPage<WithSplitPanelPageProps> = ({
     [selectedIdolDetails?.groups]
   )
 
+  const addCheki = useAddCheki()
+
   const onSubmit = useCallback(async () => {
     await trigger()
-  }, [trigger])
+    if (!formState.isValid) {
+      toast('入力項目に不足があります！', {
+        icon: '🚨',
+        style: toastStyles.warning,
+      })
+      return
+    }
+    if (isSubmitting) {
+      return
+    }
+    setIsSubmitting(true)
+    const formValues = getValues()
+    try {
+      await addCheki({
+        chekiQuantity: formValues.chekiQuantity,
+        chekiShotAt: dayjs(formValues.chekiShotAt).toISOString(),
+        regulationId: formValues.regulationId,
+        idolId: formValues.idolId,
+      })
+      toast('チェキを追加しました！', {
+        icon: '👏',
+        style: toastStyles.success,
+      })
+    } catch (e) {
+      toast('エラーが発生しました', { icon: '😭', style: toastStyles.error })
+      throw e
+    } finally {
+      setIsSubmitting(false)
+    }
+  }, [
+    addCheki,
+    formState.isValid,
+    getValues,
+    isSubmitting,
+    toastStyles.error,
+    toastStyles.success,
+    toastStyles.warning,
+    trigger,
+  ])
 
   const splitPanelUI = useMemo(
     () => (
@@ -88,6 +133,7 @@ const ChekisAdd: NextPage<WithSplitPanelPageProps> = ({
     ),
     [control, onSubmit, regulations, selectedIdolDetails, selectedIdolId]
   )
+
   useEffect(() => {
     setSplitPanelState({
       splitPanelOpen: true,
@@ -103,6 +149,7 @@ const ChekisAdd: NextPage<WithSplitPanelPageProps> = ({
 
   return (
     <Controller
+      rules={{ required: 'アイドルを必ず指定してください' }}
       render={({ field }) => (
         <ChekiAddIdolSelectView
           selectedIdolId={field.value}

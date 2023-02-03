@@ -1,0 +1,7 @@
+mutation AddCheki($cheki: AddOrUpdateChekiParamsInput!) {
+  cheki {
+    addCheki(params: $cheki) {
+      chekiId
+    }
+  }
+}
