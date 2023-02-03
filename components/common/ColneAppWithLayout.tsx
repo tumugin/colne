@@ -7,6 +7,7 @@ import { ColneSideNavigation } from 'components/common/ColneSideNavigation'
 import { useRouter } from 'next/router'
 import { loginPath } from 'utils/urls'
 import { useLogoutForm } from 'components/common/LogoutForm'
+import { Toaster } from 'react-hot-toast'
 
 interface SplitPanelProps {
   children: React.ReactNode
@@ -36,6 +37,7 @@ export function ColneAppWithLayout({ Component, pageProps }: AppProps) {
 
   return (
     <>
+      <Toaster />
       {logoutFormElement}
       <TopNavigation
         identity={{

@@ -535,6 +535,18 @@ export type UserSerializer = {
   userUpdatedAt: Scalars['String']
 }
 
+export type AddChekiMutationVariables = Exact<{
+  cheki: AddOrUpdateChekiParamsInput
+}>
+
+export type AddChekiMutation = {
+  __typename?: 'Mutation'
+  cheki: {
+    __typename?: 'ChekiMutationServices'
+    addCheki: { __typename?: 'ChekiSerializer'; chekiId: string }
+  }
+}
+
 export type AddIdolMutationVariables = Exact<{
   idol: AddOrUpdateIdolParamsInput
 }>
@@ -738,6 +750,15 @@ export type GetUserCreatedIdolListQuery = {
   }
 }
 
+export const AddChekiDocument = gql`
+  mutation AddCheki($cheki: AddOrUpdateChekiParamsInput!) {
+    cheki {
+      addCheki(params: $cheki) {
+        chekiId
+      }
+    }
+  }
+`
 export const AddIdolDocument = gql`
   mutation AddIdol($idol: AddOrUpdateIdolParamsInput!) {
     idol {
@@ -927,6 +948,20 @@ export function getSdk(
   withWrapper: SdkFunctionWrapper = defaultWrapper
 ) {
   return {
+    AddCheki(
+      variables: AddChekiMutationVariables,
+      requestHeaders?: Dom.RequestInit['headers']
+    ): Promise<AddChekiMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<AddChekiMutation>(AddChekiDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'AddCheki',
+        'mutation'
+      )
+    },
     AddIdol(
       variables: AddIdolMutationVariables,
       requestHeaders?: Dom.RequestInit['headers']
