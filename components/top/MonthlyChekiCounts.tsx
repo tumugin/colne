@@ -1,6 +1,12 @@
-import { Box, Container, Header } from '@cloudscape-design/components'
+import {
+  Box,
+  Container,
+  Header,
+  SpaceBetween,
+} from '@cloudscape-design/components'
 import styled from 'styled-components'
 import * as awsui from '@cloudscape-design/design-tokens'
+import React from 'react'
 
 const ContentGrid = styled.div`
   display: grid;
@@ -19,6 +25,11 @@ const ContentGrid = styled.div`
 
 const IdolChekiCount = styled(Container)`
   width: 100%;
+`
+
+const BottomAlignText = styled(SpaceBetween)`
+  align-items: flex-end;
+  justify-content: center;
 `
 
 export function MonthlyChekiCounts({
@@ -49,9 +60,12 @@ export function MonthlyChekiCounts({
                 </Header>
               }
             >
-              <Box fontSize="heading-m" textAlign="center">
-                {chekiCount.chekiCount}枚
-              </Box>
+              <BottomAlignText size="xs" direction="horizontal">
+                <Box fontSize="display-l" textAlign="center">
+                  {chekiCount.chekiCount}
+                </Box>
+                <Box fontSize="heading-xl">枚</Box>
+              </BottomAlignText>
             </IdolChekiCount>
           ))}
         </ContentGrid>

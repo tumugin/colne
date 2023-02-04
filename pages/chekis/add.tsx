@@ -141,7 +141,7 @@ const ChekisAdd: NextPage<WithSplitPanelPageProps> = ({
     })
     return () => {
       setSplitPanelState({
-        splitPanelOpen: false,
+        splitPanelOpen: true,
         children: null,
       })
     }

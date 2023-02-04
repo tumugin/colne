@@ -1,5 +1,6 @@
 import React from 'react'
 import { Box, Table } from '@cloudscape-design/components'
+import dayjs from 'dayjs'
 
 export function IdolChekiListView({
   isLoading,
@@ -37,7 +38,7 @@ export function IdolChekiListView({
         {
           id: 'date',
           header: 'チェキ撮影日',
-          cell: (e) => e.chekiShotAt,
+          cell: (e) => dayjs(e.chekiShotAt).format('YYYY/MM/DD'),
         },
         {
           id: 'count',
