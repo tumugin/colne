@@ -106,7 +106,8 @@ export function IdolCreateForm({
                 >
                   <Select
                     selectedOption={
-                      idolStatusOptions.find((x) => x.value === field.value)!
+                      idolStatusOptions.find((x) => x.value === field.value) ??
+                      null
                     }
                     onChange={({ detail }) =>
                       field.onChange(detail.selectedOption.value)
