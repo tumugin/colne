@@ -49,7 +49,7 @@ export function IdolCreateForm({
     setIsSubmitting(true)
     onSubmit && (await onSubmit(getValues()))
     setIsSubmitting(false)
-  }, [formState.isValid, getValues, isSubmitting, onSubmit])
+  }, [formState.isValid, getValues, isSubmitting, onSubmit, trigger])
 
   return (
     <Container header={<Header variant="h2">アイドルを新しく登録する</Header>}>
