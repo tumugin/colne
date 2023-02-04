@@ -9,21 +9,13 @@ import {
   Select,
   SpaceBetween,
 } from '@cloudscape-design/components'
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 
 export interface IdolCreateFormContents {
   name: string
   status: 'private' | 'public'
 }
-
-const idolStatusOptions: {
-  label: string
-  value: IdolCreateFormContents['status']
-}[] = [
-  { label: '非公開', value: 'private' },
-  { label: '公開', value: 'public' },
-]
 
 export function IdolCreateForm({
   onSubmit,
@@ -32,6 +24,16 @@ export function IdolCreateForm({
   onSubmit?: (data: IdolCreateFormContents) => Promise<unknown> | void
   onCancel?: () => void
 }) {
+  const idolStatusOptions: {
+    label: string
+    value: IdolCreateFormContents['status']
+  }[] = useMemo(
+    () => [
+      { label: '非公開', value: 'private' },
+      { label: '公開', value: 'public' },
+    ],
+    []
+  )
   const [isSubmitting, setIsSubmitting] = useState(false)
   const { control, getValues, formState, trigger } =
     useForm<IdolCreateFormContents>({
@@ -49,7 +51,7 @@ export function IdolCreateForm({
     setIsSubmitting(true)
     onSubmit && (await onSubmit(getValues()))
     setIsSubmitting(false)
-  }, [formState.isValid, getValues, isSubmitting, onSubmit])
+  }, [formState.isValid, getValues, isSubmitting, onSubmit, trigger])
 
   return (
     <Container header={<Header variant="h2">アイドルを新しく登録する</Header>}>
@@ -106,13 +108,16 @@ export function IdolCreateForm({
                 >
                   <Select
                     selectedOption={
-                      idolStatusOptions.find((x) => x.value === field.value)!
+                      idolStatusOptions.find((x) => x.value === field.value) ??
+                      null
                     }
                     onChange={({ detail }) =>
                       field.onChange(detail.selectedOption.value)
                     }
                     options={idolStatusOptions}
                     invalid={!!fieldState.error}
+                    // FIXME: ライブラリのバグでこれを指定しないとproductionビルド時にエラーになる
+                    renderHighlightedAriaLive={() => ''}
                   />
                 </FormField>
               )}
