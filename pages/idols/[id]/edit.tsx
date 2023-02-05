@@ -6,13 +6,38 @@ import { NextPage } from 'next'
 import { wrapper } from 'store'
 import { getIdol } from 'store/idol/idolHooks'
 import { getRequestHeaderFromContext } from 'utils/headers'
+import { useRouter } from 'next/router'
+import { useCallback } from 'react'
+import {
+  IdolEditOrCreateForm,
+  IdolEditOrCreateFormContents,
+} from 'components/idols/IdolEditOrCreateForm'
 
 interface Props extends ErrorAwarePageProps {
   idolId: string
 }
 
 const IdolEdit: NextPage<Props> = (props) => {
-  return <></>
+  const router = useRouter()
+  const handleOnCancel = useCallback(() => {
+    router.back()
+  }, [router])
+  const handleOnEditIdol = useCallback(
+    async (idol: IdolEditOrCreateFormContents) => {
+      // TODO
+    },
+    []
+  )
+
+  return (
+    <IdolEditOrCreateForm
+      onSubmit={handleOnEditIdol}
+      onCancel={handleOnCancel}
+      // TODO
+      initialValue={undefined}
+      isEdit
+    />
+  )
 }
 
 IdolEdit.getInitialProps = wrapper.getInitialPageProps(
