@@ -12,21 +12,25 @@ import {
 import React, { useCallback, useMemo, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 
-export interface IdolCreateFormContents {
+export interface IdolEditOrCreateFormContents {
   name: string
   status: 'private' | 'public'
 }
 
-export function IdolCreateForm({
+export function IdolEditOrCreateForm({
+  isEdit,
   onSubmit,
+  initialValue,
   onCancel,
 }: {
-  onSubmit?: (data: IdolCreateFormContents) => Promise<unknown> | void
+  isEdit?: boolean
+  initialValue?: IdolEditOrCreateFormContents
+  onSubmit?: (data: IdolEditOrCreateFormContents) => Promise<unknown> | void
   onCancel?: () => void
 }) {
   const idolStatusOptions: {
     label: string
-    value: IdolCreateFormContents['status']
+    value: IdolEditOrCreateFormContents['status']
   }[] = useMemo(
     () => [
       { label: '非公開', value: 'private' },
@@ -36,10 +40,10 @@ export function IdolCreateForm({
   )
   const [isSubmitting, setIsSubmitting] = useState(false)
   const { control, getValues, formState, trigger } =
-    useForm<IdolCreateFormContents>({
+    useForm<IdolEditOrCreateFormContents>({
       defaultValues: {
-        name: '',
-        status: 'private',
+        name: initialValue?.name ?? '',
+        status: initialValue?.status ?? 'private',
       },
       mode: 'all',
     })
@@ -54,7 +58,13 @@ export function IdolCreateForm({
   }, [formState.isValid, getValues, isSubmitting, onSubmit, trigger])
 
   return (
-    <Container header={<Header variant="h2">アイドルを新しく登録する</Header>}>
+    <Container
+      header={
+        <Header variant="h2">
+          {isEdit ? 'アイドルを編集する' : 'アイドルを新しく登録する'}
+        </Header>
+      }
+    >
       <form
         onSubmit={(e) => {
           e.preventDefault()
