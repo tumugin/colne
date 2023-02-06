@@ -7,7 +7,7 @@ import { useAppSelector, wrapper } from 'store'
 import { getIdol, useUpdateIdol } from 'store/idol/idolHooks'
 import { getRequestHeaderFromContext } from 'utils/headers'
 import { useRouter } from 'next/router'
-import { useCallback } from 'react'
+import React, { useCallback } from 'react'
 import {
   IdolEditOrCreateForm,
   IdolEditOrCreateFormContents,
@@ -18,6 +18,7 @@ import {
 } from 'utils/map-idol-statuses'
 import { IdolStatus } from 'graphql/generated/client'
 import { Alert } from '@cloudscape-design/components'
+import Error from 'next/error'
 
 interface Props extends ErrorAwarePageProps {
   idolId: string
@@ -40,6 +41,10 @@ const IdolEdit: NextPage<Props> = (props) => {
     },
     [props.idolId, router, updateIdol]
   )
+
+  if (props.error) {
+    return <Error statusCode={props.error.statusCode} />
+  }
 
   if (!idol) {
     return null
