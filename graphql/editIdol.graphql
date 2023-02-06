@@ -1,20 +1,20 @@
 mutation EditIdol($idolId: ID!, $idol: AddOrUpdateIdolParamsInput!) {
   idol {
     updateIdol(idolId: $idolId, params: $idol) {
-        idolCreatedAt
-        idolId
-        idolName
-        idolStatus
-        idolUpdatedAt
+      idolCreatedAt
+      idolId
+      idolName
+      idolStatus
+      idolUpdatedAt
+      userId
+      groups {
+        groupName
+        groupId
+      }
+      user {
         userId
-        groups {
-            groupName
-            groupId
-        }
-        user {
-            userId
-            userName
-        }
+        userName
+      }
     }
   }
 }
