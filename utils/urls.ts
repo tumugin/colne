@@ -6,6 +6,10 @@ export function idolDetailPage(idolId: string) {
   return `/idols/${idolId}`
 }
 
+export function idolEditPage(idolId: string) {
+  return `/idols/${idolId}/edit`
+}
+
 export function loginPathWithReturnToURL(redirectPath: string) {
   return loginPath + '?return_to=' + encodeURI(redirectPath)
 }
