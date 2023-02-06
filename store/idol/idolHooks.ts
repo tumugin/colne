@@ -2,6 +2,7 @@ import { AppDispatch, useAppDispatch } from 'store/index'
 import { colneGraphQLSdk } from 'graphql/client'
 import {
   AddIdolMutationVariables,
+  AddOrUpdateIdolParamsInput,
   GetIdolDetailsForChekiAddQueryVariables,
   GetIdolQueryVariables,
   GetUserCreatedIdolListQueryVariables,
@@ -57,6 +58,37 @@ export function useGetIdol() {
   return useCallback(
     (params: GetIdolQueryVariables) => {
       return getIdol(dispatch, params)
+    },
+    [dispatch]
+  )
+}
+
+export async function updateIdol(
+  dispatch: AppDispatch,
+  idolId: string,
+  params: AddOrUpdateIdolParamsInput,
+  headers?: Record<string, string>
+) {
+  const idol = await colneGraphQLSdk.EditIdol(
+    {
+      idolId,
+      idol: params,
+    },
+    headers
+  )
+  await dispatch(
+    idolSlice.actions.updateOrAddIdol({
+      ...idol.idol.updateIdol,
+      groups: idol.idol.updateIdol.groups.filter(nonNullable),
+    })
+  )
+}
+
+export function useUpdateIdol() {
+  const dispatch = useAppDispatch()
+  return useCallback(
+    (idolId: string, params: AddOrUpdateIdolParamsInput) => {
+      return updateIdol(dispatch, idolId, params)
     },
     [dispatch]
   )

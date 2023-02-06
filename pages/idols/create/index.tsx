@@ -8,9 +8,9 @@ import {
 } from 'components/idols/IdolEditOrCreateForm'
 import React, { useCallback } from 'react'
 import { useAddIdol } from 'store/idol/idolHooks'
-import { IdolStatus } from 'graphql/generated/client'
 import { useRouter } from 'next/router'
 import { idolDetailPage } from 'utils/urls'
+import { mapEditorIdolStatusToGraphQlType } from 'utils/map-idol-statuses'
 
 const IdolCreate: NextPage = () => {
   const router = useRouter()
@@ -23,10 +23,7 @@ const IdolCreate: NextPage = () => {
       const result = await addIdol({
         idol: {
           idolName: idol.name,
-          idolStatus:
-            idol.status === 'public'
-              ? IdolStatus.PublicActive
-              : IdolStatus.PrivateActive,
+          idolStatus: mapEditorIdolStatusToGraphQlType(idol.status),
         },
       })
       await router.push(idolDetailPage(result.idolId))

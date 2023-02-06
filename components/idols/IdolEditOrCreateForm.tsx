@@ -14,7 +14,11 @@ import { Controller, useForm } from 'react-hook-form'
 
 export interface IdolEditOrCreateFormContents {
   name: string
-  status: 'private' | 'public'
+  status:
+    | 'private_active'
+    | 'private_not_active'
+    | 'public_active'
+    | 'public_not_active'
 }
 
 export function IdolEditOrCreateForm({
@@ -32,18 +36,26 @@ export function IdolEditOrCreateForm({
     label: string
     value: IdolEditOrCreateFormContents['status']
   }[] = useMemo(
-    () => [
-      { label: '非公開', value: 'private' },
-      { label: '公開', value: 'public' },
-    ],
-    []
+    () =>
+      !isEdit
+        ? [
+            { label: '非公開', value: 'private_active' },
+            { label: '公開', value: 'public_not_active' },
+          ]
+        : [
+            { label: '非公開(活動中)', value: 'private_active' },
+            { label: '非公開(休止中)', value: 'private_not_active' },
+            { label: '公開(活動中)', value: 'public_active' },
+            { label: '公開(休止中)', value: 'public_not_active' },
+          ],
+    [isEdit]
   )
   const [isSubmitting, setIsSubmitting] = useState(false)
   const { control, getValues, formState, trigger } =
     useForm<IdolEditOrCreateFormContents>({
       defaultValues: {
         name: initialValue?.name ?? '',
-        status: initialValue?.status ?? 'private',
+        status: initialValue?.status ?? 'private_active',
       },
       mode: 'all',
     })
