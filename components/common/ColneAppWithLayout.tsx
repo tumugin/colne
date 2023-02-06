@@ -1,5 +1,5 @@
 import { AppProps } from 'next/app'
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { AppLayout, TopNavigation } from '@cloudscape-design/components'
 import { useAppSelector } from 'store'
 import { useCSRFToken } from 'store/common/commonHooks'
@@ -35,6 +35,13 @@ export function ColneAppWithLayout({ Component, pageProps }: AppProps) {
     children: <></>,
     splitPanelOpen: false,
   })
+
+  // FIXME: SSRするとナビゲーション周りでhydrationが壊れるのでworkaround
+  // cloudscape-design〜〜〜〜なんとかしてくれ〜〜〜〜〜
+  const [isNavigationInitialized, setIsNavigationInitialized] = useState(false)
+  useEffect(() => {
+    setIsNavigationInitialized(true)
+  }, [])
 
   return (
     <>
@@ -87,6 +94,7 @@ export function ColneAppWithLayout({ Component, pageProps }: AppProps) {
           />
         }
         onNavigationChange={toggleNavigation}
+        navigationHide={!isNavigationInitialized}
         navigationOpen={navigationOpen}
         navigation={
           <ColneSideNavigation isLoggedIn={isLoggedIn} csrfToken={csrfToken} />
