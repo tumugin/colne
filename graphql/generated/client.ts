@@ -571,6 +571,37 @@ export type AddIdolMutation = {
   }
 }
 
+export type EditIdolMutationVariables = Exact<{
+  idolId: Scalars['ID']
+  idol: AddOrUpdateIdolParamsInput
+}>
+
+export type EditIdolMutation = {
+  __typename?: 'Mutation'
+  idol: {
+    __typename?: 'IdolMutationServices'
+    updateIdol: {
+      __typename?: 'IdolSerializer'
+      idolCreatedAt: string
+      idolId: string
+      idolName: string
+      idolStatus: IdolStatus
+      idolUpdatedAt: string
+      userId?: string | null
+      groups: Array<{
+        __typename?: 'GroupSerializer'
+        groupName: string
+        groupId: string
+      } | null>
+      user?: {
+        __typename?: 'LimitedUserSerializer'
+        userId: string
+        userName: string
+      } | null
+    }
+  }
+}
+
 export type GetCsrfTokenQueryVariables = Exact<{ [key: string]: never }>
 
 export type GetCsrfTokenQuery = { __typename?: 'Query'; getCsrfToken: string }
@@ -776,6 +807,28 @@ export const AddIdolDocument = gql`
     }
   }
 `
+export const EditIdolDocument = gql`
+  mutation EditIdol($idolId: ID!, $idol: AddOrUpdateIdolParamsInput!) {
+    idol {
+      updateIdol(idolId: $idolId, params: $idol) {
+        idolCreatedAt
+        idolId
+        idolName
+        idolStatus
+        idolUpdatedAt
+        userId
+        groups {
+          groupName
+          groupId
+        }
+        user {
+          userId
+          userName
+        }
+      }
+    }
+  }
+`
 export const GetCsrfTokenDocument = gql`
   query GetCSRFToken {
     getCsrfToken
@@ -973,6 +1026,20 @@ export function getSdk(
             ...wrappedRequestHeaders,
           }),
         'AddIdol',
+        'mutation'
+      )
+    },
+    EditIdol(
+      variables: EditIdolMutationVariables,
+      requestHeaders?: Dom.RequestInit['headers']
+    ): Promise<EditIdolMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<EditIdolMutation>(EditIdolDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'EditIdol',
         'mutation'
       )
     },

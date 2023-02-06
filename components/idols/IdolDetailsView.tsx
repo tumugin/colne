@@ -9,6 +9,9 @@ import {
 } from '@cloudscape-design/components'
 import React from 'react'
 import { IdolStatusBadge } from 'components/idols/IdolStatusBadge'
+import { idolEditPage } from 'utils/urls'
+import { onFollowNextLink } from 'utils/router'
+import { useRouter } from 'next/router'
 
 export function IdolDetailsView({
   idol,
@@ -28,12 +31,24 @@ export function IdolDetailsView({
   }
   currentUserId?: string
 }) {
+  const router = useRouter()
+
   return (
     <Container
       header={
         <Header
           variant="h2"
-          actions={<Button variant="primary">アイドルを編集する</Button>}
+          actions={
+            <Button
+              href={idolEditPage(idol.id)}
+              variant="primary"
+              onFollow={(e) =>
+                onFollowNextLink(router, e, idolEditPage(idol.id))
+              }
+            >
+              アイドルを編集する
+            </Button>
+          }
         >
           {idol.name}
         </Header>

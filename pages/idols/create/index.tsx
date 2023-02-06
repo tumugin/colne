@@ -3,14 +3,14 @@ import { wrapper } from 'store'
 import { redirectIfNotLoggedIn } from 'utils/no-login-redirect'
 import { ContentLayout } from '@cloudscape-design/components'
 import {
-  IdolCreateForm,
-  IdolCreateFormContents,
-} from 'components/idols/create/IdolCreateForm'
+  IdolEditOrCreateForm,
+  IdolEditOrCreateFormContents,
+} from 'components/idols/IdolEditOrCreateForm'
 import React, { useCallback } from 'react'
 import { useAddIdol } from 'store/idol/idolHooks'
-import { IdolStatus } from 'graphql/generated/client'
 import { useRouter } from 'next/router'
 import { idolDetailPage } from 'utils/urls'
+import { mapEditorIdolStatusToGraphQlType } from 'utils/map-idol-statuses'
 
 const IdolCreate: NextPage = () => {
   const router = useRouter()
@@ -19,14 +19,11 @@ const IdolCreate: NextPage = () => {
   }, [router])
   const addIdol = useAddIdol()
   const handleOnAddIdol = useCallback(
-    async (idol: IdolCreateFormContents) => {
+    async (idol: IdolEditOrCreateFormContents) => {
       const result = await addIdol({
         idol: {
           idolName: idol.name,
-          idolStatus:
-            idol.status === 'public'
-              ? IdolStatus.PublicActive
-              : IdolStatus.PrivateActive,
+          idolStatus: mapEditorIdolStatusToGraphQlType(idol.status),
         },
       })
       await router.push(idolDetailPage(result.idolId))
@@ -36,7 +33,10 @@ const IdolCreate: NextPage = () => {
 
   return (
     <ContentLayout>
-      <IdolCreateForm onCancel={handleOnCancel} onSubmit={handleOnAddIdol} />
+      <IdolEditOrCreateForm
+        onCancel={handleOnCancel}
+        onSubmit={handleOnAddIdol}
+      />
     </ContentLayout>
   )
 }

@@ -62,7 +62,7 @@ export function IdolChekiListView({
       items={chekis}
       loadingText="読み込み中"
       loading={isLoading}
-      trackBy="id"
+      trackBy="chekiId"
       empty={
         <Box textAlign="center" color="inherit">
           <b>撮影されたチェキがありません</b>

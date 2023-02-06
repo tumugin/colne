@@ -5,7 +5,6 @@ export async function onFollowNextLink(
   event: CustomEvent<{ href: string | undefined } | null>,
   path?: string
 ) {
-  console.log(event)
   event.preventDefault()
   await router.push(path || event.detail?.href || neverLink())
 }
