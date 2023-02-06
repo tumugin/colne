@@ -36,7 +36,10 @@ const IdolCreate: NextPage = () => {
 
   return (
     <ContentLayout>
-      <IdolEditOrCreateForm onCancel={handleOnCancel} onSubmit={handleOnAddIdol} />
+      <IdolEditOrCreateForm
+        onCancel={handleOnCancel}
+        onSubmit={handleOnAddIdol}
+      />
     </ContentLayout>
   )
 }
