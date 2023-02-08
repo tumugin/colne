@@ -10,7 +10,6 @@ import {
 import { idolSlice } from 'store/idol/idolStore'
 import { nonNullable } from 'utils/array'
 import { mapAisuExceptionToColneExceptionAndThrow } from 'exceptions/graphql-exceptions'
-import { useDispatch } from 'react-redux'
 import { useCallback } from 'react'
 
 export async function addIdol(
@@ -146,6 +145,25 @@ export function useGetIdolForChekiAdd() {
   return useCallback(
     (params: GetIdolDetailsForChekiAddQueryVariables) => {
       return getIdolForChekiAdd(dispatch, params)
+    },
+    [dispatch]
+  )
+}
+
+export async function deleteIdol(
+  dispatch: AppDispatch,
+  idolId: string,
+  headers?: Record<string, string>
+) {
+  await colneGraphQLSdk.DeleteIdol({ id: idolId }, headers)
+  await dispatch(idolSlice.actions.deleteIdol({ idolId }))
+}
+
+export function useDeleteIdol() {
+  const dispatch = useAppDispatch()
+  return useCallback(
+    (idolId: string) => {
+      return deleteIdol(dispatch, idolId)
     },
     [dispatch]
   )

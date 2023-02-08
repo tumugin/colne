@@ -101,5 +101,9 @@ export const idolSlice = createSlice({
       state.userCreatedIdols.isLoaded = false
       state.userCreatedIdols.idols = []
     },
+    deleteIdol(state, action: PayloadAction<{ idolId: string }>) {
+      delete state.idols[action.payload.idolId]
+      delete state.idolForChekiAdd[action.payload.idolId]
+    },
   },
 })
