@@ -571,6 +571,15 @@ export type AddIdolMutation = {
   }
 }
 
+export type DeleteIdolMutationVariables = Exact<{
+  id: Scalars['ID']
+}>
+
+export type DeleteIdolMutation = {
+  __typename?: 'Mutation'
+  idol: { __typename?: 'IdolMutationServices'; deleteIdol: string }
+}
+
 export type EditIdolMutationVariables = Exact<{
   idolId: Scalars['ID']
   idol: AddOrUpdateIdolParamsInput
@@ -807,6 +816,13 @@ export const AddIdolDocument = gql`
     }
   }
 `
+export const DeleteIdolDocument = gql`
+  mutation DeleteIdol($id: ID!) {
+    idol {
+      deleteIdol(idolId: $id)
+    }
+  }
+`
 export const EditIdolDocument = gql`
   mutation EditIdol($idolId: ID!, $idol: AddOrUpdateIdolParamsInput!) {
     idol {
@@ -1026,6 +1042,20 @@ export function getSdk(
             ...wrappedRequestHeaders,
           }),
         'AddIdol',
+        'mutation'
+      )
+    },
+    DeleteIdol(
+      variables: DeleteIdolMutationVariables,
+      requestHeaders?: Dom.RequestInit['headers']
+    ): Promise<DeleteIdolMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<DeleteIdolMutation>(DeleteIdolDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'DeleteIdol',
         'mutation'
       )
     },

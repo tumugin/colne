@@ -4,7 +4,7 @@ import {
 } from 'utils/error-aware-page-utils'
 import { NextPage } from 'next'
 import { useAppSelector, wrapper } from 'store'
-import { getIdol, useUpdateIdol } from 'store/idol/idolHooks'
+import { getIdol, useDeleteIdol, useUpdateIdol } from 'store/idol/idolHooks'
 import { getRequestHeaderFromContext } from 'utils/headers'
 import { useRouter } from 'next/router'
 import React, { useCallback } from 'react'
@@ -19,6 +19,7 @@ import {
 import { IdolStatus } from 'graphql/generated/client'
 import { Alert } from '@cloudscape-design/components'
 import Error from 'next/error'
+import { userCreatedIdolListPath } from 'utils/urls'
 
 interface Props extends ErrorAwarePageProps {
   idolId: string
@@ -41,6 +42,11 @@ const IdolEdit: NextPage<Props> = (props) => {
     },
     [props.idolId, router, updateIdol]
   )
+  const deleteIdol = useDeleteIdol()
+  const handleOnDelete = useCallback(async () => {
+    await deleteIdol(props.idolId)
+    await router.push(userCreatedIdolListPath)
+  }, [deleteIdol, props.idolId, router])
 
   if (props.error) {
     return <Error statusCode={props.error.statusCode} />
@@ -66,6 +72,7 @@ const IdolEdit: NextPage<Props> = (props) => {
         name: idol.idolName,
         status: GraphQlTypeToEditorIdolStatus(idol.idolStatus),
       }}
+      onDelete={handleOnDelete}
       isEdit
     />
   )
