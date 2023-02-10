@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 enum GroupStatus {
   OperationDeleted = 'OPERATION_DELETED',
@@ -55,5 +55,23 @@ const initialState: State = {
 export const groupSlice = createSlice({
   name: 'group',
   initialState,
-  reducers: {},
+  reducers: {
+    updateOrAddGroup: (state, action: PayloadAction<Group>) => {
+      state.groups[action.payload.groupId] = action.payload
+    },
+    updateUserCreatedGroups(
+      state,
+      action: PayloadAction<State['userCreatedGroups']>
+    ) {
+      state.userCreatedGroups = action.payload
+    },
+    setUserCreatedGroupsToLoading(
+      state,
+      action: PayloadAction<{ page: number }>
+    ) {
+      state.userCreatedGroups.currentPage = action.payload.page
+      state.userCreatedGroups.isLoaded = false
+      state.userCreatedGroups.groups = []
+    },
+  },
 })
