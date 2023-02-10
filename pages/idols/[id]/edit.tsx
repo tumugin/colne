@@ -20,6 +20,7 @@ import { IdolStatus } from 'graphql/generated/client'
 import { Alert } from '@cloudscape-design/components'
 import Error from 'next/error'
 import { userCreatedIdolListPath } from 'utils/urls'
+import { redirectIfNotLoggedIn } from 'utils/no-login-redirect'
 
 interface Props extends ErrorAwarePageProps {
   idolId: string
@@ -81,6 +82,11 @@ const IdolEdit: NextPage<Props> = (props) => {
 IdolEdit.getInitialProps = wrapper.getInitialPageProps(
   (store) =>
     async (ctx): Promise<Props> => {
+      const currentUser = store.getState().user.currentUser
+      if (!currentUser) {
+        await redirectIfNotLoggedIn(ctx)
+      }
+
       const idolId = ctx.query.id as string
       try {
         await getIdol(
