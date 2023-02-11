@@ -809,6 +809,32 @@ export type GetUserChekiIdolCountQuery = {
   }
 }
 
+export type GetUserCreatedGroupListQueryVariables = Exact<{
+  page: Scalars['Int']
+}>
+
+export type GetUserCreatedGroupListQuery = {
+  __typename?: 'Query'
+  currentUserGroups: {
+    __typename?: 'CurrentUserGroups'
+    getGroupsCreatedByUser: {
+      __typename?: 'GroupPaginationSerializer'
+      count: number
+      currentPage: number
+      pageCount: number
+      groups: Array<{
+        __typename?: 'GroupSerializer'
+        groupCreatedAt: string
+        groupId: string
+        groupName: string
+        groupStatus: string
+        groupUpdatedAt: string
+        userId?: string | null
+      }>
+    }
+  }
+}
+
 export type GetUserCreatedIdolListQueryVariables = Exact<{
   page: Scalars['Int']
 }>
@@ -1061,6 +1087,25 @@ export const GetUserChekiIdolCountDocument = gql`
     }
   }
 `
+export const GetUserCreatedGroupListDocument = gql`
+  query GetUserCreatedGroupList($page: Int!) {
+    currentUserGroups {
+      getGroupsCreatedByUser(page: $page) {
+        count
+        currentPage
+        groups {
+          groupCreatedAt
+          groupId
+          groupName
+          groupStatus
+          groupUpdatedAt
+          userId
+        }
+        pageCount
+      }
+    }
+  }
+`
 export const GetUserCreatedIdolListDocument = gql`
   query GetUserCreatedIdolList($page: Int!) {
     currentUserIdols {
@@ -1285,6 +1330,21 @@ export function getSdk(
             { ...requestHeaders, ...wrappedRequestHeaders }
           ),
         'GetUserChekiIdolCount',
+        'query'
+      )
+    },
+    GetUserCreatedGroupList(
+      variables: GetUserCreatedGroupListQueryVariables,
+      requestHeaders?: Dom.RequestInit['headers']
+    ): Promise<GetUserCreatedGroupListQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<GetUserCreatedGroupListQuery>(
+            GetUserCreatedGroupListDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders }
+          ),
+        'GetUserCreatedGroupList',
         'query'
       )
     },
