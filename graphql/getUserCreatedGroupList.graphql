@@ -10,6 +10,10 @@ query GetUserCreatedGroupList($page: Int!) {
         groupStatus
         groupUpdatedAt
         userId
+        user {
+          userId
+          userName
+        }
       }
       pageCount
     }

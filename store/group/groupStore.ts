@@ -18,7 +18,7 @@ interface Group {
     userId: string
     userName: string
   } | null
-  idols: {
+  idols?: {
     idolId: string
     idolName: string
     groups: {
@@ -37,7 +37,7 @@ interface State {
     count: number | null
     currentPage: number
     pageCount: number | null
-    groups: []
+    groups: Group[]
   }
 }
 

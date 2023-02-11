@@ -7,6 +7,19 @@ mutation EditGroup($groupId: ID!, $group: AddOrUpdateGroupParamsInput!) {
       groupStatus
       groupUpdatedAt
       userId
+      user {
+        userId
+        userName
+      }
+      regulations {
+        regulationComment
+        regulationCreatedAt
+        regulationId
+        regulationName
+        regulationStatus
+        regulationUnitPrice
+        regulationUpdatedAt
+      }
     }
   }
 }

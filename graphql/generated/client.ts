@@ -626,6 +626,21 @@ export type EditGroupMutation = {
       groupStatus: string
       groupUpdatedAt: string
       userId?: string | null
+      user?: {
+        __typename?: 'LimitedUserSerializer'
+        userId: string
+        userName: string
+      } | null
+      regulations: Array<{
+        __typename?: 'RegulationSerializer'
+        regulationComment: string
+        regulationCreatedAt: string
+        regulationId: string
+        regulationName: string
+        regulationStatus: string
+        regulationUnitPrice: number
+        regulationUpdatedAt: string
+      }>
     }
   }
 }
@@ -830,6 +845,11 @@ export type GetUserCreatedGroupListQuery = {
         groupStatus: string
         groupUpdatedAt: string
         userId?: string | null
+        user?: {
+          __typename?: 'LimitedUserSerializer'
+          userId: string
+          userName: string
+        } | null
       }>
     }
   }
@@ -930,6 +950,19 @@ export const EditGroupDocument = gql`
         groupStatus
         groupUpdatedAt
         userId
+        user {
+          userId
+          userName
+        }
+        regulations {
+          regulationComment
+          regulationCreatedAt
+          regulationId
+          regulationName
+          regulationStatus
+          regulationUnitPrice
+          regulationUpdatedAt
+        }
       }
     }
   }
@@ -1100,6 +1133,10 @@ export const GetUserCreatedGroupListDocument = gql`
           groupStatus
           groupUpdatedAt
           userId
+          user {
+            userId
+            userName
+          }
         }
         pageCount
       }
