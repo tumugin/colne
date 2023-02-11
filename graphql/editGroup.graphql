@@ -20,6 +20,18 @@ mutation EditGroup($groupId: ID!, $group: AddOrUpdateGroupParamsInput!) {
         regulationUnitPrice
         regulationUpdatedAt
       }
+      idols {
+        idolCreatedAt
+        idolId
+        idolName
+        idolStatus
+        idolUpdatedAt
+        user {
+          userId
+          userName
+        }
+        userId
+      }
     }
   }
 }

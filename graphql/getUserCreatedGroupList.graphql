@@ -14,6 +14,18 @@ query GetUserCreatedGroupList($page: Int!) {
           userId
           userName
         }
+        idols {
+          idolCreatedAt
+          idolId
+          idolName
+          idolStatus
+          idolUpdatedAt
+          user {
+            userId
+            userName
+          }
+          userId
+        }
       }
       pageCount
     }

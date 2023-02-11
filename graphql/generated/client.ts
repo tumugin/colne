@@ -304,6 +304,7 @@ export type GroupSerializer = {
   groupName: Scalars['String']
   groupStatus: Scalars['String']
   groupUpdatedAt: Scalars['String']
+  idols: Array<Maybe<IdolSerializer>>
   regulations: Array<RegulationSerializer>
   user?: Maybe<LimitedUserSerializer>
   userId?: Maybe<Scalars['ID']>
@@ -641,6 +642,20 @@ export type EditGroupMutation = {
         regulationUnitPrice: number
         regulationUpdatedAt: string
       }>
+      idols: Array<{
+        __typename?: 'IdolSerializer'
+        idolCreatedAt: string
+        idolId: string
+        idolName: string
+        idolStatus: IdolStatus
+        idolUpdatedAt: string
+        userId?: string | null
+        user?: {
+          __typename?: 'LimitedUserSerializer'
+          userId: string
+          userName: string
+        } | null
+      } | null>
     }
   }
 }
@@ -693,6 +708,52 @@ export type GetCurrentUserQuery = {
     userName: string
     userUpdatedAt: string
   } | null
+}
+
+export type GetGroupQueryVariables = Exact<{
+  groupId: Scalars['ID']
+}>
+
+export type GetGroupQuery = {
+  __typename?: 'Query'
+  getGroup: {
+    __typename?: 'GroupSerializer'
+    groupCreatedAt: string
+    groupId: string
+    groupName: string
+    groupStatus: string
+    groupUpdatedAt: string
+    userId?: string | null
+    user?: {
+      __typename?: 'LimitedUserSerializer'
+      userId: string
+      userName: string
+    } | null
+    regulations: Array<{
+      __typename?: 'RegulationSerializer'
+      regulationComment: string
+      regulationCreatedAt: string
+      regulationId: string
+      regulationName: string
+      regulationStatus: string
+      regulationUnitPrice: number
+      regulationUpdatedAt: string
+    }>
+    idols: Array<{
+      __typename?: 'IdolSerializer'
+      idolCreatedAt: string
+      idolId: string
+      idolName: string
+      idolStatus: IdolStatus
+      idolUpdatedAt: string
+      userId?: string | null
+      user?: {
+        __typename?: 'LimitedUserSerializer'
+        userId: string
+        userName: string
+      } | null
+    } | null>
+  }
 }
 
 export type GetIdolQueryVariables = Exact<{
@@ -850,6 +911,20 @@ export type GetUserCreatedGroupListQuery = {
           userId: string
           userName: string
         } | null
+        idols: Array<{
+          __typename?: 'IdolSerializer'
+          idolCreatedAt: string
+          idolId: string
+          idolName: string
+          idolStatus: IdolStatus
+          idolUpdatedAt: string
+          userId?: string | null
+          user?: {
+            __typename?: 'LimitedUserSerializer'
+            userId: string
+            userName: string
+          } | null
+        } | null>
       }>
     }
   }
@@ -963,6 +1038,18 @@ export const EditGroupDocument = gql`
           regulationUnitPrice
           regulationUpdatedAt
         }
+        idols {
+          idolCreatedAt
+          idolId
+          idolName
+          idolStatus
+          idolUpdatedAt
+          user {
+            userId
+            userName
+          }
+          userId
+        }
       }
     }
   }
@@ -1003,6 +1090,43 @@ export const GetCurrentUserDocument = gql`
       userId
       userName
       userUpdatedAt
+    }
+  }
+`
+export const GetGroupDocument = gql`
+  query GetGroup($groupId: ID!) {
+    getGroup(groupId: $groupId) {
+      groupCreatedAt
+      groupId
+      groupName
+      groupStatus
+      groupUpdatedAt
+      userId
+      user {
+        userId
+        userName
+      }
+      regulations {
+        regulationComment
+        regulationCreatedAt
+        regulationId
+        regulationName
+        regulationStatus
+        regulationUnitPrice
+        regulationUpdatedAt
+      }
+      idols {
+        idolCreatedAt
+        idolId
+        idolName
+        idolStatus
+        idolUpdatedAt
+        user {
+          userId
+          userName
+        }
+        userId
+      }
     }
   }
 `
@@ -1136,6 +1260,18 @@ export const GetUserCreatedGroupListDocument = gql`
           user {
             userId
             userName
+          }
+          idols {
+            idolCreatedAt
+            idolId
+            idolName
+            idolStatus
+            idolUpdatedAt
+            user {
+              userId
+              userName
+            }
+            userId
           }
         }
         pageCount
@@ -1308,6 +1444,20 @@ export function getSdk(
             { ...requestHeaders, ...wrappedRequestHeaders }
           ),
         'GetCurrentUser',
+        'query'
+      )
+    },
+    GetGroup(
+      variables: GetGroupQueryVariables,
+      requestHeaders?: Dom.RequestInit['headers']
+    ): Promise<GetGroupQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<GetGroupQuery>(GetGroupDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'GetGroup',
         'query'
       )
     },
