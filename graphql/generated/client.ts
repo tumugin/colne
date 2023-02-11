@@ -547,6 +547,26 @@ export type AddChekiMutation = {
   }
 }
 
+export type AddGroupMutationVariables = Exact<{
+  group: AddOrUpdateGroupParamsInput
+}>
+
+export type AddGroupMutation = {
+  __typename?: 'Mutation'
+  group: {
+    __typename?: 'GroupMutationServices'
+    addGroup: {
+      __typename?: 'GroupSerializer'
+      groupCreatedAt: string
+      groupId: string
+      groupName: string
+      groupStatus: string
+      groupUpdatedAt: string
+      userId?: string | null
+    }
+  }
+}
+
 export type AddIdolMutationVariables = Exact<{
   idol: AddOrUpdateIdolParamsInput
 }>
@@ -571,6 +591,15 @@ export type AddIdolMutation = {
   }
 }
 
+export type DeleteGroupMutationVariables = Exact<{
+  groupId: Scalars['ID']
+}>
+
+export type DeleteGroupMutation = {
+  __typename?: 'Mutation'
+  group: { __typename?: 'GroupMutationServices'; deleteGroup: string }
+}
+
 export type DeleteIdolMutationVariables = Exact<{
   id: Scalars['ID']
 }>
@@ -578,6 +607,27 @@ export type DeleteIdolMutationVariables = Exact<{
 export type DeleteIdolMutation = {
   __typename?: 'Mutation'
   idol: { __typename?: 'IdolMutationServices'; deleteIdol: string }
+}
+
+export type EditGroupMutationVariables = Exact<{
+  groupId: Scalars['ID']
+  group: AddOrUpdateGroupParamsInput
+}>
+
+export type EditGroupMutation = {
+  __typename?: 'Mutation'
+  group: {
+    __typename?: 'GroupMutationServices'
+    updateGroup: {
+      __typename?: 'GroupSerializer'
+      groupCreatedAt: string
+      groupId: string
+      groupName: string
+      groupStatus: string
+      groupUpdatedAt: string
+      userId?: string | null
+    }
+  }
 }
 
 export type EditIdolMutationVariables = Exact<{
@@ -799,6 +849,20 @@ export const AddChekiDocument = gql`
     }
   }
 `
+export const AddGroupDocument = gql`
+  mutation AddGroup($group: AddOrUpdateGroupParamsInput!) {
+    group {
+      addGroup(params: $group) {
+        groupCreatedAt
+        groupId
+        groupName
+        groupStatus
+        groupUpdatedAt
+        userId
+      }
+    }
+  }
+`
 export const AddIdolDocument = gql`
   mutation AddIdol($idol: AddOrUpdateIdolParamsInput!) {
     idol {
@@ -816,10 +880,31 @@ export const AddIdolDocument = gql`
     }
   }
 `
+export const DeleteGroupDocument = gql`
+  mutation DeleteGroup($groupId: ID!) {
+    group {
+      deleteGroup(groupId: $groupId)
+    }
+  }
+`
 export const DeleteIdolDocument = gql`
   mutation DeleteIdol($id: ID!) {
     idol {
       deleteIdol(idolId: $id)
+    }
+  }
+`
+export const EditGroupDocument = gql`
+  mutation EditGroup($groupId: ID!, $group: AddOrUpdateGroupParamsInput!) {
+    group {
+      updateGroup(groupId: $groupId, params: $group) {
+        groupCreatedAt
+        groupId
+        groupName
+        groupStatus
+        groupUpdatedAt
+        userId
+      }
     }
   }
 `
@@ -1031,6 +1116,20 @@ export function getSdk(
         'mutation'
       )
     },
+    AddGroup(
+      variables: AddGroupMutationVariables,
+      requestHeaders?: Dom.RequestInit['headers']
+    ): Promise<AddGroupMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<AddGroupMutation>(AddGroupDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'AddGroup',
+        'mutation'
+      )
+    },
     AddIdol(
       variables: AddIdolMutationVariables,
       requestHeaders?: Dom.RequestInit['headers']
@@ -1045,6 +1144,20 @@ export function getSdk(
         'mutation'
       )
     },
+    DeleteGroup(
+      variables: DeleteGroupMutationVariables,
+      requestHeaders?: Dom.RequestInit['headers']
+    ): Promise<DeleteGroupMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<DeleteGroupMutation>(DeleteGroupDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'DeleteGroup',
+        'mutation'
+      )
+    },
     DeleteIdol(
       variables: DeleteIdolMutationVariables,
       requestHeaders?: Dom.RequestInit['headers']
@@ -1056,6 +1169,20 @@ export function getSdk(
             ...wrappedRequestHeaders,
           }),
         'DeleteIdol',
+        'mutation'
+      )
+    },
+    EditGroup(
+      variables: EditGroupMutationVariables,
+      requestHeaders?: Dom.RequestInit['headers']
+    ): Promise<EditGroupMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<EditGroupMutation>(EditGroupDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'EditGroup',
         'mutation'
       )
     },

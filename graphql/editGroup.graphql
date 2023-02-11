@@ -1,0 +1,12 @@
+mutation EditGroup($groupId: ID!, $group: AddOrUpdateGroupParamsInput!) {
+  group {
+    updateGroup(groupId: $groupId, params: $group) {
+      groupCreatedAt
+      groupId
+      groupName
+      groupStatus
+      groupUpdatedAt
+      userId
+    }
+  }
+}
