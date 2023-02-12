@@ -564,6 +564,40 @@ export type AddGroupMutation = {
       groupStatus: GroupStatus
       groupUpdatedAt: string
       userId?: string | null
+      user?: {
+        __typename?: 'LimitedUserSerializer'
+        userId: string
+        userName: string
+      } | null
+      regulations: Array<{
+        __typename?: 'RegulationSerializer'
+        regulationComment: string
+        regulationCreatedAt: string
+        regulationId: string
+        regulationName: string
+        regulationStatus: string
+        regulationUnitPrice: number
+        regulationUpdatedAt: string
+      }>
+      idols: Array<{
+        __typename?: 'IdolSerializer'
+        idolCreatedAt: string
+        idolId: string
+        idolName: string
+        idolStatus: IdolStatus
+        idolUpdatedAt: string
+        userId?: string | null
+        user?: {
+          __typename?: 'LimitedUserSerializer'
+          userId: string
+          userName: string
+        } | null
+        groups: Array<{
+          __typename?: 'GroupSerializer'
+          groupId: string
+          groupName: string
+        } | null>
+      } | null>
     }
   }
 }
@@ -655,6 +689,11 @@ export type EditGroupMutation = {
           userId: string
           userName: string
         } | null
+        groups: Array<{
+          __typename?: 'GroupSerializer'
+          groupId: string
+          groupName: string
+        } | null>
       } | null>
     }
   }
@@ -911,20 +950,6 @@ export type GetUserCreatedGroupListQuery = {
           userId: string
           userName: string
         } | null
-        idols: Array<{
-          __typename?: 'IdolSerializer'
-          idolCreatedAt: string
-          idolId: string
-          idolName: string
-          idolStatus: IdolStatus
-          idolUpdatedAt: string
-          userId?: string | null
-          user?: {
-            __typename?: 'LimitedUserSerializer'
-            userId: string
-            userName: string
-          } | null
-        } | null>
       }>
     }
   }
@@ -980,6 +1005,35 @@ export const AddGroupDocument = gql`
         groupStatus
         groupUpdatedAt
         userId
+        user {
+          userId
+          userName
+        }
+        regulations {
+          regulationComment
+          regulationCreatedAt
+          regulationId
+          regulationName
+          regulationStatus
+          regulationUnitPrice
+          regulationUpdatedAt
+        }
+        idols {
+          idolCreatedAt
+          idolId
+          idolName
+          idolStatus
+          idolUpdatedAt
+          user {
+            userId
+            userName
+          }
+          groups {
+            groupId
+            groupName
+          }
+          userId
+        }
       }
     }
   }
@@ -1047,6 +1101,10 @@ export const EditGroupDocument = gql`
           user {
             userId
             userName
+          }
+          groups {
+            groupId
+            groupName
           }
           userId
         }
@@ -1260,18 +1318,6 @@ export const GetUserCreatedGroupListDocument = gql`
           user {
             userId
             userName
-          }
-          idols {
-            idolCreatedAt
-            idolId
-            idolName
-            idolStatus
-            idolUpdatedAt
-            user {
-              userId
-              userName
-            }
-            userId
           }
         }
         pageCount

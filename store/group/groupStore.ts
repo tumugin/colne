@@ -68,6 +68,9 @@ export const groupSlice = createSlice({
     updateOrAddGroup: (state, action: PayloadAction<Group>) => {
       state.groups[action.payload.groupId] = action.payload
     },
+    deleteGroup: (state, action: PayloadAction<{ groupId: string }>) => {
+      delete state.groups[action.payload.groupId]
+    },
     updateUserCreatedGroups(
       state,
       action: PayloadAction<State['userCreatedGroups']>

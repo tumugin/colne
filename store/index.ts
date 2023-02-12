@@ -6,6 +6,7 @@ import { commonSlice } from 'store/common/commonStore'
 import { chekiSlice } from 'store/cheki/chekiStore'
 import { idolSlice } from 'store/idol/idolStore'
 import { groupSlice } from 'store/group/groupStore'
+import { useCallback } from 'react'
 
 const combinedReducer = combineReducers({
   user: userSlice.reducer,
@@ -34,6 +35,16 @@ const makeStore = () =>
   configureStore({
     reducer,
   })
+
+export function useCreateStoreHooks<T, S, V, X>(
+  storeFunc: (dispatch: AppDispatch, p1:S, p2:V, p3:X) => T
+) {
+  const dispatch = useAppDispatch()
+  return useCallback(
+    (p1:S, p2:V, p3:X) => storeFunc(dispatch, p1, p2, p3),
+    [dispatch, storeFunc]
+  )
+}
 
 type Store = ReturnType<typeof makeStore>
 export type AppDispatch = Store['dispatch']

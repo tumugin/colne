@@ -30,6 +30,10 @@ mutation EditGroup($groupId: ID!, $group: AddOrUpdateGroupParamsInput!) {
           userId
           userName
         }
+        groups {
+          groupId
+          groupName
+        }
         userId
       }
     }
