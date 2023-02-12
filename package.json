@@ -14,7 +14,7 @@
     "typecheck": "tsc --noEmit",
     "cypress": "cypress run --component --port 8081",
     "cypress:update-screenshot": "cypress run --component --port 8081 --env pluginVisualRegressionUpdateImages=true",
-    "codegen": "graphql-codegen --config codegen.ts"
+    "codegen": "graphql-codegen --config codegen.ts && prettier --write graphql/generated/client.ts"
   },
   "dependencies": {
     "@cloudscape-design/components": "^3.0.148",

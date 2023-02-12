@@ -18,13 +18,22 @@ interface Group {
     userId: string
     userName: string
   } | null
-  idols: {
+  idols?: {
     idolId: string
     idolName: string
     groups: {
       groupId: string
       groupName: string
     }[]
+  }[]
+  regulations?: {
+    regulationComment: string
+    regulationCreatedAt: string
+    regulationId: string
+    regulationName: string
+    regulationStatus: string
+    regulationUnitPrice: number
+    regulationUpdatedAt: string
   }[]
 }
 
@@ -37,7 +46,7 @@ interface State {
     count: number | null
     currentPage: number
     pageCount: number | null
-    groups: []
+    groups: Group[]
   }
 }
 
@@ -58,6 +67,9 @@ export const groupSlice = createSlice({
   reducers: {
     updateOrAddGroup: (state, action: PayloadAction<Group>) => {
       state.groups[action.payload.groupId] = action.payload
+    },
+    deleteGroup: (state, action: PayloadAction<{ groupId: string }>) => {
+      delete state.groups[action.payload.groupId]
     },
     updateUserCreatedGroups(
       state,

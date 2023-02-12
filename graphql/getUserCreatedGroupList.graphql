@@ -1,0 +1,21 @@
+query GetUserCreatedGroupList($page: Int!) {
+  currentUserGroups {
+    getGroupsCreatedByUser(page: $page) {
+      count
+      currentPage
+      groups {
+        groupCreatedAt
+        groupId
+        groupName
+        groupStatus
+        groupUpdatedAt
+        userId
+        user {
+          userId
+          userName
+        }
+      }
+      pageCount
+    }
+  }
+}

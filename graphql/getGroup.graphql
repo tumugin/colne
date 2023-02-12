@@ -1,0 +1,35 @@
+query GetGroup($groupId: ID!) {
+  getGroup(groupId: $groupId) {
+    groupCreatedAt
+    groupId
+    groupName
+    groupStatus
+    groupUpdatedAt
+    userId
+    user {
+      userId
+      userName
+    }
+    regulations {
+      regulationComment
+      regulationCreatedAt
+      regulationId
+      regulationName
+      regulationStatus
+      regulationUnitPrice
+      regulationUpdatedAt
+    }
+    idols {
+      idolCreatedAt
+      idolId
+      idolName
+      idolStatus
+      idolUpdatedAt
+      user {
+        userId
+        userName
+      }
+      userId
+    }
+  }
+}

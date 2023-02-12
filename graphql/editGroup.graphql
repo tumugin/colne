@@ -1,0 +1,41 @@
+mutation EditGroup($groupId: ID!, $group: AddOrUpdateGroupParamsInput!) {
+  group {
+    updateGroup(groupId: $groupId, params: $group) {
+      groupCreatedAt
+      groupId
+      groupName
+      groupStatus
+      groupUpdatedAt
+      userId
+      user {
+        userId
+        userName
+      }
+      regulations {
+        regulationComment
+        regulationCreatedAt
+        regulationId
+        regulationName
+        regulationStatus
+        regulationUnitPrice
+        regulationUpdatedAt
+      }
+      idols {
+        idolCreatedAt
+        idolId
+        idolName
+        idolStatus
+        idolUpdatedAt
+        user {
+          userId
+          userName
+        }
+        groups {
+          groupId
+          groupName
+        }
+        userId
+      }
+    }
+  }
+}

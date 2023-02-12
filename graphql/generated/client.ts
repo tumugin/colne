@@ -302,8 +302,9 @@ export type GroupSerializer = {
   groupCreatedAt: Scalars['String']
   groupId: Scalars['ID']
   groupName: Scalars['String']
-  groupStatus: Scalars['String']
+  groupStatus: GroupStatus
   groupUpdatedAt: Scalars['String']
+  idols: Array<Maybe<IdolSerializer>>
   regulations: Array<RegulationSerializer>
   user?: Maybe<LimitedUserSerializer>
   userId?: Maybe<Scalars['ID']>
@@ -547,6 +548,60 @@ export type AddChekiMutation = {
   }
 }
 
+export type AddGroupMutationVariables = Exact<{
+  group: AddOrUpdateGroupParamsInput
+}>
+
+export type AddGroupMutation = {
+  __typename?: 'Mutation'
+  group: {
+    __typename?: 'GroupMutationServices'
+    addGroup: {
+      __typename?: 'GroupSerializer'
+      groupCreatedAt: string
+      groupId: string
+      groupName: string
+      groupStatus: GroupStatus
+      groupUpdatedAt: string
+      userId?: string | null
+      user?: {
+        __typename?: 'LimitedUserSerializer'
+        userId: string
+        userName: string
+      } | null
+      regulations: Array<{
+        __typename?: 'RegulationSerializer'
+        regulationComment: string
+        regulationCreatedAt: string
+        regulationId: string
+        regulationName: string
+        regulationStatus: string
+        regulationUnitPrice: number
+        regulationUpdatedAt: string
+      }>
+      idols: Array<{
+        __typename?: 'IdolSerializer'
+        idolCreatedAt: string
+        idolId: string
+        idolName: string
+        idolStatus: IdolStatus
+        idolUpdatedAt: string
+        userId?: string | null
+        user?: {
+          __typename?: 'LimitedUserSerializer'
+          userId: string
+          userName: string
+        } | null
+        groups: Array<{
+          __typename?: 'GroupSerializer'
+          groupId: string
+          groupName: string
+        } | null>
+      } | null>
+    }
+  }
+}
+
 export type AddIdolMutationVariables = Exact<{
   idol: AddOrUpdateIdolParamsInput
 }>
@@ -571,6 +626,15 @@ export type AddIdolMutation = {
   }
 }
 
+export type DeleteGroupMutationVariables = Exact<{
+  groupId: Scalars['ID']
+}>
+
+export type DeleteGroupMutation = {
+  __typename?: 'Mutation'
+  group: { __typename?: 'GroupMutationServices'; deleteGroup: string }
+}
+
 export type DeleteIdolMutationVariables = Exact<{
   id: Scalars['ID']
 }>
@@ -578,6 +642,61 @@ export type DeleteIdolMutationVariables = Exact<{
 export type DeleteIdolMutation = {
   __typename?: 'Mutation'
   idol: { __typename?: 'IdolMutationServices'; deleteIdol: string }
+}
+
+export type EditGroupMutationVariables = Exact<{
+  groupId: Scalars['ID']
+  group: AddOrUpdateGroupParamsInput
+}>
+
+export type EditGroupMutation = {
+  __typename?: 'Mutation'
+  group: {
+    __typename?: 'GroupMutationServices'
+    updateGroup: {
+      __typename?: 'GroupSerializer'
+      groupCreatedAt: string
+      groupId: string
+      groupName: string
+      groupStatus: GroupStatus
+      groupUpdatedAt: string
+      userId?: string | null
+      user?: {
+        __typename?: 'LimitedUserSerializer'
+        userId: string
+        userName: string
+      } | null
+      regulations: Array<{
+        __typename?: 'RegulationSerializer'
+        regulationComment: string
+        regulationCreatedAt: string
+        regulationId: string
+        regulationName: string
+        regulationStatus: string
+        regulationUnitPrice: number
+        regulationUpdatedAt: string
+      }>
+      idols: Array<{
+        __typename?: 'IdolSerializer'
+        idolCreatedAt: string
+        idolId: string
+        idolName: string
+        idolStatus: IdolStatus
+        idolUpdatedAt: string
+        userId?: string | null
+        user?: {
+          __typename?: 'LimitedUserSerializer'
+          userId: string
+          userName: string
+        } | null
+        groups: Array<{
+          __typename?: 'GroupSerializer'
+          groupId: string
+          groupName: string
+        } | null>
+      } | null>
+    }
+  }
 }
 
 export type EditIdolMutationVariables = Exact<{
@@ -628,6 +747,52 @@ export type GetCurrentUserQuery = {
     userName: string
     userUpdatedAt: string
   } | null
+}
+
+export type GetGroupQueryVariables = Exact<{
+  groupId: Scalars['ID']
+}>
+
+export type GetGroupQuery = {
+  __typename?: 'Query'
+  getGroup: {
+    __typename?: 'GroupSerializer'
+    groupCreatedAt: string
+    groupId: string
+    groupName: string
+    groupStatus: GroupStatus
+    groupUpdatedAt: string
+    userId?: string | null
+    user?: {
+      __typename?: 'LimitedUserSerializer'
+      userId: string
+      userName: string
+    } | null
+    regulations: Array<{
+      __typename?: 'RegulationSerializer'
+      regulationComment: string
+      regulationCreatedAt: string
+      regulationId: string
+      regulationName: string
+      regulationStatus: string
+      regulationUnitPrice: number
+      regulationUpdatedAt: string
+    }>
+    idols: Array<{
+      __typename?: 'IdolSerializer'
+      idolCreatedAt: string
+      idolId: string
+      idolName: string
+      idolStatus: IdolStatus
+      idolUpdatedAt: string
+      userId?: string | null
+      user?: {
+        __typename?: 'LimitedUserSerializer'
+        userId: string
+        userName: string
+      } | null
+    } | null>
+  }
 }
 
 export type GetIdolQueryVariables = Exact<{
@@ -693,7 +858,7 @@ export type GetIdolChekisByDateRangeAndIdolIdQuery = {
           groupCreatedAt: string
           groupId: string
           groupName: string
-          groupStatus: string
+          groupStatus: GroupStatus
           groupUpdatedAt: string
         } | null
       } | null
@@ -759,6 +924,37 @@ export type GetUserChekiIdolCountQuery = {
   }
 }
 
+export type GetUserCreatedGroupListQueryVariables = Exact<{
+  page: Scalars['Int']
+}>
+
+export type GetUserCreatedGroupListQuery = {
+  __typename?: 'Query'
+  currentUserGroups: {
+    __typename?: 'CurrentUserGroups'
+    getGroupsCreatedByUser: {
+      __typename?: 'GroupPaginationSerializer'
+      count: number
+      currentPage: number
+      pageCount: number
+      groups: Array<{
+        __typename?: 'GroupSerializer'
+        groupCreatedAt: string
+        groupId: string
+        groupName: string
+        groupStatus: GroupStatus
+        groupUpdatedAt: string
+        userId?: string | null
+        user?: {
+          __typename?: 'LimitedUserSerializer'
+          userId: string
+          userName: string
+        } | null
+      }>
+    }
+  }
+}
+
 export type GetUserCreatedIdolListQueryVariables = Exact<{
   page: Scalars['Int']
 }>
@@ -799,6 +995,49 @@ export const AddChekiDocument = gql`
     }
   }
 `
+export const AddGroupDocument = gql`
+  mutation AddGroup($group: AddOrUpdateGroupParamsInput!) {
+    group {
+      addGroup(params: $group) {
+        groupCreatedAt
+        groupId
+        groupName
+        groupStatus
+        groupUpdatedAt
+        userId
+        user {
+          userId
+          userName
+        }
+        regulations {
+          regulationComment
+          regulationCreatedAt
+          regulationId
+          regulationName
+          regulationStatus
+          regulationUnitPrice
+          regulationUpdatedAt
+        }
+        idols {
+          idolCreatedAt
+          idolId
+          idolName
+          idolStatus
+          idolUpdatedAt
+          user {
+            userId
+            userName
+          }
+          groups {
+            groupId
+            groupName
+          }
+          userId
+        }
+      }
+    }
+  }
+`
 export const AddIdolDocument = gql`
   mutation AddIdol($idol: AddOrUpdateIdolParamsInput!) {
     idol {
@@ -816,10 +1055,60 @@ export const AddIdolDocument = gql`
     }
   }
 `
+export const DeleteGroupDocument = gql`
+  mutation DeleteGroup($groupId: ID!) {
+    group {
+      deleteGroup(groupId: $groupId)
+    }
+  }
+`
 export const DeleteIdolDocument = gql`
   mutation DeleteIdol($id: ID!) {
     idol {
       deleteIdol(idolId: $id)
+    }
+  }
+`
+export const EditGroupDocument = gql`
+  mutation EditGroup($groupId: ID!, $group: AddOrUpdateGroupParamsInput!) {
+    group {
+      updateGroup(groupId: $groupId, params: $group) {
+        groupCreatedAt
+        groupId
+        groupName
+        groupStatus
+        groupUpdatedAt
+        userId
+        user {
+          userId
+          userName
+        }
+        regulations {
+          regulationComment
+          regulationCreatedAt
+          regulationId
+          regulationName
+          regulationStatus
+          regulationUnitPrice
+          regulationUpdatedAt
+        }
+        idols {
+          idolCreatedAt
+          idolId
+          idolName
+          idolStatus
+          idolUpdatedAt
+          user {
+            userId
+            userName
+          }
+          groups {
+            groupId
+            groupName
+          }
+          userId
+        }
+      }
     }
   }
 `
@@ -859,6 +1148,43 @@ export const GetCurrentUserDocument = gql`
       userId
       userName
       userUpdatedAt
+    }
+  }
+`
+export const GetGroupDocument = gql`
+  query GetGroup($groupId: ID!) {
+    getGroup(groupId: $groupId) {
+      groupCreatedAt
+      groupId
+      groupName
+      groupStatus
+      groupUpdatedAt
+      userId
+      user {
+        userId
+        userName
+      }
+      regulations {
+        regulationComment
+        regulationCreatedAt
+        regulationId
+        regulationName
+        regulationStatus
+        regulationUnitPrice
+        regulationUpdatedAt
+      }
+      idols {
+        idolCreatedAt
+        idolId
+        idolName
+        idolStatus
+        idolUpdatedAt
+        user {
+          userId
+          userName
+        }
+        userId
+      }
     }
   }
 `
@@ -976,6 +1302,29 @@ export const GetUserChekiIdolCountDocument = gql`
     }
   }
 `
+export const GetUserCreatedGroupListDocument = gql`
+  query GetUserCreatedGroupList($page: Int!) {
+    currentUserGroups {
+      getGroupsCreatedByUser(page: $page) {
+        count
+        currentPage
+        groups {
+          groupCreatedAt
+          groupId
+          groupName
+          groupStatus
+          groupUpdatedAt
+          userId
+          user {
+            userId
+            userName
+          }
+        }
+        pageCount
+      }
+    }
+  }
+`
 export const GetUserCreatedIdolListDocument = gql`
   query GetUserCreatedIdolList($page: Int!) {
     currentUserIdols {
@@ -1031,6 +1380,20 @@ export function getSdk(
         'mutation'
       )
     },
+    AddGroup(
+      variables: AddGroupMutationVariables,
+      requestHeaders?: Dom.RequestInit['headers']
+    ): Promise<AddGroupMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<AddGroupMutation>(AddGroupDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'AddGroup',
+        'mutation'
+      )
+    },
     AddIdol(
       variables: AddIdolMutationVariables,
       requestHeaders?: Dom.RequestInit['headers']
@@ -1045,6 +1408,20 @@ export function getSdk(
         'mutation'
       )
     },
+    DeleteGroup(
+      variables: DeleteGroupMutationVariables,
+      requestHeaders?: Dom.RequestInit['headers']
+    ): Promise<DeleteGroupMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<DeleteGroupMutation>(DeleteGroupDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'DeleteGroup',
+        'mutation'
+      )
+    },
     DeleteIdol(
       variables: DeleteIdolMutationVariables,
       requestHeaders?: Dom.RequestInit['headers']
@@ -1056,6 +1433,20 @@ export function getSdk(
             ...wrappedRequestHeaders,
           }),
         'DeleteIdol',
+        'mutation'
+      )
+    },
+    EditGroup(
+      variables: EditGroupMutationVariables,
+      requestHeaders?: Dom.RequestInit['headers']
+    ): Promise<EditGroupMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<EditGroupMutation>(EditGroupDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'EditGroup',
         'mutation'
       )
     },
@@ -1099,6 +1490,20 @@ export function getSdk(
             { ...requestHeaders, ...wrappedRequestHeaders }
           ),
         'GetCurrentUser',
+        'query'
+      )
+    },
+    GetGroup(
+      variables: GetGroupQueryVariables,
+      requestHeaders?: Dom.RequestInit['headers']
+    ): Promise<GetGroupQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<GetGroupQuery>(GetGroupDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'GetGroup',
         'query'
       )
     },
@@ -1158,6 +1563,21 @@ export function getSdk(
             { ...requestHeaders, ...wrappedRequestHeaders }
           ),
         'GetUserChekiIdolCount',
+        'query'
+      )
+    },
+    GetUserCreatedGroupList(
+      variables: GetUserCreatedGroupListQueryVariables,
+      requestHeaders?: Dom.RequestInit['headers']
+    ): Promise<GetUserCreatedGroupListQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<GetUserCreatedGroupListQuery>(
+            GetUserCreatedGroupListDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders }
+          ),
+        'GetUserCreatedGroupList',
         'query'
       )
     },
