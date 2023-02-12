@@ -66,3 +66,33 @@ export async function updateGroup(
 export function useUpdateGroup() {
   return useCreateStoreHooks(updateGroup)
 }
+
+export async function getUserCreatedGroupList(
+  dispatch: AppDispatch,
+  params: { page: number },
+  headers?: Record<string, string>
+) {
+  await dispatch(
+    groupSlice.actions.setUserCreatedGroupsToLoading({
+      page: params.page,
+    })
+  )
+  const groupsPage = await colneGraphQLSdk.GetUserCreatedGroupList(
+    params,
+    headers
+  )
+  await dispatch(
+    groupSlice.actions.updateUserCreatedGroups({
+      isLoaded: true,
+      count: groupsPage.currentUserGroups.getGroupsCreatedByUser.count,
+      currentPage:
+        groupsPage.currentUserGroups.getGroupsCreatedByUser.currentPage,
+      pageCount: groupsPage.currentUserGroups.getGroupsCreatedByUser.pageCount,
+      groups: groupsPage.currentUserGroups.getGroupsCreatedByUser.groups,
+    })
+  )
+}
+
+export function useGetUserCreatedGroupList() {
+  return useCreateStoreHooks(getUserCreatedGroupList)
+}
