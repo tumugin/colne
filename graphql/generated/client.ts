@@ -302,7 +302,7 @@ export type GroupSerializer = {
   groupCreatedAt: Scalars['String']
   groupId: Scalars['ID']
   groupName: Scalars['String']
-  groupStatus: Scalars['String']
+  groupStatus: GroupStatus
   groupUpdatedAt: Scalars['String']
   idols: Array<Maybe<IdolSerializer>>
   regulations: Array<RegulationSerializer>
@@ -561,7 +561,7 @@ export type AddGroupMutation = {
       groupCreatedAt: string
       groupId: string
       groupName: string
-      groupStatus: string
+      groupStatus: GroupStatus
       groupUpdatedAt: string
       userId?: string | null
     }
@@ -624,7 +624,7 @@ export type EditGroupMutation = {
       groupCreatedAt: string
       groupId: string
       groupName: string
-      groupStatus: string
+      groupStatus: GroupStatus
       groupUpdatedAt: string
       userId?: string | null
       user?: {
@@ -721,7 +721,7 @@ export type GetGroupQuery = {
     groupCreatedAt: string
     groupId: string
     groupName: string
-    groupStatus: string
+    groupStatus: GroupStatus
     groupUpdatedAt: string
     userId?: string | null
     user?: {
@@ -819,7 +819,7 @@ export type GetIdolChekisByDateRangeAndIdolIdQuery = {
           groupCreatedAt: string
           groupId: string
           groupName: string
-          groupStatus: string
+          groupStatus: GroupStatus
           groupUpdatedAt: string
         } | null
       } | null
@@ -903,7 +903,7 @@ export type GetUserCreatedGroupListQuery = {
         groupCreatedAt: string
         groupId: string
         groupName: string
-        groupStatus: string
+        groupStatus: GroupStatus
         groupUpdatedAt: string
         userId?: string | null
         user?: {
