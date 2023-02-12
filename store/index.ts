@@ -37,11 +37,11 @@ const makeStore = () =>
   })
 
 export function useCreateStoreHooks<T, S, V, X>(
-  storeFunc: (dispatch: AppDispatch, p1:S, p2:V, p3:X) => T
+  storeFunc: (dispatch: AppDispatch, p1: S, p2: V, p3: X) => T
 ) {
   const dispatch = useAppDispatch()
   return useCallback(
-    (p1:S, p2:V, p3:X) => storeFunc(dispatch, p1, p2, p3),
+    (p1: S, p2: V, p3: X) => storeFunc(dispatch, p1, p2, p3),
     [dispatch, storeFunc]
   )
 }
