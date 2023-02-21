@@ -10,6 +10,14 @@ export function idolEditPage(idolId: string) {
   return `/idols/${idolId}/edit`
 }
 
+export function groupDetailPage(groupId: string) {
+  return `/groups/${groupId}`
+}
+
+export function groupEditPage(groupId: string) {
+  return `/groups/${groupId}/edit`
+}
+
 export function loginPathWithReturnToURL(redirectPath: string) {
   return loginPath + '?return_to=' + encodeURI(redirectPath)
 }
