@@ -36,12 +36,12 @@ const makeStore = () =>
     reducer,
   })
 
-export function useCreateStoreHooks<T, S, V, X>(
-  storeFunc: (dispatch: AppDispatch, p1: S, p2: V, p3: X) => T
+export function useCreateStoreHooks<T, X extends unknown[]>(
+  storeFunc: (dispatch: AppDispatch, ..._: X) => T
 ) {
   const dispatch = useAppDispatch()
   return useCallback(
-    (p1: S, p2: V, p3: X) => storeFunc(dispatch, p1, p2, p3),
+    (...params: X) => storeFunc(dispatch, ...params),
     [dispatch, storeFunc]
   )
 }

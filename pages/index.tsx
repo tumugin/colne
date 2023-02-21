@@ -1,16 +1,15 @@
 import type { NextPage } from 'next'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Button, ContentLayout, Header } from '@cloudscape-design/components'
 import { TopHeaderContent } from 'components/top/TopHeaderContent'
 import styled from 'styled-components'
 import * as awsui from '@cloudscape-design/design-tokens'
-import { useAppSelector, wrapper } from 'store'
+import { useAppSelector } from 'store'
 import { loginPath } from 'utils/urls'
 import {
   createThisMonthDateRange,
-  updateCurrentUserChekiIdolCount,
+  useUpdateCurrentUserChekiIdolCount,
 } from 'store/cheki/chekiHooks'
-import { getRequestHeaderFromContext } from 'utils/headers'
 import dayjs from 'dayjs'
 import { MonthlyChekiCounts } from 'components/top/MonthlyChekiCounts'
 
@@ -23,6 +22,12 @@ const Home: NextPage = () => {
   const chekiCounts = useAppSelector(
     (state) => state.cheki.currentUserChekiIdolCount
   )
+  const updateCurrentUserChekiIdolCount = useUpdateCurrentUserChekiIdolCount()
+  useEffect(() => {
+    void updateCurrentUserChekiIdolCount({
+      ...createThisMonthDateRange(dayjs()),
+    })
+  }, [updateCurrentUserChekiIdolCount])
 
   return (
     <ContentLayout
@@ -52,18 +57,5 @@ const Home: NextPage = () => {
     </ContentLayout>
   )
 }
-
-Home.getInitialProps = wrapper.getInitialPageProps((store) => async (ctx) => {
-  if (!store.getState().user.currentUser) {
-    return
-  }
-  await store.dispatch((dispatch) =>
-    updateCurrentUserChekiIdolCount(
-      { ...createThisMonthDateRange(dayjs()) },
-      dispatch,
-      getRequestHeaderFromContext(ctx)
-    )
-  )
-})
 
 export default Home

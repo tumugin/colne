@@ -1,4 +1,4 @@
-import { AppDispatch } from 'store/index'
+import { AppDispatch, useCreateStoreHooks } from 'store/index'
 import dayjs from 'dayjs'
 import { colneGraphQLSdk } from 'graphql/client'
 import { chekiSlice } from './chekiStore'
@@ -16,11 +16,11 @@ export function useAddCheki() {
 }
 
 export async function updateCurrentUserChekiIdolCount(
+  dispatch: AppDispatch,
   params: {
     startDate: dayjs.Dayjs
     endDate: dayjs.Dayjs
   },
-  dispatch: AppDispatch,
   headers?: Record<string, string>
 ) {
   const result = await colneGraphQLSdk.GetUserChekiIdolCount(
@@ -38,6 +38,10 @@ export async function updateCurrentUserChekiIdolCount(
       }))
     )
   )
+}
+
+export function useUpdateCurrentUserChekiIdolCount() {
+  return useCreateStoreHooks(updateCurrentUserChekiIdolCount)
 }
 
 export function createThisMonthDateRange(today: dayjs.Dayjs) {
