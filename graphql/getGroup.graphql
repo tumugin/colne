@@ -29,6 +29,10 @@ query GetGroup($groupId: ID!) {
         userId
         userName
       }
+      groups {
+        groupId
+        groupName
+      }
       userId
     }
   }
