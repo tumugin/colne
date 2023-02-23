@@ -7,6 +7,7 @@ import {
 import { colneGraphQLSdk } from 'graphql/client'
 import { groupSlice } from 'store/group/groupStore'
 import { nonNullable } from 'utils/array'
+import { mapAisuExceptionToColneExceptionAndThrow } from 'exceptions/graphql-exceptions'
 
 export async function addGroup(
   dispatch: AppDispatch,
@@ -102,15 +103,22 @@ export async function getGroup(
   params: { groupId: string },
   headers?: Record<string, string>
 ) {
-  const group = await colneGraphQLSdk.GetGroup(params, headers)
-  await dispatch(
-    groupSlice.actions.updateOrAddGroup({
-      ...group.getGroup,
-      idols: group.getGroup.idols
-        .filter(nonNullable)
-        .map((idol) => ({ ...idol, groups: idol?.groups.filter(nonNullable) })),
-    })
-  )
+  try {
+    const group = await colneGraphQLSdk.GetGroup(params, headers)
+    await dispatch(
+      groupSlice.actions.updateOrAddGroup({
+        ...group.getGroup,
+        idols: group.getGroup.idols
+          .filter(nonNullable)
+          .map((idol) => ({
+            ...idol,
+            groups: idol?.groups.filter(nonNullable),
+          })),
+      })
+    )
+  } catch (e) {
+    mapAisuExceptionToColneExceptionAndThrow(e)
+  }
 }
 
 export function useGetGroup() {
