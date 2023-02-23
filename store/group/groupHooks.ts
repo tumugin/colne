@@ -108,12 +108,10 @@ export async function getGroup(
     await dispatch(
       groupSlice.actions.updateOrAddGroup({
         ...group.getGroup,
-        idols: group.getGroup.idols
-          .filter(nonNullable)
-          .map((idol) => ({
-            ...idol,
-            groups: idol?.groups.filter(nonNullable),
-          })),
+        idols: group.getGroup.idols.filter(nonNullable).map((idol) => ({
+          ...idol,
+          groups: idol?.groups.filter(nonNullable),
+        })),
       })
     )
   } catch (e) {
