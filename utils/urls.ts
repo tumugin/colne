@@ -2,6 +2,8 @@ export const loginPath = process.env.NEXT_PUBLIC_API_BASE_PATH + '/auth0/login'
 
 export const userCreatedIdolListPath = '/idols'
 
+export const userCreatedGroupsListPath = '/groups'
+
 export function idolDetailPage(idolId: string) {
   return `/idols/${idolId}`
 }

@@ -791,6 +791,11 @@ export type GetGroupQuery = {
         userId: string
         userName: string
       } | null
+      groups: Array<{
+        __typename?: 'GroupSerializer'
+        groupId: string
+        groupName: string
+      } | null>
     } | null>
   }
 }
@@ -1182,6 +1187,10 @@ export const GetGroupDocument = gql`
         user {
           userId
           userName
+        }
+        groups {
+          groupId
+          groupName
         }
         userId
       }

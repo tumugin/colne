@@ -96,3 +96,23 @@ export async function getUserCreatedGroupList(
 export function useGetUserCreatedGroupList() {
   return useCreateStoreHooks(getUserCreatedGroupList)
 }
+
+export async function getGroup(
+  dispatch: AppDispatch,
+  params: { groupId: string },
+  headers?: Record<string, string>
+) {
+  const group = await colneGraphQLSdk.GetGroup(params, headers)
+  await dispatch(
+    groupSlice.actions.updateOrAddGroup({
+      ...group.getGroup,
+      idols: group.getGroup.idols
+        .filter(nonNullable)
+        .map((idol) => ({ ...idol, groups: idol?.groups.filter(nonNullable) })),
+    })
+  )
+}
+
+export function useGetGroup() {
+  return useCreateStoreHooks(getGroup)
+}
