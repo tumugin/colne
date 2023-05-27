@@ -14,6 +14,7 @@ const nextConfig = {
   transpilePackages: [
     '@cloudscape-design/components',
     '@cloudscape-design/design-tokens',
+    '@cloudscape-design/component-toolkit',
   ],
 }
 

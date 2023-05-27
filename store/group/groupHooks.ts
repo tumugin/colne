@@ -36,7 +36,9 @@ export async function deleteGroup(
   headers?: Record<string, string>
 ) {
   await colneGraphQLSdk.DeleteGroup(params, headers)
-  await dispatch(groupSlice.actions.deleteGroup({ groupId: params.groupId }))
+  await dispatch(
+    groupSlice.actions.deleteGroup({ groupId: params.groupId.toString() })
+  )
 }
 
 export function useDeleteGroup() {
