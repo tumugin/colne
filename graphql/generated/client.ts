@@ -1,5 +1,5 @@
 import { GraphQLClient } from 'graphql-request'
-import * as Dom from 'graphql-request/dist/types.dom'
+import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import gql from 'graphql-tag'
 export type Maybe<T> = T | null
 export type InputMaybe<T> = Maybe<T>
@@ -12,44 +12,53 @@ export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
   [SubKey in K]: Maybe<T[SubKey]>
 }
+export type MakeEmpty<
+  T extends { [key: string]: unknown },
+  K extends keyof T
+> = { [_ in K]?: never }
+export type Incremental<T> =
+  | T
+  | {
+      [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never
+    }
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: string
-  String: string
-  Boolean: boolean
-  Int: number
-  Float: number
+  ID: { input: string | number; output: string }
+  String: { input: string; output: string }
+  Boolean: { input: boolean; output: boolean }
+  Int: { input: number; output: number }
+  Float: { input: number; output: number }
 }
 
 export type AddAdminUserParamsInput = {
-  email: Scalars['String']
-  name: Scalars['String']
-  password: Scalars['String']
+  email: Scalars['String']['input']
+  name: Scalars['String']['input']
+  password: Scalars['String']['input']
 }
 
 export type AddOrUpdateChekiParamsInput = {
-  chekiQuantity: Scalars['Int']
-  chekiShotAt: Scalars['String']
-  idolId: Scalars['ID']
-  regulationId?: InputMaybe<Scalars['ID']>
+  chekiQuantity: Scalars['Int']['input']
+  chekiShotAt: Scalars['String']['input']
+  idolId: Scalars['ID']['input']
+  regulationId?: InputMaybe<Scalars['ID']['input']>
 }
 
 export type AddOrUpdateGroupParamsInput = {
-  groupName: Scalars['String']
+  groupName: Scalars['String']['input']
   groupStatus: GroupStatus
 }
 
 export type AddOrUpdateIdolParamsInput = {
-  idolName: Scalars['String']
+  idolName: Scalars['String']['input']
   idolStatus: IdolStatus
 }
 
 export type AddOrUpdateRegulationParamsInput = {
-  groupId: Scalars['ID']
-  regulationComment: Scalars['String']
-  regulationName: Scalars['String']
+  groupId: Scalars['ID']['input']
+  regulationComment: Scalars['String']['input']
+  regulationName: Scalars['String']['input']
   regulationStatus: RegulationStatus
-  regulationUnitPrice: Scalars['Int']
+  regulationUnitPrice: Scalars['Int']['input']
 }
 
 export type AdminMutationServices = {
@@ -66,7 +75,7 @@ export type AdminQueryServices = {
 export type AdminUserAuthMutationService = {
   __typename?: 'AdminUserAuthMutationService'
   adminUserLogin: AdminUserSerializer
-  adminUserLogout: Scalars['String']
+  adminUserLogout: Scalars['String']['output']
 }
 
 export type AdminUserAuthMutationServiceAdminUserLoginArgs = {
@@ -79,8 +88,8 @@ export type AdminUserAuthQueryService = {
 }
 
 export type AdminUserLoginParamsInput = {
-  email: Scalars['String']
-  password: Scalars['String']
+  email: Scalars['String']['input']
+  password: Scalars['String']['input']
 }
 
 export type AdminUserMutationService = {
@@ -95,30 +104,30 @@ export type AdminUserMutationServiceAddAdminUserArgs = {
 }
 
 export type AdminUserMutationServiceUpdateAdminUserArgs = {
-  adminUserId: Scalars['ID']
+  adminUserId: Scalars['ID']['input']
   params: UpdateAdminUserParamsInput
 }
 
 export type AdminUserMutationServiceUpdateAdminUserPasswordArgs = {
-  adminUserId: Scalars['ID']
+  adminUserId: Scalars['ID']['input']
   params: UpdateAdminUserPasswordParamsInput
 }
 
 export type AdminUserPaginationSerializer = PaginationSerializer & {
   __typename?: 'AdminUserPaginationSerializer'
   adminUsers: Array<AdminUserSerializer>
-  count: Scalars['Int']
-  currentPage: Scalars['Int']
-  pageCount: Scalars['Int']
+  count: Scalars['Int']['output']
+  currentPage: Scalars['Int']['output']
+  pageCount: Scalars['Int']['output']
 }
 
 export type AdminUserSerializer = {
   __typename?: 'AdminUserSerializer'
-  adminUserCreatedAt: Scalars['String']
-  adminUserEmail: Scalars['String']
-  adminUserId: Scalars['ID']
-  adminUserName: Scalars['String']
-  adminUserUpdatedAt: Scalars['String']
+  adminUserCreatedAt: Scalars['String']['output']
+  adminUserEmail: Scalars['String']['output']
+  adminUserId: Scalars['ID']['output']
+  adminUserName: Scalars['String']['output']
+  adminUserUpdatedAt: Scalars['String']['output']
 }
 
 export type AdminUsersQueryService = {
@@ -128,32 +137,32 @@ export type AdminUsersQueryService = {
 }
 
 export type AdminUsersQueryServiceGetAdminUserArgs = {
-  adminUserID: Scalars['ID']
+  adminUserID: Scalars['ID']['input']
 }
 
 export type AdminUsersQueryServiceGetAdminUserListArgs = {
-  page: Scalars['Int']
+  page: Scalars['Int']['input']
 }
 
 export type ChekiIdolCountSerializer = {
   __typename?: 'ChekiIdolCountSerializer'
-  chekiCount: Scalars['Int']
+  chekiCount: Scalars['Int']['output']
   idol?: Maybe<IdolSerializer>
-  idolId: Scalars['ID']
+  idolId: Scalars['ID']['output']
 }
 
 export type ChekiMonthIdolCountSerializer = {
   __typename?: 'ChekiMonthIdolCountSerializer'
-  chekiCount: Scalars['Int']
+  chekiCount: Scalars['Int']['output']
   chekiShotAtMonth: ChekiShotAtMonthSerializer
   idol?: Maybe<IdolSerializer>
-  idolId: Scalars['ID']
+  idolId: Scalars['ID']['output']
 }
 
 export type ChekiMutationServices = {
   __typename?: 'ChekiMutationServices'
   addCheki: ChekiSerializer
-  deleteCheki: Scalars['String']
+  deleteCheki: Scalars['String']['output']
   updateCheki: ChekiSerializer
 }
 
@@ -162,34 +171,34 @@ export type ChekiMutationServicesAddChekiArgs = {
 }
 
 export type ChekiMutationServicesDeleteChekiArgs = {
-  chekiId: Scalars['ID']
+  chekiId: Scalars['ID']['input']
 }
 
 export type ChekiMutationServicesUpdateChekiArgs = {
-  chekiId: Scalars['ID']
+  chekiId: Scalars['ID']['input']
   params: AddOrUpdateChekiParamsInput
 }
 
 export type ChekiSerializer = {
   __typename?: 'ChekiSerializer'
-  chekiCreatedAt: Scalars['String']
-  chekiId: Scalars['ID']
-  chekiQuantity: Scalars['Int']
-  chekiShotAt: Scalars['String']
-  chekiUpdatedAt: Scalars['String']
+  chekiCreatedAt: Scalars['String']['output']
+  chekiId: Scalars['ID']['output']
+  chekiQuantity: Scalars['Int']['output']
+  chekiShotAt: Scalars['String']['output']
+  chekiUpdatedAt: Scalars['String']['output']
   idol?: Maybe<IdolSerializer>
-  idolId?: Maybe<Scalars['ID']>
+  idolId?: Maybe<Scalars['ID']['output']>
   regulation?: Maybe<RegulationSerializer>
-  regulationId?: Maybe<Scalars['ID']>
+  regulationId?: Maybe<Scalars['ID']['output']>
   user?: Maybe<LimitedUserSerializer>
-  userId: Scalars['ID']
+  userId: Scalars['ID']['output']
 }
 
 export type ChekiShotAtMonthSerializer = {
   __typename?: 'ChekiShotAtMonthSerializer'
-  baseTimezone: Scalars['String']
-  month: Scalars['Int']
-  year: Scalars['Int']
+  baseTimezone: Scalars['String']['output']
+  month: Scalars['Int']['output']
+  year: Scalars['Int']['output']
 }
 
 export type CurrentUserGroups = {
@@ -198,7 +207,7 @@ export type CurrentUserGroups = {
 }
 
 export type CurrentUserGroupsGetGroupsCreatedByUserArgs = {
-  page: Scalars['Int']
+  page: Scalars['Int']['input']
 }
 
 export type CurrentUserIdols = {
@@ -207,61 +216,61 @@ export type CurrentUserIdols = {
 }
 
 export type CurrentUserIdolsGetIdolsCreatedByUserArgs = {
-  page: Scalars['Int']
+  page: Scalars['Int']['input']
 }
 
 export type FavoriteGroupMutationServices = {
   __typename?: 'FavoriteGroupMutationServices'
   addFavoriteGroup: FavoriteGroupSerializer
-  deleteFavoriteGroup: Scalars['String']
+  deleteFavoriteGroup: Scalars['String']['output']
 }
 
 export type FavoriteGroupMutationServicesAddFavoriteGroupArgs = {
-  groupId: Scalars['ID']
+  groupId: Scalars['ID']['input']
 }
 
 export type FavoriteGroupMutationServicesDeleteFavoriteGroupArgs = {
-  favoriteGroupID: Scalars['ID']
+  favoriteGroupID: Scalars['ID']['input']
 }
 
 export type FavoriteGroupSerializer = {
   __typename?: 'FavoriteGroupSerializer'
-  favoriteGroupId: Scalars['ID']
+  favoriteGroupId: Scalars['ID']['output']
   group?: Maybe<GroupSerializer>
-  groupId: Scalars['ID']
+  groupId: Scalars['ID']['output']
   user?: Maybe<LimitedUserSerializer>
-  userId: Scalars['ID']
+  userId: Scalars['ID']['output']
 }
 
 export type FavoriteGroupWithGroupSerializer = {
   __typename?: 'FavoriteGroupWithGroupSerializer'
-  favoriteGroupId: Scalars['ID']
+  favoriteGroupId: Scalars['ID']['output']
   group?: Maybe<GroupSerializer>
-  groupId: Scalars['ID']
+  groupId: Scalars['ID']['output']
   user?: Maybe<LimitedUserSerializer>
-  userId: Scalars['ID']
+  userId: Scalars['ID']['output']
 }
 
 export type GetChekiMonthIdolCountParamsInput = {
-  baseTimezone: Scalars['String']
+  baseTimezone: Scalars['String']['input']
 }
 
 export type GetUserChekiIdolCountParamsInput = {
-  chekiShotAtEnd: Scalars['String']
-  chekiShotAtStart: Scalars['String']
+  chekiShotAtEnd: Scalars['String']['input']
+  chekiShotAtStart: Scalars['String']['input']
 }
 
 export type GetUserChekisParamsInput = {
-  chekiShotAtEnd: Scalars['String']
-  chekiShotAtStart: Scalars['String']
-  idolId?: InputMaybe<Scalars['ID']>
+  chekiShotAtEnd: Scalars['String']['input']
+  chekiShotAtStart: Scalars['String']['input']
+  idolId?: InputMaybe<Scalars['ID']['input']>
 }
 
 export type GroupMutationServices = {
   __typename?: 'GroupMutationServices'
   addGroup: GroupSerializer
   addIdolToGroup: GroupSerializer
-  deleteGroup: Scalars['String']
+  deleteGroup: Scalars['String']['output']
   removeIdolFromGroup: GroupSerializer
   updateGroup: GroupSerializer
 }
@@ -271,43 +280,43 @@ export type GroupMutationServicesAddGroupArgs = {
 }
 
 export type GroupMutationServicesAddIdolToGroupArgs = {
-  groupId: Scalars['ID']
-  idolId: Scalars['ID']
+  groupId: Scalars['ID']['input']
+  idolId: Scalars['ID']['input']
 }
 
 export type GroupMutationServicesDeleteGroupArgs = {
-  groupId: Scalars['ID']
+  groupId: Scalars['ID']['input']
 }
 
 export type GroupMutationServicesRemoveIdolFromGroupArgs = {
-  groupId: Scalars['ID']
-  idolId: Scalars['ID']
+  groupId: Scalars['ID']['input']
+  idolId: Scalars['ID']['input']
 }
 
 export type GroupMutationServicesUpdateGroupArgs = {
-  groupId: Scalars['ID']
+  groupId: Scalars['ID']['input']
   params: AddOrUpdateGroupParamsInput
 }
 
 export type GroupPaginationSerializer = PaginationSerializer & {
   __typename?: 'GroupPaginationSerializer'
-  count: Scalars['Int']
-  currentPage: Scalars['Int']
+  count: Scalars['Int']['output']
+  currentPage: Scalars['Int']['output']
   groups: Array<GroupSerializer>
-  pageCount: Scalars['Int']
+  pageCount: Scalars['Int']['output']
 }
 
 export type GroupSerializer = {
   __typename?: 'GroupSerializer'
-  groupCreatedAt: Scalars['String']
-  groupId: Scalars['ID']
-  groupName: Scalars['String']
+  groupCreatedAt: Scalars['String']['output']
+  groupId: Scalars['ID']['output']
+  groupName: Scalars['String']['output']
   groupStatus: GroupStatus
-  groupUpdatedAt: Scalars['String']
+  groupUpdatedAt: Scalars['String']['output']
   idols: Array<Maybe<IdolSerializer>>
   regulations: Array<RegulationSerializer>
   user?: Maybe<LimitedUserSerializer>
-  userId?: Maybe<Scalars['ID']>
+  userId?: Maybe<Scalars['ID']['output']>
 }
 
 export enum GroupStatus {
@@ -321,7 +330,7 @@ export enum GroupStatus {
 export type IdolMutationServices = {
   __typename?: 'IdolMutationServices'
   addIdol: IdolSerializer
-  deleteIdol: Scalars['String']
+  deleteIdol: Scalars['String']['output']
   updateIdol: IdolSerializer
 }
 
@@ -330,32 +339,32 @@ export type IdolMutationServicesAddIdolArgs = {
 }
 
 export type IdolMutationServicesDeleteIdolArgs = {
-  idolId: Scalars['ID']
+  idolId: Scalars['ID']['input']
 }
 
 export type IdolMutationServicesUpdateIdolArgs = {
-  idolId: Scalars['ID']
+  idolId: Scalars['ID']['input']
   params: AddOrUpdateIdolParamsInput
 }
 
 export type IdolPaginationSerializer = PaginationSerializer & {
   __typename?: 'IdolPaginationSerializer'
-  count: Scalars['Int']
-  currentPage: Scalars['Int']
+  count: Scalars['Int']['output']
+  currentPage: Scalars['Int']['output']
   idols: Array<IdolSerializer>
-  pageCount: Scalars['Int']
+  pageCount: Scalars['Int']['output']
 }
 
 export type IdolSerializer = {
   __typename?: 'IdolSerializer'
   groups: Array<Maybe<GroupSerializer>>
-  idolCreatedAt: Scalars['String']
-  idolId: Scalars['ID']
-  idolName: Scalars['String']
+  idolCreatedAt: Scalars['String']['output']
+  idolId: Scalars['ID']['output']
+  idolName: Scalars['String']['output']
   idolStatus: IdolStatus
-  idolUpdatedAt: Scalars['String']
+  idolUpdatedAt: Scalars['String']['output']
   user?: Maybe<LimitedUserSerializer>
-  userId?: Maybe<Scalars['ID']>
+  userId?: Maybe<Scalars['ID']['output']>
 }
 
 export enum IdolStatus {
@@ -368,8 +377,8 @@ export enum IdolStatus {
 
 export type LimitedUserSerializer = {
   __typename?: 'LimitedUserSerializer'
-  userId: Scalars['ID']
-  userName: Scalars['String']
+  userId: Scalars['ID']['output']
+  userName: Scalars['String']['output']
 }
 
 export type Mutation = {
@@ -385,9 +394,9 @@ export type Mutation = {
 }
 
 export type PaginationSerializer = {
-  count: Scalars['Int']
-  currentPage: Scalars['Int']
-  pageCount: Scalars['Int']
+  count: Scalars['Int']['output']
+  currentPage: Scalars['Int']['output']
+  pageCount: Scalars['Int']['output']
 }
 
 export type Query = {
@@ -399,7 +408,7 @@ export type Query = {
   currentUserIdols: CurrentUserIdols
   getAllIdols: IdolPaginationSerializer
   getCheki: ChekiSerializer
-  getCsrfToken: Scalars['String']
+  getCsrfToken: Scalars['String']['output']
   getGroup: GroupSerializer
   getIdol: IdolSerializer
   getRegulation: RegulationSerializer
@@ -407,29 +416,29 @@ export type Query = {
 }
 
 export type QueryGetAllIdolsArgs = {
-  page: Scalars['Int']
+  page: Scalars['Int']['input']
 }
 
 export type QueryGetChekiArgs = {
-  chekiId: Scalars['ID']
+  chekiId: Scalars['ID']['input']
 }
 
 export type QueryGetGroupArgs = {
-  groupId: Scalars['ID']
+  groupId: Scalars['ID']['input']
 }
 
 export type QueryGetIdolArgs = {
-  idolId: Scalars['ID']
+  idolId: Scalars['ID']['input']
 }
 
 export type QueryGetRegulationArgs = {
-  regulationId: Scalars['ID']
+  regulationId: Scalars['ID']['input']
 }
 
 export type RegulationMutationServices = {
   __typename?: 'RegulationMutationServices'
   addRegulation: RegulationSerializer
-  deleteRegulation: Scalars['String']
+  deleteRegulation: Scalars['String']['output']
   updateRegulation: RegulationSerializer
 }
 
@@ -438,27 +447,27 @@ export type RegulationMutationServicesAddRegulationArgs = {
 }
 
 export type RegulationMutationServicesDeleteRegulationArgs = {
-  regulationId: Scalars['ID']
+  regulationId: Scalars['ID']['input']
 }
 
 export type RegulationMutationServicesUpdateRegulationArgs = {
   params: AddOrUpdateRegulationParamsInput
-  regulationId: Scalars['ID']
+  regulationId: Scalars['ID']['input']
 }
 
 export type RegulationSerializer = {
   __typename?: 'RegulationSerializer'
   group?: Maybe<GroupSerializer>
-  groupId: Scalars['ID']
-  regulationComment: Scalars['String']
-  regulationCreatedAt: Scalars['String']
-  regulationId: Scalars['ID']
-  regulationName: Scalars['String']
-  regulationStatus: Scalars['String']
-  regulationUnitPrice: Scalars['Int']
-  regulationUpdatedAt: Scalars['String']
+  groupId: Scalars['ID']['output']
+  regulationComment: Scalars['String']['output']
+  regulationCreatedAt: Scalars['String']['output']
+  regulationId: Scalars['ID']['output']
+  regulationName: Scalars['String']['output']
+  regulationStatus: Scalars['String']['output']
+  regulationUnitPrice: Scalars['Int']['output']
+  regulationUpdatedAt: Scalars['String']['output']
   user?: Maybe<LimitedUserSerializer>
-  userId?: Maybe<Scalars['ID']>
+  userId?: Maybe<Scalars['ID']['output']>
 }
 
 export enum RegulationStatus {
@@ -468,12 +477,12 @@ export enum RegulationStatus {
 }
 
 export type UpdateAdminUserParamsInput = {
-  email: Scalars['String']
-  name: Scalars['String']
+  email: Scalars['String']['input']
+  name: Scalars['String']['input']
 }
 
 export type UpdateAdminUserPasswordParamsInput = {
-  password: Scalars['String']
+  password: Scalars['String']['input']
 }
 
 export type UserChekis = {
@@ -496,9 +505,9 @@ export type UserChekisGetUserChekisArgs = {
 }
 
 export type UserCreateParamsInput = {
-  email: Scalars['String']
-  name: Scalars['String']
-  password: Scalars['String']
+  email: Scalars['String']['input']
+  name: Scalars['String']['input']
+  password: Scalars['String']['input']
 }
 
 export type UserFavoriteGroup = {
@@ -507,15 +516,15 @@ export type UserFavoriteGroup = {
 }
 
 export type UserLoginParamsInput = {
-  email: Scalars['String']
-  password: Scalars['String']
+  email: Scalars['String']['input']
+  password: Scalars['String']['input']
 }
 
 export type UserMutationServices = {
   __typename?: 'UserMutationServices'
   userCreate: UserSerializer
   userLogin: UserSerializer
-  userLogout: Scalars['String']
+  userLogout: Scalars['String']['output']
 }
 
 export type UserMutationServicesUserCreateArgs = {
@@ -528,12 +537,12 @@ export type UserMutationServicesUserLoginArgs = {
 
 export type UserSerializer = {
   __typename?: 'UserSerializer'
-  userCreatedAt: Scalars['String']
-  userEmail?: Maybe<Scalars['String']>
-  userEmailVerifiedAt?: Maybe<Scalars['String']>
-  userId: Scalars['ID']
-  userName: Scalars['String']
-  userUpdatedAt: Scalars['String']
+  userCreatedAt: Scalars['String']['output']
+  userEmail?: Maybe<Scalars['String']['output']>
+  userEmailVerifiedAt?: Maybe<Scalars['String']['output']>
+  userId: Scalars['ID']['output']
+  userName: Scalars['String']['output']
+  userUpdatedAt: Scalars['String']['output']
 }
 
 export type AddChekiMutationVariables = Exact<{
@@ -627,7 +636,7 @@ export type AddIdolMutation = {
 }
 
 export type DeleteGroupMutationVariables = Exact<{
-  groupId: Scalars['ID']
+  groupId: Scalars['ID']['input']
 }>
 
 export type DeleteGroupMutation = {
@@ -636,7 +645,7 @@ export type DeleteGroupMutation = {
 }
 
 export type DeleteIdolMutationVariables = Exact<{
-  id: Scalars['ID']
+  id: Scalars['ID']['input']
 }>
 
 export type DeleteIdolMutation = {
@@ -645,7 +654,7 @@ export type DeleteIdolMutation = {
 }
 
 export type EditGroupMutationVariables = Exact<{
-  groupId: Scalars['ID']
+  groupId: Scalars['ID']['input']
   group: AddOrUpdateGroupParamsInput
 }>
 
@@ -700,7 +709,7 @@ export type EditGroupMutation = {
 }
 
 export type EditIdolMutationVariables = Exact<{
-  idolId: Scalars['ID']
+  idolId: Scalars['ID']['input']
   idol: AddOrUpdateIdolParamsInput
 }>
 
@@ -750,7 +759,7 @@ export type GetCurrentUserQuery = {
 }
 
 export type GetGroupQueryVariables = Exact<{
-  groupId: Scalars['ID']
+  groupId: Scalars['ID']['input']
 }>
 
 export type GetGroupQuery = {
@@ -801,7 +810,7 @@ export type GetGroupQuery = {
 }
 
 export type GetIdolQueryVariables = Exact<{
-  idolId: Scalars['ID']
+  idolId: Scalars['ID']['input']
 }>
 
 export type GetIdolQuery = {
@@ -828,9 +837,9 @@ export type GetIdolQuery = {
 }
 
 export type GetIdolChekisByDateRangeAndIdolIdQueryVariables = Exact<{
-  chekiShotAtStart: Scalars['String']
-  chekiShotAtEnd: Scalars['String']
-  idolId: Scalars['ID']
+  chekiShotAtStart: Scalars['String']['input']
+  chekiShotAtEnd: Scalars['String']['input']
+  idolId: Scalars['ID']['input']
 }>
 
 export type GetIdolChekisByDateRangeAndIdolIdQuery = {
@@ -872,7 +881,7 @@ export type GetIdolChekisByDateRangeAndIdolIdQuery = {
 }
 
 export type GetIdolDetailsForChekiAddQueryVariables = Exact<{
-  idolId: Scalars['ID']
+  idolId: Scalars['ID']['input']
 }>
 
 export type GetIdolDetailsForChekiAddQuery = {
@@ -909,8 +918,8 @@ export type GetIdolDetailsForChekiAddQuery = {
 }
 
 export type GetUserChekiIdolCountQueryVariables = Exact<{
-  chekiShotAtStart: Scalars['String']
-  chekiShotAtEnd: Scalars['String']
+  chekiShotAtStart: Scalars['String']['input']
+  chekiShotAtEnd: Scalars['String']['input']
 }>
 
 export type GetUserChekiIdolCountQuery = {
@@ -930,7 +939,7 @@ export type GetUserChekiIdolCountQuery = {
 }
 
 export type GetUserCreatedGroupListQueryVariables = Exact<{
-  page: Scalars['Int']
+  page: Scalars['Int']['input']
 }>
 
 export type GetUserCreatedGroupListQuery = {
@@ -961,7 +970,7 @@ export type GetUserCreatedGroupListQuery = {
 }
 
 export type GetUserCreatedIdolListQueryVariables = Exact<{
-  page: Scalars['Int']
+  page: Scalars['Int']['input']
 }>
 
 export type GetUserCreatedIdolListQuery = {
@@ -1377,7 +1386,7 @@ export function getSdk(
   return {
     AddCheki(
       variables: AddChekiMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers']
+      requestHeaders?: GraphQLClientRequestHeaders
     ): Promise<AddChekiMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -1391,7 +1400,7 @@ export function getSdk(
     },
     AddGroup(
       variables: AddGroupMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers']
+      requestHeaders?: GraphQLClientRequestHeaders
     ): Promise<AddGroupMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -1405,7 +1414,7 @@ export function getSdk(
     },
     AddIdol(
       variables: AddIdolMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers']
+      requestHeaders?: GraphQLClientRequestHeaders
     ): Promise<AddIdolMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -1419,7 +1428,7 @@ export function getSdk(
     },
     DeleteGroup(
       variables: DeleteGroupMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers']
+      requestHeaders?: GraphQLClientRequestHeaders
     ): Promise<DeleteGroupMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -1433,7 +1442,7 @@ export function getSdk(
     },
     DeleteIdol(
       variables: DeleteIdolMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers']
+      requestHeaders?: GraphQLClientRequestHeaders
     ): Promise<DeleteIdolMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -1447,7 +1456,7 @@ export function getSdk(
     },
     EditGroup(
       variables: EditGroupMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers']
+      requestHeaders?: GraphQLClientRequestHeaders
     ): Promise<EditGroupMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -1461,7 +1470,7 @@ export function getSdk(
     },
     EditIdol(
       variables: EditIdolMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers']
+      requestHeaders?: GraphQLClientRequestHeaders
     ): Promise<EditIdolMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -1475,7 +1484,7 @@ export function getSdk(
     },
     GetCSRFToken(
       variables?: GetCsrfTokenQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers']
+      requestHeaders?: GraphQLClientRequestHeaders
     ): Promise<GetCsrfTokenQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -1489,7 +1498,7 @@ export function getSdk(
     },
     GetCurrentUser(
       variables?: GetCurrentUserQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers']
+      requestHeaders?: GraphQLClientRequestHeaders
     ): Promise<GetCurrentUserQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -1504,7 +1513,7 @@ export function getSdk(
     },
     GetGroup(
       variables: GetGroupQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers']
+      requestHeaders?: GraphQLClientRequestHeaders
     ): Promise<GetGroupQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -1518,7 +1527,7 @@ export function getSdk(
     },
     GetIdol(
       variables: GetIdolQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers']
+      requestHeaders?: GraphQLClientRequestHeaders
     ): Promise<GetIdolQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -1532,7 +1541,7 @@ export function getSdk(
     },
     GetIdolChekisByDateRangeAndIdolId(
       variables: GetIdolChekisByDateRangeAndIdolIdQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers']
+      requestHeaders?: GraphQLClientRequestHeaders
     ): Promise<GetIdolChekisByDateRangeAndIdolIdQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -1547,7 +1556,7 @@ export function getSdk(
     },
     GetIdolDetailsForChekiAdd(
       variables: GetIdolDetailsForChekiAddQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers']
+      requestHeaders?: GraphQLClientRequestHeaders
     ): Promise<GetIdolDetailsForChekiAddQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -1562,7 +1571,7 @@ export function getSdk(
     },
     GetUserChekiIdolCount(
       variables: GetUserChekiIdolCountQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers']
+      requestHeaders?: GraphQLClientRequestHeaders
     ): Promise<GetUserChekiIdolCountQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -1577,7 +1586,7 @@ export function getSdk(
     },
     GetUserCreatedGroupList(
       variables: GetUserCreatedGroupListQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers']
+      requestHeaders?: GraphQLClientRequestHeaders
     ): Promise<GetUserCreatedGroupListQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -1592,7 +1601,7 @@ export function getSdk(
     },
     GetUserCreatedIdolList(
       variables: GetUserCreatedIdolListQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers']
+      requestHeaders?: GraphQLClientRequestHeaders
     ): Promise<GetUserCreatedIdolListQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
