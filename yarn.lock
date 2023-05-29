@@ -1768,9 +1768,9 @@
   integrity sha512-Rd4pzB/ncWfso13bygIeK7IW4BnM4HRuCrKNeL5irPZzOIf/B3dU07bj/172vQ5CmtiJL3P56phF+02f51x6rQ==
 
 "@frsource/cypress-plugin-visual-regression-diff@^3.3.1":
-  version "3.3.1"
-  resolved "https://registry.yarnpkg.com/@frsource/cypress-plugin-visual-regression-diff/-/cypress-plugin-visual-regression-diff-3.3.1.tgz#c202247d442ade1d7cbad649c097c60709880dc8"
-  integrity sha512-F+BdHvoPfJXtYDUmc2fZR7m1VE21cQ0BRvHwWTqdyc9IeZEt/ErxymLbKbkLk0TB55Rk1fGJX6+1XEiV/ptBKA==
+  version "3.3.2"
+  resolved "https://registry.yarnpkg.com/@frsource/cypress-plugin-visual-regression-diff/-/cypress-plugin-visual-regression-diff-3.3.2.tgz#69b062e1b9cac2d6b6c09a4bd444457e0fd66e8a"
+  integrity sha512-2NeYISTlgRfgt+Txsj7YDGeoBozAjJx+ui4PG9eQTrTn2GHiPccJWAEqz6k8NKq+13NNcMGLHEPhF2U+e34I/w==
   dependencies:
     "@frsource/base64" "1.0.14"
     glob "8.0.3"
