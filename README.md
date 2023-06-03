@@ -1,4 +1,4 @@
-`colne` is is a cheki management application frontend made with Next.js and TypeScript.
+`colne` is a cheki management application frontend made with Next.js and TypeScript.
 
 ## Backend
 The backend is [here](https://github.com/tumugin/aisu).
