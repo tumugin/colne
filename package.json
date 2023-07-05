@@ -63,7 +63,7 @@
     "eslint": "8.43.0",
     "eslint-config-next": "13.4.6",
     "eslint-plugin-storybook": "^0.6.12",
-    "prettier": "2.8.8",
+    "prettier": "3.0.0",
     "storybook": "^7.0.18",
     "storybook-dark-mode": "^3.0.0",
     "ts-node": "^10.9.1",
