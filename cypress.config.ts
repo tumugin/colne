@@ -12,7 +12,7 @@ export default defineConfig({
     },
   },
   env: {
-    pluginVisualRegressionDiffConfig: { threshold: 0.05 },
+    pluginVisualRegressionDiffConfig: { maxDiffThreshold: 0.05 },
   },
   video: false,
 })
