@@ -143,7 +143,10 @@ export function IdolEditOrCreateForm({
                         ) ?? null
                       }
                       onChange={({ detail }) =>
-                        field.onChange(detail.selectedOption.value)
+                        field.onChange(
+                          detail.selectedOption
+                            .value as (typeof idolStatusOptions)[0]['value'],
+                        )
                       }
                       options={idolStatusOptions}
                       invalid={!!fieldState.error}
