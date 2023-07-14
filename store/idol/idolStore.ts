@@ -89,13 +89,13 @@ export const idolSlice = createSlice({
     },
     updateUserCreatedIdols(
       state,
-      action: PayloadAction<State['userCreatedIdols']>
+      action: PayloadAction<State['userCreatedIdols']>,
     ) {
       state.userCreatedIdols = action.payload
     },
     setUserCreatedIdolsToLoading(
       state,
-      action: PayloadAction<{ page: number }>
+      action: PayloadAction<{ page: number }>,
     ) {
       state.userCreatedIdols.currentPage = action.payload.page
       state.userCreatedIdols.isLoaded = false

@@ -1,7 +1,7 @@
 export function asSingleStringParam<T>(
   value: string | string[] | undefined,
   defaultValue: T,
-  denyEmpty: boolean = false
+  denyEmpty: boolean = false,
 ): string | T {
   if (value === undefined) {
     return defaultValue
@@ -15,7 +15,7 @@ export function asSingleStringParam<T>(
 
 export function asSingleNumberParam<T>(
   value: string | string[] | undefined,
-  defaultValue: T
+  defaultValue: T,
 ): number | T {
   if (value === undefined) {
     return defaultValue

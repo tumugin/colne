@@ -39,7 +39,7 @@ const ChekisAdd: NextPage<WithSplitPanelPageProps> = ({
 
   const selectedIdolId = watch('idolId')
   const selectedIdolDetails = useAppSelector(
-    (state) => state.idol.idolForChekiAdd[selectedIdolId]
+    (state) => state.idol.idolForChekiAdd[selectedIdolId],
   )
   useEffect(() => {
     if (selectedIdolId && !selectedIdolDetails) {
@@ -56,9 +56,9 @@ const ChekisAdd: NextPage<WithSplitPanelPageProps> = ({
           regulationName: r.regulationName,
           regulationComment: r.regulationComment,
           regulationUnitPrice: r.regulationUnitPrice,
-        }))
+        })),
       ) ?? [],
-    [selectedIdolDetails?.groups]
+    [selectedIdolDetails?.groups],
   )
 
   const addCheki = useAddCheki()
@@ -131,7 +131,7 @@ const ChekisAdd: NextPage<WithSplitPanelPageProps> = ({
         />
       </SplitPanel>
     ),
-    [control, onSubmit, regulations, selectedIdolDetails, selectedIdolId]
+    [control, onSubmit, regulations, selectedIdolDetails, selectedIdolId],
   )
 
   useEffect(() => {
@@ -168,7 +168,7 @@ ChekisAdd.getInitialProps = wrapper.getInitialPageProps(
     if (!currentUser) {
       await redirectIfNotLoggedIn(ctx)
     }
-  }
+  },
 )
 
 export default ChekisAdd

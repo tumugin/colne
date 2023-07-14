@@ -28,7 +28,7 @@ const GroupCreate: NextPage = () => {
       })
       await router.push(groupDetailPage(result.groupId))
     },
-    [addGroup, router]
+    [addGroup, router],
   )
 
   return (
@@ -47,7 +47,7 @@ GroupCreate.getInitialProps = wrapper.getInitialPageProps(
     if (!currentUser) {
       await redirectIfNotLoggedIn(ctx)
     }
-  }
+  },
 )
 
 export default GroupCreate

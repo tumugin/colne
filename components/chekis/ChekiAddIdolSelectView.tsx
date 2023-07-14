@@ -19,7 +19,7 @@ export function ChekiAddIdolSelectView({
         hideIdolStatus
       />
     ),
-    [selectedIdolId, setSelectedIdolId]
+    [selectedIdolId, setSelectedIdolId],
   )
   return (
     <Tabs

@@ -41,7 +41,7 @@ const IdolEdit: NextPage<Props> = (props) => {
       })
       await router.push(`/idols/${props.idolId}`)
     },
-    [props.idolId, router, updateIdol]
+    [props.idolId, router, updateIdol],
   )
   const deleteIdol = useDeleteIdol()
   const handleOnDelete = useCallback(async () => {
@@ -92,7 +92,7 @@ IdolEdit.getInitialProps = wrapper.getInitialPageProps(
         await getIdol(
           store.dispatch,
           { idolId },
-          getRequestHeaderFromContext(ctx)
+          getRequestHeaderFromContext(ctx),
         )
       } catch (e) {
         return {
@@ -101,7 +101,7 @@ IdolEdit.getInitialProps = wrapper.getInitialPageProps(
         }
       }
       return { idolId }
-    }
+    },
 )
 
 export default IdolEdit

@@ -13,7 +13,7 @@ GroupList.getInitialProps = wrapper.getInitialPageProps(
     if (!currentUser) {
       await redirectIfNotLoggedIn(ctx)
     }
-  }
+  },
 )
 
 export default GroupList

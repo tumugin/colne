@@ -46,22 +46,22 @@ export function IdolChekiStats({
       chekis
         .map((c) => c.chekiQuantity)
         .reduce((sum, element) => sum + element, 0),
-    [chekis]
+    [chekis],
   )
   const weekCount = useMemo(
     () => dayjs(dateRange.endISOString).diff(dateRange.startISOString, 'week'),
-    [dateRange.endISOString, dateRange.startISOString]
+    [dateRange.endISOString, dateRange.startISOString],
   )
   const chekiQuantityByWeek = useMemo(
     () => (weekCount !== 0 ? chekiQuantity / weekCount : '-'),
-    [chekiQuantity, weekCount]
+    [chekiQuantity, weekCount],
   )
   const totalPrice = useMemo(
     () =>
       chekis
         .map((c) => (c.regulation?.regulationUnitPrice ?? 0) * c.chekiQuantity)
         .reduce((sum, element) => sum + element, 0),
-    [chekis]
+    [chekis],
   )
   const regulations = useMemo(
     () =>
@@ -70,9 +70,9 @@ export function IdolChekiStats({
         .filter(nonNullable)
         .map(
           (c) =>
-            `${c.regulationName} - ${c.group?.groupName ?? '不明なグループ'}`
+            `${c.regulationName} - ${c.group?.groupName ?? '不明なグループ'}`,
         ),
-    [chekis]
+    [chekis],
   )
   const bestUsedRegulation = useMemo(
     () =>
@@ -80,10 +80,10 @@ export function IdolChekiStats({
         .sort(
           (a, b) =>
             regulations.filter((v) => v === a).length -
-            regulations.filter((v) => v === b).length
+            regulations.filter((v) => v === b).length,
         )
         .pop() ?? '-',
-    [regulations]
+    [regulations],
   )
   const statItems = useMemo<StatItem[]>(
     () => [
@@ -112,7 +112,7 @@ export function IdolChekiStats({
         defaultHidden: true,
       },
     ],
-    [bestUsedRegulation, chekiQuantity, chekiQuantityByWeek, totalPrice]
+    [bestUsedRegulation, chekiQuantity, chekiQuantityByWeek, totalPrice],
   )
 
   return (

@@ -15,11 +15,11 @@ import { useCallback } from 'react'
 export async function addIdol(
   dispatch: AppDispatch,
   params: AddIdolMutationVariables,
-  headers?: Record<string, string>
+  headers?: Record<string, string>,
 ) {
   const idol = await colneGraphQLSdk.AddIdol(params, headers)
   await dispatch(
-    idolSlice.actions.updateOrAddIdol({ ...idol.idol.addIdol, groups: [] })
+    idolSlice.actions.updateOrAddIdol({ ...idol.idol.addIdol, groups: [] }),
   )
   return idol.idol.addIdol
 }
@@ -30,14 +30,14 @@ export function useAddIdol() {
     (params: AddIdolMutationVariables) => {
       return addIdol(dispatch, params)
     },
-    [dispatch]
+    [dispatch],
   )
 }
 
 export async function getIdol(
   dispatch: AppDispatch,
   params: GetIdolQueryVariables,
-  headers?: Record<string, string>
+  headers?: Record<string, string>,
 ) {
   try {
     const idol = await colneGraphQLSdk.GetIdol(params, headers)
@@ -45,7 +45,7 @@ export async function getIdol(
       idolSlice.actions.updateOrAddIdol({
         ...idol.getIdol,
         groups: idol.getIdol.groups.filter(nonNullable),
-      })
+      }),
     )
   } catch (e) {
     mapAisuExceptionToColneExceptionAndThrow(e)
@@ -58,7 +58,7 @@ export function useGetIdol() {
     (params: GetIdolQueryVariables) => {
       return getIdol(dispatch, params)
     },
-    [dispatch]
+    [dispatch],
   )
 }
 
@@ -66,20 +66,20 @@ export async function updateIdol(
   dispatch: AppDispatch,
   idolId: string,
   params: AddOrUpdateIdolParamsInput,
-  headers?: Record<string, string>
+  headers?: Record<string, string>,
 ) {
   const idol = await colneGraphQLSdk.EditIdol(
     {
       idolId,
       idol: params,
     },
-    headers
+    headers,
   )
   await dispatch(
     idolSlice.actions.updateOrAddIdol({
       ...idol.idol.updateIdol,
       groups: idol.idol.updateIdol.groups.filter(nonNullable),
-    })
+    }),
   )
 }
 
@@ -89,17 +89,17 @@ export function useUpdateIdol() {
     (idolId: string, params: AddOrUpdateIdolParamsInput) => {
       return updateIdol(dispatch, idolId, params)
     },
-    [dispatch]
+    [dispatch],
   )
 }
 
 export async function getUserCreatedIdols(
   dispatch: AppDispatch,
   params: GetUserCreatedIdolListQueryVariables,
-  headers?: Record<string, string>
+  headers?: Record<string, string>,
 ) {
   await dispatch(
-    idolSlice.actions.setUserCreatedIdolsToLoading({ page: params.page })
+    idolSlice.actions.setUserCreatedIdolsToLoading({ page: params.page }),
   )
   const idols = await colneGraphQLSdk.GetUserCreatedIdolList(params, headers)
   await dispatch(
@@ -112,7 +112,7 @@ export async function getUserCreatedIdols(
         ...p,
         groups: p.groups.filter(nonNullable),
       })),
-    })
+    }),
   )
 }
 
@@ -122,21 +122,21 @@ export function useGetUserCreatedIdols() {
     (params: GetUserCreatedIdolListQueryVariables) => {
       return getUserCreatedIdols(dispatch, params)
     },
-    [dispatch]
+    [dispatch],
   )
 }
 
 export async function getIdolForChekiAdd(
   dispatch: AppDispatch,
   params: GetIdolDetailsForChekiAddQueryVariables,
-  headers?: Record<string, string>
+  headers?: Record<string, string>,
 ) {
   const idol = await colneGraphQLSdk.GetIdolDetailsForChekiAdd(params, headers)
   await dispatch(
     idolSlice.actions.updateOrAddIdolForChekiAdd({
       ...idol.getIdol,
       groups: idol.getIdol.groups.filter(nonNullable),
-    })
+    }),
   )
 }
 
@@ -146,14 +146,14 @@ export function useGetIdolForChekiAdd() {
     (params: GetIdolDetailsForChekiAddQueryVariables) => {
       return getIdolForChekiAdd(dispatch, params)
     },
-    [dispatch]
+    [dispatch],
   )
 }
 
 export async function deleteIdol(
   dispatch: AppDispatch,
   idolId: string,
-  headers?: Record<string, string>
+  headers?: Record<string, string>,
 ) {
   await colneGraphQLSdk.DeleteIdol({ id: idolId }, headers)
   await dispatch(idolSlice.actions.deleteIdol({ idolId }))
@@ -165,6 +165,6 @@ export function useDeleteIdol() {
     (idolId: string) => {
       return deleteIdol(dispatch, idolId)
     },
-    [dispatch]
+    [dispatch],
   )
 }

@@ -19,7 +19,7 @@ const combinedReducer = combineReducers({
 // https://stackoverflow.com/questions/70426965/how-to-use-next-redux-wrapper-with-next-js-redux-toolkit-and-typescript-p
 function reducer(
   state: ReturnType<typeof combinedReducer> | undefined,
-  action: AnyAction
+  action: AnyAction,
 ) {
   if (action.type === HYDRATE) {
     return {
@@ -37,12 +37,12 @@ const makeStore = () =>
   })
 
 export function useCreateStoreHooks<T, X extends unknown[]>(
-  storeFunc: (dispatch: AppDispatch, ..._: X) => T
+  storeFunc: (dispatch: AppDispatch, ..._: X) => T,
 ) {
   const dispatch = useAppDispatch()
   return useCallback(
     (...params: X) => storeFunc(dispatch, ...params),
-    [dispatch, storeFunc]
+    [dispatch, storeFunc],
   )
 }
 

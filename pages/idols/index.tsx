@@ -12,7 +12,7 @@ import { asSingleNumberParam } from 'utils/query-params'
 const IdolList: NextPage = () => {
   const router = useRouter()
   const userCreatedIdolsStore = useAppSelector(
-    (state) => state.idol.userCreatedIdols
+    (state) => state.idol.userCreatedIdols,
   )
   const onPageChange = useCallback(
     async (newPageNumber: number) => {
@@ -21,7 +21,7 @@ const IdolList: NextPage = () => {
         query: { page: newPageNumber },
       })
     },
-    [router]
+    [router],
   )
 
   return (
@@ -55,9 +55,9 @@ IdolList.getInitialProps = wrapper.getInitialPageProps(
     const page = asSingleNumberParam(ctx.query.page, 1)
 
     await store.dispatch((dispatch) =>
-      getUserCreatedIdols(dispatch, { page }, getRequestHeaderFromContext(ctx))
+      getUserCreatedIdols(dispatch, { page }, getRequestHeaderFromContext(ctx)),
     )
-  }
+  },
 )
 
 export default IdolList

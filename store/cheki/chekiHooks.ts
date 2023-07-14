@@ -21,22 +21,22 @@ export async function updateCurrentUserChekiIdolCount(
     startDate: dayjs.Dayjs
     endDate: dayjs.Dayjs
   },
-  headers?: Record<string, string>
+  headers?: Record<string, string>,
 ) {
   const result = await colneGraphQLSdk.GetUserChekiIdolCount(
     {
       chekiShotAtStart: params.startDate.toISOString(),
       chekiShotAtEnd: params.endDate.toISOString(),
     },
-    headers
+    headers,
   )
   await dispatch(
     chekiSlice.actions.updateCurrentUserChekiIdolCount(
       result.currentUserChekis.getUserChekiIdolCount.map((p) => ({
         chekiCount: p.chekiCount,
         idol: p.idol ?? null,
-      }))
-    )
+      })),
+    ),
   )
 }
 
@@ -55,7 +55,7 @@ export async function updateIdolChekisWithDateRange(
   idolId: string,
   dateRange: { startDate: dayjs.Dayjs; endDate: dayjs.Dayjs },
   dispatch: AppDispatch,
-  headers?: Record<string, string>
+  headers?: Record<string, string>,
 ) {
   await dispatch(
     chekiSlice.actions.updateIdolChekis({
@@ -65,7 +65,7 @@ export async function updateIdolChekisWithDateRange(
         dateTimeRangeEnd: dateRange.endDate.toISOString(),
         chekis: [],
       },
-    })
+    }),
   )
   const result = await colneGraphQLSdk.GetIdolChekisByDateRangeAndIdolId(
     {
@@ -73,7 +73,7 @@ export async function updateIdolChekisWithDateRange(
       chekiShotAtEnd: dateRange.endDate.toISOString(),
       idolId,
     },
-    headers
+    headers,
   )
   await dispatch(
     chekiSlice.actions.updateIdolChekis({
@@ -105,6 +105,6 @@ export async function updateIdolChekisWithDateRange(
             : undefined,
         })),
       },
-    })
+    }),
   )
 }

@@ -3,7 +3,7 @@ import { IncomingHttpHeaders } from 'http'
 import { AppContext } from 'next/app'
 
 export function getRequestHeaderFromContext(
-  ctx: NextPageContext | GetServerSidePropsContext
+  ctx: NextPageContext | GetServerSidePropsContext,
 ) {
   if (!ctx.req) {
     return undefined

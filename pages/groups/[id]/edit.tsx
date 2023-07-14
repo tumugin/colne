@@ -45,7 +45,7 @@ const GroupEdit: NextPage<Props> = (props) => {
       })
       await router.push(groupDetailPage(props.groupId))
     },
-    [props.groupId, updateGroup]
+    [props.groupId, router, updateGroup],
   )
   const deleteGroup = useDeleteGroup()
   const handleOnDelete = useCallback(async () => {
@@ -99,7 +99,7 @@ GroupEdit.getInitialProps = wrapper.getInitialPageProps(
         await getGroup(
           store.dispatch,
           { groupId },
-          getRequestHeaderFromContext(ctx)
+          getRequestHeaderFromContext(ctx),
         )
       } catch (e) {
         return {
@@ -111,7 +111,7 @@ GroupEdit.getInitialProps = wrapper.getInitialPageProps(
       return {
         groupId,
       }
-    }
+    },
 )
 
 export default GroupEdit

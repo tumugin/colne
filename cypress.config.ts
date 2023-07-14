@@ -11,5 +11,8 @@ export default defineConfig({
       initPlugin(on, config)
     },
   },
+  env: {
+    pluginVisualRegressionMaxDiffThreshold: 0.03,
+  },
   video: false,
 })

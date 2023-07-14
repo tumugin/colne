@@ -54,7 +54,7 @@ export function ChekiAddPanel({
 }) {
   const regulationsWithEmptyItem = useMemo(
     () => [emptyItem, ...regulations],
-    [regulations]
+    [regulations],
   )
   return (
     <Grid
@@ -124,11 +124,11 @@ export function ChekiAddPanel({
                 items={regulationsWithEmptyItem}
                 selectionType="single"
                 selectedItems={regulationsWithEmptyItem.filter(
-                  (i) => i.regulationId === field.value
+                  (i) => i.regulationId === field.value,
                 )}
                 onSelectionChange={(selectedItems) =>
                   field.onChange(
-                    selectedItems.detail.selectedItems[0].regulationId
+                    selectedItems.detail.selectedItems[0].regulationId,
                   )
                 }
                 cardDefinition={{

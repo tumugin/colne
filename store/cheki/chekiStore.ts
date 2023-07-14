@@ -53,7 +53,7 @@ export const chekiSlice = createSlice({
   reducers: {
     updateCurrentUserChekiIdolCount(
       state,
-      action: PayloadAction<State['currentUserChekiIdolCount']>
+      action: PayloadAction<State['currentUserChekiIdolCount']>,
     ) {
       state.currentUserChekiIdolCount = action.payload
     },
