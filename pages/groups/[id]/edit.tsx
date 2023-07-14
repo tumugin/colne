@@ -45,7 +45,7 @@ const GroupEdit: NextPage<Props> = (props) => {
       })
       await router.push(groupDetailPage(props.groupId))
     },
-    [props.groupId, updateGroup]
+    [props.groupId, router, updateGroup]
   )
   const deleteGroup = useDeleteGroup()
   const handleOnDelete = useCallback(async () => {
