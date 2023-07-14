@@ -143,7 +143,10 @@ export function GroupEditOrCreateForm({
                         ) ?? null
                       }
                       onChange={({ detail }) =>
-                        field.onChange(detail.selectedOption.value)
+                        field.onChange(
+                          detail.selectedOption
+                            .value as (typeof groupStatusOptions)[number]['value'],
+                        )
                       }
                       options={groupStatusOptions}
                       invalid={!!fieldState.error}
