@@ -18,13 +18,13 @@ export function useInitialCurrentUserState() {
       }
       return updateCurrentUserState(dispatch)
     },
-    [userState.currentUser]
+    [userState.currentUser],
   )
 }
 
 export async function updateCurrentUserState(
   dispatch: AppDispatch,
-  headers?: Record<string, string>
+  headers?: Record<string, string>,
 ) {
   const user = await colneGraphQLSdk.GetCurrentUser(undefined, headers)
   await dispatch(userSlice.actions.updateUserState(user.currentUser ?? null))

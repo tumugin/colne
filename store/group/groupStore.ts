@@ -73,13 +73,13 @@ export const groupSlice = createSlice({
     },
     updateUserCreatedGroups(
       state,
-      action: PayloadAction<State['userCreatedGroups']>
+      action: PayloadAction<State['userCreatedGroups']>,
     ) {
       state.userCreatedGroups = action.payload
     },
     setUserCreatedGroupsToLoading(
       state,
-      action: PayloadAction<{ page: number }>
+      action: PayloadAction<{ page: number }>,
     ) {
       state.userCreatedGroups.currentPage = action.payload.page
       state.userCreatedGroups.isLoaded = false

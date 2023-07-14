@@ -28,7 +28,7 @@ const IdolCreate: NextPage = () => {
       })
       await router.push(idolDetailPage(result.idolId))
     },
-    [addIdol, router]
+    [addIdol, router],
   )
 
   return (
@@ -47,7 +47,7 @@ IdolCreate.getInitialProps = wrapper.getInitialPageProps(
     if (!currentUser) {
       await redirectIfNotLoggedIn(ctx)
     }
-  }
+  },
 )
 
 export default IdolCreate

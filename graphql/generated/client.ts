@@ -14,7 +14,7 @@ export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
 }
 export type MakeEmpty<
   T extends { [key: string]: unknown },
-  K extends keyof T
+  K extends keyof T,
 > = { [_ in K]?: never }
 export type Incremental<T> =
   | T
@@ -1370,23 +1370,23 @@ export const GetUserCreatedIdolListDocument = gql`
 export type SdkFunctionWrapper = <T>(
   action: (requestHeaders?: Record<string, string>) => Promise<T>,
   operationName: string,
-  operationType?: string
+  operationType?: string,
 ) => Promise<T>
 
 const defaultWrapper: SdkFunctionWrapper = (
   action,
   _operationName,
-  _operationType
+  _operationType,
 ) => action()
 
 export function getSdk(
   client: GraphQLClient,
-  withWrapper: SdkFunctionWrapper = defaultWrapper
+  withWrapper: SdkFunctionWrapper = defaultWrapper,
 ) {
   return {
     AddCheki(
       variables: AddChekiMutationVariables,
-      requestHeaders?: GraphQLClientRequestHeaders
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<AddChekiMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -1395,12 +1395,12 @@ export function getSdk(
             ...wrappedRequestHeaders,
           }),
         'AddCheki',
-        'mutation'
+        'mutation',
       )
     },
     AddGroup(
       variables: AddGroupMutationVariables,
-      requestHeaders?: GraphQLClientRequestHeaders
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<AddGroupMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -1409,12 +1409,12 @@ export function getSdk(
             ...wrappedRequestHeaders,
           }),
         'AddGroup',
-        'mutation'
+        'mutation',
       )
     },
     AddIdol(
       variables: AddIdolMutationVariables,
-      requestHeaders?: GraphQLClientRequestHeaders
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<AddIdolMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -1423,12 +1423,12 @@ export function getSdk(
             ...wrappedRequestHeaders,
           }),
         'AddIdol',
-        'mutation'
+        'mutation',
       )
     },
     DeleteGroup(
       variables: DeleteGroupMutationVariables,
-      requestHeaders?: GraphQLClientRequestHeaders
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<DeleteGroupMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -1437,12 +1437,12 @@ export function getSdk(
             ...wrappedRequestHeaders,
           }),
         'DeleteGroup',
-        'mutation'
+        'mutation',
       )
     },
     DeleteIdol(
       variables: DeleteIdolMutationVariables,
-      requestHeaders?: GraphQLClientRequestHeaders
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<DeleteIdolMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -1451,12 +1451,12 @@ export function getSdk(
             ...wrappedRequestHeaders,
           }),
         'DeleteIdol',
-        'mutation'
+        'mutation',
       )
     },
     EditGroup(
       variables: EditGroupMutationVariables,
-      requestHeaders?: GraphQLClientRequestHeaders
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<EditGroupMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -1465,12 +1465,12 @@ export function getSdk(
             ...wrappedRequestHeaders,
           }),
         'EditGroup',
-        'mutation'
+        'mutation',
       )
     },
     EditIdol(
       variables: EditIdolMutationVariables,
-      requestHeaders?: GraphQLClientRequestHeaders
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<EditIdolMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -1479,12 +1479,12 @@ export function getSdk(
             ...wrappedRequestHeaders,
           }),
         'EditIdol',
-        'mutation'
+        'mutation',
       )
     },
     GetCSRFToken(
       variables?: GetCsrfTokenQueryVariables,
-      requestHeaders?: GraphQLClientRequestHeaders
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<GetCsrfTokenQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -1493,27 +1493,27 @@ export function getSdk(
             ...wrappedRequestHeaders,
           }),
         'GetCSRFToken',
-        'query'
+        'query',
       )
     },
     GetCurrentUser(
       variables?: GetCurrentUserQueryVariables,
-      requestHeaders?: GraphQLClientRequestHeaders
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<GetCurrentUserQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<GetCurrentUserQuery>(
             GetCurrentUserDocument,
             variables,
-            { ...requestHeaders, ...wrappedRequestHeaders }
+            { ...requestHeaders, ...wrappedRequestHeaders },
           ),
         'GetCurrentUser',
-        'query'
+        'query',
       )
     },
     GetGroup(
       variables: GetGroupQueryVariables,
-      requestHeaders?: GraphQLClientRequestHeaders
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<GetGroupQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -1522,12 +1522,12 @@ export function getSdk(
             ...wrappedRequestHeaders,
           }),
         'GetGroup',
-        'query'
+        'query',
       )
     },
     GetIdol(
       variables: GetIdolQueryVariables,
-      requestHeaders?: GraphQLClientRequestHeaders
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<GetIdolQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -1536,82 +1536,82 @@ export function getSdk(
             ...wrappedRequestHeaders,
           }),
         'GetIdol',
-        'query'
+        'query',
       )
     },
     GetIdolChekisByDateRangeAndIdolId(
       variables: GetIdolChekisByDateRangeAndIdolIdQueryVariables,
-      requestHeaders?: GraphQLClientRequestHeaders
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<GetIdolChekisByDateRangeAndIdolIdQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<GetIdolChekisByDateRangeAndIdolIdQuery>(
             GetIdolChekisByDateRangeAndIdolIdDocument,
             variables,
-            { ...requestHeaders, ...wrappedRequestHeaders }
+            { ...requestHeaders, ...wrappedRequestHeaders },
           ),
         'GetIdolChekisByDateRangeAndIdolId',
-        'query'
+        'query',
       )
     },
     GetIdolDetailsForChekiAdd(
       variables: GetIdolDetailsForChekiAddQueryVariables,
-      requestHeaders?: GraphQLClientRequestHeaders
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<GetIdolDetailsForChekiAddQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<GetIdolDetailsForChekiAddQuery>(
             GetIdolDetailsForChekiAddDocument,
             variables,
-            { ...requestHeaders, ...wrappedRequestHeaders }
+            { ...requestHeaders, ...wrappedRequestHeaders },
           ),
         'GetIdolDetailsForChekiAdd',
-        'query'
+        'query',
       )
     },
     GetUserChekiIdolCount(
       variables: GetUserChekiIdolCountQueryVariables,
-      requestHeaders?: GraphQLClientRequestHeaders
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<GetUserChekiIdolCountQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<GetUserChekiIdolCountQuery>(
             GetUserChekiIdolCountDocument,
             variables,
-            { ...requestHeaders, ...wrappedRequestHeaders }
+            { ...requestHeaders, ...wrappedRequestHeaders },
           ),
         'GetUserChekiIdolCount',
-        'query'
+        'query',
       )
     },
     GetUserCreatedGroupList(
       variables: GetUserCreatedGroupListQueryVariables,
-      requestHeaders?: GraphQLClientRequestHeaders
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<GetUserCreatedGroupListQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<GetUserCreatedGroupListQuery>(
             GetUserCreatedGroupListDocument,
             variables,
-            { ...requestHeaders, ...wrappedRequestHeaders }
+            { ...requestHeaders, ...wrappedRequestHeaders },
           ),
         'GetUserCreatedGroupList',
-        'query'
+        'query',
       )
     },
     GetUserCreatedIdolList(
       variables: GetUserCreatedIdolListQueryVariables,
-      requestHeaders?: GraphQLClientRequestHeaders
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<GetUserCreatedIdolListQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
           client.request<GetUserCreatedIdolListQuery>(
             GetUserCreatedIdolListDocument,
             variables,
-            { ...requestHeaders, ...wrappedRequestHeaders }
+            { ...requestHeaders, ...wrappedRequestHeaders },
           ),
         'GetUserCreatedIdolList',
-        'query'
+        'query',
       )
     },
   }

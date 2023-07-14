@@ -4,7 +4,7 @@ import { commonSlice } from 'store/common/commonStore'
 
 export async function updateCSRFToken(
   dispatch: AppDispatch,
-  headers?: Record<string, string>
+  headers?: Record<string, string>,
 ) {
   const csrfToken = await colneGraphQLSdk.GetCSRFToken(undefined, headers)
   await dispatch(commonSlice.actions.updateCsrfToken(csrfToken.getCsrfToken))

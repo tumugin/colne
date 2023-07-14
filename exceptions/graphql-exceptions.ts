@@ -7,7 +7,7 @@ export class ResourceHasNoPermissionException extends Error {}
 export class ResourceNotAuthorized extends Error {}
 
 export function mapAisuExceptionToColneExceptionAndThrow(
-  aisuException: unknown
+  aisuException: unknown,
 ) {
   if (!(aisuException instanceof ClientError)) {
     throw aisuException
@@ -15,16 +15,16 @@ export function mapAisuExceptionToColneExceptionAndThrow(
 
   // NOT_FOUND
   const isResourceNotFoundError = aisuException.response.errors?.some(
-    (error) => error.extensions?.type === 'NotFound'
+    (error) => error.extensions?.type === 'NotFound',
   )
   // HAS_NO_PERMISSION
   const isResourceHasNoPermissionException =
     aisuException.response.errors?.some(
-      (error) => error.extensions?.type === 'HasNoPermission'
+      (error) => error.extensions?.type === 'HasNoPermission',
     )
   // NOT_AUTHORIZED
   const isNotAuthorizedException = aisuException.response.errors?.some(
-    (error) => error.extensions?.type === 'NotAuthorized'
+    (error) => error.extensions?.type === 'NotAuthorized',
   )
 
   if (isResourceNotFoundError) {

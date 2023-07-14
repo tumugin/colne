@@ -18,13 +18,13 @@ export function UserCreatedIdolListViewWithStore({
 }) {
   const getUserCreatedIdols = useGetUserCreatedIdols()
   const userCreatedIdolsStore = useAppSelector(
-    (state) => state.idol.userCreatedIdols
+    (state) => state.idol.userCreatedIdols,
   )
   const onPageChange = useCallback(
     async (newPageNumber: number) => {
       void getUserCreatedIdols({ page: newPageNumber })
     },
-    [getUserCreatedIdols]
+    [getUserCreatedIdols],
   )
   const isFirstLoad = useRef(false)
   useEffect(() => {

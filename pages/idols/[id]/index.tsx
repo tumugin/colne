@@ -25,7 +25,7 @@ const IdolDetails: NextPage<Props> = (props) => {
   const idol = useAppSelector((state) => state.idol.idols[props.idolId])
   const user = useAppSelector((state) => state.user.currentUser)
   const idolChekis = useAppSelector(
-    (state) => state.cheki.idolChekis[props.idolId]
+    (state) => state.cheki.idolChekis[props.idolId],
   )
   const router = useRouter()
   const onDataTimeRangeChange = useCallback(
@@ -38,7 +38,7 @@ const IdolDetails: NextPage<Props> = (props) => {
         },
       })
     },
-    [router]
+    [router],
   )
 
   if (props.error) {
@@ -86,19 +86,19 @@ IdolDetails.getInitialProps = wrapper.getInitialPageProps(
       const chekisStartDateTime = asSingleStringParam(
         ctx.query.cheki_start,
         dayjs().subtract(1, 'months').toISOString(),
-        true
+        true,
       )
       const chekisEndDateTime = asSingleStringParam(
         ctx.query.cheki_end,
         dayjs().toISOString(),
-        true
+        true,
       )
 
       try {
         await getIdol(
           store.dispatch,
           { idolId },
-          getRequestHeaderFromContext(ctx)
+          getRequestHeaderFromContext(ctx),
         )
         await updateIdolChekisWithDateRange(
           idolId,
@@ -107,7 +107,7 @@ IdolDetails.getInitialProps = wrapper.getInitialPageProps(
             endDate: dayjs(chekisEndDateTime),
           },
           store.dispatch,
-          getRequestHeaderFromContext(ctx)
+          getRequestHeaderFromContext(ctx),
         )
       } catch (e) {
         return {
@@ -116,7 +116,7 @@ IdolDetails.getInitialProps = wrapper.getInitialPageProps(
         }
       }
       return { idolId }
-    }
+    },
 )
 
 export default IdolDetails

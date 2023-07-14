@@ -35,12 +35,12 @@ ColneApp.getInitialProps = wrapper.getInitialAppProps(
       currentState.common.csrfToken
         ? dummyPromise()
         : store.dispatch((d) =>
-            updateCSRFToken(d, getRequestHeaderFromAppContext(ctx))
+            updateCSRFToken(d, getRequestHeaderFromAppContext(ctx)),
           ),
       currentState.user.currentUser
         ? dummyPromise()
         : store.dispatch((d) =>
-            updateCurrentUserState(d, getRequestHeaderFromAppContext(ctx))
+            updateCurrentUserState(d, getRequestHeaderFromAppContext(ctx)),
           ),
     ])
 
@@ -49,7 +49,7 @@ ColneApp.getInitialProps = wrapper.getInitialAppProps(
         ...(await App.getInitialProps(ctx)).pageProps,
       },
     }
-  }
+  },
 )
 
 export default ColneApp

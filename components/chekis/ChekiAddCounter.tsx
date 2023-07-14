@@ -104,7 +104,7 @@ export function ChekiAddCounter({
       }
       onChange && onChange(parseInt(e.target.value))
     },
-    [maxValue, minValue, onChange]
+    [maxValue, minValue, onChange],
   )
 
   return (

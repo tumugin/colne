@@ -20,7 +20,7 @@ export function mapEditorIdolStatusToGraphQlType(idolStatus: idolStatus) {
 }
 
 export function GraphQlTypeToEditorIdolStatus(
-  idolStatus: Omit<IdolStatus, IdolStatus.OperationDeleted>
+  idolStatus: Omit<IdolStatus, IdolStatus.OperationDeleted>,
 ) {
   switch (idolStatus) {
     case IdolStatus.PrivateActive:

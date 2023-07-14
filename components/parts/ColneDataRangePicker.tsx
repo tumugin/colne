@@ -24,7 +24,7 @@ export function ColneDataRangePicker({
           startDate: dateRange.startISOString,
           endDate: dateRange.endISOString,
         }
-      : null
+      : null,
   )
 
   const onChangeForListner = useCallback(
@@ -47,7 +47,7 @@ export function ColneDataRangePicker({
         onDateRangeChange(null)
       }
     },
-    [onDateRangeChange]
+    [onDateRangeChange],
   )
 
   return (

@@ -20,7 +20,7 @@ export function mapEditorGroupStatusToGraphQlType(groupStatus: groupStatus) {
 }
 
 export function GraphQlTypeToEditorGroupStatus(
-  groupStatus: Omit<GroupStatus, GroupStatus.OperationDeleted>
+  groupStatus: Omit<GroupStatus, GroupStatus.OperationDeleted>,
 ) {
   switch (groupStatus) {
     case GroupStatus.PrivateActive:

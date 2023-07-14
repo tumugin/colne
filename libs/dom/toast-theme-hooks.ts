@@ -17,6 +17,6 @@ export function useToastTheme() {
         color: awsui.colorTextBodyDefault,
       },
     }),
-    []
+    [],
   )
 }

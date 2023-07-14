@@ -12,7 +12,7 @@ import { mapAisuExceptionToColneExceptionAndThrow } from 'exceptions/graphql-exc
 export async function addGroup(
   dispatch: AppDispatch,
   params: AddGroupMutationVariables,
-  headers?: Record<string, string>
+  headers?: Record<string, string>,
 ) {
   const group = await colneGraphQLSdk.AddGroup(params, headers)
   await dispatch(
@@ -21,7 +21,7 @@ export async function addGroup(
       idols: group.group.addGroup.idols
         .filter(nonNullable)
         .map((idol) => ({ ...idol, groups: idol?.groups.filter(nonNullable) })),
-    })
+    }),
   )
   return group.group.addGroup
 }
@@ -33,11 +33,11 @@ export function useAddGroup() {
 export async function deleteGroup(
   dispatch: AppDispatch,
   params: DeleteGroupMutationVariables,
-  headers?: Record<string, string>
+  headers?: Record<string, string>,
 ) {
   await colneGraphQLSdk.DeleteGroup(params, headers)
   await dispatch(
-    groupSlice.actions.deleteGroup({ groupId: params.groupId.toString() })
+    groupSlice.actions.deleteGroup({ groupId: params.groupId.toString() }),
   )
 }
 
@@ -49,11 +49,11 @@ export async function updateGroup(
   dispatch: AppDispatch,
   groupId: string,
   params: AddOrUpdateGroupParamsInput,
-  headers?: Record<string, string>
+  headers?: Record<string, string>,
 ) {
   const group = await colneGraphQLSdk.EditGroup(
     { groupId: groupId, group: params },
-    headers
+    headers,
   )
   await dispatch(
     groupSlice.actions.updateOrAddGroup({
@@ -61,7 +61,7 @@ export async function updateGroup(
       idols: group.group.updateGroup.idols
         .filter(nonNullable)
         .map((idol) => ({ ...idol, groups: idol?.groups.filter(nonNullable) })),
-    })
+    }),
   )
   return group.group.updateGroup
 }
@@ -73,16 +73,16 @@ export function useUpdateGroup() {
 export async function getUserCreatedGroupList(
   dispatch: AppDispatch,
   params: { page: number },
-  headers?: Record<string, string>
+  headers?: Record<string, string>,
 ) {
   await dispatch(
     groupSlice.actions.setUserCreatedGroupsToLoading({
       page: params.page,
-    })
+    }),
   )
   const groupsPage = await colneGraphQLSdk.GetUserCreatedGroupList(
     params,
-    headers
+    headers,
   )
   await dispatch(
     groupSlice.actions.updateUserCreatedGroups({
@@ -92,7 +92,7 @@ export async function getUserCreatedGroupList(
         groupsPage.currentUserGroups.getGroupsCreatedByUser.currentPage,
       pageCount: groupsPage.currentUserGroups.getGroupsCreatedByUser.pageCount,
       groups: groupsPage.currentUserGroups.getGroupsCreatedByUser.groups,
-    })
+    }),
   )
 }
 
@@ -103,7 +103,7 @@ export function useGetUserCreatedGroupList() {
 export async function getGroup(
   dispatch: AppDispatch,
   params: { groupId: string },
-  headers?: Record<string, string>
+  headers?: Record<string, string>,
 ) {
   try {
     const group = await colneGraphQLSdk.GetGroup(params, headers)
@@ -114,7 +114,7 @@ export async function getGroup(
           ...idol,
           groups: idol?.groups.filter(nonNullable),
         })),
-      })
+      }),
     )
   } catch (e) {
     mapAisuExceptionToColneExceptionAndThrow(e)

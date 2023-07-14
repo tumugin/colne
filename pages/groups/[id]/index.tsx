@@ -19,7 +19,7 @@ GroupDetails.getInitialProps = wrapper.getInitialPageProps(
       return {
         idolId,
       }
-    }
+    },
 )
 
 export default GroupDetails

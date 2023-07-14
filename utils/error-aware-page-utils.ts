@@ -14,7 +14,7 @@ export interface ErrorAwarePageProps {
 
 export function handleExceptionAndReturnErrorAwarePageProps(
   e: unknown,
-  ctx: NextPageContext
+  ctx: NextPageContext,
 ): ErrorAwarePageProps {
   if (e instanceof ResourceNotFoundError) {
     if (ctx.res) {

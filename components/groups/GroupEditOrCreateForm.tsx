@@ -52,7 +52,7 @@ export function GroupEditOrCreateForm({
             { label: '公開(活動中)', value: 'public_active' },
             { label: '公開(休止中)', value: 'public_not_active' },
           ],
-    [isEdit]
+    [isEdit],
   )
   const [isSubmitting, setIsSubmitting] = useState(false)
   const { control, getValues, formState, trigger } =
@@ -139,7 +139,7 @@ export function GroupEditOrCreateForm({
                     <Select
                       selectedOption={
                         groupStatusOptions.find(
-                          (x) => x.value === field.value
+                          (x) => x.value === field.value,
                         ) ?? null
                       }
                       onChange={({ detail }) =>

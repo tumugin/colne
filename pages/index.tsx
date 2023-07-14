@@ -20,7 +20,7 @@ const ActionButtons = styled.div`
 const Home: NextPage = () => {
   const userState = useAppSelector((state) => state.user)
   const chekiCounts = useAppSelector(
-    (state) => state.cheki.currentUserChekiIdolCount
+    (state) => state.cheki.currentUserChekiIdolCount,
   )
   const updateCurrentUserChekiIdolCount = useUpdateCurrentUserChekiIdolCount()
   useEffect(() => {
