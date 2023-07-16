@@ -7,7 +7,6 @@ import {
 } from 'graphql/generated/client'
 import { createGraphQLSDK } from 'graphql/client'
 import { mapAisuExceptionToColneExceptionAndThrow } from 'exceptions/graphql-exceptions'
-import { Headers } from 'api-client/types'
 
 const invalidateTag = ['cheki', 'group', 'idol']
 

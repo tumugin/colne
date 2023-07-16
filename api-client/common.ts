@@ -1,5 +1,4 @@
 import { createGraphQLSDK } from 'graphql/client'
-import { Headers } from 'api-client/types'
 
 const invalidateTag = ['csrf']
 

@@ -2,6 +2,7 @@ import { NextPage } from 'next'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { useAppSelector, wrapper } from 'store'
 import { redirectIfNotLoggedIn } from 'utils/no-login-redirect'
+// @ts-ignore
 import { WithSplitPanelPageProps } from 'components/common/ColneAppWithLayout'
 import { SplitPanel } from '@cloudscape-design/components'
 import { ChekiAddPanel } from 'components/chekis/ChekiAddPanel'

@@ -1,6 +1,5 @@
 import { AddOrUpdateChekiParamsInput } from 'graphql/generated/client'
 import { createGraphQLSDK } from 'graphql/client'
-import { Headers } from 'api-client/types'
 import dayjs from 'dayjs'
 
 const invalidateTag = ['cheki']

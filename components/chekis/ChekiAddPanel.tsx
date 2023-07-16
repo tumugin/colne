@@ -9,7 +9,7 @@ import React, { useMemo } from 'react'
 import { ChekiAddCounter } from 'components/chekis/ChekiAddCounter'
 import styled from 'styled-components'
 import { Control, Controller } from 'react-hook-form'
-import { ChekiAddContents } from 'pages/chekis/add'
+import { ChekiAddContents } from 'pages-old/chekis/add'
 import * as awsui from '@cloudscape-design/design-tokens'
 
 const ChekiAddForm = styled.div`

@@ -1,40 +1,35 @@
-import { AppProps } from 'next/app'
+'use client'
+
 import React, { useCallback, useEffect, useState } from 'react'
 import { AppLayout, TopNavigation } from '@cloudscape-design/components'
-import { useAppSelector } from 'store'
-import { useCSRFToken } from 'store/common/commonHooks'
 import { ColneSideNavigation } from 'components/common/ColneSideNavigation'
 import { useRouter } from 'next/router'
 import { loginPath } from 'utils/urls'
 import { useLogoutForm } from 'components/common/LogoutForm'
 import { Toaster } from 'react-hot-toast'
+import { useRecoilState } from 'recoil'
+import { splitPanelStateAtom } from 'recoil-store/globalPage'
+import { CurrentUser } from 'api-client/user'
 
-interface SplitPanelProps {
-  /** 必ず！！！絶対に！！！！！要素はメモ化すること！！！！！！！ */
+export function ColneAppWithLayout({
+  children,
+  user,
+  csrfToken,
+}: {
   children: React.ReactNode
-  splitPanelOpen: boolean
-}
-
-export interface WithSplitPanelPageProps {
-  splitPanelState: SplitPanelProps
-  setSplitPanelState: (props: SplitPanelProps) => void
-}
-
-export function ColneAppWithLayout({ Component, pageProps }: AppProps) {
+  user: CurrentUser | null
+  csrfToken: string
+}) {
   const router = useRouter()
   const [navigationOpen, setNavigationOpen] = useState(false)
   const toggleNavigation = useCallback(() => {
     setNavigationOpen((prev) => !prev)
   }, [])
 
-  const user = useAppSelector((state) => state.user.currentUser)
   const isLoggedIn = !!user
-  const csrfToken = useCSRFToken()
   const [logoutFormElement, triggerLogout] = useLogoutForm({ csrfToken })
-  const [splitPanelState, setSplitPanelState] = useState<SplitPanelProps>({
-    children: <></>,
-    splitPanelOpen: false,
-  })
+  const [splitPanelState, setSplitPanelState] =
+    useRecoilState(splitPanelStateAtom)
 
   // FIXME: SSRするとナビゲーション周りでhydrationが壊れるのでworkaround
   // cloudscape-design〜〜〜〜なんとかしてくれ〜〜〜〜〜
@@ -86,13 +81,7 @@ export function ColneAppWithLayout({ Component, pageProps }: AppProps) {
         ]}
       />
       <AppLayout
-        content={
-          <Component
-            {...pageProps}
-            splitPanelState={splitPanelState}
-            setSplitPanelState={setSplitPanelState}
-          />
-        }
+        content={children}
         onNavigationChange={toggleNavigation}
         navigationHide={!isNavigationInitialized}
         navigationOpen={navigationOpen}
