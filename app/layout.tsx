@@ -1,6 +1,4 @@
 import { Inter } from 'next/font/google'
-import 'modern-normalize/modern-normalize.css'
-import '@/css/custom-unset.css'
 import StyledComponentsRegistry from 'components/styled/StyledComponentsRegistry'
 import { RecoilRoot } from 'recoil'
 import { ColneAppWithLayout } from 'components/common/ColneAppWithLayout'
