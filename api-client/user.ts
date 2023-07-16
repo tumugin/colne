@@ -3,9 +3,7 @@ import { Headers } from 'api-client/types'
 
 const invalidateTag = ['user']
 
-export async function getCurrentUserState(
-  headers?: Headers,
-) {
+export async function getCurrentUserState(headers?: Headers) {
   const sdk = createGraphQLSDK({
     headers,
     next: { tags: invalidateTag },
