@@ -5,7 +5,7 @@ import { ColneAppWithLayout } from 'components/common/ColneAppWithLayout'
 import { getCurrentUser } from 'api-client/user'
 import { getCSRFToken } from 'api-client/common'
 import { NextRecoilRoot } from 'recoil-store/NextRecoilRoot'
-import { getSafeNextHeaders } from 'libs/next/nextHeadersHack'
+import { getHackedNextHeaders } from 'libs/next/nextHeadersHack'
 import { GlobalThemeHandler } from 'components/common/GlobalThemeHandler'
 import React from 'react'
 
@@ -21,7 +21,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const header = getSafeNextHeaders()
+  const header = getHackedNextHeaders()
   const currentUser = await getCurrentUser(header)
   const csrfToken = await getCSRFToken(header)
 
