@@ -37,7 +37,7 @@ export function MonthlyChekiCounts({
 }: {
   chekiCounts: {
     chekiCount: number
-    idol: {
+    idol?: {
       idolId: string
       idolName: string
     } | null

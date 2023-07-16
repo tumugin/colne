@@ -12,13 +12,21 @@ export async function addCheki(
   await sdk.AddCheki({ cheki: params })
 }
 
+export interface CurrentUserChekiIdolCount {
+  chekiCount: number
+  idol?: {
+    idolId: string
+    idolName: string
+  } | null
+}
+
 export async function getCurrentUserChekiIdolCount(
   params: {
     startDate: dayjs.Dayjs
     endDate: dayjs.Dayjs
   },
   headers?: Headers,
-) {
+): Promise<CurrentUserChekiIdolCount[]> {
   const sdk = createGraphQLSDK({ headers, next: { tags: invalidateTag } })
   const result = await sdk.GetUserChekiIdolCount(
     {
