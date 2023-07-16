@@ -1,10 +1,13 @@
+import '@cloudscape-design/global-styles/index.css'
 import { Inter } from 'next/font/google'
 import StyledComponentsRegistry from 'components/styled/StyledComponentsRegistry'
-import { RecoilRoot } from 'recoil'
 import { ColneAppWithLayout } from 'components/common/ColneAppWithLayout'
 import { getCurrentUser } from 'api-client/user'
 import { getCSRFToken } from 'api-client/common'
-import { headers } from 'next/headers'
+import { NextRecoilRoot } from 'recoil-store/NextRecoilRoot'
+import { getSafeNextHeaders } from 'libs/next/nextHeadersHack'
+import { GlobalThemeHandler } from 'components/common/GlobalThemeHandler'
+import React from 'react'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -18,18 +21,20 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const currentUser = await getCurrentUser(headers())
-  const csrfToken = await getCSRFToken(headers())
+  const header = getSafeNextHeaders()
+  const currentUser = await getCurrentUser(header)
+  const csrfToken = await getCSRFToken(header)
 
   return (
     <html lang="en">
       <body className={inter.className}>
         <StyledComponentsRegistry>
-          <RecoilRoot>
+          <NextRecoilRoot>
+            <GlobalThemeHandler />
             <ColneAppWithLayout user={currentUser} csrfToken={csrfToken}>
               {children}
             </ColneAppWithLayout>
-          </RecoilRoot>
+          </NextRecoilRoot>
         </StyledComponentsRegistry>
       </body>
     </html>

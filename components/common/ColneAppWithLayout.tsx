@@ -3,7 +3,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { AppLayout, TopNavigation } from '@cloudscape-design/components'
 import { ColneSideNavigation } from 'components/common/ColneSideNavigation'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import { loginPath } from 'utils/urls'
 import { useLogoutForm } from 'components/common/LogoutForm'
 import { Toaster } from 'react-hot-toast'
