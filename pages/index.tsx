@@ -24,10 +24,13 @@ const Home: NextPage = () => {
   )
   const updateCurrentUserChekiIdolCount = useUpdateCurrentUserChekiIdolCount()
   useEffect(() => {
+    if (!userState.currentUser) {
+      return
+    }
     void updateCurrentUserChekiIdolCount({
       ...createThisMonthDateRange(dayjs()),
     })
-  }, [updateCurrentUserChekiIdolCount])
+  }, [updateCurrentUserChekiIdolCount, userState.currentUser])
 
   return (
     <ContentLayout
