@@ -5,7 +5,10 @@ import { redirectIfNotLoggedIn } from 'utils/no-login-redirect'
 // @ts-ignore
 import { WithSplitPanelPageProps } from 'components/common/ColneAppWithLayout'
 import { SplitPanel } from '@cloudscape-design/components'
-import { ChekiAddContents, ChekiAddPanel } from 'components/chekis/ChekiAddPanel'
+import {
+  ChekiAddContents,
+  ChekiAddPanel,
+} from 'components/chekis/ChekiAddPanel'
 import { Controller, useForm } from 'react-hook-form'
 import { ChekiAddIdolSelectView } from 'components/chekis/ChekiAddIdolSelectView'
 import { useGetIdolForChekiAdd } from 'store/idol/idolHooks'

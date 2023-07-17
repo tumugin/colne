@@ -8,6 +8,7 @@ import { NextRecoilRoot } from 'recoil-store/NextRecoilRoot'
 import { getHackedNextHeaders } from 'libs/next/nextHeadersHack'
 import { GlobalThemeHandler } from 'components/common/GlobalThemeHandler'
 import React from 'react'
+import { ColneRootStyled } from 'components/styled/ColneRootStyled'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -29,12 +30,14 @@ export default async function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <StyledComponentsRegistry>
-          <NextRecoilRoot>
-            <GlobalThemeHandler />
-            <ColneAppWithLayout user={currentUser} csrfToken={csrfToken}>
-              {children}
-            </ColneAppWithLayout>
-          </NextRecoilRoot>
+          <ColneRootStyled>
+            <NextRecoilRoot>
+              <GlobalThemeHandler />
+              <ColneAppWithLayout user={currentUser} csrfToken={csrfToken}>
+                {children}
+              </ColneAppWithLayout>
+            </NextRecoilRoot>
+          </ColneRootStyled>
         </StyledComponentsRegistry>
       </body>
     </html>

@@ -37,7 +37,7 @@ export function ChekisAdd() {
     useState<IdolForChekiAdd | null>(null)
 
   useEffect(() => {
-    if (selectedIdolId != "" && selectedIdolDetails?.idolId != selectedIdolId) {
+    if (selectedIdolId != '' && selectedIdolDetails?.idolId != selectedIdolId) {
       ;(async () => {
         setSelectedIdolDetails(
           await getIdolForChekiAdd({ idolId: selectedIdolId }),
