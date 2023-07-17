@@ -8,7 +8,7 @@ export class ResourceNotAuthorized extends Error {}
 
 export function mapAisuExceptionToColneExceptionAndThrow(
   aisuException: unknown,
-) {
+): never {
   if (!(aisuException instanceof ClientError)) {
     throw aisuException
   }

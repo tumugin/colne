@@ -92,16 +92,7 @@ export function ChekisAdd() {
     } finally {
       setIsSubmitting(false)
     }
-  }, [
-    addCheki,
-    formState.isValid,
-    getValues,
-    isSubmitting,
-    toastStyles.error,
-    toastStyles.success,
-    toastStyles.warning,
-    trigger,
-  ])
+  }, [formState.isValid, getValues, isSubmitting, toastStyles.error, toastStyles.success, toastStyles.warning, trigger])
 
   const splitPanelUI = useMemo(
     () => (

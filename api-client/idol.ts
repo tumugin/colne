@@ -97,7 +97,6 @@ export async function getUserCreatedIdols(
     return idols.currentUserIdols.getIdolsCreatedByUser
   } catch (e) {
     mapAisuExceptionToColneExceptionAndThrow(e)
-    throw e
   }
 }
 
@@ -140,7 +139,6 @@ export async function getIdolForChekiAdd(
     return idol.getIdol
   } catch (e) {
     mapAisuExceptionToColneExceptionAndThrow(e)
-    throw e
   }
 }
 
