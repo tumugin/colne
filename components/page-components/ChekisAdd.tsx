@@ -1,22 +1,23 @@
-import { NextPage } from 'next'
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
-import { useAppSelector, wrapper } from 'store'
-import { redirectIfNotLoggedIn } from 'utils/no-login-redirect'
-// @ts-ignore
-import { WithSplitPanelPageProps } from 'components/common/ColneAppWithLayout'
-import { SplitPanel } from '@cloudscape-design/components'
-import { ChekiAddContents, ChekiAddPanel } from 'components/chekis/ChekiAddPanel'
-import { Controller, useForm } from 'react-hook-form'
-import { ChekiAddIdolSelectView } from 'components/chekis/ChekiAddIdolSelectView'
-import { useGetIdolForChekiAdd } from 'store/idol/idolHooks'
-import { useToastTheme } from 'libs/dom/toast-theme-hooks'
-import toast from 'react-hot-toast'
-import { useAddCheki } from 'store/cheki/chekiHooks'
-import dayjs from 'dayjs'
+'use client'
 
-const ChekisAdd: NextPage<WithSplitPanelPageProps> = ({
-  setSplitPanelState,
-}) => {
+import { useToastTheme } from 'libs/dom/toast-theme-hooks'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import { Controller, useForm } from 'react-hook-form'
+import {
+  ChekiAddContents,
+  ChekiAddPanel,
+} from 'components/chekis/ChekiAddPanel'
+import toast from 'react-hot-toast'
+import dayjs from 'dayjs'
+import { SplitPanel } from '@cloudscape-design/components'
+import { ChekiAddIdolSelectView } from 'components/chekis/ChekiAddIdolSelectView'
+import { useRecoilState } from 'recoil'
+import { splitPanelStateAtom } from 'recoil-store/globalPage'
+import { addCheki } from 'api-client/cheki'
+import { getIdolForChekiAdd, IdolForChekiAdd } from 'api-client/idol'
+import { nonNullable } from 'utils/array'
+
+export function ChekisAdd() {
   const toastStyles = useToastTheme()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const { control, watch, trigger, formState, getValues } =
@@ -29,20 +30,25 @@ const ChekisAdd: NextPage<WithSplitPanelPageProps> = ({
       },
       mode: 'all',
     })
-  const getIdolForChekiAdd = useGetIdolForChekiAdd()
 
   const selectedIdolId = watch('idolId')
-  const selectedIdolDetails = useAppSelector(
-    (state) => state.idol.idolForChekiAdd[selectedIdolId],
-  )
+
+  const [selectedIdolDetails, setSelectedIdolDetails] =
+    useState<IdolForChekiAdd | null>(null)
+
   useEffect(() => {
-    if (selectedIdolId && !selectedIdolDetails) {
-      void getIdolForChekiAdd({ idolId: selectedIdolId })
+    if (selectedIdolId != "" && selectedIdolDetails?.idolId != selectedIdolId) {
+      ;(async () => {
+        setSelectedIdolDetails(
+          await getIdolForChekiAdd({ idolId: selectedIdolId }),
+        )
+      })()
     }
-  }, [getIdolForChekiAdd, selectedIdolDetails, selectedIdolId])
+  }, [selectedIdolDetails, selectedIdolId])
+
   const regulations = useMemo(
     () =>
-      selectedIdolDetails?.groups.flatMap((g) =>
+      selectedIdolDetails?.groups.filter(nonNullable).flatMap((g) =>
         g.regulations.map((r) => ({
           groupId: g.groupId,
           groupName: g.groupName,
@@ -54,8 +60,6 @@ const ChekisAdd: NextPage<WithSplitPanelPageProps> = ({
       ) ?? [],
     [selectedIdolDetails?.groups],
   )
-
-  const addCheki = useAddCheki()
 
   const onSubmit = useCallback(async () => {
     await trigger()
@@ -128,6 +132,8 @@ const ChekisAdd: NextPage<WithSplitPanelPageProps> = ({
     [control, onSubmit, regulations, selectedIdolDetails, selectedIdolId],
   )
 
+  const [_, setSplitPanelState] = useRecoilState(splitPanelStateAtom)
+
   useEffect(() => {
     setSplitPanelState({
       splitPanelOpen: true,
@@ -155,14 +161,3 @@ const ChekisAdd: NextPage<WithSplitPanelPageProps> = ({
     />
   )
 }
-
-ChekisAdd.getInitialProps = wrapper.getInitialPageProps(
-  (store) => async (ctx) => {
-    const currentUser = store.getState().user.currentUser
-    if (!currentUser) {
-      await redirectIfNotLoggedIn(ctx)
-    }
-  },
-)
-
-export default ChekisAdd

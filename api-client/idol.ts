@@ -4,6 +4,7 @@ import {
   GetIdolDetailsForChekiAddQueryVariables,
   GetIdolQueryVariables,
   GetUserCreatedIdolListQueryVariables,
+  IdolStatus,
 } from 'graphql/generated/client'
 import { createGraphQLSDK } from 'graphql/client'
 import { mapAisuExceptionToColneExceptionAndThrow } from 'exceptions/graphql-exceptions'
@@ -65,10 +66,28 @@ export async function updateIdol(
   }
 }
 
+export interface UserCreatedIdol {
+  count: number
+  currentPage: number
+  pageCount: number
+  idols: Array<{
+    idolName: string
+    idolId: string
+    idolStatus: IdolStatus
+    userId?: string | null
+    idolUpdatedAt: string
+    idolCreatedAt: string
+    groups: Array<{
+      groupName: string
+      groupId: string
+    } | null>
+  }>
+}
+
 export async function getUserCreatedIdols(
   params: GetUserCreatedIdolListQueryVariables,
   headers?: Record<string, string>,
-) {
+): Promise<UserCreatedIdol> {
   const sdk = createGraphQLSDK({
     headers,
     next: { tags: invalidateTag },
@@ -78,13 +97,40 @@ export async function getUserCreatedIdols(
     return idols.currentUserIdols.getIdolsCreatedByUser
   } catch (e) {
     mapAisuExceptionToColneExceptionAndThrow(e)
+    throw e
   }
+}
+
+export interface IdolForChekiAdd {
+  idolCreatedAt: string
+  idolId: string
+  idolName: string
+  idolStatus: IdolStatus
+  idolUpdatedAt: string
+  userId?: string | null
+  groups: Array<{
+    groupName: string
+    groupId: string
+    regulations: Array<{
+      regulationComment: string
+      regulationCreatedAt: string
+      regulationId: string
+      regulationName: string
+      regulationStatus: string
+      regulationUnitPrice: number
+      regulationUpdatedAt: string
+    }>
+  } | null>
+  user?: {
+    userId: string
+    userName: string
+  } | null
 }
 
 export async function getIdolForChekiAdd(
   params: GetIdolDetailsForChekiAddQueryVariables,
   headers?: Headers,
-) {
+): Promise<IdolForChekiAdd> {
   const sdk = createGraphQLSDK({
     headers,
     next: { tags: invalidateTag },
@@ -94,6 +140,7 @@ export async function getIdolForChekiAdd(
     return idol.getIdol
   } catch (e) {
     mapAisuExceptionToColneExceptionAndThrow(e)
+    throw e
   }
 }
 

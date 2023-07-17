@@ -1,6 +1,5 @@
-import { Header, Tabs } from '@cloudscape-design/components'
-import { UserCreatedIdolListViewWithStore } from 'components/idols/UserCreatedIdolListViewWithStore'
-import { useMemo } from 'react'
+import { Tabs } from '@cloudscape-design/components'
+import { UserCreatedIdolListViewWithAPI } from 'components/idols/UserCreatedIdolListViewWithAPI'
 
 export function ChekiAddIdolSelectView({
   selectedIdolId,
@@ -9,25 +8,21 @@ export function ChekiAddIdolSelectView({
   selectedIdolId: string
   setSelectedIdolId: (id: string) => void
 }) {
-  const userCreatedIdolUI = useMemo(
-    () => (
-      <UserCreatedIdolListViewWithStore
-        isSelectable
-        selectedIdolId={selectedIdolId}
-        onSelectionChange={setSelectedIdolId}
-        hideHeader
-        hideIdolStatus
-      />
-    ),
-    [selectedIdolId, setSelectedIdolId],
-  )
   return (
     <Tabs
       tabs={[
         {
           label: '自分が登録したアイドル',
           id: 'first',
-          content: userCreatedIdolUI,
+          content: (
+            <UserCreatedIdolListViewWithAPI
+              isSelectable
+              selectedIdolId={selectedIdolId}
+              onSelectionChange={setSelectedIdolId}
+              hideHeader
+              hideIdolStatus
+            />
+          ),
         },
         {
           label: '自分が登録したグループ',

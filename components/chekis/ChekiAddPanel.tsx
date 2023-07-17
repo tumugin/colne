@@ -9,7 +9,6 @@ import React, { useMemo } from 'react'
 import { ChekiAddCounter } from 'components/chekis/ChekiAddCounter'
 import styled from 'styled-components'
 import { Control, Controller } from 'react-hook-form'
-import { ChekiAddContents } from 'pages-old/chekis/add'
 import * as awsui from '@cloudscape-design/design-tokens'
 
 const ChekiAddForm = styled.div`
@@ -39,6 +38,13 @@ const emptyItem: ChekiAddRegulation = {
   regulationName: '選択なし',
   regulationComment: '-',
   regulationUnitPrice: 0,
+}
+
+export interface ChekiAddContents {
+  idolId: string
+  regulationId: string | null
+  chekiQuantity: number
+  chekiShotAt: string
 }
 
 export function ChekiAddPanel({

@@ -15,12 +15,12 @@ const ActionButtons = styled.div`
   gap: ${awsui.spaceScaledS};
 `
 
-export async function Home({
+export function Home({
   currentUser,
-  currentUserChekiCount
+  currentUserChekiCount,
 }: {
-  currentUser: CurrentUser | null,
-  currentUserChekiCount: CurrentUserChekiIdolCount[],
+  currentUser: CurrentUser | null
+  currentUserChekiCount: CurrentUserChekiIdolCount[]
 }) {
   return (
     <ContentLayout
