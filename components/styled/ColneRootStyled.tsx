@@ -6,7 +6,13 @@ import React from 'react'
 
 export function ColneRootStyled({ children }: { children: React.ReactNode }) {
   return (
-    <StyleSheetManager shouldForwardProp={(prop) => isPropValid(prop)}>
+    <StyleSheetManager
+      shouldForwardProp={(propName, elementToBeRendered) => {
+        return typeof elementToBeRendered === 'string'
+          ? isPropValid(propName)
+          : true
+      }}
+    >
       {children}
     </StyleSheetManager>
   )

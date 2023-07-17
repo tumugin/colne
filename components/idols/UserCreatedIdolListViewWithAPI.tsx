@@ -1,7 +1,8 @@
 import { IdolListView } from 'components/idols/IdolListView'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { getUserCreatedIdols, UserCreatedIdol } from 'api-client/idol'
 import { nonNullable } from 'utils/array'
+import { useOnFirstMount } from 'utils/onFirstMount'
 
 export function UserCreatedIdolListViewWithAPI({
   isSelectable,
@@ -26,14 +27,10 @@ export function UserCreatedIdolListViewWithAPI({
     setIsLoading(false)
   }, [])
 
-  useEffect(() => {
-    if (!userCreatedIdolsStore) {
-      ;(async () => {
-        setUserCreatedIdolStore(await getUserCreatedIdols({ page: 1 }))
-        setIsLoading(false)
-      })()
-    }
-  }, [userCreatedIdolsStore])
+  useOnFirstMount(async () => {
+    setUserCreatedIdolStore(await getUserCreatedIdols({ page: 1 }))
+    setIsLoading(false)
+  })
 
   return (
     <IdolListView
