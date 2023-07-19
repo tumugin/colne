@@ -1,9 +1,11 @@
-import { NextRequest } from 'next/server'
-import { redirect } from 'next/navigation'
+import { NextRequest, NextResponse } from 'next/server'
 
-export function redirectToLoginPage(request: NextRequest) {
+export function redirectToLoginPage(request: NextRequest): NextResponse {
   const queryParams = new URLSearchParams({
     return_to: request.nextUrl.pathname ?? '',
   })
-  redirect('/login?' + queryParams.toString())
+
+  return NextResponse.redirect(
+    new URL('/login?' + queryParams.toString(), request.url),
+  )
 }
