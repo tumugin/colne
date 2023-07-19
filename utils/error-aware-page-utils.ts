@@ -4,6 +4,7 @@ import {
   ResourceNotAuthorized,
   ResourceNotFoundError,
 } from 'exceptions/graphql-exceptions'
+import { notFound } from 'next/navigation'
 
 export interface ErrorAwarePageProps {
   error?: {
@@ -46,6 +47,20 @@ export function handleExceptionAndReturnErrorAwarePageProps(
         statusCode: 403,
       },
     }
+  }
+
+  throw e
+}
+
+export function handleExceptionAndHandle(e: unknown): never {
+  if (e instanceof ResourceNotFoundError) {
+    notFound()
+  } else if (e instanceof ResourceNotAuthorized) {
+    // FIXME: 401
+    notFound()
+  } else if (e instanceof ResourceHasNoPermissionException) {
+    // FIXME: 403
+    notFound()
   }
 
   throw e

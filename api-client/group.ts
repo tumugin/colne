@@ -2,6 +2,8 @@ import {
   AddGroupMutationVariables,
   AddOrUpdateGroupParamsInput,
   DeleteGroupMutationVariables,
+  GroupStatus,
+  IdolStatus,
 } from 'graphql/generated/client'
 import { createGraphQLSDK } from 'graphql/client'
 import { mapAisuExceptionToColneExceptionAndThrow } from 'exceptions/graphql-exceptions'
@@ -59,10 +61,48 @@ export async function getUserCreatedGroupList(
   return groupsPage.currentUserGroups.getGroupsCreatedByUser
 }
 
+export interface Group {
+  groupCreatedAt: string
+  groupId: string
+  groupName: string
+  groupStatus: GroupStatus
+  groupUpdatedAt: string
+  userId?: string | null
+  user?: {
+    userId: string
+    userName: string
+  } | null
+  regulations: Array<{
+    regulationComment: string
+    regulationCreatedAt: string
+    regulationId: string
+    regulationName: string
+    regulationStatus: string
+    regulationUnitPrice: number
+    regulationUpdatedAt: string
+  }>
+  idols: Array<{
+    idolCreatedAt: string
+    idolId: string
+    idolName: string
+    idolStatus: IdolStatus
+    idolUpdatedAt: string
+    userId?: string | null
+    user?: {
+      userId: string
+      userName: string
+    } | null
+    groups: Array<{
+      groupId: string
+      groupName: string
+    } | null>
+  } | null>
+}
+
 export async function getGroup(
   params: { groupId: string },
-  headers?: Record<string, string>,
-) {
+  headers?: Headers,
+): Promise<Group> {
   const sdk = createGraphQLSDK({
     headers,
     next: { tags: invalidateTag },
