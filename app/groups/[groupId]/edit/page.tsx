@@ -1,7 +1,7 @@
 import { getHackedNextHeaders } from 'libs/next/nextHeadersHack'
 import { getGroup } from 'api-client/group'
 import { GroupEdit } from 'components/page-components/GroupEdit'
-import { handleExceptionAndHandle } from 'utils/error-aware-page-utils'
+import { handleColneException } from 'utils/error-aware-page-utils'
 
 export default async function Page({
   params,
@@ -14,6 +14,6 @@ export default async function Page({
 
     return <GroupEdit group={group} />
   } catch (e) {
-    handleExceptionAndHandle(e)
+    handleColneException(e)
   }
 }

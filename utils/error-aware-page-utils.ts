@@ -52,7 +52,7 @@ export function handleExceptionAndReturnErrorAwarePageProps(
   throw e
 }
 
-export function handleExceptionAndHandle(e: unknown): never {
+export function handleColneException(e: unknown): never {
   if (e instanceof ResourceNotFoundError) {
     notFound()
   } else if (e instanceof ResourceNotAuthorized) {
