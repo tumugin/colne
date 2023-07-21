@@ -27,10 +27,27 @@ export async function addIdol(
   }
 }
 
+interface Idol {
+  idolCreatedAt: string
+  idolId: string
+  idolName: string
+  idolStatus: IdolStatus
+  idolUpdatedAt: string
+  userId?: string | null
+  groups: Array<{
+    groupName: string
+    groupId: string
+  } | null>
+  user?: {
+    userId: string
+    userName: string
+  } | null
+}
+
 export async function getIdol(
   params: GetIdolQueryVariables,
   headers?: Headers,
-) {
+): Promise<Idol> {
   const sdk = createGraphQLSDK({
     headers,
     next: { tags: invalidateTag },
