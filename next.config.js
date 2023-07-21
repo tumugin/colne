@@ -16,6 +16,9 @@ const nextConfig = {
     '@cloudscape-design/design-tokens',
     '@cloudscape-design/component-toolkit',
   ],
+  experimental: {
+    serverActions: true,
+  },
 }
 
 module.exports = process.env.NEXT_PUBLIC_SENTRY_DSN
