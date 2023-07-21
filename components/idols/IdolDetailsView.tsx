@@ -11,7 +11,7 @@ import React from 'react'
 import { IdolStatusBadge } from 'components/idols/IdolStatusBadge'
 import { idolEditPage } from 'utils/urls'
 import { onFollowNextLink } from 'utils/router'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 
 export function IdolDetailsView({
   idol,

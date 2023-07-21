@@ -27,7 +27,7 @@ export async function addIdol(
   }
 }
 
-interface Idol {
+export interface Idol {
   idolCreatedAt: string
   idolId: string
   idolName: string

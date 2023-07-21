@@ -1,4 +1,7 @@
-import { AddOrUpdateChekiParamsInput } from 'graphql/generated/client'
+import {
+  AddOrUpdateChekiParamsInput,
+  GroupStatus,
+} from 'graphql/generated/client'
 import { createGraphQLSDK } from 'graphql/client'
 import dayjs from 'dayjs'
 
@@ -43,6 +46,35 @@ export function createThisMonthDateRange(today: dayjs.Dayjs) {
     startDate: today.startOf('month'),
     endDate: today.endOf('month'),
   }
+}
+
+export interface IdolCheki {
+  chekiCreatedAt: string
+  chekiId: string
+  chekiQuantity: number
+  chekiShotAt: string
+  chekiUpdatedAt: string
+  idolId?: string | null
+  regulationId?: string | null
+  userId: string
+  regulation?: {
+    groupId: string
+    regulationComment: string
+    regulationCreatedAt: string
+    regulationId: string
+    regulationName: string
+    regulationStatus: string
+    regulationUnitPrice: number
+    regulationUpdatedAt: string
+    userId?: string | null
+    group?: {
+      groupCreatedAt: string
+      groupId: string
+      groupName: string
+      groupStatus: GroupStatus
+      groupUpdatedAt: string
+    } | null
+  } | null
 }
 
 export async function getIdolChekisWithDateRange(
