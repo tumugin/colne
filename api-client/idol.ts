@@ -103,7 +103,7 @@ export interface UserCreatedIdol {
 
 export async function getUserCreatedIdols(
   params: GetUserCreatedIdolListQueryVariables,
-  headers?: Record<string, string>,
+  headers?: Headers,
 ): Promise<UserCreatedIdol> {
   const sdk = createGraphQLSDK({
     headers,
