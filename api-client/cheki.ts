@@ -5,13 +5,11 @@ import {
 import { createGraphQLSDK } from 'graphql/client'
 import dayjs from 'dayjs'
 
-const invalidateTag = ['cheki']
-
 export async function addCheki(
   params: AddOrUpdateChekiParamsInput,
   headers?: Headers,
 ) {
-  const sdk = createGraphQLSDK({ headers, next: { tags: invalidateTag } })
+  const sdk = createGraphQLSDK({ headers, cache: 'no-store' })
   await sdk.AddCheki({ cheki: params })
 }
 
@@ -30,7 +28,7 @@ export async function getCurrentUserChekiIdolCount(
   },
   headers?: Headers,
 ): Promise<CurrentUserChekiIdolCount[]> {
-  const sdk = createGraphQLSDK({ headers, next: { tags: invalidateTag } })
+  const sdk = createGraphQLSDK({ headers, cache: 'no-store' })
   const result = await sdk.GetUserChekiIdolCount(
     {
       chekiShotAtStart: params.startDate.toISOString(),
@@ -82,7 +80,7 @@ export async function getIdolChekisWithDateRange(
   dateRange: { startDate: dayjs.Dayjs; endDate: dayjs.Dayjs },
   headers?: Headers,
 ) {
-  const sdk = createGraphQLSDK({ headers, next: { tags: invalidateTag } })
+  const sdk = createGraphQLSDK({ headers, cache: 'no-store' })
   const result = await sdk.GetIdolChekisByDateRangeAndIdolId(
     {
       chekiShotAtStart: dateRange.startDate.toISOString(),

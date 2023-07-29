@@ -8,15 +8,13 @@ import {
 import { createGraphQLSDK } from 'graphql/client'
 import { mapAisuExceptionToColneExceptionAndThrow } from 'exceptions/graphql-exceptions'
 
-const invalidateTag = ['cheki', 'group', 'idol']
-
 export async function addGroup(
   params: AddGroupMutationVariables,
   headers?: Headers,
 ) {
   const sdk = createGraphQLSDK({
     headers,
-    next: { tags: invalidateTag },
+    cache: 'no-store',
   })
   const group = await sdk.AddGroup(params, headers)
   return group.group.addGroup
@@ -28,7 +26,7 @@ export async function deleteGroup(
 ) {
   const sdk = createGraphQLSDK({
     headers,
-    next: { tags: invalidateTag },
+    cache: 'no-store',
   })
   await sdk.DeleteGroup(params, headers)
 }
@@ -40,7 +38,7 @@ export async function updateGroup(
 ) {
   const sdk = createGraphQLSDK({
     headers,
-    next: { tags: invalidateTag },
+    cache: 'no-store',
   })
   const group = await sdk.EditGroup(
     { groupId: groupId, group: params },
@@ -55,7 +53,7 @@ export async function getUserCreatedGroupList(
 ) {
   const sdk = createGraphQLSDK({
     headers,
-    next: { tags: invalidateTag },
+    cache: 'no-store',
   })
   const groupsPage = await sdk.GetUserCreatedGroupList(params, headers)
   return groupsPage.currentUserGroups.getGroupsCreatedByUser
@@ -105,7 +103,7 @@ export async function getGroup(
 ): Promise<Group> {
   const sdk = createGraphQLSDK({
     headers,
-    next: { tags: invalidateTag },
+    cache: 'no-store',
   })
   try {
     const group = await sdk.GetGroup(params, headers)

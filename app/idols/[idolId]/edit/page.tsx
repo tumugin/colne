@@ -2,6 +2,7 @@ import { getHackedNextHeaders } from 'libs/next/nextHeadersHack'
 import { getIdol } from 'api-client/idol'
 import { handleColneException } from 'utils/error-aware-page-utils'
 import { IdolEdit } from 'components/page-components/IdolEdit'
+import { RevalidatePage } from 'components/next-utils/RevalidatePage'
 
 export default async function IdolEditPage({
   params,
@@ -13,7 +14,12 @@ export default async function IdolEditPage({
   try {
     const idol = await getIdol({ idolId: params.idolId }, header)
 
-    return <IdolEdit idol={idol} />
+    return (
+      <>
+        <RevalidatePage />
+        <IdolEdit idol={idol} />
+      </>
+    )
   } catch (e) {
     handleColneException(e)
   }

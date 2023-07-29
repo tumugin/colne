@@ -9,15 +9,13 @@ import {
 import { createGraphQLSDK } from 'graphql/client'
 import { mapAisuExceptionToColneExceptionAndThrow } from 'exceptions/graphql-exceptions'
 
-const invalidateTag = ['cheki', 'group', 'idol']
-
 export async function addIdol(
   params: AddIdolMutationVariables,
   headers?: Headers,
 ) {
   const sdk = createGraphQLSDK({
     headers,
-    next: { tags: invalidateTag },
+    cache: 'no-store',
   })
   try {
     const idol = await sdk.AddIdol(params, headers)
@@ -50,7 +48,7 @@ export async function getIdol(
 ): Promise<Idol> {
   const sdk = createGraphQLSDK({
     headers,
-    next: { tags: invalidateTag },
+    cache: 'no-store',
   })
   try {
     const idol = await sdk.GetIdol(params, headers)
@@ -67,7 +65,7 @@ export async function updateIdol(
 ) {
   const sdk = createGraphQLSDK({
     headers,
-    next: { tags: invalidateTag },
+    cache: 'no-store',
   })
   try {
     const idol = await sdk.EditIdol(
@@ -107,7 +105,7 @@ export async function getUserCreatedIdols(
 ): Promise<UserCreatedIdol> {
   const sdk = createGraphQLSDK({
     headers,
-    next: { tags: invalidateTag },
+    cache: 'no-store',
   })
   try {
     const idols = await sdk.GetUserCreatedIdolList(params, headers)
@@ -149,7 +147,7 @@ export async function getIdolForChekiAdd(
 ): Promise<IdolForChekiAdd> {
   const sdk = createGraphQLSDK({
     headers,
-    next: { tags: invalidateTag },
+    cache: 'no-store',
   })
   try {
     const idol = await sdk.GetIdolDetailsForChekiAdd(params, headers)
@@ -162,7 +160,7 @@ export async function getIdolForChekiAdd(
 export async function deleteIdol(idolId: string, headers?: Headers) {
   const sdk = createGraphQLSDK({
     headers,
-    next: { tags: invalidateTag },
+    cache: 'no-store',
   })
   try {
     await sdk.DeleteIdol({ id: idolId }, headers)

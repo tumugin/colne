@@ -7,6 +7,7 @@ import {
   getCurrentUserChekiIdolCount,
 } from 'api-client/cheki'
 import dayjs from 'dayjs'
+import { RevalidatePage } from 'components/next-utils/RevalidatePage'
 
 export default async function PageHome() {
   const header = getHackedNextHeaders()
@@ -20,9 +21,12 @@ export default async function PageHome() {
     : []
 
   return (
-    <Home
-      currentUser={currentUser}
-      currentUserChekiCount={currentUserChekiCount}
-    />
+    <>
+      <RevalidatePage />
+      <Home
+        currentUser={currentUser}
+        currentUserChekiCount={currentUserChekiCount}
+      />
+    </>
   )
 }

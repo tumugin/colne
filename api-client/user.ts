@@ -1,7 +1,5 @@
 import { createGraphQLSDK } from 'graphql/client'
 
-const invalidateTag = ['user']
-
 export interface CurrentUser {
   userCreatedAt: string
   userEmail?: string | null
@@ -16,7 +14,7 @@ export async function getCurrentUser(
 ): Promise<CurrentUser | null> {
   const sdk = createGraphQLSDK({
     headers,
-    next: { tags: invalidateTag },
+    cache: 'no-store',
   })
   const user = await sdk.GetCurrentUser(undefined, headers)
   return user.currentUser ?? null
