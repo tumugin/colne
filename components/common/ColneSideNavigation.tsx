@@ -1,6 +1,6 @@
 import { SideNavigation } from '@cloudscape-design/components'
 import { chekiAddPath, loginPath, userCreatedIdolListPath } from 'utils/urls'
-import { useRouter } from 'next/router'
+import { usePathname, useRouter } from 'next/navigation'
 import { useLogoutForm } from 'components/common/LogoutForm'
 
 export function ColneSideNavigation({
@@ -10,6 +10,7 @@ export function ColneSideNavigation({
   isLoggedIn: boolean
   csrfToken: string
 }) {
+  const pathName = usePathname()
   const router = useRouter()
   const [logoutFormElement, triggerLogout] = useLogoutForm({ csrfToken })
 
@@ -17,7 +18,7 @@ export function ColneSideNavigation({
     <>
       {logoutFormElement}
       <SideNavigation
-        activeHref={router.pathname}
+        activeHref={pathName}
         onFollow={async (event) => {
           if (event.detail.href === '#logout') {
             triggerLogout()

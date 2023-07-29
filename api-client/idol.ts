@@ -4,10 +4,10 @@ import {
   GetIdolDetailsForChekiAddQueryVariables,
   GetIdolQueryVariables,
   GetUserCreatedIdolListQueryVariables,
+  IdolStatus,
 } from 'graphql/generated/client'
 import { createGraphQLSDK } from 'graphql/client'
 import { mapAisuExceptionToColneExceptionAndThrow } from 'exceptions/graphql-exceptions'
-import { Headers } from 'api-client/types'
 
 const invalidateTag = ['cheki', 'group', 'idol']
 
@@ -27,10 +27,27 @@ export async function addIdol(
   }
 }
 
+export interface Idol {
+  idolCreatedAt: string
+  idolId: string
+  idolName: string
+  idolStatus: IdolStatus
+  idolUpdatedAt: string
+  userId?: string | null
+  groups: Array<{
+    groupName: string
+    groupId: string
+  } | null>
+  user?: {
+    userId: string
+    userName: string
+  } | null
+}
+
 export async function getIdol(
   params: GetIdolQueryVariables,
   headers?: Headers,
-) {
+): Promise<Idol> {
   const sdk = createGraphQLSDK({
     headers,
     next: { tags: invalidateTag },
@@ -66,10 +83,28 @@ export async function updateIdol(
   }
 }
 
+export interface UserCreatedIdol {
+  count: number
+  currentPage: number
+  pageCount: number
+  idols: Array<{
+    idolName: string
+    idolId: string
+    idolStatus: IdolStatus
+    userId?: string | null
+    idolUpdatedAt: string
+    idolCreatedAt: string
+    groups: Array<{
+      groupName: string
+      groupId: string
+    } | null>
+  }>
+}
+
 export async function getUserCreatedIdols(
   params: GetUserCreatedIdolListQueryVariables,
-  headers?: Record<string, string>,
-) {
+  headers?: Headers,
+): Promise<UserCreatedIdol> {
   const sdk = createGraphQLSDK({
     headers,
     next: { tags: invalidateTag },
@@ -82,10 +117,36 @@ export async function getUserCreatedIdols(
   }
 }
 
+export interface IdolForChekiAdd {
+  idolCreatedAt: string
+  idolId: string
+  idolName: string
+  idolStatus: IdolStatus
+  idolUpdatedAt: string
+  userId?: string | null
+  groups: Array<{
+    groupName: string
+    groupId: string
+    regulations: Array<{
+      regulationComment: string
+      regulationCreatedAt: string
+      regulationId: string
+      regulationName: string
+      regulationStatus: string
+      regulationUnitPrice: number
+      regulationUpdatedAt: string
+    }>
+  } | null>
+  user?: {
+    userId: string
+    userName: string
+  } | null
+}
+
 export async function getIdolForChekiAdd(
   params: GetIdolDetailsForChekiAddQueryVariables,
   headers?: Headers,
-) {
+): Promise<IdolForChekiAdd> {
   const sdk = createGraphQLSDK({
     headers,
     next: { tags: invalidateTag },

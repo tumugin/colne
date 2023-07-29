@@ -11,6 +11,7 @@ import {
 import dayjs from 'dayjs'
 import { nonNullable } from 'utils/array'
 import { IdolChekiListView } from 'components/idols/idolChekiListView'
+import { IdolCheki } from 'api-client/cheki'
 
 export function IdolChekiStats({
   isLoading,
@@ -19,25 +20,7 @@ export function IdolChekiStats({
   onDateRangeChange,
 }: {
   isLoading: boolean
-  chekis: {
-    chekiId: string
-    idolId?: string
-    regulationId?: string
-    chekiQuantity: number
-    chekiShotAt: string
-    regulation?: {
-      regulationId: string
-      groupId: string
-      regulationName: string
-      regulationComment: string
-      regulationUnitPrice: number
-      regulationStatus: string
-      group?: {
-        groupId: string
-        groupName: string
-      }
-    }
-  }[]
+  chekis: IdolCheki[]
   dateRange: ColneDateRange
   onDateRangeChange: (dateRange: ColneDateRange | null) => void
 }) {

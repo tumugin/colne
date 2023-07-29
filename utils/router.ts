@@ -1,7 +1,7 @@
-import { NextRouter } from 'next/router'
+import { type useRouter } from 'next/navigation'
 
 export async function onFollowNextLink(
-  router: NextRouter,
+  router: ReturnType<typeof useRouter>,
   event: CustomEvent<{ href: string | undefined } | null>,
   path?: string,
 ) {

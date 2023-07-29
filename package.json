@@ -22,7 +22,9 @@
     "@cloudscape-design/global-styles": "^1.0.11",
     "@reduxjs/toolkit": "^1.9.5",
     "@sentry/nextjs": "^7.58.1",
+    "cookie": "^0.5.0",
     "dayjs": "^1.11.9",
+    "encoding": "^0.1.13",
     "graphql": "^16.7.1",
     "graphql-request": "^6.1.0",
     "next": "13.4.10",
@@ -32,9 +34,13 @@
     "react-hook-form": "^7.45.1",
     "react-hot-toast": "^2.4.1",
     "react-redux": "^8.1.1",
+    "recoil": "^0.7.7",
     "redux-thunk": "^2.4.2",
     "styled-components": "^6.0.4",
     "yup": "^1.2.0"
+  },
+  "resolutions": {
+    "cross-fetch": "^4.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.22.9",
@@ -53,6 +59,7 @@
     "@storybook/nextjs": "^7.0.27",
     "@storybook/react": "^7.0.27",
     "@storybook/testing-library": "^0.2.0",
+    "@types/cookie": "^0.5.1",
     "@types/node": "20.4.2",
     "@types/react": "18.2.15",
     "@types/react-dom": "18.2.7",

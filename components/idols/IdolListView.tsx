@@ -2,7 +2,6 @@ import {
   Box,
   Button,
   Cards,
-  Container,
   Header,
   Link,
   Pagination,
@@ -10,9 +9,9 @@ import {
 } from '@cloudscape-design/components'
 import React from 'react'
 import { IdolStatusBadge } from 'components/idols/IdolStatusBadge'
-import { useRouter } from 'next/router'
 import { onFollowNextLink } from 'utils/router'
 import { idolDetailPage } from 'utils/urls'
+import { useRouter } from 'next/navigation'
 
 export interface IdolListViewIdolItem {
   name: string

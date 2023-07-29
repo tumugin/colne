@@ -1,31 +1,14 @@
 import React from 'react'
 import { Box, Table } from '@cloudscape-design/components'
 import dayjs from 'dayjs'
+import { IdolCheki } from 'api-client/cheki'
 
 export function IdolChekiListView({
   isLoading,
   chekis,
 }: {
   isLoading: boolean
-  chekis: {
-    chekiId: string
-    idolId?: string
-    regulationId?: string
-    chekiQuantity: number
-    chekiShotAt: string
-    regulation?: {
-      regulationId: string
-      groupId: string
-      regulationName: string
-      regulationComment: string
-      regulationUnitPrice: number
-      regulationStatus: string
-      group?: {
-        groupId: string
-        groupName: string
-      }
-    }
-  }[]
+  chekis: IdolCheki[]
 }) {
   return (
     <Table

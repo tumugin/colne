@@ -21,8 +21,8 @@ export function ColneDataRangePicker({
     dateRange
       ? {
           type: 'absolute',
-          startDate: dateRange.startISOString,
-          endDate: dateRange.endISOString,
+          startDate: dayjs(dateRange.startISOString).format('YYYY-MM-DD'),
+          endDate: dayjs(dateRange.endISOString).format('YYYY-MM-DD'),
         }
       : null,
   )

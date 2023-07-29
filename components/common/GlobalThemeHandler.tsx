@@ -1,3 +1,5 @@
+'use client'
+
 import { useDarkTheme } from 'libs/dom/useDarkTheme'
 import { useEffect } from 'react'
 import { applyMode, Mode } from '@cloudscape-design/global-styles'
