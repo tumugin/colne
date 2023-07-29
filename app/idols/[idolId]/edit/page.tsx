@@ -3,7 +3,7 @@ import { getIdol } from 'api-client/idol'
 import { handleColneException } from 'utils/error-aware-page-utils'
 import { IdolEdit } from 'components/page-components/IdolEdit'
 
-export async function IdolEditPage({ params }: { params: { idolId: string } }) {
+export default async function IdolEditPage({ params }: { params: { idolId: string } }) {
   const header = getHackedNextHeaders()
 
   try {
