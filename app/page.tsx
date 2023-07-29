@@ -7,15 +7,23 @@ import {
   getCurrentUserChekiIdolCount,
 } from 'api-client/cheki'
 import dayjs from 'dayjs'
+import utc from 'dayjs/plugin/utc'
+import timezone from 'dayjs/plugin/timezone'
 import { RevalidatePage } from 'components/next-utils/RevalidatePage'
 
 export default async function PageHome() {
   const header = getHackedNextHeaders()
   const currentUser = await getCurrentUser(header)
+
+  dayjs.extend(utc)
+  dayjs.extend(timezone)
+
   const currentUserChekiCount = currentUser
     ? await getCurrentUserChekiIdolCount(
         // FIXME: We must handle the user's correct timezone
-        { ...createThisMonthDateRange(dayjs()) },
+        {
+          ...createThisMonthDateRange(dayjs().tz('Asia/Tokyo')),
+        },
         header,
       )
     : []
