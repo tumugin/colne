@@ -1,6 +1,7 @@
 import { getHackedNextHeaders } from 'libs/next/nextHeadersHack'
 import { getUserCreatedIdols } from 'api-client/idol'
 import { IdolList } from 'components/page-components/IdolList'
+import { RevalidatePage } from 'components/next-utils/RevalidatePage'
 
 export default async function Page({
   searchParams,
@@ -14,5 +15,10 @@ export default async function Page({
     header,
   )
 
-  return <IdolList userCreatedIdol={userCreatedIdols} />
+  return (
+    <>
+      <RevalidatePage />
+      <IdolList userCreatedIdol={userCreatedIdols} />
+    </>
+  )
 }

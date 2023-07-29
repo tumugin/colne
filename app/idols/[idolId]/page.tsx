@@ -5,6 +5,7 @@ import { getIdol } from 'api-client/idol'
 import { getIdolChekisWithDateRange } from 'api-client/cheki'
 import dayjs from 'dayjs'
 import { getCurrentUser } from 'api-client/user'
+import { RevalidatePage } from 'components/next-utils/RevalidatePage'
 
 export default async function Page({
   params,
@@ -36,15 +37,18 @@ export default async function Page({
     )
 
     return (
-      <IdolById
-        idol={idol}
-        idolChekis={idolChekis}
-        range={{
-          startISOString: start.toISOString(),
-          endISOString: end.toISOString(),
-        }}
-        currentUser={currentUser}
-      />
+      <>
+        <RevalidatePage />
+        <IdolById
+          idol={idol}
+          idolChekis={idolChekis}
+          range={{
+            startISOString: start.toISOString(),
+            endISOString: end.toISOString(),
+          }}
+          currentUser={currentUser}
+        />
+      </>
     )
   } catch (e) {
     handleColneException(e)

@@ -48,7 +48,7 @@ export function ColneAppWithLayout({
           title: 'チェキを管理するやつ(仮)',
           onFollow: async (e) => {
             e.preventDefault()
-            await router.push('/')
+            router.push('/')
           },
         }}
         i18nStrings={{
