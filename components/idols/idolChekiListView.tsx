@@ -1,18 +1,31 @@
 import React from 'react'
-import { Box, Table } from '@cloudscape-design/components'
+import { Box, Button, Table } from '@cloudscape-design/components'
 import dayjs from 'dayjs'
 import { IdolCheki } from 'api-client/cheki'
 
 export function IdolChekiListView({
   isLoading,
   chekis,
+  onDeleteCheki,
 }: {
   isLoading: boolean
   chekis: IdolCheki[]
+  onDeleteCheki: (chekiId: string) => void
 }) {
   return (
     <Table
       columnDefinitions={[
+        {
+          id: 'delete',
+          header: '',
+          cell: (e) => (
+            <Button
+              iconName="delete-marker"
+              variant="icon"
+              onClick={() => onDeleteCheki(e.chekiId)}
+            />
+          ),
+        },
         {
           id: 'id',
           header: 'ID',
