@@ -18,11 +18,13 @@ export function IdolChekiStats({
   chekis,
   dateRange,
   onDateRangeChange,
+  onDeleteCheki,
 }: {
   isLoading: boolean
   chekis: IdolCheki[]
   dateRange: ColneDateRange
   onDateRangeChange: (dateRange: ColneDateRange | null) => void
+  onDeleteCheki: (chekiId: string) => void
 }) {
   const chekiQuantity = useMemo(
     () =>
@@ -118,7 +120,11 @@ export function IdolChekiStats({
         />
       </Box>
       <IdolChekiStatsView isLoading={isLoading} stats={statItems} />
-      <IdolChekiListView isLoading={isLoading} chekis={chekis} />
+      <IdolChekiListView
+        isLoading={isLoading}
+        chekis={chekis}
+        onDeleteCheki={onDeleteCheki}
+      />
     </>
   )
 }

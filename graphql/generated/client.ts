@@ -635,6 +635,15 @@ export type AddIdolMutation = {
   }
 }
 
+export type DeleteChekiMutationVariables = Exact<{
+  chekiId: Scalars['ID']['input']
+}>
+
+export type DeleteChekiMutation = {
+  __typename?: 'Mutation'
+  cheki: { __typename?: 'ChekiMutationServices'; deleteCheki: string }
+}
+
 export type DeleteGroupMutationVariables = Exact<{
   groupId: Scalars['ID']['input']
 }>
@@ -1069,6 +1078,13 @@ export const AddIdolDocument = gql`
     }
   }
 `
+export const DeleteChekiDocument = gql`
+  mutation DeleteCheki($chekiId: ID!) {
+    cheki {
+      deleteCheki(chekiId: $chekiId)
+    }
+  }
+`
 export const DeleteGroupDocument = gql`
   mutation DeleteGroup($groupId: ID!) {
     group {
@@ -1423,6 +1439,20 @@ export function getSdk(
             ...wrappedRequestHeaders,
           }),
         'AddIdol',
+        'mutation',
+      )
+    },
+    DeleteCheki(
+      variables: DeleteChekiMutationVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+    ): Promise<DeleteChekiMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<DeleteChekiMutation>(DeleteChekiDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'DeleteCheki',
         'mutation',
       )
     },

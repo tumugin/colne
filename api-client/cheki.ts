@@ -21,6 +21,14 @@ export interface CurrentUserChekiIdolCount {
   } | null
 }
 
+export async function deleteCheki(
+  params: { chekiId: string },
+  headers?: Headers,
+) {
+  const sdk = createGraphQLSDK({ headers, cache: 'no-store' })
+  await sdk.DeleteCheki(params, headers)
+}
+
 export async function getCurrentUserChekiIdolCount(
   params: {
     startDate: dayjs.Dayjs
