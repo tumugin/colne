@@ -19,7 +19,9 @@ export function getAuthCookieNextHeaders(): Headers {
 export function getNextHeaderFromRequestOnlyCookie(request: NextRequest) {
   const rawCookie = request.headers.get('cookie')
   const result: Headers = new Headers()
-  result.set('Cookie', rawCookie)
+  if (rawCookie) {
+    result.set('Cookie', rawCookie)
+  }
 
   return result
 }
