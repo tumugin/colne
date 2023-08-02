@@ -13,7 +13,7 @@ on: {}
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: cypress/included:12.17.2
+    container: cypress/included:12.17.3
     steps:
       - uses: actions/checkout@v3
       - name: Install fonts
