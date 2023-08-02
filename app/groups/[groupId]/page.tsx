@@ -4,6 +4,8 @@ import { handleColneException } from 'utils/error-aware-page-utils'
 import { GroupById } from 'components/page-components/GroupById'
 import { RevalidatePage } from 'components/next-utils/RevalidatePage'
 
+export const dynamic = 'force-dynamic'
+
 export default async function Page({
   params,
 }: {

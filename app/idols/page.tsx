@@ -3,6 +3,8 @@ import { getUserCreatedIdols } from 'api-client/idol'
 import { IdolList } from 'components/page-components/IdolList'
 import { RevalidatePage } from 'components/next-utils/RevalidatePage'
 
+export const dynamic = 'force-dynamic'
+
 export default async function Page({
   searchParams,
 }: {

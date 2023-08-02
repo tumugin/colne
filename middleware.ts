@@ -14,5 +14,7 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: '/(chekis|groups|idols)/(.*)',
+  // NOTE: Set dynamic to force-dynamic for these pages
+  // https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config#dynamic
+  matcher: '\\/(chekis|groups|idols)(\\/.*|$)',
 }
