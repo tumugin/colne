@@ -1,4 +1,4 @@
-import { getHackedNextHeaders } from 'libs/next/nextHeadersHack'
+import { getAuthCookieNextHeaders } from 'libs/next/nextHeadersHack'
 import { getCurrentUser } from 'api-client/user'
 import React from 'react'
 import { Home } from 'components/page-components/Home'
@@ -11,8 +11,10 @@ import utc from 'dayjs/plugin/utc'
 import timezone from 'dayjs/plugin/timezone'
 import { RevalidatePage } from 'components/next-utils/RevalidatePage'
 
+export const dynamic = 'force-dynamic'
+
 export default async function PageHome() {
-  const header = getHackedNextHeaders()
+  const header = getAuthCookieNextHeaders()
   const currentUser = await getCurrentUser(header)
 
   dayjs.extend(utc)

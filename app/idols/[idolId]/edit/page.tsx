@@ -1,4 +1,4 @@
-import { getHackedNextHeaders } from 'libs/next/nextHeadersHack'
+import { getAuthCookieNextHeaders } from 'libs/next/nextHeadersHack'
 import { getIdol } from 'api-client/idol'
 import { handleColneException } from 'utils/error-aware-page-utils'
 import { IdolEdit } from 'components/page-components/IdolEdit'
@@ -11,7 +11,7 @@ export default async function IdolEditPage({
 }: {
   params: { idolId: string }
 }) {
-  const header = getHackedNextHeaders()
+  const header = getAuthCookieNextHeaders()
 
   try {
     const idol = await getIdol({ idolId: params.idolId }, header)
