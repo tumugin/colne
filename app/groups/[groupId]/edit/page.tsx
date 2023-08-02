@@ -4,6 +4,8 @@ import { GroupEdit } from 'components/page-components/GroupEdit'
 import { handleColneException } from 'utils/error-aware-page-utils'
 import { RevalidatePage } from 'components/next-utils/RevalidatePage'
 
+export const dynamic = 'force-dynamic'
+
 export default async function Page({
   params,
 }: {

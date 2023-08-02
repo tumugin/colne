@@ -7,6 +7,8 @@ import dayjs from 'dayjs'
 import { getCurrentUser } from 'api-client/user'
 import { RevalidatePage } from 'components/next-utils/RevalidatePage'
 
+export const dynamic = 'force-dynamic'
+
 export default async function Page({
   params,
   searchParams,
