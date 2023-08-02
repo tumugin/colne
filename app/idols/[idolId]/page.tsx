@@ -1,4 +1,4 @@
-import { getHackedNextHeaders } from 'libs/next/nextHeadersHack'
+import { getAuthCookieNextHeaders } from 'libs/next/nextHeadersHack'
 import { handleColneException } from 'utils/error-aware-page-utils'
 import { IdolById } from 'components/page-components/IdolById'
 import { getIdol } from 'api-client/idol'
@@ -19,7 +19,7 @@ export default async function Page({
     chekiEnd: string | undefined
   }
 }) {
-  const header = getHackedNextHeaders()
+  const header = getAuthCookieNextHeaders()
   const start = searchParams.chekiStart
     ? dayjs(searchParams.chekiStart)
     : dayjs().subtract(1, 'months')
