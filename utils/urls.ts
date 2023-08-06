@@ -20,6 +20,8 @@ export function groupEditPage(groupId: string) {
   return `/groups/${groupId}/edit`
 }
 
+export const groupCreatePage = '/groups/create'
+
 export function loginPathWithReturnToURL(redirectPath: string) {
   return loginPath + '?return_to=' + encodeURI(redirectPath)
 }
