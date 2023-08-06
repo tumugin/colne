@@ -47,10 +47,28 @@ export async function updateGroup(
   return group.group.updateGroup
 }
 
+export interface UserCreatedGroup {
+  count: number
+  currentPage: number
+  pageCount: number
+  groups: Array<{
+    groupCreatedAt: string
+    groupId: string
+    groupName: string
+    groupStatus: GroupStatus
+    groupUpdatedAt: string
+    userId?: string | null
+    user?: {
+      userId: string
+      userName: string
+    } | null
+  }>
+}
+
 export async function getUserCreatedGroupList(
   params: { page: number },
   headers?: Headers,
-) {
+): Promise<UserCreatedGroup> {
   const sdk = createGraphQLSDK({
     headers,
     cache: 'no-store',
