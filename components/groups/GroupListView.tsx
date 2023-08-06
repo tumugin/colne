@@ -8,7 +8,7 @@ import {
   Pagination,
   SpaceBetween,
 } from '@cloudscape-design/components'
-import { groupDetailPage, idolDetailPage } from 'utils/urls'
+import { groupCreatePage, groupDetailPage } from 'utils/urls'
 import { onFollowNextLink } from 'utils/router'
 import React from 'react'
 import { GroupStatusBadge } from 'components/groups/GroupStatusBadge'
@@ -108,10 +108,10 @@ export function GroupListView({
               actions={
                 <SpaceBetween size="s" direction="horizontal">
                   <Button
-                    href="/groups/create"
+                    href={groupCreatePage}
                     variant="primary"
                     onFollow={(e) =>
-                      onFollowNextLink(router, e, '/groups/create')
+                      onFollowNextLink(router, e, groupCreatePage)
                     }
                   >
                     新しく登録する
