@@ -3431,9 +3431,9 @@
   integrity sha512-FcOqPAXACP0I3oJ/ws6/rrPT9WGhu915Cg8D02a9YxLo0DE9zI+a9A5gRGvmQ09fiWPukqI8ZAEoQEdWUKMQdQ==
 
 "@storybook/icons@^1.1.0":
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/@storybook/icons/-/icons-1.1.4.tgz#552eea02beffe97a6bbefd7113cb98702d428a40"
-  integrity sha512-Aq9meChGlul/km0ywJvC8entRbjBa4q8i/0wLHLzH8pRmCMMtalTbF/OBn/Whiui7sgAa686jrMHkWlzfoQ0lg==
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/@storybook/icons/-/icons-1.1.5.tgz#5cc7a73921c407658d630f8977dc658eebccc09f"
+  integrity sha512-PWJIaa/NtOu2VSWnj07evF1OI5+6H7ZTAvy0LO38RheW4W8iS+xoYsh2cr/nxLBblfhbw533uJrhdqpxCytxfA==
 
 "@storybook/instrumenter@7.2.1":
   version "7.2.1"
