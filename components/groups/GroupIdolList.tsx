@@ -54,7 +54,11 @@ export function GroupIdolList({
           sortingField: 'idolStatus',
         },
       ]}
-      header={<Header variant="h2">アイドル</Header>}
+      header={
+        <Header variant="h2" actions={<Button>アイドルを追加</Button>}>
+          アイドル
+        </Header>
+      }
       empty={
         <Box textAlign="center" color="inherit">
           <b>まだ所属アイドルが登録されていません</b>
