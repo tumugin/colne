@@ -2,6 +2,9 @@ import { Box, Button, Header, Link, Table } from '@cloudscape-design/components'
 import { IdolStatus } from 'graphql/generated/client'
 import { IdolStatusBadge } from 'components/idols/IdolStatusBadge'
 import React from 'react'
+import { idolDetailPage } from 'utils/urls'
+import { onFollowNextLink } from 'utils/router'
+import { useRouter } from 'next/navigation'
 
 export function GroupIdolList({
   idols,
@@ -25,6 +28,8 @@ export function GroupIdolList({
   }[]
   onRemoveIdol: (idolId: string) => void
 }) {
+  const router = useRouter()
+
   return (
     <Table
       items={idols}
@@ -43,7 +48,14 @@ export function GroupIdolList({
         {
           id: 'idolName',
           header: 'アイドル名',
-          cell: (item) => <Link href="#">{item.idolName}</Link>,
+          cell: (item) => (
+            <Link
+              href={idolDetailPage(item.idolId)}
+              onFollow={(e) => onFollowNextLink(router, e)}
+            >
+              {item.idolName}
+            </Link>
+          ),
           sortingField: 'idolName',
           isRowHeader: true,
         },
