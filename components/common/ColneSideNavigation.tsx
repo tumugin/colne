@@ -1,5 +1,10 @@
 import { SideNavigation } from '@cloudscape-design/components'
-import { chekiAddPath, loginPath, userCreatedGroupsListPath, userCreatedIdolListPath } from 'utils/urls'
+import {
+  chekiAddPath,
+  loginPath,
+  userCreatedGroupsListPath,
+  userCreatedIdolListPath,
+} from 'utils/urls'
 import { usePathname, useRouter } from 'next/navigation'
 import { useLogoutForm } from 'components/common/LogoutForm'
 
