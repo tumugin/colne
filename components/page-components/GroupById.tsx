@@ -49,6 +49,7 @@ export function GroupById({ group }: { group: Group }) {
         <GroupIdolList
           idols={group.idols.filter(nonNullable)}
           onRemoveIdol={onRemoveIdol}
+          groupId={group.groupId}
         />
       </SpaceBetween>
       {showDeleteIdolModal && deleteTargetIdol && (

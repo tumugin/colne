@@ -35,6 +35,7 @@ export function IdolListView({
   onSelectionChange,
   selectedIdolId,
   hideHeader,
+  header,
   hideIdolStatus,
 }: {
   idols: IdolListViewIdolItem[]
@@ -46,6 +47,7 @@ export function IdolListView({
   onSelectionChange?: (selectedIdolId: string) => void
   selectedIdolId?: string
   hideHeader?: boolean
+  header?: React.ReactNode
   hideIdolStatus?: boolean
 }) {
   const router = useRouter()
@@ -112,7 +114,8 @@ export function IdolListView({
           />
         }
         header={
-          !hideHeader && (
+          !hideHeader &&
+          (header || (
             <Header
               actions={
                 <SpaceBetween size="s" direction="horizontal">
@@ -131,7 +134,7 @@ export function IdolListView({
             >
               ユーザーが登録したアイドル一覧
             </Header>
-          )
+          ))
         }
       />
     </Box>

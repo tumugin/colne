@@ -141,3 +141,14 @@ export async function removeIdol(
   })
   await sdk.RemoveIdolFromGroup(params, headers)
 }
+
+export async function addIdolToGroup(
+  params: { groupId: string; idolId: string },
+  headers?: Headers,
+) {
+  const sdk = createGraphQLSDK({
+    headers,
+    cache: 'no-store',
+  })
+  await sdk.AddIdolToGroup(params, headers)
+}
