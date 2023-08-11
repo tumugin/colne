@@ -1,7 +1,12 @@
-import { Container, Header } from '@cloudscape-design/components'
+import { Box, Button, Header, Link, Table } from '@cloudscape-design/components'
 import { IdolStatus } from 'graphql/generated/client'
+import { IdolStatusBadge } from 'components/idols/IdolStatusBadge'
+import React from 'react'
 
-export function GroupIdolList({}: {
+export function GroupIdolList({
+  idols,
+  onRemoveIdol,
+}: {
   idols: {
     idolCreatedAt: string
     idolId: string
@@ -18,6 +23,43 @@ export function GroupIdolList({}: {
       groupName: string
     } | null>
   }[]
+  onRemoveIdol: (idolId: string) => void
 }) {
-  return <Container header={<Header variant="h2">アイドル</Header>}></Container>
+  return (
+    <Table
+      items={idols}
+      columnDefinitions={[
+        {
+          id: 'delete',
+          header: '',
+          cell: (e) => (
+            <Button
+              iconName="delete-marker"
+              variant="icon"
+              onClick={() => onRemoveIdol(e.idolId)}
+            />
+          ),
+        },
+        {
+          id: 'idolName',
+          header: 'アイドル名',
+          cell: (item) => <Link href="#">{item.idolName}</Link>,
+          sortingField: 'idolName',
+          isRowHeader: true,
+        },
+        {
+          id: 'idolStatus',
+          header: 'ステータス',
+          cell: (item) => <IdolStatusBadge status={item.idolStatus} />,
+          sortingField: 'idolStatus',
+        },
+      ]}
+      header={<Header variant="h2">アイドル</Header>}
+      empty={
+        <Box textAlign="center" color="inherit">
+          <b>まだ所属アイドルが登録されていません</b>
+        </Box>
+      }
+    />
+  )
 }

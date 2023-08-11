@@ -1009,6 +1009,19 @@ export type GetUserCreatedIdolListQuery = {
   }
 }
 
+export type RemoveIdolFromGroupMutationVariables = Exact<{
+  groupId: Scalars['ID']['input']
+  idolId: Scalars['ID']['input']
+}>
+
+export type RemoveIdolFromGroupMutation = {
+  __typename?: 'Mutation'
+  group: {
+    __typename?: 'GroupMutationServices'
+    removeIdolFromGroup: { __typename?: 'GroupSerializer'; groupId: string }
+  }
+}
+
 export const AddChekiDocument = gql`
   mutation AddCheki($cheki: AddOrUpdateChekiParamsInput!) {
     cheki {
@@ -1382,6 +1395,15 @@ export const GetUserCreatedIdolListDocument = gql`
     }
   }
 `
+export const RemoveIdolFromGroupDocument = gql`
+  mutation RemoveIdolFromGroup($groupId: ID!, $idolId: ID!) {
+    group {
+      removeIdolFromGroup(groupId: $groupId, idolId: $idolId) {
+        groupId
+      }
+    }
+  }
+`
 
 export type SdkFunctionWrapper = <T>(
   action: (requestHeaders?: Record<string, string>) => Promise<T>,
@@ -1642,6 +1664,21 @@ export function getSdk(
           ),
         'GetUserCreatedIdolList',
         'query',
+      )
+    },
+    RemoveIdolFromGroup(
+      variables: RemoveIdolFromGroupMutationVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+    ): Promise<RemoveIdolFromGroupMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<RemoveIdolFromGroupMutation>(
+            RemoveIdolFromGroupDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'RemoveIdolFromGroup',
+        'mutation',
       )
     },
   }
