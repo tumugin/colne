@@ -130,3 +130,25 @@ export async function getGroup(
     mapAisuExceptionToColneExceptionAndThrow(e)
   }
 }
+
+export async function removeIdol(
+  params: { groupId: string; idolId: string },
+  headers?: Headers,
+) {
+  const sdk = createGraphQLSDK({
+    headers,
+    cache: 'no-store',
+  })
+  await sdk.RemoveIdolFromGroup(params, headers)
+}
+
+export async function addIdolToGroup(
+  params: { groupId: string; idolId: string },
+  headers?: Headers,
+) {
+  const sdk = createGraphQLSDK({
+    headers,
+    cache: 'no-store',
+  })
+  await sdk.AddIdolToGroup(params, headers)
+}

@@ -1,5 +1,10 @@
 import { SideNavigation } from '@cloudscape-design/components'
-import { chekiAddPath, loginPath, userCreatedIdolListPath } from 'utils/urls'
+import {
+  chekiAddPath,
+  loginPath,
+  userCreatedGroupsListPath,
+  userCreatedIdolListPath,
+} from 'utils/urls'
 import { usePathname, useRouter } from 'next/navigation'
 import { useLogoutForm } from 'components/common/LogoutForm'
 
@@ -38,6 +43,11 @@ export function ColneSideNavigation({
                   type: 'link',
                   text: '登録したアイドル一覧',
                   href: userCreatedIdolListPath,
+                },
+                {
+                  type: 'link',
+                  text: '登録したグループ一覧',
+                  href: userCreatedGroupsListPath,
                 },
                 {
                   type: 'link',

@@ -1,0 +1,7 @@
+mutation AddIdolToGroup($groupId: ID!, $idolId: ID!) {
+  group {
+    addIdolToGroup(groupId: $groupId, idolId: $idolId) {
+      groupId
+    }
+  }
+}

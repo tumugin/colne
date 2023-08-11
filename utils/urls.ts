@@ -20,6 +20,10 @@ export function groupEditPage(groupId: string) {
   return `/groups/${groupId}/edit`
 }
 
+export function groupAddIdolPage(groupId: string) {
+  return `/groups/${groupId}/add_idol`
+}
+
 export const groupCreatePage = '/groups/create'
 
 export function loginPathWithReturnToURL(redirectPath: string) {
