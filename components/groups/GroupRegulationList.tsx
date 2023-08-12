@@ -41,7 +41,7 @@ export function GroupRegulationList({
         {
           id: 'regulationUnitPrice',
           header: '単価',
-          cell: (item) => item.regulationUnitPrice,
+          cell: (item) => item.regulationUnitPrice.toLocaleString('ja-JP'),
         },
         {
           id: 'regulationComment',
