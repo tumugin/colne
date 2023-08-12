@@ -1,0 +1,5 @@
+mutation DeleteRegulation($regulationId: ID!) {
+  regulation {
+    deleteRegulation(regulationId: $regulationId)
+  }
+}

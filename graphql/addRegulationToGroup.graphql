@@ -1,0 +1,7 @@
+mutation AddRegulationToGroup($regulation: AddOrUpdateRegulationParamsInput!) {
+  regulation {
+    addRegulation(params: $regulation) {
+      regulationId
+    }
+  }
+}

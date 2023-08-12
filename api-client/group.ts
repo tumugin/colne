@@ -4,6 +4,7 @@ import {
   DeleteGroupMutationVariables,
   GroupStatus,
   IdolStatus,
+  RegulationStatus,
 } from 'graphql/generated/client'
 import { createGraphQLSDK } from 'graphql/client'
 import { mapAisuExceptionToColneExceptionAndThrow } from 'exceptions/graphql-exceptions'
@@ -77,6 +78,17 @@ export async function getUserCreatedGroupList(
   return groupsPage.currentUserGroups.getGroupsCreatedByUser
 }
 
+export interface Regulation {
+  regulationComment: string
+  regulationCreatedAt: string
+  regulationId: string
+  regulationName: string
+  regulationStatus: RegulationStatus
+  regulationUnitPrice: number
+  regulationUpdatedAt: string
+  groupId: string
+}
+
 export interface Group {
   groupCreatedAt: string
   groupId: string
@@ -88,15 +100,7 @@ export interface Group {
     userId: string
     userName: string
   } | null
-  regulations: Array<{
-    regulationComment: string
-    regulationCreatedAt: string
-    regulationId: string
-    regulationName: string
-    regulationStatus: string
-    regulationUnitPrice: number
-    regulationUpdatedAt: string
-  }>
+  regulations: Regulation[]
   idols: Array<{
     idolCreatedAt: string
     idolId: string
@@ -151,4 +155,74 @@ export async function addIdolToGroup(
     cache: 'no-store',
   })
   await sdk.AddIdolToGroup(params, headers)
+}
+
+export async function addRegulationToGroup(
+  params: {
+    groupId: string
+    regulationComment: string
+    regulationName: string
+    regulationStatus: RegulationStatus
+    regulationUnitPrice: number
+  },
+  headers?: Headers,
+) {
+  const sdk = createGraphQLSDK({
+    headers,
+    cache: 'no-store',
+  })
+  await sdk.AddRegulationToGroup({ regulation: params }, headers)
+}
+
+export async function getRegulation(
+  params: { regulationId: string },
+  headers?: Headers,
+): Promise<Regulation> {
+  const sdk = createGraphQLSDK({
+    headers,
+    cache: 'no-store',
+  })
+  const regulation = await sdk.GetRegulation(params, headers)
+  return regulation.getRegulation
+}
+
+export async function updateRegulation(
+  params: {
+    groupId: string
+    regulationId: string
+    regulationComment: string
+    regulationName: string
+    regulationStatus: RegulationStatus
+    regulationUnitPrice: number
+  },
+  headers?: Headers,
+) {
+  const sdk = createGraphQLSDK({
+    headers,
+    cache: 'no-store',
+  })
+  await sdk.UpdateRegulation(
+    {
+      regulationId: params.regulationId,
+      regulation: {
+        groupId: params.groupId,
+        regulationComment: params.regulationComment,
+        regulationName: params.regulationName,
+        regulationStatus: params.regulationStatus,
+        regulationUnitPrice: params.regulationUnitPrice,
+      },
+    },
+    headers,
+  )
+}
+
+export async function deleteRegulation(
+  params: { regulationId: string },
+  headers?: Headers,
+) {
+  const sdk = createGraphQLSDK({
+    headers,
+    cache: 'no-store',
+  })
+  await sdk.DeleteRegulation(params, headers)
 }

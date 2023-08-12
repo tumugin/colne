@@ -15,6 +15,7 @@ import React, { useCallback, useMemo, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useToastTheme } from 'libs/dom/toast-theme-hooks'
 import toast from 'react-hot-toast'
+import { GroupRegulationList } from 'components/groups/GroupRegulationList'
 
 export function GroupById({ group }: { group: Group }) {
   const router = useRouter()
@@ -49,6 +50,10 @@ export function GroupById({ group }: { group: Group }) {
         <GroupIdolList
           idols={group.idols.filter(nonNullable)}
           onRemoveIdol={onRemoveIdol}
+          groupId={group.groupId}
+        />
+        <GroupRegulationList
+          regulations={group.regulations}
           groupId={group.groupId}
         />
       </SpaceBetween>

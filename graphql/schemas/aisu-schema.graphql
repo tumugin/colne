@@ -257,7 +257,7 @@ type RegulationSerializer {
   regulationCreatedAt: String!
   regulationId: ID!
   regulationName: String!
-  regulationStatus: String!
+  regulationStatus: RegulationStatus!
   regulationUnitPrice: Int!
   regulationUpdatedAt: String!
   user: LimitedUserSerializer

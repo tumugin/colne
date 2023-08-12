@@ -18,6 +18,7 @@ query GetGroup($groupId: ID!) {
       regulationStatus
       regulationUnitPrice
       regulationUpdatedAt
+      groupId
     }
     idols {
       idolCreatedAt

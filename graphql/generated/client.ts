@@ -463,7 +463,7 @@ export type RegulationSerializer = {
   regulationCreatedAt: Scalars['String']['output']
   regulationId: Scalars['ID']['output']
   regulationName: Scalars['String']['output']
-  regulationStatus: Scalars['String']['output']
+  regulationStatus: RegulationStatus
   regulationUnitPrice: Scalars['Int']['output']
   regulationUpdatedAt: Scalars['String']['output']
   user?: Maybe<LimitedUserSerializer>
@@ -584,7 +584,7 @@ export type AddGroupMutation = {
         regulationCreatedAt: string
         regulationId: string
         regulationName: string
-        regulationStatus: string
+        regulationStatus: RegulationStatus
         regulationUnitPrice: number
         regulationUpdatedAt: string
       }>
@@ -648,6 +648,18 @@ export type AddIdolToGroupMutation = {
   }
 }
 
+export type AddRegulationToGroupMutationVariables = Exact<{
+  regulation: AddOrUpdateRegulationParamsInput
+}>
+
+export type AddRegulationToGroupMutation = {
+  __typename?: 'Mutation'
+  regulation: {
+    __typename?: 'RegulationMutationServices'
+    addRegulation: { __typename?: 'RegulationSerializer'; regulationId: string }
+  }
+}
+
 export type DeleteChekiMutationVariables = Exact<{
   chekiId: Scalars['ID']['input']
 }>
@@ -673,6 +685,18 @@ export type DeleteIdolMutationVariables = Exact<{
 export type DeleteIdolMutation = {
   __typename?: 'Mutation'
   idol: { __typename?: 'IdolMutationServices'; deleteIdol: string }
+}
+
+export type DeleteRegulationMutationVariables = Exact<{
+  regulationId: Scalars['ID']['input']
+}>
+
+export type DeleteRegulationMutation = {
+  __typename?: 'Mutation'
+  regulation: {
+    __typename?: 'RegulationMutationServices'
+    deleteRegulation: string
+  }
 }
 
 export type EditGroupMutationVariables = Exact<{
@@ -703,7 +727,7 @@ export type EditGroupMutation = {
         regulationCreatedAt: string
         regulationId: string
         regulationName: string
-        regulationStatus: string
+        regulationStatus: RegulationStatus
         regulationUnitPrice: number
         regulationUpdatedAt: string
       }>
@@ -805,9 +829,10 @@ export type GetGroupQuery = {
       regulationCreatedAt: string
       regulationId: string
       regulationName: string
-      regulationStatus: string
+      regulationStatus: RegulationStatus
       regulationUnitPrice: number
       regulationUpdatedAt: string
+      groupId: string
     }>
     idols: Array<{
       __typename?: 'IdolSerializer'
@@ -885,7 +910,7 @@ export type GetIdolChekisByDateRangeAndIdolIdQuery = {
         regulationCreatedAt: string
         regulationId: string
         regulationName: string
-        regulationStatus: string
+        regulationStatus: RegulationStatus
         regulationUnitPrice: number
         regulationUpdatedAt: string
         userId?: string | null
@@ -926,7 +951,7 @@ export type GetIdolDetailsForChekiAddQuery = {
         regulationCreatedAt: string
         regulationId: string
         regulationName: string
-        regulationStatus: string
+        regulationStatus: RegulationStatus
         regulationUnitPrice: number
         regulationUpdatedAt: string
       }>
@@ -936,6 +961,26 @@ export type GetIdolDetailsForChekiAddQuery = {
       userId: string
       userName: string
     } | null
+  }
+}
+
+export type GetRegulationQueryVariables = Exact<{
+  regulationId: Scalars['ID']['input']
+}>
+
+export type GetRegulationQuery = {
+  __typename?: 'Query'
+  getRegulation: {
+    __typename?: 'RegulationSerializer'
+    groupId: string
+    regulationComment: string
+    regulationCreatedAt: string
+    regulationId: string
+    regulationName: string
+    regulationStatus: RegulationStatus
+    regulationUnitPrice: number
+    regulationUpdatedAt: string
+    userId?: string | null
   }
 }
 
@@ -1035,6 +1080,22 @@ export type RemoveIdolFromGroupMutation = {
   }
 }
 
+export type UpdateRegulationMutationVariables = Exact<{
+  regulationId: Scalars['ID']['input']
+  regulation: AddOrUpdateRegulationParamsInput
+}>
+
+export type UpdateRegulationMutation = {
+  __typename?: 'Mutation'
+  regulation: {
+    __typename?: 'RegulationMutationServices'
+    updateRegulation: {
+      __typename?: 'RegulationSerializer'
+      regulationId: string
+    }
+  }
+}
+
 export const AddChekiDocument = gql`
   mutation AddCheki($cheki: AddOrUpdateChekiParamsInput!) {
     cheki {
@@ -1113,6 +1174,17 @@ export const AddIdolToGroupDocument = gql`
     }
   }
 `
+export const AddRegulationToGroupDocument = gql`
+  mutation AddRegulationToGroup(
+    $regulation: AddOrUpdateRegulationParamsInput!
+  ) {
+    regulation {
+      addRegulation(params: $regulation) {
+        regulationId
+      }
+    }
+  }
+`
 export const DeleteChekiDocument = gql`
   mutation DeleteCheki($chekiId: ID!) {
     cheki {
@@ -1131,6 +1203,13 @@ export const DeleteIdolDocument = gql`
   mutation DeleteIdol($id: ID!) {
     idol {
       deleteIdol(idolId: $id)
+    }
+  }
+`
+export const DeleteRegulationDocument = gql`
+  mutation DeleteRegulation($regulationId: ID!) {
+    regulation {
+      deleteRegulation(regulationId: $regulationId)
     }
   }
 `
@@ -1237,6 +1316,7 @@ export const GetGroupDocument = gql`
         regulationStatus
         regulationUnitPrice
         regulationUpdatedAt
+        groupId
       }
       idols {
         idolCreatedAt
@@ -1350,6 +1430,21 @@ export const GetIdolDetailsForChekiAddDocument = gql`
     }
   }
 `
+export const GetRegulationDocument = gql`
+  query GetRegulation($regulationId: ID!) {
+    getRegulation(regulationId: $regulationId) {
+      groupId
+      regulationComment
+      regulationCreatedAt
+      regulationId
+      regulationName
+      regulationStatus
+      regulationUnitPrice
+      regulationUpdatedAt
+      userId
+    }
+  }
+`
 export const GetUserChekiIdolCountDocument = gql`
   query GetUserChekiIdolCount(
     $chekiShotAtStart: String!
@@ -1422,6 +1517,18 @@ export const RemoveIdolFromGroupDocument = gql`
     group {
       removeIdolFromGroup(groupId: $groupId, idolId: $idolId) {
         groupId
+      }
+    }
+  }
+`
+export const UpdateRegulationDocument = gql`
+  mutation UpdateRegulation(
+    $regulationId: ID!
+    $regulation: AddOrUpdateRegulationParamsInput!
+  ) {
+    regulation {
+      updateRegulation(regulationId: $regulationId, params: $regulation) {
+        regulationId
       }
     }
   }
@@ -1501,6 +1608,21 @@ export function getSdk(
         'mutation',
       )
     },
+    AddRegulationToGroup(
+      variables: AddRegulationToGroupMutationVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+    ): Promise<AddRegulationToGroupMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<AddRegulationToGroupMutation>(
+            AddRegulationToGroupDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'AddRegulationToGroup',
+        'mutation',
+      )
+    },
     DeleteCheki(
       variables: DeleteChekiMutationVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
@@ -1540,6 +1662,21 @@ export function getSdk(
             ...wrappedRequestHeaders,
           }),
         'DeleteIdol',
+        'mutation',
+      )
+    },
+    DeleteRegulation(
+      variables: DeleteRegulationMutationVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+    ): Promise<DeleteRegulationMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<DeleteRegulationMutation>(
+            DeleteRegulationDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'DeleteRegulation',
         'mutation',
       )
     },
@@ -1658,6 +1795,20 @@ export function getSdk(
         'query',
       )
     },
+    GetRegulation(
+      variables: GetRegulationQueryVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+    ): Promise<GetRegulationQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<GetRegulationQuery>(GetRegulationDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'GetRegulation',
+        'query',
+      )
+    },
     GetUserChekiIdolCount(
       variables: GetUserChekiIdolCountQueryVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
@@ -1715,6 +1866,21 @@ export function getSdk(
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
         'RemoveIdolFromGroup',
+        'mutation',
+      )
+    },
+    UpdateRegulation(
+      variables: UpdateRegulationMutationVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+    ): Promise<UpdateRegulationMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<UpdateRegulationMutation>(
+            UpdateRegulationDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'UpdateRegulation',
         'mutation',
       )
     },
