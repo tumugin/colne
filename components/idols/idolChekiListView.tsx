@@ -39,7 +39,7 @@ export function IdolChekiListView({
         {
           id: 'count',
           header: '枚数',
-          cell: (e) => e.chekiQuantity,
+          cell: (e) => e.chekiQuantity.toLocaleString('ja-JP'),
         },
         {
           id: 'regulation',
@@ -51,7 +51,9 @@ export function IdolChekiListView({
           header: '価格',
           cell: (e) =>
             e.regulation?.regulationUnitPrice
-              ? e.regulation.regulationUnitPrice * e.chekiQuantity + '円'
+              ? (
+                  e.regulation.regulationUnitPrice * e.chekiQuantity
+                ).toLocaleString('ja-JP') + '円'
               : '-',
         },
       ]}

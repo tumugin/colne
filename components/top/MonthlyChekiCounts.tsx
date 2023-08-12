@@ -2,11 +2,15 @@ import {
   Box,
   Container,
   Header,
+  Link,
   SpaceBetween,
 } from '@cloudscape-design/components'
 import styled from 'styled-components'
 import * as awsui from '@cloudscape-design/design-tokens'
 import React from 'react'
+import { idolDetailPage } from 'utils/urls'
+import { onFollowNextLink } from 'utils/router'
+import { useRouter } from 'next/navigation'
 
 const ContentGrid = styled.div`
   display: grid;
@@ -43,6 +47,7 @@ export function MonthlyChekiCounts({
     } | null
   }[]
 }) {
+  const router = useRouter()
   return (
     <Container header={<Header variant="h2">今月のチェキ撮影枚数</Header>}>
       {chekiCounts.length === 0 ? (
@@ -55,14 +60,23 @@ export function MonthlyChekiCounts({
             <IdolChekiCount
               key={id}
               header={
-                <Header variant="h3">
-                  {chekiCount.idol?.idolName ?? '名前不明のアイドル'}
-                </Header>
+                chekiCount.idol ? (
+                  <Link
+                    variant="secondary"
+                    fontSize="heading-l"
+                    href={idolDetailPage(chekiCount.idol.idolId)}
+                    onFollow={(e) => onFollowNextLink(router, e)}
+                  >
+                    {chekiCount.idol?.idolName}
+                  </Link>
+                ) : (
+                  <Box fontSize="heading-l">削除されたアイドル</Box>
+                )
               }
             >
               <BottomAlignText size="xs" direction="horizontal">
                 <Box fontSize="display-l" textAlign="center">
-                  {chekiCount.chekiCount}
+                  {chekiCount.chekiCount.toLocaleString('ja-JP')}
                 </Box>
                 <Box fontSize="heading-xl">枚</Box>
               </BottomAlignText>

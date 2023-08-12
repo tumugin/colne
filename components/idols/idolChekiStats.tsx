@@ -64,8 +64,8 @@ export function IdolChekiStats({
       regulations
         .sort(
           (a, b) =>
-            regulations.filter((v) => v === a).length -
-            regulations.filter((v) => v === b).length,
+            chekis.filter((v) => v.regulation?.regulationName === a).length -
+            chekis.filter((v) => v.regulation?.regulationName === b).length,
         )
         .pop() ?? '-',
     [regulations],
@@ -75,13 +75,13 @@ export function IdolChekiStats({
       {
         id: '1',
         name: 'チェキ撮影枚数',
-        value: chekiQuantity,
+        value: chekiQuantity.toLocaleString('ja-JP'),
         unitName: '枚',
       },
       {
         id: '2',
         name: 'チェキ撮影枚数/週',
-        value: chekiQuantityByWeek,
+        value: chekiQuantityByWeek.toLocaleString('ja-JP'),
         unitName: '枚/週',
       },
       {
@@ -92,7 +92,7 @@ export function IdolChekiStats({
       {
         id: '4',
         name: '合計使用金額',
-        value: totalPrice,
+        value: totalPrice.toLocaleString('ja-JP'),
         unitName: '円',
         defaultHidden: true,
       },
