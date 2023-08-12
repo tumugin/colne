@@ -1,0 +1,10 @@
+mutation UpdateRegulation(
+  $regulationId: ID!
+  $regulation: AddOrUpdateRegulationParamsInput!
+) {
+  regulation {
+    updateRegulation(regulationId: $regulationId, params: $regulation) {
+      regulationId
+    }
+  }
+}
