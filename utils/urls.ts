@@ -28,6 +28,10 @@ export function groupAddRegulationPage(groupId: string) {
   return `/groups/${groupId}/regulations/add`
 }
 
+export function groupRegulationEditPage(groupId: string, regulationId: string) {
+  return `/groups/${groupId}/regulations/${regulationId}`
+}
+
 export const groupCreatePage = '/groups/create'
 
 export function loginPathWithReturnToURL(redirectPath: string) {

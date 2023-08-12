@@ -1,5 +1,5 @@
-import { Box, Button, Header, Table } from '@cloudscape-design/components'
-import { groupAddRegulationPage } from 'utils/urls'
+import { Box, Button, Header, Link, Table } from '@cloudscape-design/components'
+import { groupAddRegulationPage, groupRegulationEditPage } from 'utils/urls'
 import { onFollowNextLink } from 'utils/router'
 import React from 'react'
 import { useRouter } from 'next/navigation'
@@ -29,7 +29,14 @@ export function GroupRegulationList({
         {
           id: 'regulationName',
           header: 'レギュレーション名',
-          cell: (item) => item.regulationName,
+          cell: (item) => (
+            <Link
+              href={groupRegulationEditPage(groupId, item.regulationId)}
+              onFollow={(e) => onFollowNextLink(router, e)}
+            >
+              {item.regulationName}
+            </Link>
+          ),
         },
         {
           id: 'regulationUnitPrice',

@@ -1,12 +1,15 @@
 import React, { useCallback, useMemo, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import {
+  Alert,
+  Box,
   Button,
   Container,
   Form,
   FormField,
   Header,
   Input,
+  Modal,
   Select,
   SpaceBetween,
 } from '@cloudscape-design/components'
@@ -62,6 +65,9 @@ export function RegulationEditOrCreateForm({
     onSubmit(getValues())
     setIsSubmitting(false)
   }, [formState.isValid, getValues, isSubmitting, onSubmit, trigger])
+
+  const [deleteConfirmModalVisible, setDeleteConfirmModalVisible] =
+    useState(false)
 
   return (
     <SpaceBetween size="xxl">
@@ -196,6 +202,47 @@ export function RegulationEditOrCreateForm({
           </Form>
         </form>
       </Container>
+      {isEdit && initialValues && (
+        <Container
+          header={<Header variant="h2">レギュレーションを削除する</Header>}
+        >
+          <Modal
+            onDismiss={() => setDeleteConfirmModalVisible(false)}
+            visible={deleteConfirmModalVisible}
+            closeAriaLabel="閉じる"
+            footer={
+              <Box float="right">
+                <SpaceBetween direction="horizontal" size="xs">
+                  <Button
+                    variant="link"
+                    onClick={() => setDeleteConfirmModalVisible(false)}
+                  >
+                    キャンセル
+                  </Button>
+                  <Button variant="primary" onClick={onDelete}>
+                    削除する
+                  </Button>
+                </SpaceBetween>
+              </Box>
+            }
+            header="本当にレギュレーションを削除しますか？"
+          >
+            <b>{initialValues.regulationName}</b>
+            は削除すると元に戻すことが出来ません。
+          </Modal>
+          <SpaceBetween size="m">
+            <Alert type="warning">
+              一度削除したレギュレーションは元に戻すことが出来ません(紐付けられたチェキは削除されません)
+            </Alert>
+            <Button
+              variant="normal"
+              onClick={() => setDeleteConfirmModalVisible(true)}
+            >
+              レギュレーションを削除する
+            </Button>
+          </SpaceBetween>
+        </Container>
+      )}
     </SpaceBetween>
   )
 }
