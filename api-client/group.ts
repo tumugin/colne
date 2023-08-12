@@ -4,6 +4,7 @@ import {
   DeleteGroupMutationVariables,
   GroupStatus,
   IdolStatus,
+  RegulationStatus,
 } from 'graphql/generated/client'
 import { createGraphQLSDK } from 'graphql/client'
 import { mapAisuExceptionToColneExceptionAndThrow } from 'exceptions/graphql-exceptions'
@@ -93,7 +94,7 @@ export interface Group {
     regulationCreatedAt: string
     regulationId: string
     regulationName: string
-    regulationStatus: string
+    regulationStatus: RegulationStatus
     regulationUnitPrice: number
     regulationUpdatedAt: string
   }>
@@ -151,4 +152,21 @@ export async function addIdolToGroup(
     cache: 'no-store',
   })
   await sdk.AddIdolToGroup(params, headers)
+}
+
+export async function addRegulationToGroup(
+  params: {
+    groupId: string
+    regulationComment: string
+    regulationName: string
+    regulationStatus: RegulationStatus
+    regulationUnitPrice: number
+  },
+  headers?: Headers,
+) {
+  const sdk = createGraphQLSDK({
+    headers,
+    cache: 'no-store',
+  })
+  await sdk.AddRegulationToGroup({ regulation: params }, headers)
 }

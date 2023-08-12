@@ -463,7 +463,7 @@ export type RegulationSerializer = {
   regulationCreatedAt: Scalars['String']['output']
   regulationId: Scalars['ID']['output']
   regulationName: Scalars['String']['output']
-  regulationStatus: Scalars['String']['output']
+  regulationStatus: RegulationStatus
   regulationUnitPrice: Scalars['Int']['output']
   regulationUpdatedAt: Scalars['String']['output']
   user?: Maybe<LimitedUserSerializer>
@@ -584,7 +584,7 @@ export type AddGroupMutation = {
         regulationCreatedAt: string
         regulationId: string
         regulationName: string
-        regulationStatus: string
+        regulationStatus: RegulationStatus
         regulationUnitPrice: number
         regulationUpdatedAt: string
       }>
@@ -648,6 +648,18 @@ export type AddIdolToGroupMutation = {
   }
 }
 
+export type AddRegulationToGroupMutationVariables = Exact<{
+  regulation: AddOrUpdateRegulationParamsInput
+}>
+
+export type AddRegulationToGroupMutation = {
+  __typename?: 'Mutation'
+  regulation: {
+    __typename?: 'RegulationMutationServices'
+    addRegulation: { __typename?: 'RegulationSerializer'; regulationId: string }
+  }
+}
+
 export type DeleteChekiMutationVariables = Exact<{
   chekiId: Scalars['ID']['input']
 }>
@@ -703,7 +715,7 @@ export type EditGroupMutation = {
         regulationCreatedAt: string
         regulationId: string
         regulationName: string
-        regulationStatus: string
+        regulationStatus: RegulationStatus
         regulationUnitPrice: number
         regulationUpdatedAt: string
       }>
@@ -805,7 +817,7 @@ export type GetGroupQuery = {
       regulationCreatedAt: string
       regulationId: string
       regulationName: string
-      regulationStatus: string
+      regulationStatus: RegulationStatus
       regulationUnitPrice: number
       regulationUpdatedAt: string
     }>
@@ -885,7 +897,7 @@ export type GetIdolChekisByDateRangeAndIdolIdQuery = {
         regulationCreatedAt: string
         regulationId: string
         regulationName: string
-        regulationStatus: string
+        regulationStatus: RegulationStatus
         regulationUnitPrice: number
         regulationUpdatedAt: string
         userId?: string | null
@@ -926,7 +938,7 @@ export type GetIdolDetailsForChekiAddQuery = {
         regulationCreatedAt: string
         regulationId: string
         regulationName: string
-        regulationStatus: string
+        regulationStatus: RegulationStatus
         regulationUnitPrice: number
         regulationUpdatedAt: string
       }>
@@ -1109,6 +1121,17 @@ export const AddIdolToGroupDocument = gql`
     group {
       addIdolToGroup(groupId: $groupId, idolId: $idolId) {
         groupId
+      }
+    }
+  }
+`
+export const AddRegulationToGroupDocument = gql`
+  mutation AddRegulationToGroup(
+    $regulation: AddOrUpdateRegulationParamsInput!
+  ) {
+    regulation {
+      addRegulation(params: $regulation) {
+        regulationId
       }
     }
   }
@@ -1498,6 +1521,21 @@ export function getSdk(
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
         'AddIdolToGroup',
+        'mutation',
+      )
+    },
+    AddRegulationToGroup(
+      variables: AddRegulationToGroupMutationVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+    ): Promise<AddRegulationToGroupMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<AddRegulationToGroupMutation>(
+            AddRegulationToGroupDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'AddRegulationToGroup',
         'mutation',
       )
     },
