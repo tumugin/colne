@@ -6,6 +6,6 @@ export function redirectToLoginPage(request: NextRequest): NextResponse {
   })
 
   return NextResponse.redirect(
-    new URL('/login?' + queryParams.toString(), request.url),
+    new URL('/login?' + queryParams.toString(), request.nextUrl),
   )
 }

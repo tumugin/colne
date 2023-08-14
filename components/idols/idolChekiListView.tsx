@@ -27,11 +27,6 @@ export function IdolChekiListView({
           ),
         },
         {
-          id: 'id',
-          header: 'ID',
-          cell: (e) => e.chekiId,
-        },
-        {
           id: 'date',
           header: 'チェキ撮影日',
           cell: (e) => dayjs(e.chekiShotAt).format('YYYY/MM/DD'),

@@ -68,7 +68,7 @@ export function IdolChekiStats({
             chekis.filter((v) => v.regulation?.regulationName === b).length,
         )
         .pop() ?? '-',
-    [regulations],
+    [chekis, regulations],
   )
   const statItems = useMemo<StatItem[]>(
     () => [
