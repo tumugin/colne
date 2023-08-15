@@ -7,6 +7,8 @@ import {
 } from 'utils/urls'
 import { usePathname, useRouter } from 'next/navigation'
 import { useLogoutForm } from 'components/common/LogoutForm'
+import { useRecoilState } from 'recoil'
+import { globalNavigationStateAtom } from 'recoil-store/globalPage'
 
 export function ColneSideNavigation({
   isLoggedIn,
@@ -18,20 +20,24 @@ export function ColneSideNavigation({
   const pathName = usePathname()
   const router = useRouter()
   const [logoutFormElement, triggerLogout] = useLogoutForm({ csrfToken })
+  const [, setIsGlobalNavigationOpen] = useRecoilState(
+    globalNavigationStateAtom,
+  )
 
   return (
     <>
       {logoutFormElement}
       <SideNavigation
         activeHref={pathName}
-        onFollow={async (event) => {
+        onFollow={(event) => {
           if (event.detail.href === '#logout') {
             triggerLogout()
             return
           }
           if (!event.detail.external) {
             event.preventDefault()
-            await router.push(event.detail.href)
+            setIsGlobalNavigationOpen(false)
+            router.push(event.detail.href)
           }
         }}
         items={[

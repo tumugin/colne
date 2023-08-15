@@ -4,18 +4,23 @@ import {
   Button,
   Container,
   Header,
+  Link,
   SpaceBetween,
   TextContent,
 } from '@cloudscape-design/components'
 import React from 'react'
 import { IdolStatusBadge } from 'components/idols/IdolStatusBadge'
-import { idolEditPage } from 'utils/urls'
+import { groupDetailPage, idolEditPage } from 'utils/urls'
 import { onFollowNextLink } from 'utils/router'
 import { useRouter } from 'next/navigation'
+import styled from 'styled-components'
+
+const StyledBadge = styled(Badge)`
+  cursor: pointer;
+`
 
 export function IdolDetailsView({
   idol,
-  currentUserId,
 }: {
   idol: {
     name: string
@@ -58,13 +63,22 @@ export function IdolDetailsView({
         <SpaceBetween size="xs" direction="vertical">
           <Box>
             <h5>所属グループ</h5>
-            {idol.groups.length === 0
-              ? '-'
-              : idol.groups.map((group) => (
-                  <Badge key={group.id} color="grey">
-                    {group.name}
-                  </Badge>
-                ))}
+            <SpaceBetween size="xs" direction="horizontal">
+              {idol.groups.length === 0
+                ? '-'
+                : idol.groups.map((group) => (
+                    <Link
+                      href={groupDetailPage(group.id)}
+                      key={group.id}
+                      onFollow={(e) =>
+                        onFollowNextLink(router, e, groupDetailPage(group.id))
+                      }
+                      variant="primary"
+                    >
+                      {group.name}
+                    </Link>
+                  ))}
+            </SpaceBetween>
           </Box>
           <Box>
             <h5>ステータス</h5>
