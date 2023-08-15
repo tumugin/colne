@@ -4,11 +4,19 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { AppLayout, TopNavigation } from '@cloudscape-design/components'
 import { ColneSideNavigation } from 'components/common/ColneSideNavigation'
 import { useRouter } from 'next/navigation'
-import { loginPath } from 'utils/urls'
+import {
+  chekiAddPath,
+  loginPath,
+  userCreatedGroupsListPath,
+  userCreatedIdolListPath,
+} from 'utils/urls'
 import { useLogoutForm } from 'components/common/LogoutForm'
 import { Toaster } from 'react-hot-toast'
 import { useRecoilState } from 'recoil'
-import { splitPanelStateAtom } from 'recoil-store/globalPage'
+import {
+  globalNavigationStateAtom,
+  splitPanelStateAtom,
+} from 'recoil-store/globalPage'
 import { CurrentUser } from 'api-client/user'
 
 export function ColneAppWithLayout({
@@ -21,10 +29,12 @@ export function ColneAppWithLayout({
   csrfToken: string
 }) {
   const router = useRouter()
-  const [navigationOpen, setNavigationOpen] = useState(false)
+  const [isGlobalNavigationOpen, setIsGlobalNavigationOpen] = useRecoilState(
+    globalNavigationStateAtom,
+  )
   const toggleNavigation = useCallback(() => {
-    setNavigationOpen((prev) => !prev)
-  }, [])
+    setIsGlobalNavigationOpen((prev) => !prev)
+  }, [setIsGlobalNavigationOpen])
 
   const isLoggedIn = !!user
   const [logoutFormElement, triggerLogout] = useLogoutForm({ csrfToken })
@@ -33,7 +43,7 @@ export function ColneAppWithLayout({
 
   // FIXME: SSRするとナビゲーション周りでhydrationが壊れるのでworkaround
   // cloudscape-design〜〜〜〜なんとかしてくれ〜〜〜〜〜
-  const [isNavigationInitialized, setIsNavigationInitialized] = useState(false)
+  const [, setIsNavigationInitialized] = useState(false)
   useEffect(() => {
     setIsNavigationInitialized(true)
   }, [])
@@ -54,12 +64,39 @@ export function ColneAppWithLayout({
         i18nStrings={{
           searchIconAriaLabel: 'Search',
           searchDismissIconAriaLabel: 'Close search',
-          overflowMenuTriggerText: 'More',
-          overflowMenuTitleText: 'All',
+          overflowMenuTriggerText: 'Menu',
+          overflowMenuTitleText: 'メニュー',
           overflowMenuBackIconAriaLabel: 'Back',
           overflowMenuDismissIconAriaLabel: 'Close menu',
         }}
         utilities={[
+          {
+            type: 'button',
+            text: 'チェキ追加',
+            href: chekiAddPath,
+            onClick: (e) => {
+              e.preventDefault()
+              router.push(chekiAddPath)
+            },
+          },
+          {
+            type: 'button',
+            text: 'アイドル',
+            href: userCreatedIdolListPath,
+            onClick: (e) => {
+              e.preventDefault()
+              router.push(userCreatedIdolListPath)
+            },
+          },
+          {
+            type: 'button',
+            text: 'グループ',
+            href: userCreatedGroupsListPath,
+            onClick: (e) => {
+              e.preventDefault()
+              router.push(userCreatedGroupsListPath)
+            },
+          },
           {
             type: 'menu-dropdown',
             text: user?.userName ?? 'ゲスト',
@@ -83,8 +120,8 @@ export function ColneAppWithLayout({
       <AppLayout
         content={children}
         onNavigationChange={toggleNavigation}
-        navigationHide={!isNavigationInitialized}
-        navigationOpen={navigationOpen}
+        navigationHide
+        navigationOpen={isGlobalNavigationOpen}
         navigation={
           <ColneSideNavigation isLoggedIn={isLoggedIn} csrfToken={csrfToken} />
         }
