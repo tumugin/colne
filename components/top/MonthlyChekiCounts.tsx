@@ -53,8 +53,11 @@ export function MonthlyChekiCounts({
     <SpaceBetween size="xl" direction="vertical">
       <Container header={<Header variant="h2">今月のチェキ撮影枚数</Header>}>
         {chekiCounts.length === 0 ? (
-          <Box fontSize="heading-s" textAlign="center">
-            今月撮影されたチェキはありません
+          <Box textAlign="center" color="inherit">
+            <b>データなし</b>
+            <Box variant="p" color="inherit">
+              今月撮影されたチェキはありません
+            </Box>
           </Box>
         ) : (
           <ContentGrid>

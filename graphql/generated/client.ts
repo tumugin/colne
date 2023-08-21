@@ -476,6 +476,10 @@ export enum RegulationStatus {
   OperationDeleted = 'OPERATION_DELETED',
 }
 
+export type SendAuth0PasswordResetEmailParamsInput = {
+  auth0EmailAddress: Scalars['String']['input']
+}
+
 export type UpdateAdminUserParamsInput = {
   email: Scalars['String']['input']
   name: Scalars['String']['input']
@@ -483,6 +487,10 @@ export type UpdateAdminUserParamsInput = {
 
 export type UpdateAdminUserPasswordParamsInput = {
   password: Scalars['String']['input']
+}
+
+export type UpdateUserNameParamsInput = {
+  userName: Scalars['String']['input']
 }
 
 export type UserChekis = {
@@ -522,9 +530,19 @@ export type UserLoginParamsInput = {
 
 export type UserMutationServices = {
   __typename?: 'UserMutationServices'
+  sendAuth0PasswordResetEmail: Scalars['String']['output']
+  updateUserName: Scalars['String']['output']
   userCreate: UserSerializer
   userLogin: UserSerializer
   userLogout: Scalars['String']['output']
+}
+
+export type UserMutationServicesSendAuth0PasswordResetEmailArgs = {
+  params: SendAuth0PasswordResetEmailParamsInput
+}
+
+export type UserMutationServicesUpdateUserNameArgs = {
+  params: UpdateUserNameParamsInput
 }
 
 export type UserMutationServicesUserCreateArgs = {
@@ -1080,6 +1098,18 @@ export type RemoveIdolFromGroupMutation = {
   }
 }
 
+export type ResetAuth0UserPasswordMutationVariables = Exact<{
+  params: SendAuth0PasswordResetEmailParamsInput
+}>
+
+export type ResetAuth0UserPasswordMutation = {
+  __typename?: 'Mutation'
+  user: {
+    __typename?: 'UserMutationServices'
+    sendAuth0PasswordResetEmail: string
+  }
+}
+
 export type UpdateRegulationMutationVariables = Exact<{
   regulationId: Scalars['ID']['input']
   regulation: AddOrUpdateRegulationParamsInput
@@ -1094,6 +1124,15 @@ export type UpdateRegulationMutation = {
       regulationId: string
     }
   }
+}
+
+export type UpdateUserNameMutationVariables = Exact<{
+  params: UpdateUserNameParamsInput
+}>
+
+export type UpdateUserNameMutation = {
+  __typename?: 'Mutation'
+  user: { __typename?: 'UserMutationServices'; updateUserName: string }
 }
 
 export const AddChekiDocument = gql`
@@ -1521,6 +1560,15 @@ export const RemoveIdolFromGroupDocument = gql`
     }
   }
 `
+export const ResetAuth0UserPasswordDocument = gql`
+  mutation ResetAuth0UserPassword(
+    $params: SendAuth0PasswordResetEmailParamsInput!
+  ) {
+    user {
+      sendAuth0PasswordResetEmail(params: $params)
+    }
+  }
+`
 export const UpdateRegulationDocument = gql`
   mutation UpdateRegulation(
     $regulationId: ID!
@@ -1530,6 +1578,13 @@ export const UpdateRegulationDocument = gql`
       updateRegulation(regulationId: $regulationId, params: $regulation) {
         regulationId
       }
+    }
+  }
+`
+export const UpdateUserNameDocument = gql`
+  mutation UpdateUserName($params: UpdateUserNameParamsInput!) {
+    user {
+      updateUserName(params: $params)
     }
   }
 `
@@ -1869,6 +1924,21 @@ export function getSdk(
         'mutation',
       )
     },
+    ResetAuth0UserPassword(
+      variables: ResetAuth0UserPasswordMutationVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+    ): Promise<ResetAuth0UserPasswordMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<ResetAuth0UserPasswordMutation>(
+            ResetAuth0UserPasswordDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'ResetAuth0UserPassword',
+        'mutation',
+      )
+    },
     UpdateRegulation(
       variables: UpdateRegulationMutationVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
@@ -1881,6 +1951,21 @@ export function getSdk(
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
         'UpdateRegulation',
+        'mutation',
+      )
+    },
+    UpdateUserName(
+      variables: UpdateUserNameMutationVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+    ): Promise<UpdateUserNameMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<UpdateUserNameMutation>(
+            UpdateUserNameDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'UpdateUserName',
         'mutation',
       )
     },

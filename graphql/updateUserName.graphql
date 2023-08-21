@@ -1,0 +1,5 @@
+mutation UpdateUserName($params: UpdateUserNameParamsInput!) {
+  user {
+    updateUserName(params: $params)
+  }
+}

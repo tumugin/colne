@@ -4,6 +4,8 @@ export const userCreatedIdolListPath = '/idols'
 
 export const userCreatedGroupsListPath = '/groups'
 
+export const userProfilePage = '/user/profile'
+
 export function idolDetailPage(idolId: string) {
   return `/idols/${idolId}`
 }
