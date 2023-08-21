@@ -19,3 +19,28 @@ export async function getCurrentUser(
   const user = await sdk.GetCurrentUser(undefined, headers)
   return user.currentUser ?? null
 }
+
+export async function resetAuth0UserPassword(
+  email: string,
+  headers?: Headers,
+): Promise<void> {
+  const sdk = createGraphQLSDK({
+    headers,
+    cache: 'no-store',
+  })
+  await sdk.ResetAuth0UserPassword(
+    { params: { auth0EmailAddress: email } },
+    headers,
+  )
+}
+
+export async function updateUserName(
+  name: string,
+  headers?: Headers,
+): Promise<void> {
+  const sdk = createGraphQLSDK({
+    headers,
+    cache: 'no-store',
+  })
+  await sdk.UpdateUserName({ params: { userName: name } }, headers)
+}

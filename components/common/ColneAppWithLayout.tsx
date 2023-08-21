@@ -9,6 +9,7 @@ import {
   loginPath,
   userCreatedGroupsListPath,
   userCreatedIdolListPath,
+  userProfilePage,
 } from 'utils/urls'
 import { useLogoutForm } from 'components/common/LogoutForm'
 import { Toaster } from 'react-hot-toast'
@@ -103,7 +104,14 @@ export function ColneAppWithLayout({
             iconName: 'user-profile',
             items: [
               ...(isLoggedIn
-                ? ([{ id: 'logout', text: 'ログアウト' }] as const)
+                ? ([
+                    {
+                      id: 'user-profile',
+                      href: userProfilePage,
+                      text: 'プロフィール',
+                    },
+                    { id: 'logout', text: 'ログアウト' },
+                  ] as const)
                 : ([
                     { id: 'login', href: loginPath, text: 'ログイン' },
                     { id: 'register', href: loginPath, text: '新規登録' },
@@ -112,6 +120,10 @@ export function ColneAppWithLayout({
             onItemClick: (e) => {
               if (e.detail.id === 'logout') {
                 triggerLogout()
+              }
+              if (e.detail.id === 'user-profile') {
+                router.push(userProfilePage)
+                e.preventDefault()
               }
             },
           },

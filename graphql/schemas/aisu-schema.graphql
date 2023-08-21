@@ -279,6 +279,10 @@ type UserFavoriteGroup {
 }
 
 type UserMutationServices {
+  sendAuth0PasswordResetEmail(
+    params: SendAuth0PasswordResetEmailParamsInput!
+  ): String!
+  updateUserName(params: UpdateUserNameParamsInput!): String!
   userCreate(params: UserCreateParamsInput!): UserSerializer!
   userLogin(params: UserLoginParamsInput!): UserSerializer!
   userLogout: String!
@@ -366,6 +370,10 @@ input GetUserChekisParamsInput {
   idolId: ID
 }
 
+input SendAuth0PasswordResetEmailParamsInput {
+  auth0EmailAddress: String!
+}
+
 input UpdateAdminUserParamsInput {
   email: String!
   name: String!
@@ -373,6 +381,10 @@ input UpdateAdminUserParamsInput {
 
 input UpdateAdminUserPasswordParamsInput {
   password: String!
+}
+
+input UpdateUserNameParamsInput {
+  userName: String!
 }
 
 input UserCreateParamsInput {
