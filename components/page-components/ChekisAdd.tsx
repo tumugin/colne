@@ -140,7 +140,7 @@ export function ChekisAdd() {
     })
     return () => {
       setSplitPanelState({
-        splitPanelOpen: true,
+        splitPanelOpen: false,
         children: null,
       })
     }

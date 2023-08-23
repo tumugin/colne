@@ -8,10 +8,11 @@ import {
 } from '@cloudscape-design/components'
 import styled from 'styled-components'
 import * as awsui from '@cloudscape-design/design-tokens'
-import React from 'react'
+import React, { useMemo } from 'react'
 import { idolDetailPage } from 'utils/urls'
 import { onFollowNextLink } from 'utils/router'
 import { useRouter } from 'next/navigation'
+import { useIsSmartphoneScreenSize } from 'libs/dom/screen-size'
 
 const ContentGrid = styled.div`
   display: grid;
@@ -49,6 +50,17 @@ export function MonthlyChekiCounts({
   }[]
 }) {
   const router = useRouter()
+  const sortedChekiCounts = useMemo(
+    () => chekiCounts.sort((a, b) => a.chekiCount - b.chekiCount),
+    [chekiCounts],
+  )
+  const totalChekiCount = useMemo(
+    () =>
+      sortedChekiCounts.reduce((acc, cur) => acc + (cur?.chekiCount ?? 0), 0),
+    [sortedChekiCounts],
+  )
+  const isSmartphoneScreenSize = useIsSmartphoneScreenSize()
+
   return (
     <SpaceBetween size="xl" direction="vertical">
       <Container header={<Header variant="h2">今月のチェキ撮影枚数</Header>}>
@@ -92,12 +104,15 @@ export function MonthlyChekiCounts({
       </Container>
       <Container header={<Header variant="h2">今月のチェキ統計</Header>}>
         <PieChart
-          data={chekiCounts.map((v) => ({
+          data={sortedChekiCounts.map((v) => ({
             title: v.idol?.idolName ?? '削除されたアイドル',
             value: v.chekiCount,
           }))}
           detailPopoverContent={(datum, sum) => [
-            { key: '撮影枚数', value: datum.value },
+            {
+              key: '撮影枚数',
+              value: datum.value.toLocaleString('ja-JP') + '枚',
+            },
             {
               key: '割合',
               value: `${((datum.value / sum) * 100).toFixed(0)}%`,
@@ -106,6 +121,10 @@ export function MonthlyChekiCounts({
           segmentDescription={(datum, sum) =>
             `${datum.value} 枚, ${((datum.value / sum) * 100).toFixed(0)}%`
           }
+          size={isSmartphoneScreenSize ? 'small' : 'large'}
+          variant="donut"
+          innerMetricDescription="枚"
+          innerMetricValue={totalChekiCount.toLocaleString('ja-JP')}
           empty={
             <Box textAlign="center" color="inherit">
               <b>データなし</b>
