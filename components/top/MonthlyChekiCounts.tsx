@@ -13,6 +13,7 @@ import { idolDetailPage } from 'utils/urls'
 import { onFollowNextLink } from 'utils/router'
 import { useRouter } from 'next/navigation'
 import { useIsSmartphoneScreenSize } from 'libs/dom/screen-size'
+import { ChekiByIdolAnalytics } from 'components/analytics/ChekiByIdolAnalytics'
 
 const ContentGrid = styled.div`
   display: grid;
@@ -50,15 +51,6 @@ export function MonthlyChekiCounts({
   }[]
 }) {
   const router = useRouter()
-  const sortedChekiCounts = useMemo(
-    () => chekiCounts.sort((a, b) => a.chekiCount - b.chekiCount),
-    [chekiCounts],
-  )
-  const totalChekiCount = useMemo(
-    () =>
-      sortedChekiCounts.reduce((acc, cur) => acc + (cur?.chekiCount ?? 0), 0),
-    [sortedChekiCounts],
-  )
   const isSmartphoneScreenSize = useIsSmartphoneScreenSize()
 
   return (
@@ -103,46 +95,7 @@ export function MonthlyChekiCounts({
         )}
       </Container>
       <Container header={<Header variant="h2">今月のチェキ統計</Header>}>
-        <PieChart
-          data={sortedChekiCounts.map((v) => ({
-            title: v.idol?.idolName ?? '削除されたアイドル',
-            value: v.chekiCount,
-          }))}
-          detailPopoverContent={(datum, sum) => [
-            {
-              key: '撮影枚数',
-              value: datum.value.toLocaleString('ja-JP') + '枚',
-            },
-            {
-              key: '割合',
-              value: `${((datum.value / sum) * 100).toFixed(0)}%`,
-            },
-          ]}
-          segmentDescription={(datum, sum) =>
-            `${datum.value} 枚, ${((datum.value / sum) * 100).toFixed(0)}%`
-          }
-          size={isSmartphoneScreenSize ? 'small' : 'large'}
-          variant="donut"
-          innerMetricDescription="枚"
-          innerMetricValue={totalChekiCount.toLocaleString('ja-JP')}
-          empty={
-            <Box textAlign="center" color="inherit">
-              <b>データなし</b>
-              <Box variant="p" color="inherit">
-                今月撮影されたチェキはありません
-              </Box>
-            </Box>
-          }
-          noMatch={
-            <Box textAlign="center" color="inherit">
-              <b>データなし</b>
-              <Box variant="p" color="inherit">
-                表示出来る一致するデータがありません
-              </Box>
-            </Box>
-          }
-          hideFilter
-        />
+        <ChekiByIdolAnalytics chekiCounts={chekiCounts} />
       </Container>
     </SpaceBetween>
   )
