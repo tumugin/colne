@@ -43,7 +43,8 @@ import {
   colorChartsPink500,
   colorChartsPink600,
   colorChartsPink700,
-  colorTextInteractiveActive, colorBorderDividerDefault
+  colorTextInteractiveActive,
+  colorBorderDividerDefault,
 } from '@cloudscape-design/design-tokens'
 
 export function ChekiByIdolAnalytics({
@@ -152,12 +153,14 @@ function CustomTreemap({
   height: number
   index: number
   depth: number
-  name: string
+  name?: string
   colors: string[]
   root: {
     children: unknown[]
   }
 }) {
+  const fontSize = width / (name?.length ?? 1)
+
   return (
     <g>
       <rect
@@ -174,15 +177,18 @@ function CustomTreemap({
           strokeOpacity: 1 / (depth + 1e-10),
         }}
       />
-      <text
-        x={x + width / 2}
-        y={y + height / 2 + (width * 0.12) / 2}
-        textAnchor="middle"
-        fill={colorTextInteractiveActive}
-        fontSize={width * 0.12}
-      >
-        {name}
-      </text>
+      <g requiredFeatures="http://www.w3.org/Graphics/SVG/feature/1.2/#TextFlow">
+        <text
+          x={x + width / 2}
+          y={y + height / 2 + fontSize / 2}
+          width={width}
+          textAnchor="middle"
+          fill={colorTextInteractiveActive}
+          fontSize={fontSize}
+        >
+          {name}
+        </text>
+      </g>
     </g>
   )
 }
