@@ -177,18 +177,16 @@ function CustomTreemap({
           strokeOpacity: 1 / (depth + 1e-10),
         }}
       />
-      <g requiredFeatures="http://www.w3.org/Graphics/SVG/feature/1.2/#TextFlow">
-        <text
-          x={x + width / 2}
-          y={y + height / 2 + fontSize / 2}
-          width={width}
-          textAnchor="middle"
-          fill={colorTextInteractiveActive}
-          fontSize={fontSize}
-        >
-          {name}
-        </text>
-      </g>
+      <text
+        x={x + width / 2}
+        y={y + height / 2 + fontSize / 2}
+        width={width}
+        textAnchor="middle"
+        fill={colorTextInteractiveActive}
+        fontSize={fontSize}
+      >
+        {name}
+      </text>
     </g>
   )
 }
