@@ -1,42 +1,7 @@
-import {
-  Box,
-  Container,
-  Header,
-  Link,
-  PieChart,
-  SpaceBetween,
-} from '@cloudscape-design/components'
-import styled from 'styled-components'
-import * as awsui from '@cloudscape-design/design-tokens'
-import React, { useMemo } from 'react'
-import { idolDetailPage } from 'utils/urls'
-import { onFollowNextLink } from 'utils/router'
-import { useRouter } from 'next/navigation'
-import { useIsSmartphoneScreenSize } from 'libs/dom/screen-size'
-
-const ContentGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: ${awsui.spaceScaledXl};
-  place-items: start center;
-
-  @media screen and (max-width: 768px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @media screen and (max-width: 500px) {
-    grid-template-columns: 1fr;
-  }
-`
-
-const IdolChekiCount = styled(Container)`
-  width: 100%;
-`
-
-const BottomAlignText = styled(SpaceBetween)`
-  align-items: flex-end;
-  justify-content: center;
-`
+import { Container, Header, SpaceBetween } from '@cloudscape-design/components'
+import React from 'react'
+import { ChekiByIdolAnalytics } from 'components/analytics/ChekiByIdolAnalytics'
+import { AnalyticsChekiCount } from 'components/analytics/AnalyticsChekiCount'
 
 export function MonthlyChekiCounts({
   chekiCounts,
@@ -49,100 +14,13 @@ export function MonthlyChekiCounts({
     } | null
   }[]
 }) {
-  const router = useRouter()
-  const sortedChekiCounts = useMemo(
-    () => chekiCounts.sort((a, b) => a.chekiCount - b.chekiCount),
-    [chekiCounts],
-  )
-  const totalChekiCount = useMemo(
-    () =>
-      sortedChekiCounts.reduce((acc, cur) => acc + (cur?.chekiCount ?? 0), 0),
-    [sortedChekiCounts],
-  )
-  const isSmartphoneScreenSize = useIsSmartphoneScreenSize()
-
   return (
     <SpaceBetween size="xl" direction="vertical">
       <Container header={<Header variant="h2">今月のチェキ撮影枚数</Header>}>
-        {chekiCounts.length === 0 ? (
-          <Box textAlign="center" color="inherit">
-            <b>データなし</b>
-            <Box variant="p" color="inherit">
-              今月撮影されたチェキはありません
-            </Box>
-          </Box>
-        ) : (
-          <ContentGrid>
-            {chekiCounts.map((chekiCount, id) => (
-              <IdolChekiCount
-                key={id}
-                header={
-                  chekiCount.idol ? (
-                    <Link
-                      variant="secondary"
-                      fontSize="heading-l"
-                      href={idolDetailPage(chekiCount.idol.idolId)}
-                      onFollow={(e) => onFollowNextLink(router, e)}
-                    >
-                      {chekiCount.idol?.idolName}
-                    </Link>
-                  ) : (
-                    <Box fontSize="heading-l">削除されたアイドル</Box>
-                  )
-                }
-              >
-                <BottomAlignText size="xs" direction="horizontal">
-                  <Box fontSize="display-l" textAlign="center">
-                    {chekiCount.chekiCount.toLocaleString('ja-JP')}
-                  </Box>
-                  <Box fontSize="heading-xl">枚</Box>
-                </BottomAlignText>
-              </IdolChekiCount>
-            ))}
-          </ContentGrid>
-        )}
+        <AnalyticsChekiCount chekiCounts={chekiCounts} />
       </Container>
       <Container header={<Header variant="h2">今月のチェキ統計</Header>}>
-        <PieChart
-          data={sortedChekiCounts.map((v) => ({
-            title: v.idol?.idolName ?? '削除されたアイドル',
-            value: v.chekiCount,
-          }))}
-          detailPopoverContent={(datum, sum) => [
-            {
-              key: '撮影枚数',
-              value: datum.value.toLocaleString('ja-JP') + '枚',
-            },
-            {
-              key: '割合',
-              value: `${((datum.value / sum) * 100).toFixed(0)}%`,
-            },
-          ]}
-          segmentDescription={(datum, sum) =>
-            `${datum.value} 枚, ${((datum.value / sum) * 100).toFixed(0)}%`
-          }
-          size={isSmartphoneScreenSize ? 'small' : 'large'}
-          variant="donut"
-          innerMetricDescription="枚"
-          innerMetricValue={totalChekiCount.toLocaleString('ja-JP')}
-          empty={
-            <Box textAlign="center" color="inherit">
-              <b>データなし</b>
-              <Box variant="p" color="inherit">
-                今月撮影されたチェキはありません
-              </Box>
-            </Box>
-          }
-          noMatch={
-            <Box textAlign="center" color="inherit">
-              <b>データなし</b>
-              <Box variant="p" color="inherit">
-                表示出来る一致するデータがありません
-              </Box>
-            </Box>
-          }
-          hideFilter
-        />
+        <ChekiByIdolAnalytics chekiCounts={chekiCounts} />
       </Container>
     </SpaceBetween>
   )
