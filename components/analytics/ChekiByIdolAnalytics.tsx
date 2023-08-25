@@ -1,5 +1,5 @@
 import { ResponsiveContainer, Treemap } from 'recharts'
-import { useMemo } from 'react'
+import React, { useMemo } from 'react'
 import {
   colorChartsRed300,
   colorChartsRed400,
@@ -46,6 +46,7 @@ import {
   colorTextInteractiveActive,
   colorBorderDividerDefault,
 } from '@cloudscape-design/design-tokens'
+import { Box } from '@cloudscape-design/components'
 
 export function ChekiByIdolAnalytics({
   chekiCounts,
@@ -59,7 +60,7 @@ export function ChekiByIdolAnalytics({
   }[]
 }) {
   const sortedChekiCounts = useMemo(
-    () => chekiCounts.sort((a, b) => a.chekiCount - b.chekiCount),
+    () => [...chekiCounts].sort((a, b) => a.chekiCount - b.chekiCount),
     [chekiCounts],
   )
   const totalChekiCount = useMemo(
@@ -67,6 +68,17 @@ export function ChekiByIdolAnalytics({
       sortedChekiCounts.reduce((acc, cur) => acc + (cur?.chekiCount ?? 0), 0),
     [sortedChekiCounts],
   )
+
+  if (chekiCounts.length === 0) {
+    return (
+      <Box textAlign="center" color="inherit">
+        <b>データなし</b>
+        <Box variant="p" color="inherit">
+          今月撮影されたチェキはありません
+        </Box>
+      </Box>
+    )
+  }
 
   return (
     <ResponsiveContainer width="100%" height={400}>
