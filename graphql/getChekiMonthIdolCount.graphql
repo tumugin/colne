@@ -1,0 +1,16 @@
+query GetChekiMonthIdolCount($baseTimezone: String!) {
+  currentUserChekis {
+    getChekiMonthIdolCount(params: { baseTimezone: $baseTimezone }) {
+      chekiCount
+      chekiShotAtMonth {
+        baseTimezone
+        year
+        month
+      }
+      idolId
+      idol {
+        idolName
+      }
+    }
+  }
+}

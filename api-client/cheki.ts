@@ -99,3 +99,24 @@ export async function getIdolChekisWithDateRange(
   )
   return result.currentUserChekis.getUserChekis
 }
+
+export interface ChekiMonthIdolCount {
+  chekiCount: number
+  idolId: string
+  chekiShotAtMonth: {
+    baseTimezone: string
+    year: number
+    month: number
+  }
+  idol?: { idolName: string } | null
+}
+
+export async function getChekiMonthIdolCount(
+  baseTimezone: string,
+): Promise<ChekiMonthIdolCount[]> {
+  const sdk = createGraphQLSDK({ cache: 'no-store' })
+  const result = await sdk.GetChekiMonthIdolCount({
+    baseTimezone,
+  })
+  return result.currentUserChekis.getChekiMonthIdolCount
+}
