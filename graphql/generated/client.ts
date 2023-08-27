@@ -803,6 +803,29 @@ export type EditIdolMutation = {
   }
 }
 
+export type GetChekiMonthIdolCountQueryVariables = Exact<{
+  baseTimezone: Scalars['String']['input']
+}>
+
+export type GetChekiMonthIdolCountQuery = {
+  __typename?: 'Query'
+  currentUserChekis: {
+    __typename?: 'UserChekis'
+    getChekiMonthIdolCount: Array<{
+      __typename?: 'ChekiMonthIdolCountSerializer'
+      chekiCount: number
+      idolId: string
+      chekiShotAtMonth: {
+        __typename?: 'ChekiShotAtMonthSerializer'
+        baseTimezone: string
+        year: number
+        month: number
+      }
+      idol?: { __typename?: 'IdolSerializer'; idolName: string } | null
+    }>
+  }
+}
+
 export type GetCsrfTokenQueryVariables = Exact<{ [key: string]: never }>
 
 export type GetCsrfTokenQuery = { __typename?: 'Query'; getCsrfToken: string }
@@ -1317,6 +1340,24 @@ export const EditIdolDocument = gql`
     }
   }
 `
+export const GetChekiMonthIdolCountDocument = gql`
+  query GetChekiMonthIdolCount($baseTimezone: String!) {
+    currentUserChekis {
+      getChekiMonthIdolCount(params: { baseTimezone: $baseTimezone }) {
+        chekiCount
+        chekiShotAtMonth {
+          baseTimezone
+          year
+          month
+        }
+        idolId
+        idol {
+          idolName
+        }
+      }
+    }
+  }
+`
 export const GetCsrfTokenDocument = gql`
   query GetCSRFToken {
     getCsrfToken
@@ -1761,6 +1802,21 @@ export function getSdk(
           }),
         'EditIdol',
         'mutation',
+      )
+    },
+    GetChekiMonthIdolCount(
+      variables: GetChekiMonthIdolCountQueryVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+    ): Promise<GetChekiMonthIdolCountQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<GetChekiMonthIdolCountQuery>(
+            GetChekiMonthIdolCountDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'GetChekiMonthIdolCount',
+        'query',
       )
     },
     GetCSRFToken(

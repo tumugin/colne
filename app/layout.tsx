@@ -9,6 +9,7 @@ import { getAuthCookieNextHeaders } from 'libs/next/nextHeadersHack'
 import { GlobalThemeHandler } from 'components/common/GlobalThemeHandler'
 import React from 'react'
 import { ColneRootStyled } from 'components/styled/ColneRootStyled'
+import NextTopLoader from 'nextjs-toploader'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -28,6 +29,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        <NextTopLoader showSpinner={false} />
         <StyledComponentsRegistry>
           <ColneRootStyled>
             <NextRecoilRoot>

@@ -1,15 +1,22 @@
 'use client'
 
-import { ContentLayout, Spinner } from '@cloudscape-design/components'
+import {
+  ContentLayout,
+  SpaceBetween,
+  Spinner,
+} from '@cloudscape-design/components'
 import { MonthlyChekiCounts } from 'components/top/MonthlyChekiCounts'
 import React, { useEffect } from 'react'
 import {
+  ChekiMonthIdolCount,
   createThisMonthDateRange,
   CurrentUserChekiIdolCount,
+  getChekiMonthIdolCount,
   getCurrentUserChekiIdolCount,
 } from 'api-client/cheki'
 import dayjs from 'dayjs'
 import styled from 'styled-components'
+import { TopAnalyticsView } from 'components/top/TopAnalyticsView'
 
 const SpinnerBox = styled.div`
   display: grid;
@@ -21,15 +28,23 @@ export function Home() {
   const [currentUserChekiCount, setCurrentUserChekiCount] = React.useState<
     CurrentUserChekiIdolCount[]
   >([])
+  const [chekiMonthIdolCount, setChekiMonthIdolCount] = React.useState<
+    ChekiMonthIdolCount[]
+  >([])
   const [isFetching, setIsFetching] = React.useState(true)
 
   useEffect(() => {
     ;(async () => {
       setIsFetching(true)
-      const result = await getCurrentUserChekiIdolCount({
-        ...createThisMonthDateRange(dayjs()),
-      })
-      setCurrentUserChekiCount(result)
+      const currentUserChekiIdolCountResult =
+        await getCurrentUserChekiIdolCount({
+          ...createThisMonthDateRange(dayjs()),
+        })
+      const chekiMonthIdolCountResult = await getChekiMonthIdolCount(
+        Intl.DateTimeFormat().resolvedOptions().timeZone,
+      )
+      setCurrentUserChekiCount(currentUserChekiIdolCountResult)
+      setChekiMonthIdolCount(chekiMonthIdolCountResult)
       setIsFetching(false)
     })()
   }, [])
@@ -41,7 +56,10 @@ export function Home() {
           <Spinner size="large" />
         </SpinnerBox>
       ) : (
-        <MonthlyChekiCounts chekiCounts={currentUserChekiCount} />
+        <SpaceBetween size="xl" direction="vertical">
+          <MonthlyChekiCounts chekiCounts={currentUserChekiCount} />
+          <TopAnalyticsView chekiMonthIdolCount={chekiMonthIdolCount} />
+        </SpaceBetween>
       )}
     </ContentLayout>
   )
