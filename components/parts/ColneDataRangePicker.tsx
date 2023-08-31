@@ -59,27 +59,27 @@ export function ColneDataRangePicker({
       value={value}
       relativeOptions={[
         {
-          key: 'previous-5-minutes',
-          amount: 5,
-          unit: 'minute',
+          key: 'previous-7-days',
+          amount: 7,
+          unit: 'day',
           type: 'relative',
         },
         {
-          key: 'previous-30-minutes',
-          amount: 30,
-          unit: 'minute',
-          type: 'relative',
-        },
-        {
-          key: 'previous-1-hour',
+          key: 'previous-1-month',
           amount: 1,
-          unit: 'hour',
+          unit: 'month',
           type: 'relative',
         },
         {
-          key: 'previous-6-hours',
+          key: 'previous-6-months',
           amount: 6,
-          unit: 'hour',
+          unit: 'month',
+          type: 'relative',
+        },
+        {
+          key: 'previous-1-year',
+          amount: 1,
+          unit: 'year',
           type: 'relative',
         },
       ]}
@@ -105,34 +105,42 @@ export function ColneDataRangePicker({
         return { valid: true }
       }}
       i18nStrings={{
-        todayAriaLabel: 'Today',
-        nextMonthAriaLabel: 'Next month',
-        previousMonthAriaLabel: 'Previous month',
-        customRelativeRangeDurationLabel: 'Duration',
-        customRelativeRangeDurationPlaceholder: 'Enter duration',
-        customRelativeRangeOptionLabel: 'Custom range',
-        customRelativeRangeOptionDescription: 'Set a custom range in the past',
-        customRelativeRangeUnitLabel: 'Unit of time',
+        todayAriaLabel: '今日',
+        nextMonthAriaLabel: '翌月',
+        previousMonthAriaLabel: '先月',
+        customRelativeRangeDurationLabel: '期間',
+        customRelativeRangeDurationPlaceholder: '期間を入力',
+        customRelativeRangeOptionLabel: 'カスタム範囲',
+        customRelativeRangeOptionDescription: '過去のカスタム範囲を設定する',
+        customRelativeRangeUnitLabel: '時間単位',
         formatRelativeRange: (e) => {
-          const n = 1 === e.amount ? e.unit : `${e.unit}s`
-          return `Last ${e.amount} ${n}`
+          const japaneseUnit = {
+            second: '秒間',
+            minute: '分間',
+            hour: '時間',
+            day: '日間',
+            week: '週間',
+            month: 'ヶ月',
+            year: '年',
+          }
+          return `直近 ${e.amount}${japaneseUnit[e.unit]}`
         },
         formatUnit: (e, n) => (1 === n ? e : `${e}s`),
         dateTimeConstraintText:
-          'Range is 6 to 30 days. For date, use YYYY/MM/DD. For time, use 24 hr format.',
-        relativeModeTitle: 'Relative range',
-        absoluteModeTitle: 'Absolute range',
-        relativeRangeSelectionHeading: 'Choose a range',
-        startDateLabel: 'Start date',
-        endDateLabel: 'End date',
-        startTimeLabel: 'Start time',
-        endTimeLabel: 'End time',
-        clearButtonLabel: 'Clear and dismiss',
-        cancelButtonLabel: 'Cancel',
-        applyButtonLabel: 'Apply',
+          '範囲は6～30日。日付はYYYY/MM/DDを使用。時刻は24時間表示。',
+        relativeModeTitle: '相対範囲',
+        absoluteModeTitle: '絶対範囲',
+        relativeRangeSelectionHeading: '範囲を選択',
+        startDateLabel: '開始日',
+        endDateLabel: '終了日',
+        startTimeLabel: '開始時刻',
+        endTimeLabel: '終了時刻',
+        clearButtonLabel: 'クリアする',
+        cancelButtonLabel: 'キャンセル',
+        applyButtonLabel: '反映する',
       }}
       dateOnly
-      placeholder="Filter by a date and time range"
+      placeholder="日付の範囲でフィルタする"
     />
   )
 }

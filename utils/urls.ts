@@ -44,3 +44,5 @@ export const logoutPath =
   process.env.NEXT_PUBLIC_API_BASE_PATH + '/auth0/logout'
 
 export const chekiAddPath = '/chekis/add'
+
+export const chekiAnalyticsPath = '/chekis/analytics'

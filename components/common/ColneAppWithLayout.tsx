@@ -6,6 +6,7 @@ import { ColneSideNavigation } from 'components/common/ColneSideNavigation'
 import { useRouter } from 'next/navigation'
 import {
   chekiAddPath,
+  chekiAnalyticsPath,
   loginPath,
   userCreatedGroupsListPath,
   userCreatedIdolListPath,
@@ -78,6 +79,15 @@ export function ColneAppWithLayout({
             onClick: (e) => {
               e.preventDefault()
               router.push(chekiAddPath)
+            },
+          },
+          {
+            type: 'button',
+            text: 'チェキ統計',
+            href: chekiAnalyticsPath,
+            onClick: (e) => {
+              e.preventDefault()
+              router.push(chekiAnalyticsPath)
             },
           },
           {
