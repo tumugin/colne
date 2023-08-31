@@ -75,7 +75,6 @@ export function AnalyticsChekiMonthIdolCount({
       })),
     [chekiMonthIdolCount, dateRangeByMonth, idols],
   )
-  console.log(series)
 
   return (
     <AreaChart
