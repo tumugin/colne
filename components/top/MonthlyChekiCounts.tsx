@@ -1,4 +1,5 @@
 import {
+  Button,
   Container,
   Grid,
   Header,
@@ -9,6 +10,9 @@ import { ChekiByIdolAnalytics } from 'components/analytics/ChekiByIdolAnalytics'
 import { AnalyticsChekiCount } from 'components/analytics/AnalyticsChekiCount'
 import { AnalyticsTotalChekiCount } from 'components/analytics/AnalyticsTotalChekiCount'
 import { AnalyticsTopIdol } from 'components/analytics/AnalyticsTopIdol'
+import { chekiAddPath } from 'utils/urls'
+import { onFollowNextLink } from 'utils/router'
+import { useRouter } from 'next/navigation'
 
 export function MonthlyChekiCounts({
   chekiCounts,
@@ -21,6 +25,7 @@ export function MonthlyChekiCounts({
     } | null
   }[]
 }) {
+  const router = useRouter()
   const totalChekiCount = useMemo(
     () => chekiCounts.reduce((acc, cur) => acc + (cur?.chekiCount ?? 0), 0),
     [chekiCounts],
@@ -32,7 +37,24 @@ export function MonthlyChekiCounts({
 
   return (
     <SpaceBetween size="xl" direction="vertical">
-      <Container header={<Header variant="h2">今月のチェキ撮影枚数</Header>}>
+      <Container
+        header={
+          <Header
+            variant="h2"
+            actions={
+              <Button
+                href={chekiAddPath}
+                variant="primary"
+                onFollow={(e) => onFollowNextLink(router, e, chekiAddPath)}
+              >
+                チェキを追加する
+              </Button>
+            }
+          >
+            今月のチェキ撮影枚数
+          </Header>
+        }
+      >
         <AnalyticsChekiCount chekiCounts={chekiCounts} />
       </Container>
       <Grid
