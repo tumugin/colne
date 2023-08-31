@@ -20,6 +20,7 @@ import {
   splitPanelStateAtom,
 } from 'recoil-store/globalPage'
 import { CurrentUser } from 'api-client/user'
+import { useConsoleEasterEgg } from 'utils/easteregg-hooks'
 
 export function ColneAppWithLayout({
   children,
@@ -49,6 +50,8 @@ export function ColneAppWithLayout({
   useEffect(() => {
     setIsNavigationInitialized(true)
   }, [])
+
+  useConsoleEasterEgg()
 
   return (
     <>
