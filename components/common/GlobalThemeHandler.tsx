@@ -8,7 +8,7 @@ import { createGlobalStyle } from 'styled-components'
 // FIXME: Workaround for cloudscape-design/components bugs for scrolling in small screen
 const GlobalStyle = createGlobalStyle`
   body {
-    overflow: unset;
+    overflow: unset !important;
   }
 `
 
