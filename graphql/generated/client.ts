@@ -1077,6 +1077,48 @@ export type GetUserCreatedGroupListQuery = {
   }
 }
 
+export type GetUserCreatedGroupListWithIdolsQueryVariables = Exact<{
+  page: Scalars['Int']['input']
+}>
+
+export type GetUserCreatedGroupListWithIdolsQuery = {
+  __typename?: 'Query'
+  currentUserGroups: {
+    __typename?: 'CurrentUserGroups'
+    getGroupsCreatedByUser: {
+      __typename?: 'GroupPaginationSerializer'
+      count: number
+      currentPage: number
+      pageCount: number
+      groups: Array<{
+        __typename?: 'GroupSerializer'
+        groupCreatedAt: string
+        groupId: string
+        groupName: string
+        groupStatus: GroupStatus
+        groupUpdatedAt: string
+        userId?: string | null
+        user?: {
+          __typename?: 'LimitedUserSerializer'
+          userId: string
+          userName: string
+        } | null
+        idols: Array<{
+          __typename?: 'IdolSerializer'
+          idolId: string
+          idolName: string
+          idolStatus: IdolStatus
+          groups: Array<{
+            __typename?: 'GroupSerializer'
+            groupName: string
+            groupId: string
+          } | null>
+        } | null>
+      }>
+    }
+  }
+}
+
 export type GetUserCreatedIdolListQueryVariables = Exact<{
   page: Scalars['Int']['input']
 }>
@@ -1569,6 +1611,38 @@ export const GetUserCreatedGroupListDocument = gql`
     }
   }
 `
+export const GetUserCreatedGroupListWithIdolsDocument = gql`
+  query GetUserCreatedGroupListWithIdols($page: Int!) {
+    currentUserGroups {
+      getGroupsCreatedByUser(page: $page) {
+        count
+        currentPage
+        groups {
+          groupCreatedAt
+          groupId
+          groupName
+          groupStatus
+          groupUpdatedAt
+          userId
+          user {
+            userId
+            userName
+          }
+          idols {
+            idolId
+            idolName
+            idolStatus
+            groups {
+              groupName
+              groupId
+            }
+          }
+        }
+        pageCount
+      }
+    }
+  }
+`
 export const GetUserCreatedIdolListDocument = gql`
   query GetUserCreatedIdolList($page: Int!) {
     currentUserIdols {
@@ -1947,6 +2021,21 @@ export function getSdk(
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
         'GetUserCreatedGroupList',
+        'query',
+      )
+    },
+    GetUserCreatedGroupListWithIdols(
+      variables: GetUserCreatedGroupListWithIdolsQueryVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+    ): Promise<GetUserCreatedGroupListWithIdolsQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<GetUserCreatedGroupListWithIdolsQuery>(
+            GetUserCreatedGroupListWithIdolsDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'GetUserCreatedGroupListWithIdols',
         'query',
       )
     },

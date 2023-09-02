@@ -40,9 +40,9 @@ export function IdolListView({
 }: {
   idols: IdolListViewIdolItem[]
   isLoading: boolean
-  totalPages: number | null
-  currentPage: number
-  onPageChange: (page: number) => void
+  totalPages?: number
+  currentPage?: number
+  onPageChange?: (page: number) => void
   isSelectable?: boolean
   onSelectionChange?: (selectedIdolId: string) => void
   selectedIdolId?: string
@@ -107,11 +107,14 @@ export function IdolListView({
           </Box>
         }
         pagination={
-          <Pagination
-            currentPageIndex={currentPage}
-            onChange={({ detail }) => onPageChange(detail.currentPageIndex)}
-            pagesCount={totalPages ?? 0}
-          />
+          currentPage &&
+          onPageChange && (
+            <Pagination
+              currentPageIndex={currentPage}
+              onChange={({ detail }) => onPageChange(detail.currentPageIndex)}
+              pagesCount={totalPages ?? 0}
+            />
+          )
         }
         header={
           !hideHeader &&
