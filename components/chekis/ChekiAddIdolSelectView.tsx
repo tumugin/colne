@@ -1,5 +1,6 @@
 import { Tabs } from '@cloudscape-design/components'
 import { UserCreatedIdolListViewWithAPI } from 'components/idols/UserCreatedIdolListViewWithAPI'
+import { UserCreatedGroupListViewWithExpandableIdolWithAPI } from 'components/groups/UserCreatedGroupListViewWithExpandableIdolWithAPI'
 
 export function ChekiAddIdolSelectView({
   selectedIdolId,
@@ -12,8 +13,8 @@ export function ChekiAddIdolSelectView({
     <Tabs
       tabs={[
         {
-          label: '自分が登録したアイドル',
-          id: 'first',
+          label: 'アイドル',
+          id: 'idol',
           content: (
             <UserCreatedIdolListViewWithAPI
               isSelectable
@@ -25,14 +26,21 @@ export function ChekiAddIdolSelectView({
           ),
         },
         {
-          label: '自分が登録したグループ',
-          id: 'second',
-          content: 'TODO',
-          disabled: true,
+          label: 'グループ',
+          id: 'group',
+          content: (
+            <UserCreatedGroupListViewWithExpandableIdolWithAPI
+              isSelectable
+              selectedIdolId={selectedIdolId}
+              onSelectionChange={setSelectedIdolId}
+              hideHeader
+              hideGroupStatus
+            />
+          ),
         },
         {
           label: 'お気に入りのグループ',
-          id: 'third',
+          id: 'favorite_group',
           content: 'TODO',
           disabled: true,
         },

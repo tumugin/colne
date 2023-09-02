@@ -78,6 +78,45 @@ export async function getUserCreatedGroupList(
   return groupsPage.currentUserGroups.getGroupsCreatedByUser
 }
 
+export interface UserCreatedGroupWithIdol {
+  count: number
+  currentPage: number
+  groups: Array<{
+    groupCreatedAt: string
+    groupId: string
+    groupName: string
+    groupStatus: GroupStatus
+    groupUpdatedAt: string
+    userId?: string | null
+    user?: {
+      userId: string
+      userName: string
+    } | null
+    idols: ({
+      idolId: string
+      idolName: string
+      idolStatus: IdolStatus
+      groups: Array<{
+        groupName: string
+        groupId: string
+      } | null>
+    } | null)[]
+  }>
+  pageCount: number
+}
+
+export async function getUserCreatedGroupListWithIdols(
+  params: { page: number },
+  headers?: Headers,
+): Promise<UserCreatedGroupWithIdol> {
+  const sdk = createGraphQLSDK({
+    headers,
+    cache: 'no-store',
+  })
+  const groupsPage = await sdk.GetUserCreatedGroupListWithIdols(params, headers)
+  return groupsPage.currentUserGroups.getGroupsCreatedByUser
+}
+
 export interface Regulation {
   regulationComment: string
   regulationCreatedAt: string
