@@ -16,6 +16,7 @@ import { splitPanelStateAtom } from 'recoil-store/globalPage'
 import { addCheki } from 'api-client/cheki'
 import { getIdolForChekiAdd, IdolForChekiAdd } from 'api-client/idol'
 import { nonNullable } from 'utils/array'
+import { useIsSmartphoneScreenSize } from 'libs/dom/screen-size'
 
 export function ChekisAdd() {
   const toastStyles = useToastTheme()
@@ -132,6 +133,7 @@ export function ChekisAdd() {
   )
 
   const [_, setSplitPanelState] = useRecoilState(splitPanelStateAtom)
+  const isSmartphone = useIsSmartphoneScreenSize()
 
   useEffect(() => {
     setSplitPanelState({
@@ -145,6 +147,13 @@ export function ChekisAdd() {
       })
     }
   }, [setSplitPanelState, splitPanelUI])
+
+  useEffect(() => {
+    setSplitPanelState((s) => ({
+      ...s,
+      splitPanelOpen: !isSmartphone,
+    }))
+  }, [isSmartphone, setSplitPanelState])
 
   return (
     <Controller

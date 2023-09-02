@@ -1,10 +1,14 @@
 import { useEffect, useState } from 'react'
 
+const mediaQuerySpSize = '(max-width: 768px)'
+
 export function useIsSmartphoneScreenSize() {
   // media query
-  const [isSmartphoneScreenSize, setIsSmartphoneScreenSize] = useState(false)
+  const [isSmartphoneScreenSize, setIsSmartphoneScreenSize] = useState(
+    typeof window != 'undefined' && window.matchMedia(mediaQuerySpSize).matches,
+  )
   useEffect(() => {
-    const mediaQuery = window.matchMedia('(max-width: 768px)')
+    const mediaQuery = window.matchMedia(mediaQuerySpSize)
     const listener = () => {
       setIsSmartphoneScreenSize(mediaQuery.matches)
     }
