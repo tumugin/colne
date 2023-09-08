@@ -24,6 +24,7 @@ Primary.args = {
   chekiCounts: [
     {
       chekiCount: 1,
+      totalPrice: 100,
       idol: {
         idolId: '1',
         idolName: 'あいす',
@@ -31,6 +32,7 @@ Primary.args = {
     },
     {
       chekiCount: 1,
+      totalPrice: 100,
       idol: {
         idolId: '1',
         idolName: 'こるね',
@@ -38,6 +40,7 @@ Primary.args = {
     },
     {
       chekiCount: 100,
+      totalPrice: 100,
       idol: {
         idolId: '1',
         idolName: '藍井すず',
@@ -45,6 +48,7 @@ Primary.args = {
     },
     {
       chekiCount: 100,
+      totalPrice: 100,
       idol: {
         idolId: '1',
         idolName: '橋本あみ',
@@ -52,6 +56,7 @@ Primary.args = {
     },
     {
       chekiCount: 100,
+      totalPrice: 100,
       idol: {
         idolId: '1',
         idolName: '藤宮めい',
@@ -59,6 +64,7 @@ Primary.args = {
     },
     {
       chekiCount: 100,
+      totalPrice: 100,
       idol: {
         idolId: '1',
         idolName: '朝比奈れい',
@@ -66,6 +72,7 @@ Primary.args = {
     },
     {
       chekiCount: 100,
+      totalPrice: 100,
       idol: {
         idolId: '1',
         idolName: '永堀ゆめ',
@@ -73,6 +80,7 @@ Primary.args = {
     },
     {
       chekiCount: 100,
+      totalPrice: 100,
       idol: {
         idolId: '1',
         idolName: '工藤のか',
@@ -80,6 +88,7 @@ Primary.args = {
     },
     {
       chekiCount: 100,
+      totalPrice: 100,
       idol: {
         idolId: '1',
         idolName: '七瀬れあ',

@@ -17,6 +17,7 @@ describe('<MonthlyChekiCounts>', () => {
 const chekiCounts = [
   {
     chekiCount: 1,
+    totalPrice: 100,
     idol: {
       idolId: '1',
       idolName: 'あいす',
@@ -24,6 +25,7 @@ const chekiCounts = [
   },
   {
     chekiCount: 1,
+    totalPrice: 100,
     idol: {
       idolId: '1',
       idolName: 'こるね',
@@ -31,6 +33,7 @@ const chekiCounts = [
   },
   {
     chekiCount: 100,
+    totalPrice: 100,
     idol: {
       idolId: '1',
       idolName: '藍井すず',
@@ -38,6 +41,7 @@ const chekiCounts = [
   },
   {
     chekiCount: 100,
+    totalPrice: 100,
     idol: {
       idolId: '1',
       idolName: '橋本あみ',
@@ -45,6 +49,7 @@ const chekiCounts = [
   },
   {
     chekiCount: 100,
+    totalPrice: 100,
     idol: {
       idolId: '1',
       idolName: '藤宮めい',
@@ -52,6 +57,7 @@ const chekiCounts = [
   },
   {
     chekiCount: 100,
+    totalPrice: 100,
     idol: {
       idolId: '1',
       idolName: '朝比奈れい',
@@ -59,6 +65,7 @@ const chekiCounts = [
   },
   {
     chekiCount: 100,
+    totalPrice: 100,
     idol: {
       idolId: '1',
       idolName: '永堀ゆめ',
@@ -66,6 +73,7 @@ const chekiCounts = [
   },
   {
     chekiCount: 100,
+    totalPrice: 100,
     idol: {
       idolId: '1',
       idolName: '工藤のか',
@@ -73,6 +81,7 @@ const chekiCounts = [
   },
   {
     chekiCount: 100,
+    totalPrice: 100,
     idol: {
       idolId: '1',
       idolName: '七瀬れあ',
