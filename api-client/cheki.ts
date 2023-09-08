@@ -15,6 +15,7 @@ export async function addCheki(
 
 export interface CurrentUserChekiIdolCount {
   chekiCount: number
+  totalPrice: number
   idol?: {
     idolId: string
     idolName: string

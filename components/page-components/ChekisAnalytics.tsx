@@ -6,18 +6,20 @@ import {
   Grid,
   Header,
   SpaceBetween,
+  Toggle,
 } from '@cloudscape-design/components'
 import {
   ColneDataRangePicker,
   ColneDateRange,
 } from 'components/parts/ColneDataRangePicker'
-import React, { useCallback, useMemo } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import dayjs from 'dayjs'
 import { AnalyticsChekiCount } from 'components/analytics/AnalyticsChekiCount'
 import { AnalyticsTotalChekiCount } from 'components/analytics/AnalyticsTotalChekiCount'
 import { AnalyticsTopIdol } from 'components/analytics/AnalyticsTopIdol'
 import { ChekiByIdolAnalytics } from 'components/analytics/ChekiByIdolAnalytics'
+import { AnalyticsTotalChekiPrice } from 'components/analytics/AnalyticsTotalChekiPrice'
 
 export function ChekisAnalytics({
   range,
@@ -29,6 +31,7 @@ export function ChekisAnalytics({
   }
   chekiCounts: {
     chekiCount: number
+    totalPrice: number
     idol?: {
       idolId: string
       idolName: string
@@ -64,6 +67,14 @@ export function ChekisAnalytics({
     () => [...chekiCounts].sort((a, b) => b.chekiCount - a.chekiCount),
     [chekiCounts],
   )
+  const totalChekiPrice = useMemo(
+    () =>
+      chekiCounts
+        .map((v) => v.totalPrice)
+        .reduce((acc, cur) => acc + (cur ?? 0), 0),
+    [chekiCounts],
+  )
+  const [totalChekiPriceHidden, setTotalChekiPriceHidden] = useState(true)
 
   return (
     <ContentLayout>
@@ -89,8 +100,9 @@ export function ChekisAnalytics({
         </Container>
         <Grid
           gridDefinition={[
-            { colspan: { default: 12, xs: 6 } },
-            { colspan: { default: 12, xs: 6 } },
+            { colspan: { default: 12, m: 4, xs: 6 } },
+            { colspan: { default: 12, m: 4, xs: 6 } },
+            { colspan: { default: 12, m: 4, xs: 12 } },
           ]}
         >
           <Container header={<Header variant="h2">累計チェキ撮影枚数</Header>}>
@@ -102,6 +114,26 @@ export function ChekisAnalytics({
             <AnalyticsTopIdol
               idol={sortedChekiCounts[0]?.idol ?? null}
               chekiCount={sortedChekiCounts[0]?.chekiCount ?? null}
+            />
+          </Container>
+          <Container
+            header={
+              <Header
+                variant="h2"
+                actions={
+                  <Toggle
+                    checked={totalChekiPriceHidden}
+                    onChange={() => setTotalChekiPriceHidden((p) => !p)}
+                  />
+                }
+              >
+                今月の累計金額
+              </Header>
+            }
+          >
+            <AnalyticsTotalChekiPrice
+              totalPrice={totalChekiPrice}
+              hidden={totalChekiPriceHidden}
             />
           </Container>
         </Grid>

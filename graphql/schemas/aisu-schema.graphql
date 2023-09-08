@@ -87,6 +87,7 @@ type ChekiIdolCountSerializer {
   chekiCount: Int!
   idol: IdolSerializer
   idolId: ID!
+  totalPrice: Int!
 }
 
 type ChekiMonthIdolCountSerializer {

@@ -15,6 +15,10 @@ const BottomAlignText = styled(SpaceBetween)`
   align-items: flex-end;
 `
 
+const SpaceBetweenForHeader = styled(SpaceBetween)`
+  justify-content: space-between;
+`
+
 export function IdolChekiStatsView({
   isLoading,
   stats,
@@ -31,7 +35,7 @@ export function IdolChekiStatsView({
       <Cards
         cardDefinition={{
           header: (item) => (
-            <SpaceBetween size="xs" direction="horizontal">
+            <SpaceBetweenForHeader size="xs" direction="horizontal">
               <Box>{item.name}</Box>
               <Toggle
                 onChange={({ detail }) =>
@@ -45,10 +49,8 @@ export function IdolChekiStatsView({
                     ? showHiddenStats[item.name] ?? false
                     : item.defaultHidden ?? false
                 }
-              >
-                非表示
-              </Toggle>
-            </SpaceBetween>
+              />
+            </SpaceBetweenForHeader>
           ),
           sections: [
             {

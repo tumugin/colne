@@ -149,6 +149,7 @@ export type ChekiIdolCountSerializer = {
   chekiCount: Scalars['Int']['output']
   idol?: Maybe<IdolSerializer>
   idolId: Scalars['ID']['output']
+  totalPrice: Scalars['Int']['output']
 }
 
 export type ChekiMonthIdolCountSerializer = {
@@ -1037,6 +1038,7 @@ export type GetUserChekiIdolCountQuery = {
     getUserChekiIdolCount: Array<{
       __typename?: 'ChekiIdolCountSerializer'
       chekiCount: number
+      totalPrice: number
       idol?: {
         __typename?: 'IdolSerializer'
         idolId: string
@@ -1580,6 +1582,7 @@ export const GetUserChekiIdolCountDocument = gql`
         }
       ) {
         chekiCount
+        totalPrice
         idol {
           idolId
           idolName
