@@ -10,6 +10,7 @@ query GetUserChekiIdolCount(
       }
     ) {
       chekiCount
+      totalPrice
       idol {
         idolId
         idolName
