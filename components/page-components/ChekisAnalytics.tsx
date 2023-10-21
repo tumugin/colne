@@ -127,7 +127,7 @@ export function ChekisAnalytics({
                   />
                 }
               >
-                今月の累計金額
+                累計の金額
               </Header>
             }
           >
