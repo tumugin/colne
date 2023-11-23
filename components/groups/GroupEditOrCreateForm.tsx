@@ -44,7 +44,7 @@ export function GroupEditOrCreateForm({
       !isEdit
         ? [
             { label: '非公開', value: 'private_active' },
-            { label: '公開', value: 'public_not_active' },
+            { label: '公開', value: 'public_active' },
           ]
         : [
             { label: '非公開(活動中)', value: 'private_active' },
