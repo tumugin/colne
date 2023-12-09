@@ -22,7 +22,4 @@ $ yarn lint
 
 # Type check
 $ yarn typecheck
-
-# Testing
-$ yarn cypress
 ```
