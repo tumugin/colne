@@ -39,8 +39,8 @@ export function GroupRegulationEdit({
           values.regulationStatus === 'ACTIVE'
             ? RegulationStatus.Active
             : values.regulationStatus === 'NOT_ACTIVE'
-            ? RegulationStatus.NotActive
-            : never(values.regulationStatus),
+              ? RegulationStatus.NotActive
+              : never(values.regulationStatus),
         regulationUnitPrice: values.regulationUnitPrice,
       })
       router.push(groupDetailPage(group.groupId))
@@ -70,8 +70,8 @@ export function GroupRegulationEdit({
             regulation.regulationStatus === RegulationStatus.Active
               ? 'ACTIVE'
               : regulation.regulationStatus === RegulationStatus.NotActive
-              ? 'NOT_ACTIVE'
-              : never(regulation.regulationStatus),
+                ? 'NOT_ACTIVE'
+                : never(regulation.regulationStatus),
         }}
         onSubmit={handleOnUpdateRegulation}
         onCancel={handleOnCancel}

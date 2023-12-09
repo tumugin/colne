@@ -27,8 +27,8 @@ export function GroupRegulationAdd({ group }: { group: Group }) {
           values.regulationStatus === 'ACTIVE'
             ? RegulationStatus.Active
             : values.regulationStatus === 'NOT_ACTIVE'
-            ? RegulationStatus.NotActive
-            : never(values.regulationStatus),
+              ? RegulationStatus.NotActive
+              : never(values.regulationStatus),
         regulationUnitPrice: values.regulationUnitPrice,
       })
       router.push(groupDetailPage(group.groupId))
