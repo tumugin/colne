@@ -13,14 +13,15 @@ const GlobalStyle = styled.createGlobalStyle<{ appHasHydrated: boolean }>`
     overflow: unset !important;
 
     @media (prefers-color-scheme: dark) {
-      background-color: ${(v) => (v.appHasHydrated ? 'unset' : '#0f1b2a')};
+      background-color: ${(v) =>
+        v.appHasHydrated ? 'unset !important' : '#0f1b2a'};
     }
   }
 
   main {
     @media (prefers-color-scheme: dark) {
       // FIXME: UIがちらつくので、読み込み中には非表示にして見えないようにする
-      opacity: ${(v) => (v.appHasHydrated ? 'unset' : 0)};
+      opacity: ${(v) => (v.appHasHydrated ? 'unset !important' : '0')};
     }
   }
 `
