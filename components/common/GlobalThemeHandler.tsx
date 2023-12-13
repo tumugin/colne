@@ -13,8 +13,7 @@ const GlobalStyle = styled.createGlobalStyle<{ appHasHydrated: boolean }>`
     overflow: unset !important;
 
     @media (prefers-color-scheme: dark) {
-      background-color: ${(v) =>
-        v.appHasHydrated ? 'unset' : '#0f1b2a'};
+      background-color: ${(v) => (v.appHasHydrated ? 'unset' : '#0f1b2a')};
     }
   }
 
