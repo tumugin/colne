@@ -20,7 +20,7 @@ const GlobalStyle = styled.createGlobalStyle<{ appHasHydrated: boolean }>`
   main {
     @media (prefers-color-scheme: dark) {
       // FIXME: UIがちらつくので、読み込み中には非表示にして見えないようにする
-      opacity: ${(v) => (v.appHasHydrated ? 'unset' : '0 !important')};
+      opacity: ${(v) => (v.appHasHydrated ? 'unset !important' : '0')};
     }
   }
 `
