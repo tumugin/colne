@@ -14,8 +14,3 @@ export const splitPanelStateAtom = atom<SplitPanelProps>({
     splitPanelOpen: false,
   },
 })
-
-export const globalNavigationStateAtom = atom<boolean>({
-  key: 'globalNavigationState',
-  default: false,
-})

@@ -4,13 +4,14 @@ import {
   ExpandableSection,
   Header,
   Pagination,
-  SpaceBetween,
   StatusIndicator,
 } from '@cloudscape-design/components'
 import { IdolListView } from 'components/idols/IdolListView'
 import styled from 'styled-components'
 import { GroupStatusBadge } from 'components/groups/GroupStatusBadge'
 import React from 'react'
+import * as awsui from '@cloudscape-design/design-tokens'
+import { mediaQuerySpSize } from 'libs/dom/screen-size'
 
 export interface GroupListViewWithExpandableIdolItem {
   name: string
@@ -44,6 +45,23 @@ const PaginationContainer = styled.div`
   margin-bottom: 4px;
 `
 
+const Spacer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${awsui.spaceScaledL};
+`
+
+const Sticky = styled.div`
+  position: sticky;
+  top: -8px;
+  z-index: 1000;
+
+  @media ${mediaQuerySpSize} {
+    z-index: unset;
+    position: unset;
+  }
+`
+
 export function GroupListViewWithExpandableIdol({
   groups,
   isLoading,
@@ -67,23 +85,25 @@ export function GroupListViewWithExpandableIdol({
   hideGroupStatus?: boolean
 }) {
   return (
-    <SpaceBetween size="l">
-      <Container
-        header={
-          <Header
-            actions={
-              <PaginationContainer>
-                <Pagination
-                  currentPageIndex={currentPage}
-                  pagesCount={totalPages ?? 0}
-                  onChange={(d) => onPageChange(d.detail.currentPageIndex)}
-                />
-              </PaginationContainer>
-            }
-          />
-        }
-        disableContentPaddings
-      />
+    <Spacer>
+      <Sticky>
+        <Container
+          header={
+            <Header
+              actions={
+                <PaginationContainer>
+                  <Pagination
+                    currentPageIndex={currentPage}
+                    pagesCount={totalPages ?? 0}
+                    onChange={(d) => onPageChange(d.detail.currentPageIndex)}
+                  />
+                </PaginationContainer>
+              }
+            />
+          }
+          disableContentPaddings
+        />
+      </Sticky>
       {isLoading && (
         <Center>
           <StatusIndicator type="loading">Loading</StatusIndicator>
@@ -101,25 +121,26 @@ export function GroupListViewWithExpandableIdol({
       )}
       {!isLoading &&
         groups.map((group) => (
-          <ExpandableSection
-            variant="stacked"
-            headerText={group.name}
-            headerInfo={
-              !hideGroupStatus && <GroupStatusBadge status={group.status} />
-            }
-            headerCounter={group.idols.length.toString()}
-            key={group.id}
-          >
-            <IdolListView
-              idols={group.idols}
-              isLoading={false}
-              hideHeader
-              onSelectionChange={onSelectionChange}
-              selectedIdolId={selectedIdolId}
-              isSelectable={isSelectable}
-            />
-          </ExpandableSection>
+          <div key={group.id}>
+            <ExpandableSection
+              variant="stacked"
+              headerText={group.name}
+              headerInfo={
+                !hideGroupStatus && <GroupStatusBadge status={group.status} />
+              }
+              headerCounter={group.idols.length.toString()}
+            >
+              <IdolListView
+                idols={group.idols}
+                isLoading={false}
+                hideHeader
+                onSelectionChange={onSelectionChange}
+                selectedIdolId={selectedIdolId}
+                isSelectable={isSelectable}
+              />
+            </ExpandableSection>
+          </div>
         ))}
-    </SpaceBetween>
+    </Spacer>
   )
 }

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-const mediaQuerySpSize = '(max-width: 768px)'
+export const mediaQuerySpSize = '(max-width: 768px)'
 
 export function useIsSmartphoneScreenSize() {
   // media query
