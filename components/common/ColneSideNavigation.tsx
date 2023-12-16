@@ -1,14 +1,13 @@
 import { SideNavigation } from '@cloudscape-design/components'
 import {
   chekiAddPath,
+  chekiAnalyticsPath,
   loginPath,
   userCreatedGroupsListPath,
   userCreatedIdolListPath,
 } from 'utils/urls'
 import { usePathname, useRouter } from 'next/navigation'
 import { useLogoutForm } from 'components/common/LogoutForm'
-import { useRecoilState } from 'recoil'
-import { globalNavigationStateAtom } from 'recoil-store/globalPage'
 
 export function ColneSideNavigation({
   isLoggedIn,
@@ -20,9 +19,6 @@ export function ColneSideNavigation({
   const pathName = usePathname()
   const router = useRouter()
   const [logoutFormElement, triggerLogout] = useLogoutForm({ csrfToken })
-  const [, setIsGlobalNavigationOpen] = useRecoilState(
-    globalNavigationStateAtom,
-  )
 
   return (
     <>
@@ -36,7 +32,6 @@ export function ColneSideNavigation({
           }
           if (!event.detail.external) {
             event.preventDefault()
-            setIsGlobalNavigationOpen(false)
             router.push(event.detail.href)
           }
         }}
@@ -47,13 +42,19 @@ export function ColneSideNavigation({
             ? ([
                 {
                   type: 'link',
-                  text: '登録したアイドル一覧',
+                  text: 'アイドル',
                   href: userCreatedIdolListPath,
                 },
                 {
                   type: 'link',
-                  text: '登録したグループ一覧',
+                  text: 'グループ',
                   href: userCreatedGroupsListPath,
+                },
+                { type: 'divider' },
+                {
+                  type: 'link',
+                  text: 'チェキの統計を見る',
+                  href: chekiAnalyticsPath,
                 },
                 {
                   type: 'link',

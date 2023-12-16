@@ -1,26 +1,17 @@
 'use client'
 
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { AppLayout, TopNavigation } from '@cloudscape-design/components'
 import { ColneSideNavigation } from 'components/common/ColneSideNavigation'
 import { useRouter } from 'next/navigation'
-import {
-  chekiAddPath,
-  chekiAnalyticsPath,
-  loginPath,
-  userCreatedGroupsListPath,
-  userCreatedIdolListPath,
-  userProfilePage,
-} from 'utils/urls'
+import { loginPath, userProfilePage } from 'utils/urls'
 import { useLogoutForm } from 'components/common/LogoutForm'
 import { Toaster } from 'react-hot-toast'
 import { useRecoilState } from 'recoil'
-import {
-  globalNavigationStateAtom,
-  splitPanelStateAtom,
-} from 'recoil-store/globalPage'
+import { splitPanelStateAtom } from 'recoil-store/globalPage'
 import { CurrentUser } from 'api-client/user'
 import { useConsoleEasterEgg } from 'utils/easteregg-hooks'
+import { AppLayoutProps } from '@cloudscape-design/components/app-layout/interfaces'
 
 export function ColneAppWithLayout({
   children,
@@ -32,21 +23,19 @@ export function ColneAppWithLayout({
   csrfToken: string
 }) {
   const router = useRouter()
-  const [isGlobalNavigationOpen, setIsGlobalNavigationOpen] = useRecoilState(
-    globalNavigationStateAtom,
-  )
-  const toggleNavigation = useCallback(() => {
-    setIsGlobalNavigationOpen((prev) => !prev)
-  }, [setIsGlobalNavigationOpen])
 
   const isLoggedIn = !!user
   const [logoutFormElement, triggerLogout] = useLogoutForm({ csrfToken })
   const [splitPanelState, setSplitPanelState] =
     useRecoilState(splitPanelStateAtom)
+  const [splitPanelPreference, setSplitPanelPreference] =
+    useState<AppLayoutProps.SplitPanelPreferences>({
+      position: 'side',
+    })
 
   // FIXME: SSRするとナビゲーション周りでhydrationが壊れるのでworkaround
   // cloudscape-design〜〜〜〜なんとかしてくれ〜〜〜〜〜
-  const [, setIsNavigationInitialized] = useState(false)
+  const [isNavigationInitialized, setIsNavigationInitialized] = useState(false)
   useEffect(() => {
     setIsNavigationInitialized(true)
   }, [])
@@ -75,42 +64,6 @@ export function ColneAppWithLayout({
           overflowMenuDismissIconAriaLabel: 'Close menu',
         }}
         utilities={[
-          {
-            type: 'button',
-            text: 'チェキ追加',
-            href: chekiAddPath,
-            onClick: (e) => {
-              e.preventDefault()
-              router.push(chekiAddPath)
-            },
-          },
-          {
-            type: 'button',
-            text: 'チェキ統計',
-            href: chekiAnalyticsPath,
-            onClick: (e) => {
-              e.preventDefault()
-              router.push(chekiAnalyticsPath)
-            },
-          },
-          {
-            type: 'button',
-            text: 'アイドル',
-            href: userCreatedIdolListPath,
-            onClick: (e) => {
-              e.preventDefault()
-              router.push(userCreatedIdolListPath)
-            },
-          },
-          {
-            type: 'button',
-            text: 'グループ',
-            href: userCreatedGroupsListPath,
-            onClick: (e) => {
-              e.preventDefault()
-              router.push(userCreatedGroupsListPath)
-            },
-          },
           {
             type: 'menu-dropdown',
             text: user?.userName ?? 'ゲスト',
@@ -144,17 +97,22 @@ export function ColneAppWithLayout({
       />
       <AppLayout
         content={children}
-        onNavigationChange={toggleNavigation}
-        navigationHide
-        navigationOpen={isGlobalNavigationOpen}
+        navigationHide={!isNavigationInitialized}
         navigation={
-          <ColneSideNavigation isLoggedIn={isLoggedIn} csrfToken={csrfToken} />
+          isNavigationInitialized && (
+            <ColneSideNavigation
+              isLoggedIn={isLoggedIn}
+              csrfToken={csrfToken}
+            />
+          )
         }
         splitPanelOpen={splitPanelState.splitPanelOpen}
         onSplitPanelToggle={(e) =>
           setSplitPanelState((s) => ({ ...s, splitPanelOpen: e.detail.open }))
         }
         splitPanel={splitPanelState.children}
+        splitPanelPreferences={splitPanelPreference}
+        onSplitPanelPreferencesChange={(e) => setSplitPanelPreference(e.detail)}
         toolsHide
       />
     </>

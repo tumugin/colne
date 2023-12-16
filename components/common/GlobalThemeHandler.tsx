@@ -9,12 +9,8 @@ const styled = { createGlobalStyle }
 
 const GlobalStyle = styled.createGlobalStyle<{ appHasHydrated: boolean }>`
   body {
-    // FIXME: Workaround for cloudscape-design/components bugs for scrolling in small screen
-    overflow: unset !important;
-
     @media (prefers-color-scheme: dark) {
-      background-color: ${(v) =>
-        v.appHasHydrated ? 'unset !important' : '#0f1b2a'};
+      background-color: #0f1b2a;
     }
   }
 

@@ -116,6 +116,7 @@ export function IdolListView({
             />
           )
         }
+        stickyHeader
         header={
           !hideHeader &&
           (header || (

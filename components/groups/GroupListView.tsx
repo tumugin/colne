@@ -102,6 +102,7 @@ export function GroupListView({
             pagesCount={totalPages ?? 0}
           />
         }
+        stickyHeader
         header={
           !hideHeader && (
             <Header
