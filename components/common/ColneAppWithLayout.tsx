@@ -112,7 +112,7 @@ export function ColneAppWithLayout({
         }
         splitPanel={splitPanelState.children}
         splitPanelPreferences={splitPanelPreference}
-        onSplitPanelPreferencesChange={e => setSplitPanelPreference(e.detail)}
+        onSplitPanelPreferencesChange={(e) => setSplitPanelPreference(e.detail)}
         toolsHide
       />
     </>
