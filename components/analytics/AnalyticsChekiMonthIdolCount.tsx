@@ -62,16 +62,18 @@ export function AnalyticsChekiMonthIdolCount({
       idols.map((v) => ({
         title: v.name ?? '',
         type: 'bar' as const,
-        data: dateRangeByMonth.map((date) => ({
-          x: date.toDate(),
-          y:
-            chekiMonthIdolCount.find(
-              (c) =>
-                c.idolId === v.idolId &&
-                c.chekiShotAtMonth.year === date.year() &&
-                c.chekiShotAtMonth.month === date.month() + 1,
-            )?.chekiCount ?? 0,
-        })),
+        data: dateRangeByMonth
+          .map((date) => ({
+            x: date.toDate(),
+            y:
+              chekiMonthIdolCount.find(
+                (c) =>
+                  c.idolId === v.idolId &&
+                  c.chekiShotAtMonth.year === date.year() &&
+                  c.chekiShotAtMonth.month === date.month() + 1,
+              )?.chekiCount ?? 0,
+          }))
+          .filter((v) => v.y > 0),
       })),
     [chekiMonthIdolCount, dateRangeByMonth, idols],
   )
