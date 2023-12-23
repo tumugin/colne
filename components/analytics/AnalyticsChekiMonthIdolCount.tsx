@@ -1,7 +1,7 @@
 import { ChekiMonthIdolCount } from 'api-client/cheki'
 import React, { useMemo } from 'react'
 import dayjs from 'dayjs'
-import { AreaChart, Box } from '@cloudscape-design/components'
+import { BarChart, Box } from '@cloudscape-design/components'
 import minMax from 'dayjs/plugin/minMax'
 
 dayjs.extend(minMax)
@@ -61,7 +61,7 @@ export function AnalyticsChekiMonthIdolCount({
     () =>
       idols.map((v) => ({
         title: v.name ?? '',
-        type: 'area' as const,
+        type: 'bar' as const,
         data: dateRangeByMonth.map((date) => ({
           x: date.toDate(),
           y:
@@ -77,9 +77,8 @@ export function AnalyticsChekiMonthIdolCount({
   )
 
   return (
-    <AreaChart
+    <BarChart
       series={series}
-      xScaleType="time"
       xTitle="月"
       yTitle="撮影枚数"
       empty={
@@ -99,6 +98,8 @@ export function AnalyticsChekiMonthIdolCount({
         </Box>
       }
       xTickFormatter={(date) => dayjs(date).format('YYYY年MM月')}
+      stackedBars
+      horizontalBars
       hideFilter
     />
   )
