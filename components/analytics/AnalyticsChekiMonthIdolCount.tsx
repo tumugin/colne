@@ -78,11 +78,21 @@ export function AnalyticsChekiMonthIdolCount({
     [chekiMonthIdolCount, dateRangeByMonth, idols],
   )
 
+  const xDomain = useMemo(
+    () =>
+      dateRangeByMonth
+        .sort((a, b) => a.diff(b))
+        .reverse()
+        .map((v) => v.toDate()),
+    [dateRangeByMonth],
+  )
+
   return (
     <BarChart
       series={series}
       xTitle="月"
       yTitle="撮影枚数"
+      xDomain={xDomain}
       empty={
         <Box textAlign="center" color="inherit">
           <b>データなし</b>
