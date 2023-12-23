@@ -79,10 +79,11 @@ export function AnalyticsChekiMonthIdolCount({
   )
 
   const xDomain = useMemo(
-    () => dateRangeByMonth
-      .sort((a, b) => a.diff(b))
-      .reverse()
-      .map((v) => v.toDate()),
+    () =>
+      dateRangeByMonth
+        .sort((a, b) => a.diff(b))
+        .reverse()
+        .map((v) => v.toDate()),
     [dateRangeByMonth],
   )
 
