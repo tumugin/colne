@@ -13,7 +13,7 @@ import { useRouter } from 'next/navigation'
 
 const ContentGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: ${awsui.spaceScaledXl};
   place-items: start center;
   grid-auto-rows: minmax(0, auto);
