@@ -1226,9 +1226,9 @@
     tslib "^2.3.1"
 
 "@cloudscape-design/components@^3.0.337":
-  version "3.0.582"
-  resolved "https://registry.yarnpkg.com/@cloudscape-design/components/-/components-3.0.582.tgz#ecb3aba8c39a110f2049abe332395d2d02b6d952"
-  integrity sha512-YzNQqjGdNNfgo7Sx+8/o5C2rgiy+tGHueBQO4AGg3V0v3bvwZLOtIuRWrEqEbvKiqQZuIvsf/hWn7n18MxQpgA==
+  version "3.0.583"
+  resolved "https://registry.yarnpkg.com/@cloudscape-design/components/-/components-3.0.583.tgz#fbda1783683507ff8fcc7a04dc6cdd89ed2864a4"
+  integrity sha512-0QcND7cs9cL5AoXeOXHsW4MkH60R/oVR9FLUW5I8Jh74ePNT0I6XmpX2N9cPoJ3uuw/ZjS8xaByh4T/RS0qkVw==
   dependencies:
     "@cloudscape-design/collection-hooks" "^1.0.0"
     "@cloudscape-design/component-toolkit" "^1.0.0-beta"
@@ -4155,10 +4155,10 @@
     "@types/scheduler" "*"
     csstype "^3.0.2"
 
-"@types/react@18.2.68":
-  version "18.2.68"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-18.2.68.tgz#b4d0c3a9c883165d11842f7b998532743fc5adda"
-  integrity sha512-Fj/BAR6LDSRkqinWfo9nGzW9ndpjEtP049oIW8KWToucUq7AJVCr/fyY9NFpaJaCXnGrKHLLs2mwiHYE1SxaxA==
+"@types/react@18.2.69":
+  version "18.2.69"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-18.2.69.tgz#313ec21891b22bb7646a54cb4bdb8cddb0880271"
+  integrity sha512-W1HOMUWY/1Yyw0ba5TkCV+oqynRjG7BnteBB+B7JmAK7iw3l2SW+VGOxL+akPweix6jk2NNJtyJKpn4TkpfK3Q==
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"
