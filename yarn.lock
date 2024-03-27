@@ -1213,9 +1213,9 @@
   integrity sha512-4iri8i1AqYHJE2DstZYkyEprg6Pq6sKx3xn5FpySk9sNhH7qN2LLlHJCfDTZRILNwQNPD7mATWM0TBui7uC1pA==
 
 "@cloudscape-design/collection-hooks@^1.0.0":
-  version "1.0.40"
-  resolved "https://registry.yarnpkg.com/@cloudscape-design/collection-hooks/-/collection-hooks-1.0.40.tgz#131f6056966ea28cdba97e10d41c055f34718fa1"
-  integrity sha512-h1daTGMQ2F1MlT+DUVCK+rF7tIRJsnGzU6uxSmmm5LbkV+mActg1IYyz/jo4ImpQbyWRvCOOSRKxeiF8VaADdw==
+  version "1.0.42"
+  resolved "https://registry.yarnpkg.com/@cloudscape-design/collection-hooks/-/collection-hooks-1.0.42.tgz#e6df7a9a515b97ad921d652f65e3b88905d6575d"
+  integrity sha512-kS6bqzFY5VF6BTCe136WYvPyr27sHvAXVv1Pb8x0QHbSmYglK8WRV+PyA0ezoP1+HNhmejwZ8BqgD5CpfVmrxg==
 
 "@cloudscape-design/component-toolkit@^1.0.0-beta":
   version "1.0.0-beta.40"
@@ -1226,9 +1226,9 @@
     tslib "^2.3.1"
 
 "@cloudscape-design/components@^3.0.337":
-  version "3.0.583"
-  resolved "https://registry.yarnpkg.com/@cloudscape-design/components/-/components-3.0.583.tgz#fbda1783683507ff8fcc7a04dc6cdd89ed2864a4"
-  integrity sha512-0QcND7cs9cL5AoXeOXHsW4MkH60R/oVR9FLUW5I8Jh74ePNT0I6XmpX2N9cPoJ3uuw/ZjS8xaByh4T/RS0qkVw==
+  version "3.0.590"
+  resolved "https://registry.yarnpkg.com/@cloudscape-design/components/-/components-3.0.590.tgz#8b510a330a978a8bda5fecded726a85423bb5efa"
+  integrity sha512-5yuywLoVZ5KsBAZB7Zrh4F3geRID14ZsHfCpzaE56wH9xFilIZDSCkSynWcURW+abobq20sMlRzt8qa55ljEkQ==
   dependencies:
     "@cloudscape-design/collection-hooks" "^1.0.0"
     "@cloudscape-design/component-toolkit" "^1.0.0-beta"
@@ -1251,9 +1251,9 @@
     weekstart "^1.1.0"
 
 "@cloudscape-design/design-tokens@^3.0.20":
-  version "3.0.34"
-  resolved "https://registry.yarnpkg.com/@cloudscape-design/design-tokens/-/design-tokens-3.0.34.tgz#916c37f4115c1d2c6e10e4ff2a7c57a17dea4f2b"
-  integrity sha512-qzcJa806nnowCtIF3NfleonO6Qs98v2dXx0kz+Zw6+ZXODXp/DNTRkEKjIYBmc8vgszSsvbSK8cLcDJxeVBTuQ==
+  version "3.0.35"
+  resolved "https://registry.yarnpkg.com/@cloudscape-design/design-tokens/-/design-tokens-3.0.35.tgz#471b4a32e63ac75f1f55d57cd362046a81134c53"
+  integrity sha512-oZk8QBYfn/7+BRsoaXuIvD0NZYvbhqvxGoi8X/jvqU55nzFVMWP3fhZYkOQ3iO9egXGJJuspHru3e1wIsV1ynQ==
 
 "@cloudscape-design/global-styles@^1.0.11":
   version "1.0.25"
@@ -1607,7 +1607,26 @@
     yaml "^2.3.1"
     yargs "^17.0.0"
 
-"@graphql-codegen/client-preset@4.2.4", "@graphql-codegen/client-preset@^4.2.2":
+"@graphql-codegen/client-preset@4.2.5":
+  version "4.2.5"
+  resolved "https://registry.yarnpkg.com/@graphql-codegen/client-preset/-/client-preset-4.2.5.tgz#1cf2a19aaa367b81920999a3511cb1e11a632b4a"
+  integrity sha512-hAdB6HN8EDmkoBtr0bPUN/7NH6svzqbcTDMWBCRXPESXkl7y80po+IXrXUjsSrvhKG8xkNXgJNz/2mjwHzywcA==
+  dependencies:
+    "@babel/helper-plugin-utils" "^7.20.2"
+    "@babel/template" "^7.20.7"
+    "@graphql-codegen/add" "^5.0.2"
+    "@graphql-codegen/gql-tag-operations" "4.0.6"
+    "@graphql-codegen/plugin-helpers" "^5.0.3"
+    "@graphql-codegen/typed-document-node" "^5.0.6"
+    "@graphql-codegen/typescript" "^4.0.6"
+    "@graphql-codegen/typescript-operations" "^4.2.0"
+    "@graphql-codegen/visitor-plugin-common" "^5.1.0"
+    "@graphql-tools/documents" "^1.0.0"
+    "@graphql-tools/utils" "^10.0.0"
+    "@graphql-typed-document-node/core" "3.2.0"
+    tslib "~2.6.0"
+
+"@graphql-codegen/client-preset@^4.2.2":
   version "4.2.4"
   resolved "https://registry.yarnpkg.com/@graphql-codegen/client-preset/-/client-preset-4.2.4.tgz#a20e85b07b77282bb27b2e8e014bed5d491443e7"
   integrity sha512-k1c8v2YxJhhITGQGxViG9asLAoop9m7X9duU7Zztqjc98ooxsUzXICfvAWsH3mLAUibXAx4Ax6BPzKsTtQmBPg==
@@ -4155,13 +4174,12 @@
     "@types/scheduler" "*"
     csstype "^3.0.2"
 
-"@types/react@18.2.69":
-  version "18.2.69"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-18.2.69.tgz#313ec21891b22bb7646a54cb4bdb8cddb0880271"
-  integrity sha512-W1HOMUWY/1Yyw0ba5TkCV+oqynRjG7BnteBB+B7JmAK7iw3l2SW+VGOxL+akPweix6jk2NNJtyJKpn4TkpfK3Q==
+"@types/react@18.2.72":
+  version "18.2.72"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-18.2.72.tgz#3341a6d0746d1c7d8510810319323850c04bd6ed"
+  integrity sha512-/e7GWxGzXQF7OJAua7UAYqYi/4VpXEfbGtmYQcAQwP3SjjjAXfybTf/JK5S+SaetB/ChXl8Y2g1hCsj7jDXxcg==
   dependencies:
     "@types/prop-types" "*"
-    "@types/scheduler" "*"
     csstype "^3.0.2"
 
 "@types/resolve@^1.20.2":
@@ -10383,9 +10401,9 @@ react-element-to-jsx-string@^15.0.0:
     react-is "18.1.0"
 
 react-hook-form@^7.45.1:
-  version "7.51.1"
-  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.51.1.tgz#3ce5f8b5ef41903b4054a641cef8c0dc8bf8ae85"
-  integrity sha512-ifnBjl+kW0ksINHd+8C/Gp6a4eZOdWyvRv0UBaByShwU8JbVx5hTcTWEcd5VdybvmPTATkVVXk9npXArHmo56w==
+  version "7.51.2"
+  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.51.2.tgz#79f7f72ee217c5114ff831012d1a7ec344096e7f"
+  integrity sha512-y++lwaWjtzDt/XNnyGDQy6goHskFualmDlf+jzEZvjvz6KWDf7EboL7pUvRCzPTJd0EOPpdekYaQLEvvG6m6HA==
 
 react-hot-toast@^2.4.1:
   version "2.4.1"
