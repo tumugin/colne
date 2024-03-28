@@ -1156,9 +1156,9 @@
     tslib "^2.3.1"
 
 "@cloudscape-design/components@^3.0.337":
-  version "3.0.590"
-  resolved "https://registry.yarnpkg.com/@cloudscape-design/components/-/components-3.0.590.tgz#8b510a330a978a8bda5fecded726a85423bb5efa"
-  integrity sha512-5yuywLoVZ5KsBAZB7Zrh4F3geRID14ZsHfCpzaE56wH9xFilIZDSCkSynWcURW+abobq20sMlRzt8qa55ljEkQ==
+  version "3.0.591"
+  resolved "https://registry.yarnpkg.com/@cloudscape-design/components/-/components-3.0.591.tgz#58b4e30ce2fbc2c3ebc330cc7da64236eedd5241"
+  integrity sha512-P8P3NaMYLeaa3lZ0rRwOnEyA6tqPHhAH7YF5ObWjqEJx2Vikooa8dIohV0OSCUlQm7O7qClsKgiFHhWhpcJnCQ==
   dependencies:
     "@cloudscape-design/collection-hooks" "^1.0.0"
     "@cloudscape-design/component-toolkit" "^1.0.0-beta"
@@ -4066,10 +4066,10 @@
   resolved "https://registry.yarnpkg.com/@types/range-parser/-/range-parser-1.2.7.tgz#50ae4353eaaddc04044279812f52c8c65857dbcb"
   integrity sha512-hKormJbkJqzQGhziax5PItDUTMAM9uE2XXQmM37dyd4hVM+5aVl7oVxMVUiVQn2oCQFN/LKCZdvSM0pFRqbSmQ==
 
-"@types/react-dom@18.2.22":
-  version "18.2.22"
-  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-18.2.22.tgz#d332febf0815403de6da8a97e5fe282cbe609bae"
-  integrity sha512-fHkBXPeNtfvri6gdsMYyW+dW7RXFo6Ad09nLFK0VQWR7yGLai/Cyvyj696gbwYvBnhGtevUG9cET0pmUbMtoPQ==
+"@types/react-dom@18.2.23":
+  version "18.2.23"
+  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-18.2.23.tgz#112338760f622a16d64271b408355f2f27f6302c"
+  integrity sha512-ZQ71wgGOTmDYpnav2knkjr3qXdAFu0vsk8Ci5w3pGAIdj7/kKAyn+VsQDhXsmzzzepAiI9leWMmubXz690AI/A==
   dependencies:
     "@types/react" "*"
 
