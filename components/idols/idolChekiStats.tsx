@@ -88,6 +88,7 @@ export function IdolChekiStats({
         id: '3',
         name: '一番使用されたレギュレーション',
         value: bestUsedRegulation,
+        smallText: true,
       },
       {
         id: '4',
