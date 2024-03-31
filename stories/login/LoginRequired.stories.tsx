@@ -1,15 +1,13 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react'
+import { Meta, StoryObj } from '@storybook/react'
 import { LoginRequired } from 'components/login/LoginRequired'
 
-const componentMeta: ComponentMeta<typeof LoginRequired> = {
+const componentMeta: Meta<typeof LoginRequired> = {
   title: 'Login/LoginRequired',
   component: LoginRequired,
 }
 
 export default componentMeta
 
-const Template: ComponentStory<typeof LoginRequired> = (args) => (
-  <LoginRequired {...args} />
-)
+type Story = StoryObj<typeof LoginRequired>
 
-export const Primary = Template.bind({})
+export const Default: Story = {}
