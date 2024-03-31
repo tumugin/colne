@@ -1,29 +1,30 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react'
+import { Meta, StoryObj } from '@storybook/react'
 import { ChekiAddCounter } from 'components/chekis/ChekiAddCounter'
 import { useState } from 'react'
 
-const componentMeta: ComponentMeta<typeof ChekiAddCounter> = {
+const componentMeta: Meta<typeof ChekiAddCounter> = {
   title: 'Chekis/ChekiAddCounter',
   component: ChekiAddCounter,
 }
 
 export default componentMeta
 
-const Template: ComponentStory<typeof ChekiAddCounter> = (args) => {
-  const [countValue, setCountValue] = useState(args.countValue)
-  return (
-    <ChekiAddCounter
-      {...args}
-      countValue={countValue}
-      onChange={setCountValue}
-    />
-  )
-}
+type Story = StoryObj<typeof ChekiAddCounter>
 
-export const Primary = Template.bind({})
-
-Primary.args = {
-  countValue: 1,
-  minValue: 1,
-  maxValue: 1000,
+export const Default: Story = {
+  args: {
+    countValue: 1,
+    minValue: 1,
+    maxValue: 1000,
+  },
+  render: (args) => {
+    const [countValue, setCountValue] = useState(args.countValue)
+    return (
+      <ChekiAddCounter
+        {...args}
+        countValue={countValue}
+        onChange={setCountValue}
+      />
+    )
+  },
 }
