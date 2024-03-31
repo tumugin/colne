@@ -13,7 +13,7 @@ type Story = StoryObj<typeof MonthlyChekiCounts>
 export const Empty: Story = {
   args: {
     chekiCounts: [],
-  }
+  },
 }
 
 export const Default: Story = {

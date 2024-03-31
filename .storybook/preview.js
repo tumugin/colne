@@ -11,7 +11,7 @@ export const parameters = {
   },
   nextjs: {
     appDirectory: true,
-  }
+  },
 }
 
 export const decorators = [
