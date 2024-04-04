@@ -65,12 +65,14 @@ export function GroupRegulationList({
         <Header
           variant="h2"
           actions={
-            <Button
-              href={groupAddRegulationPage(groupId)}
-              onFollow={(e) => onFollowNextLink(router, e)}
-            >
-              レギュレーションを追加
-            </Button>
+            enableEdit && (
+              <Button
+                href={groupAddRegulationPage(groupId)}
+                onFollow={(e) => onFollowNextLink(router, e)}
+              >
+                レギュレーションを追加
+              </Button>
+            )
           }
         >
           レギュレーション
