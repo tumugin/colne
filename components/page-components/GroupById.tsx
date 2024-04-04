@@ -16,8 +16,15 @@ import { useRouter } from 'next/navigation'
 import { useToastTheme } from 'libs/dom/toast-theme-hooks'
 import toast from 'react-hot-toast'
 import { GroupRegulationList } from 'components/groups/GroupRegulationList'
+import { CurrentUser } from 'api-client/user'
 
-export function GroupById({ group }: { group: Group }) {
+export function GroupById({
+  group,
+  currentUser,
+}: {
+  group: Group
+  currentUser: CurrentUser | null
+}) {
   const router = useRouter()
 
   const toastStyles = useToastTheme()
@@ -42,19 +49,30 @@ export function GroupById({ group }: { group: Group }) {
     setDeleteIdolId(idolId)
     setShowDeleteIdolModal(true)
   }, [])
+  const canEdit = useMemo(
+    () =>
+      !!(
+        currentUser?.userId === group.userId &&
+        group.userId &&
+        currentUser?.userId
+      ),
+    [currentUser?.userId, group.userId],
+  )
 
   return (
     <ContentLayout>
       <SpaceBetween size="xxl">
-        <GroupDetailView group={group} />
+        <GroupDetailView group={group} enableEdit={canEdit} />
         <GroupIdolList
           idols={group.idols.filter(nonNullable)}
           onRemoveIdol={onRemoveIdol}
           groupId={group.groupId}
+          enableEdit={canEdit}
         />
         <GroupRegulationList
           regulations={group.regulations}
           groupId={group.groupId}
+          enableEdit={canEdit}
         />
       </SpaceBetween>
       {showDeleteIdolModal && deleteTargetIdol && (

@@ -21,6 +21,7 @@ const StyledBadge = styled(Badge)`
 
 export function IdolDetailsView({
   idol,
+  enableEdit,
 }: {
   idol: {
     name: string
@@ -34,7 +35,7 @@ export function IdolDetailsView({
     groups: { id: string; name: string }[]
     authorId?: string
   }
-  currentUserId?: string
+  enableEdit: boolean
 }) {
   const router = useRouter()
 
@@ -44,15 +45,17 @@ export function IdolDetailsView({
         <Header
           variant="h2"
           actions={
-            <Button
-              href={idolEditPage(idol.id)}
-              variant="primary"
-              onFollow={(e) =>
-                onFollowNextLink(router, e, idolEditPage(idol.id))
-              }
-            >
-              アイドルを編集する
-            </Button>
+            enableEdit && (
+              <Button
+                href={idolEditPage(idol.id)}
+                variant="primary"
+                onFollow={(e) =>
+                  onFollowNextLink(router, e, idolEditPage(idol.id))
+                }
+              >
+                アイドルを編集する
+              </Button>
+            )
           }
         >
           {idol.name}

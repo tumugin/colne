@@ -10,6 +10,7 @@ export function GroupIdolList({
   idols,
   onRemoveIdol,
   groupId,
+  enableEdit,
 }: {
   idols: {
     idolCreatedAt: string
@@ -29,6 +30,7 @@ export function GroupIdolList({
   }[]
   onRemoveIdol: (idolId: string) => void
   groupId: string
+  enableEdit: boolean
 }) {
   const router = useRouter()
 
@@ -44,6 +46,7 @@ export function GroupIdolList({
               iconName="delete-marker"
               variant="icon"
               onClick={() => onRemoveIdol(e.idolId)}
+              disabled={!enableEdit}
             />
           ),
         },
@@ -69,19 +72,21 @@ export function GroupIdolList({
         },
       ]}
       header={
-        <Header
-          variant="h2"
-          actions={
-            <Button
-              href={groupAddIdolPage(groupId)}
-              onFollow={(e) => onFollowNextLink(router, e)}
-            >
-              アイドルを追加
-            </Button>
-          }
-        >
-          アイドル
-        </Header>
+        enableEdit && (
+          <Header
+            variant="h2"
+            actions={
+              <Button
+                href={groupAddIdolPage(groupId)}
+                onFollow={(e) => onFollowNextLink(router, e)}
+              >
+                アイドルを追加
+              </Button>
+            }
+          >
+            アイドル
+          </Header>
+        )
       }
       empty={
         <Box textAlign="center" color="inherit">

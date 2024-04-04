@@ -3,6 +3,7 @@ import { getGroup } from 'api-client/group'
 import { handleColneException } from 'utils/error-aware-page-utils'
 import { GroupById } from 'components/page-components/GroupById'
 import { RevalidatePage } from 'components/next-utils/RevalidatePage'
+import { getCurrentUser } from 'api-client/user'
 
 export const dynamic = 'force-dynamic'
 
@@ -15,11 +16,12 @@ export default async function Page({
 
   try {
     const group = await getGroup({ groupId: params.groupId }, header)
+    const currentUser = await getCurrentUser(header)
 
     return (
       <>
         <RevalidatePage />
-        <GroupById group={group} />
+        <GroupById group={group} currentUser={currentUser} />
       </>
     )
   } catch (e) {

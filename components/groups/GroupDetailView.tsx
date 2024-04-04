@@ -13,6 +13,7 @@ import { GroupStatusBadge } from 'components/groups/GroupStatusBadge'
 
 export function GroupDetailView({
   group,
+  enableEdit,
 }: {
   group: {
     groupName: string
@@ -25,7 +26,7 @@ export function GroupDetailView({
       | 'PUBLIC_NOT_ACTIVE'
     userId?: string | null
   }
-  currentUserId?: string
+  enableEdit: boolean
 }) {
   const router = useRouter()
 
@@ -35,15 +36,17 @@ export function GroupDetailView({
         <Header
           variant="h2"
           actions={
-            <Button
-              href={groupEditPage(group.groupId)}
-              variant="primary"
-              onFollow={(e) =>
-                onFollowNextLink(router, e, groupEditPage(group.groupId))
-              }
-            >
-              グループを編集する
-            </Button>
+            enableEdit && (
+              <Button
+                href={groupEditPage(group.groupId)}
+                variant="primary"
+                onFollow={(e) =>
+                  onFollowNextLink(router, e, groupEditPage(group.groupId))
+                }
+              >
+                グループを編集する
+              </Button>
+            )
           }
         >
           {group.groupName}

@@ -8,6 +8,7 @@ import { RegulationStatusBadge } from 'components/regulations/RegulationStatusBa
 export function GroupRegulationList({
   regulations,
   groupId,
+  enableEdit,
 }: {
   regulations: {
     regulationComment: string
@@ -19,6 +20,7 @@ export function GroupRegulationList({
     regulationUpdatedAt: string
   }[]
   groupId: string
+  enableEdit: boolean
 }) {
   const router = useRouter()
 
@@ -29,14 +31,17 @@ export function GroupRegulationList({
         {
           id: 'regulationName',
           header: 'レギュレーション名',
-          cell: (item) => (
-            <Link
-              href={groupRegulationEditPage(groupId, item.regulationId)}
-              onFollow={(e) => onFollowNextLink(router, e)}
-            >
-              {item.regulationName}
-            </Link>
-          ),
+          cell: (item) =>
+            enableEdit ? (
+              <Link
+                href={groupRegulationEditPage(groupId, item.regulationId)}
+                onFollow={(e) => onFollowNextLink(router, e)}
+              >
+                {item.regulationName}
+              </Link>
+            ) : (
+              item.regulationName
+            ),
         },
         {
           id: 'regulationUnitPrice',
@@ -60,12 +65,14 @@ export function GroupRegulationList({
         <Header
           variant="h2"
           actions={
-            <Button
-              href={groupAddRegulationPage(groupId)}
-              onFollow={(e) => onFollowNextLink(router, e)}
-            >
-              レギュレーションを追加
-            </Button>
+            enableEdit && (
+              <Button
+                href={groupAddRegulationPage(groupId)}
+                onFollow={(e) => onFollowNextLink(router, e)}
+              >
+                レギュレーションを追加
+              </Button>
+            )
           }
         >
           レギュレーション
