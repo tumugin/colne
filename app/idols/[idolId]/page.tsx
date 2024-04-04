@@ -29,14 +29,16 @@ export default async function Page({
 
   try {
     const idol = await getIdol({ idolId: params.idolId }, header)
-    const idolChekis = currentUser && await getIdolChekisWithDateRange(
-      params.idolId,
-      {
-        startDate: start,
-        endDate: end,
-      },
-      header,
-    )
+    const idolChekis =
+      currentUser &&
+      (await getIdolChekisWithDateRange(
+        params.idolId,
+        {
+          startDate: start,
+          endDate: end,
+        },
+        header,
+      ))
 
     return (
       <>

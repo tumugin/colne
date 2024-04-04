@@ -13,7 +13,7 @@ import { GroupStatusBadge } from 'components/groups/GroupStatusBadge'
 
 export function GroupDetailView({
   group,
-  enableEdit
+  enableEdit,
 }: {
   group: {
     groupName: string
