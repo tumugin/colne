@@ -27,7 +27,7 @@ export function IdolById({
   currentUser,
 }: {
   idol: Idol
-  idolChekis: IdolCheki[]
+  idolChekis: IdolCheki[] | null
   range: {
     startISOString: string
     endISOString: string
@@ -53,7 +53,7 @@ export function IdolById({
   const [showDeleteChekiModal, setShowDeleteChekiModal] = useState(false)
   const [deleteChekiId, setDeleteChekiId] = useState<string | null>(null)
   const deleteTargetCheki = useMemo(
-    () => idolChekis.find((v) => v.chekiId == deleteChekiId),
+    () => idolChekis?.find((v) => v.chekiId == deleteChekiId),
     [idolChekis, deleteChekiId],
   )
   const onDeleteCheki = useCallback(async (chekiId: string) => {
@@ -71,6 +71,15 @@ export function IdolById({
       })
     }
   }, [deleteChekiId, router, toastStyles.success])
+  const canEdit = useMemo(
+    () =>
+      !!(
+        currentUser?.userId === idol.userId &&
+        idol.userId &&
+        currentUser?.userId
+      ),
+    [currentUser?.userId, idol.userId],
+  )
 
   return (
     <ContentLayout>
@@ -86,9 +95,9 @@ export function IdolById({
             })),
             authorId: idol.user?.userId,
           }}
-          currentUserId={currentUser?.userId}
+          enableEdit={canEdit}
         />
-        {currentUser && idolChekis && (
+        {canEdit && idolChekis && (
           <IdolChekiStats
             isLoading={false}
             chekis={idolChekis}
