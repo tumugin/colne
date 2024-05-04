@@ -1165,9 +1165,9 @@
     tslib "^2.3.1"
 
 "@cloudscape-design/components@^3.0.337":
-  version "3.0.624"
-  resolved "https://registry.yarnpkg.com/@cloudscape-design/components/-/components-3.0.624.tgz#5bcbbafa2a667b4a589ba414cf3045c1b5e8ff47"
-  integrity sha512-NDKzTyHo8BH1OeTAzjNvY43v9fiL+wMVasMjhloPEiwr+oZ9y95ezbO+IPu1CDNET3b/kaHe0gu+jWFRYOM06g==
+  version "3.0.625"
+  resolved "https://registry.yarnpkg.com/@cloudscape-design/components/-/components-3.0.625.tgz#9b391c0debfc086626a8238d930c5858e5b21973"
+  integrity sha512-E1hkYiluATecpIZmgdlHo5ZTcst+wF1vGXYoTMuo81w8G/T3+mwECD4bXqkaA59nDcvAg28je1J5T5YH83bbfA==
   dependencies:
     "@cloudscape-design/collection-hooks" "^1.0.0"
     "@cloudscape-design/component-toolkit" "^1.0.0-beta"
@@ -9539,9 +9539,9 @@ react-element-to-jsx-string@^15.0.0:
     react-is "18.1.0"
 
 react-hook-form@^7.45.1:
-  version "7.51.3"
-  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.51.3.tgz#7486dd2d52280b6b28048c099a98d2545931cab3"
-  integrity sha512-cvJ/wbHdhYx8aviSWh28w9ImjmVsb5Y05n1+FW786vEZQJV5STNM0pW6ujS+oiBecb0ARBxJFyAnXj9+GHXACQ==
+  version "7.51.4"
+  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.51.4.tgz#c3a47aeb22b699c45de9fc12b58763606cb52f0c"
+  integrity sha512-V14i8SEkh+V1gs6YtD0hdHYnoL4tp/HX/A45wWQN15CYr9bFRmmRdYStSO5L65lCCZRF+kYiSKhm9alqbcdiVA==
 
 react-hot-toast@^2.4.1:
   version "2.4.1"
