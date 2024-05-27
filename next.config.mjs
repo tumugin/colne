@@ -1,4 +1,4 @@
-const { withSentryConfig } = require('@sentry/nextjs')
+import { withSentryConfig } from '@sentry/nextjs'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -18,8 +18,10 @@ const nextConfig = {
   ],
 }
 
-module.exports = process.env.NEXT_PUBLIC_SENTRY_DSN
+const exportConfig = process.env.NEXT_PUBLIC_SENTRY_DSN
   ? withSentryConfig(nextConfig, {
       silent: true,
     })
   : nextConfig
+
+export default exportConfig
