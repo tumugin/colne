@@ -1,7 +1,11 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import { AppLayout, TopNavigation } from '@cloudscape-design/components'
+import {
+  AppLayout,
+  AppLayoutProps,
+  TopNavigation,
+} from '@cloudscape-design/components'
 import { ColneSideNavigation } from 'components/common/ColneSideNavigation'
 import { useRouter } from 'next/navigation'
 import { loginPath, userProfilePage } from 'utils/urls'
@@ -11,7 +15,6 @@ import { useRecoilState } from 'recoil'
 import { splitPanelStateAtom } from 'recoil-store/globalPage'
 import { CurrentUser } from 'api-client/user'
 import { useConsoleEasterEgg } from 'utils/easteregg-hooks'
-import { AppLayoutProps } from '@cloudscape-design/components/app-layout/interfaces'
 
 export function ColneAppWithLayout({
   children,

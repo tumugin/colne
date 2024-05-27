@@ -1,8 +1,9 @@
 import { GraphQLClient } from 'graphql-request'
 import { getSdk } from './generated/client'
-import { RequestConfig } from 'graphql-request/src/types'
 
-export function createGraphQLSDK(requestInit: RequestConfig = {}) {
+export function createGraphQLSDK(
+  requestInit: ConstructorParameters<typeof GraphQLClient>[1] = {},
+) {
   const apiBasePath =
     typeof window === 'undefined'
       ? process.env.SSR_API_BASE_PATH
