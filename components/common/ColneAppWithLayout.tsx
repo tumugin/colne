@@ -1,7 +1,11 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import { AppLayout, AppLayoutProps, TopNavigation } from '@cloudscape-design/components'
+import {
+  AppLayout,
+  AppLayoutProps,
+  TopNavigation,
+} from '@cloudscape-design/components'
 import { ColneSideNavigation } from 'components/common/ColneSideNavigation'
 import { useRouter } from 'next/navigation'
 import { loginPath, userProfilePage } from 'utils/urls'
