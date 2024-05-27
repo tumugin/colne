@@ -1,5 +1,4 @@
-import { GraphQLClient } from 'graphql-request'
-import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
+import { GraphQLClient, RequestOptions } from 'graphql-request'
 import gql from 'graphql-tag'
 export type Maybe<T> = T | null
 export type InputMaybe<T> = Maybe<T>
@@ -21,6 +20,7 @@ export type Incremental<T> =
   | {
       [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never
     }
+type GraphQLClientRequestHeaders = RequestOptions['requestHeaders']
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: { input: string; output: string }
@@ -1711,12 +1711,14 @@ export type SdkFunctionWrapper = <T>(
   action: (requestHeaders?: Record<string, string>) => Promise<T>,
   operationName: string,
   operationType?: string,
+  variables?: any,
 ) => Promise<T>
 
 const defaultWrapper: SdkFunctionWrapper = (
   action,
   _operationName,
   _operationType,
+  _variables,
 ) => action()
 
 export function getSdk(
@@ -1736,6 +1738,7 @@ export function getSdk(
           }),
         'AddCheki',
         'mutation',
+        variables,
       )
     },
     AddGroup(
@@ -1750,6 +1753,7 @@ export function getSdk(
           }),
         'AddGroup',
         'mutation',
+        variables,
       )
     },
     AddIdol(
@@ -1764,6 +1768,7 @@ export function getSdk(
           }),
         'AddIdol',
         'mutation',
+        variables,
       )
     },
     AddIdolToGroup(
@@ -1779,6 +1784,7 @@ export function getSdk(
           ),
         'AddIdolToGroup',
         'mutation',
+        variables,
       )
     },
     AddRegulationToGroup(
@@ -1794,6 +1800,7 @@ export function getSdk(
           ),
         'AddRegulationToGroup',
         'mutation',
+        variables,
       )
     },
     DeleteCheki(
@@ -1808,6 +1815,7 @@ export function getSdk(
           }),
         'DeleteCheki',
         'mutation',
+        variables,
       )
     },
     DeleteGroup(
@@ -1822,6 +1830,7 @@ export function getSdk(
           }),
         'DeleteGroup',
         'mutation',
+        variables,
       )
     },
     DeleteIdol(
@@ -1836,6 +1845,7 @@ export function getSdk(
           }),
         'DeleteIdol',
         'mutation',
+        variables,
       )
     },
     DeleteRegulation(
@@ -1851,6 +1861,7 @@ export function getSdk(
           ),
         'DeleteRegulation',
         'mutation',
+        variables,
       )
     },
     EditGroup(
@@ -1865,6 +1876,7 @@ export function getSdk(
           }),
         'EditGroup',
         'mutation',
+        variables,
       )
     },
     EditIdol(
@@ -1879,6 +1891,7 @@ export function getSdk(
           }),
         'EditIdol',
         'mutation',
+        variables,
       )
     },
     GetChekiMonthIdolCount(
@@ -1894,6 +1907,7 @@ export function getSdk(
           ),
         'GetChekiMonthIdolCount',
         'query',
+        variables,
       )
     },
     GetCSRFToken(
@@ -1908,6 +1922,7 @@ export function getSdk(
           }),
         'GetCSRFToken',
         'query',
+        variables,
       )
     },
     GetCurrentUser(
@@ -1923,6 +1938,7 @@ export function getSdk(
           ),
         'GetCurrentUser',
         'query',
+        variables,
       )
     },
     GetGroup(
@@ -1937,6 +1953,7 @@ export function getSdk(
           }),
         'GetGroup',
         'query',
+        variables,
       )
     },
     GetIdol(
@@ -1951,6 +1968,7 @@ export function getSdk(
           }),
         'GetIdol',
         'query',
+        variables,
       )
     },
     GetIdolChekisByDateRangeAndIdolId(
@@ -1966,6 +1984,7 @@ export function getSdk(
           ),
         'GetIdolChekisByDateRangeAndIdolId',
         'query',
+        variables,
       )
     },
     GetIdolDetailsForChekiAdd(
@@ -1981,6 +2000,7 @@ export function getSdk(
           ),
         'GetIdolDetailsForChekiAdd',
         'query',
+        variables,
       )
     },
     GetRegulation(
@@ -1995,6 +2015,7 @@ export function getSdk(
           }),
         'GetRegulation',
         'query',
+        variables,
       )
     },
     GetUserChekiIdolCount(
@@ -2010,6 +2031,7 @@ export function getSdk(
           ),
         'GetUserChekiIdolCount',
         'query',
+        variables,
       )
     },
     GetUserCreatedGroupList(
@@ -2025,6 +2047,7 @@ export function getSdk(
           ),
         'GetUserCreatedGroupList',
         'query',
+        variables,
       )
     },
     GetUserCreatedGroupListWithIdols(
@@ -2040,6 +2063,7 @@ export function getSdk(
           ),
         'GetUserCreatedGroupListWithIdols',
         'query',
+        variables,
       )
     },
     GetUserCreatedIdolList(
@@ -2055,6 +2079,7 @@ export function getSdk(
           ),
         'GetUserCreatedIdolList',
         'query',
+        variables,
       )
     },
     RemoveIdolFromGroup(
@@ -2070,6 +2095,7 @@ export function getSdk(
           ),
         'RemoveIdolFromGroup',
         'mutation',
+        variables,
       )
     },
     ResetAuth0UserPassword(
@@ -2085,6 +2111,7 @@ export function getSdk(
           ),
         'ResetAuth0UserPassword',
         'mutation',
+        variables,
       )
     },
     UpdateRegulation(
@@ -2100,6 +2127,7 @@ export function getSdk(
           ),
         'UpdateRegulation',
         'mutation',
+        variables,
       )
     },
     UpdateUserName(
@@ -2115,6 +2143,7 @@ export function getSdk(
           ),
         'UpdateUserName',
         'mutation',
+        variables,
       )
     },
   }
