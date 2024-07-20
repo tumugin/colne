@@ -46,8 +46,8 @@ export function IdolChekiStatsView({
                 }
                 checked={
                   showHiddenStats[item.name] !== undefined
-                    ? showHiddenStats[item.name] ?? false
-                    : item.defaultHidden ?? false
+                    ? (showHiddenStats[item.name] ?? false)
+                    : (item.defaultHidden ?? false)
                 }
               />
             </SpaceBetweenForHeader>
@@ -60,8 +60,8 @@ export function IdolChekiStatsView({
                   <Box fontSize={item.smallText ? 'heading-xl' : 'display-l'}>
                     {(
                       showHiddenStats[item.name] !== undefined
-                        ? showHiddenStats[item.name] ?? false
-                        : item.defaultHidden ?? false
+                        ? (showHiddenStats[item.name] ?? false)
+                        : (item.defaultHidden ?? false)
                     )
                       ? '*******'
                       : item.value}
