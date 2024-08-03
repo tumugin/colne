@@ -1216,9 +1216,9 @@
     tslib "^2.3.1"
 
 "@cloudscape-design/components@^3.0.337":
-  version "3.0.701"
-  resolved "https://registry.yarnpkg.com/@cloudscape-design/components/-/components-3.0.701.tgz#5ea6b91a1a81055f35decb0ce79439ea35a12339"
-  integrity sha512-IRhQ4a80+oL0Ykb5IlqY2JhtNcfA5OiTsGLVVw+Ox5UfBiJLg5A4V7G7DTLsge14YIyh4VxrOOVs3+SU0qfTew==
+  version "3.0.704"
+  resolved "https://registry.yarnpkg.com/@cloudscape-design/components/-/components-3.0.704.tgz#33509420f209f6c0925be3023953e46da6a41b54"
+  integrity sha512-PR7Xg5nTTDcXSu33uhp+AnTe+8fOd0q8aNir+V7yQcIVeRCcBWphBUYmIN/WY20wnAwSpyZSUn80TsUI5jSfcg==
   dependencies:
     "@cloudscape-design/collection-hooks" "^1.0.0"
     "@cloudscape-design/component-toolkit" "^1.0.0-beta"
@@ -1241,9 +1241,9 @@
     weekstart "^1.1.0"
 
 "@cloudscape-design/design-tokens@^3.0.20":
-  version "3.0.42"
-  resolved "https://registry.yarnpkg.com/@cloudscape-design/design-tokens/-/design-tokens-3.0.42.tgz#2a5488ed8d1be99edc82525fcaaef032940293ff"
-  integrity sha512-Qwsu2PDJ07lW24upFETLEuQ5LPgTPq0ERCWqCGRqh+ZKZ4dxS6Hb1zlQ3G0V0Hn27Rbd0B+zGxp0FSu2YR7EHg==
+  version "3.0.43"
+  resolved "https://registry.yarnpkg.com/@cloudscape-design/design-tokens/-/design-tokens-3.0.43.tgz#dfdfa74aeaf4d2c314efb65b1bf55b515439270f"
+  integrity sha512-TsfO58A3Q9Ad8Tc8Cbh6UbH4uJXiPpa1/HlTh78ArPcqhfjtfqJ/YIorNRwVUt56hh44C+QoMYgTNqTS7wa2Gg==
 
 "@cloudscape-design/global-styles@^1.0.11":
   version "1.0.31"
@@ -1251,9 +1251,9 @@
   integrity sha512-8OrgNAi2VC2G+DaEjtMScWIeW1KD1YNHuqjXT0mYaU/Yl6zbCVNRObsqDcbcEMwUE/XBZ/LdX+/sabn/IPl2Eg==
 
 "@cloudscape-design/test-utils-core@^1.0.0":
-  version "1.0.37"
-  resolved "https://registry.yarnpkg.com/@cloudscape-design/test-utils-core/-/test-utils-core-1.0.37.tgz#d8535d49547921d61aafe171487756ee29fefee2"
-  integrity sha512-fdcW9zfSU0E0xzKkZscW9VyubRyMyf7HpeJMNYgfW3IQpMjq9WLmUd9kmXz3tB1qMWb6zHdpyKnF7jlQCG4mnw==
+  version "1.0.38"
+  resolved "https://registry.yarnpkg.com/@cloudscape-design/test-utils-core/-/test-utils-core-1.0.38.tgz#c3fc5273de75626845310f573d737b1c8f010342"
+  integrity sha512-d4HhQEt1/+VuquECBZ7CWgX16SuypK4QbfXhqI/qZ2yUdb1Rv/LIQIB75ZFvb6HAjYdsei5+mnBzFufW2mT8yw==
   dependencies:
     css-selector-tokenizer "^0.8.0"
     css.escape "^1.5.1"
@@ -3655,10 +3655,10 @@
   dependencies:
     undici-types "~6.11.1"
 
-"@types/node@20.14.13":
-  version "20.14.13"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.14.13.tgz#bf4fe8959ae1c43bc284de78bd6c01730933736b"
-  integrity sha512-+bHoGiZb8UiQ0+WEtmph2IWQCjIqg8MDZMAV+ppRRhUZnquF5mQkP/9vpSwJClEiSM/C7fZZExPzfU0vJTyp8w==
+"@types/node@20.14.14":
+  version "20.14.14"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.14.14.tgz#6b655d4a88623b0edb98300bb9dd2107225f885e"
+  integrity sha512-d64f00982fS9YoOgJkAMolK7MN8Iq3TDdVjchbYHdEmjth/DHowx82GnoA+tVUAN+7vxfYUgAzi+JXbKNd2SDQ==
   dependencies:
     undici-types "~5.26.4"
 
@@ -9459,9 +9459,9 @@ react-element-to-jsx-string@^15.0.0:
     react-is "18.1.0"
 
 react-hook-form@^7.45.1:
-  version "7.52.1"
-  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.52.1.tgz#ec2c96437b977f8b89ae2d541a70736c66284852"
-  integrity sha512-uNKIhaoICJ5KQALYZ4TOaOLElyM+xipord+Ha3crEFhTntdLvWZqVY49Wqd/0GiVCA/f9NjemLeiNPjG7Hpurg==
+  version "7.52.2"
+  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.52.2.tgz#ff40f4776250b86ddfcde6be68d34aa82b1c60fe"
+  integrity sha512-pqfPEbERnxxiNMPd0bzmt1tuaPcVccywFDpyk2uV5xCIBphHV5T8SVnX9/o3kplPE1zzKt77+YIoq+EMwJp56A==
 
 react-hot-toast@^2.4.1:
   version "2.4.1"
