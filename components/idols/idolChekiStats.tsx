@@ -16,6 +16,7 @@ import { AnalyticsIdolChekiCountByMonth } from 'components/analytics/AnalyticsId
 
 export function IdolChekiStats({
   isLoading,
+  chekiCountByMonthIsLoading,
   chekiCountByMonth,
   chekis,
   dateRange,
@@ -23,6 +24,7 @@ export function IdolChekiStats({
   onDeleteCheki,
 }: {
   isLoading: boolean
+  chekiCountByMonthIsLoading: boolean
   chekiCountByMonth: ChekiMonthCountByIdolItem[]
   chekis: IdolCheki[]
   dateRange: ColneDateRange
@@ -109,7 +111,7 @@ export function IdolChekiStats({
       <Box padding={{ bottom: 'xl' }}>
         <Container header={<Header variant="h2">月別チェキ撮影統計</Header>}>
           <AnalyticsIdolChekiCountByMonth
-            isLoading={isLoading}
+            isLoading={chekiCountByMonthIsLoading}
             stats={chekiCountByMonth}
           />
         </Container>

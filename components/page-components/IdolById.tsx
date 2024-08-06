@@ -120,7 +120,8 @@ export function IdolById({
         />
         {canEdit && idolChekis && (
           <IdolChekiStats
-            isLoading={isFetching}
+            isLoading={false}
+            chekiCountByMonthIsLoading={isFetching}
             chekis={idolChekis}
             dateRange={{
               startISOString: range.startISOString,
