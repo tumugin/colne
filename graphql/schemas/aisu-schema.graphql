@@ -15,6 +15,9 @@ directive @include(
   if: Boolean!
 ) on FIELD | FRAGMENT_SPREAD | INLINE_FRAGMENT
 
+"Indicates an Input Object is a OneOf Input Object."
+directive @oneOf on INPUT_OBJECT
+
 "Directs the executor to skip this field or fragment when the `if` argument is true."
 directive @skip(
   "Skipped when true."
@@ -88,6 +91,11 @@ type ChekiIdolCountSerializer {
   idol: IdolSerializer
   idolId: ID!
   totalPrice: Int!
+}
+
+type ChekiMonthCountSerializer {
+  count: Int!
+  month: ChekiShotAtMonthSerializer!
 }
 
 type ChekiMonthIdolCountSerializer {
@@ -266,6 +274,9 @@ type RegulationSerializer {
 }
 
 type UserChekis {
+  getChekiMonthCountByIdol(
+    params: GetChekiMonthCountByIdolParamsInput!
+  ): [ChekiMonthCountSerializer!]!
   getChekiMonthIdolCount(
     params: GetChekiMonthIdolCountParamsInput!
   ): [ChekiMonthIdolCountSerializer!]!
@@ -354,6 +365,11 @@ input AddOrUpdateRegulationParamsInput {
 input AdminUserLoginParamsInput {
   email: String!
   password: String!
+}
+
+input GetChekiMonthCountByIdolParamsInput {
+  baseTimezone: String!
+  idolId: ID!
 }
 
 input GetChekiMonthIdolCountParamsInput {

@@ -152,6 +152,12 @@ export type ChekiIdolCountSerializer = {
   totalPrice: Scalars['Int']['output']
 }
 
+export type ChekiMonthCountSerializer = {
+  __typename?: 'ChekiMonthCountSerializer'
+  count: Scalars['Int']['output']
+  month: ChekiShotAtMonthSerializer
+}
+
 export type ChekiMonthIdolCountSerializer = {
   __typename?: 'ChekiMonthIdolCountSerializer'
   chekiCount: Scalars['Int']['output']
@@ -250,6 +256,11 @@ export type FavoriteGroupWithGroupSerializer = {
   groupId: Scalars['ID']['output']
   user?: Maybe<LimitedUserSerializer>
   userId: Scalars['ID']['output']
+}
+
+export type GetChekiMonthCountByIdolParamsInput = {
+  baseTimezone: Scalars['String']['input']
+  idolId: Scalars['ID']['input']
 }
 
 export type GetChekiMonthIdolCountParamsInput = {
@@ -496,9 +507,14 @@ export type UpdateUserNameParamsInput = {
 
 export type UserChekis = {
   __typename?: 'UserChekis'
+  getChekiMonthCountByIdol: Array<ChekiMonthCountSerializer>
   getChekiMonthIdolCount: Array<ChekiMonthIdolCountSerializer>
   getUserChekiIdolCount: Array<ChekiIdolCountSerializer>
   getUserChekis: Array<ChekiSerializer>
+}
+
+export type UserChekisGetChekiMonthCountByIdolArgs = {
+  params: GetChekiMonthCountByIdolParamsInput
 }
 
 export type UserChekisGetChekiMonthIdolCountArgs = {
@@ -801,6 +817,27 @@ export type EditIdolMutation = {
         userName: string
       } | null
     }
+  }
+}
+
+export type GetChekiMonthCountByIdolQueryVariables = Exact<{
+  params: GetChekiMonthCountByIdolParamsInput
+}>
+
+export type GetChekiMonthCountByIdolQuery = {
+  __typename?: 'Query'
+  currentUserChekis: {
+    __typename?: 'UserChekis'
+    getChekiMonthCountByIdol: Array<{
+      __typename?: 'ChekiMonthCountSerializer'
+      count: number
+      month: {
+        __typename?: 'ChekiShotAtMonthSerializer'
+        baseTimezone: string
+        month: number
+        year: number
+      }
+    }>
   }
 }
 
@@ -1384,6 +1421,22 @@ export const EditIdolDocument = gql`
     }
   }
 `
+export const GetChekiMonthCountByIdolDocument = gql`
+  query getChekiMonthCountByIdol(
+    $params: GetChekiMonthCountByIdolParamsInput!
+  ) {
+    currentUserChekis {
+      getChekiMonthCountByIdol(params: $params) {
+        count
+        month {
+          baseTimezone
+          month
+          year
+        }
+      }
+    }
+  }
+`
 export const GetChekiMonthIdolCountDocument = gql`
   query GetChekiMonthIdolCount($baseTimezone: String!) {
     currentUserChekis {
@@ -1891,6 +1944,22 @@ export function getSdk(
           }),
         'EditIdol',
         'mutation',
+        variables,
+      )
+    },
+    getChekiMonthCountByIdol(
+      variables: GetChekiMonthCountByIdolQueryVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+    ): Promise<GetChekiMonthCountByIdolQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<GetChekiMonthCountByIdolQuery>(
+            GetChekiMonthCountByIdolDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'getChekiMonthCountByIdol',
+        'query',
         variables,
       )
     },
