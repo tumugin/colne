@@ -11,16 +11,21 @@ import {
 import dayjs from 'dayjs'
 import { nonNullable } from 'utils/array'
 import { IdolChekiListView } from 'components/idols/idolChekiListView'
-import { IdolCheki } from 'api-client/cheki'
+import { ChekiMonthCountByIdolItem, IdolCheki } from 'api-client/cheki'
+import { AnalyticsIdolChekiCountByMonth } from 'components/analytics/AnalyticsIdolChekiCountByMonth'
 
 export function IdolChekiStats({
   isLoading,
+  chekiCountByMonthIsLoading,
+  chekiCountByMonth,
   chekis,
   dateRange,
   onDateRangeChange,
   onDeleteCheki,
 }: {
   isLoading: boolean
+  chekiCountByMonthIsLoading: boolean
+  chekiCountByMonth: ChekiMonthCountByIdolItem[]
   chekis: IdolCheki[]
   dateRange: ColneDateRange
   onDateRangeChange: (dateRange: ColneDateRange | null) => void
@@ -103,6 +108,14 @@ export function IdolChekiStats({
 
   return (
     <>
+      <Box padding={{ bottom: 'xl' }}>
+        <Container header={<Header variant="h2">月別チェキ撮影統計</Header>}>
+          <AnalyticsIdolChekiCountByMonth
+            isLoading={chekiCountByMonthIsLoading}
+            stats={chekiCountByMonth}
+          />
+        </Container>
+      </Box>
       <Box padding={{ bottom: 'l' }}>
         <Container
           header={

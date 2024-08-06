@@ -121,3 +121,23 @@ export async function getChekiMonthIdolCount(
   })
   return result.currentUserChekis.getChekiMonthIdolCount
 }
+
+export interface ChekiMonthCountByIdolItem {
+  count: number
+  month: {
+    baseTimezone: string
+    month: number
+    year: number
+  }
+}
+
+export async function getChekiMonthCountByIdol(
+  idolId: string,
+  baseTimezone: string,
+): Promise<ChekiMonthCountByIdolItem[]> {
+  const sdk = createGraphQLSDK({ cache: 'no-store' })
+  const result = await sdk.getChekiMonthCountByIdol({
+    params: { idolId, baseTimezone },
+  })
+  return result.currentUserChekis.getChekiMonthCountByIdol
+}
