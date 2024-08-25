@@ -7,7 +7,7 @@ import { applicationName } from 'libs/app-const'
 export const dynamic = 'force-dynamic'
 
 export const metadata = {
-  title: `チェキ解析 - ${applicationName}`,
+  title: `チェキ統計 - ${applicationName}`,
 }
 
 export default async function Page({
