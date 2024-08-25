@@ -3,6 +3,7 @@ import { getUserCreatedIdols } from 'api-client/idol'
 import { RevalidatePage } from 'components/next-utils/RevalidatePage'
 import { GroupAddIdol } from 'components/page-components/GroupAddIdol'
 import { getGroup } from 'api-client/group'
+import { applicationName } from 'libs/app-const'
 
 export const dynamic = 'force-dynamic'
 
@@ -27,4 +28,17 @@ export default async function Page({
       <GroupAddIdol userCreatedIdol={userCreatedIdols} group={group} />
     </>
   )
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { groupId: string }
+}) {
+  const header = getAuthCookieNextHeaders()
+  const group = await getGroup({ groupId: params.groupId }, header)
+
+  return {
+    title: `アイドルを追加 - ${group.groupName} - ${applicationName}`,
+  }
 }
