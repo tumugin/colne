@@ -2,8 +2,13 @@ import { getAuthCookieNextHeaders } from 'libs/next/nextHeadersHack'
 import { getUserCreatedIdols } from 'api-client/idol'
 import { IdolList } from 'components/page-components/IdolList'
 import { RevalidatePage } from 'components/next-utils/RevalidatePage'
+import { applicationName } from 'libs/app-const'
 
 export const dynamic = 'force-dynamic'
+
+export const metadata = {
+  title: `アイドル一覧 - ${applicationName}`,
+}
 
 export default async function Page({
   searchParams,

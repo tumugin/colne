@@ -6,6 +6,7 @@ import { getIdolChekisWithDateRange } from 'api-client/cheki'
 import dayjs from 'dayjs'
 import { getCurrentUser } from 'api-client/user'
 import { RevalidatePage } from 'components/next-utils/RevalidatePage'
+import { applicationName } from 'libs/app-const'
 
 export const dynamic = 'force-dynamic'
 
@@ -56,5 +57,18 @@ export default async function Page({
     )
   } catch (e) {
     handleColneException(e)
+  }
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { idolId: string }
+}) {
+  const header = getAuthCookieNextHeaders()
+  const idol = await getIdol({ idolId: params.idolId }, header)
+
+  return {
+    title: `${idol.idolName} - ${applicationName}`,
   }
 }

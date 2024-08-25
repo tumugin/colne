@@ -2,8 +2,13 @@ import { ChekisAnalytics } from 'components/page-components/ChekisAnalytics'
 import { getAuthCookieNextHeaders } from 'libs/next/nextHeadersHack'
 import { getCurrentUserChekiIdolCount } from 'api-client/cheki'
 import dayjs from 'dayjs'
+import { applicationName } from 'libs/app-const'
 
 export const dynamic = 'force-dynamic'
+
+export const metadata = {
+  title: `チェキ解析 - ${applicationName}`,
+}
 
 export default async function Page({
   searchParams,

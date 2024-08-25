@@ -10,11 +10,12 @@ import { GlobalThemeHandler } from 'components/common/GlobalThemeHandler'
 import React from 'react'
 import { ColneRootStyled } from 'components/styled/ColneRootStyled'
 import NextTopLoader from 'nextjs-toploader'
+import { applicationName } from 'libs/app-const'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'チェキを管理するやつ(仮)',
+  title: applicationName,
 }
 
 export default async function RootLayout({

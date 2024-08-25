@@ -4,6 +4,7 @@ import { handleColneException } from 'utils/error-aware-page-utils'
 import { GroupById } from 'components/page-components/GroupById'
 import { RevalidatePage } from 'components/next-utils/RevalidatePage'
 import { getCurrentUser } from 'api-client/user'
+import { applicationName } from 'libs/app-const'
 
 export const dynamic = 'force-dynamic'
 
@@ -26,5 +27,18 @@ export default async function Page({
     )
   } catch (e) {
     handleColneException(e)
+  }
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { groupId: string }
+}) {
+  const header = getAuthCookieNextHeaders()
+  const group = await getGroup({ groupId: params.groupId }, header)
+
+  return {
+    title: `${group.groupName} - ${applicationName}`,
   }
 }
