@@ -27,7 +27,7 @@
     "graphql": "^16.7.1",
     "graphql-request": "^7.0.0",
     "next": "14.2.6",
-    "nextjs-toploader": "^1.4.2",
+    "nextjs-toploader": "^2.0.0",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-hook-form": "^7.45.1",
