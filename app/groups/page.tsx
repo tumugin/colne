@@ -1,10 +1,7 @@
 import { getAuthCookieNextHeaders } from 'libs/next/nextHeadersHack'
 import { getUserCreatedGroupList } from 'api-client/group'
-import { RevalidatePage } from 'components/next-utils/RevalidatePage'
 import { GroupList } from 'components/page-components/GroupList'
 import { applicationName } from 'libs/app-const'
-
-export const dynamic = 'force-dynamic'
 
 export const metadata = {
   title: `グループ一覧 - ${applicationName}`,
@@ -23,7 +20,6 @@ export default async function Page({
 
   return (
     <>
-      <RevalidatePage />
       <GroupList userCreatedGroup={userCreatedGroups} />
     </>
   )

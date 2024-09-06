@@ -2,7 +2,6 @@ import { getAuthCookieNextHeaders } from 'libs/next/nextHeadersHack'
 import { getCurrentUser } from 'api-client/user'
 import React from 'react'
 import { Home } from 'components/page-components/Home'
-import { RevalidatePage } from 'components/next-utils/RevalidatePage'
 import { HomeNoLogin } from 'components/page-components/HomeNoLogin'
 
 export const dynamic = 'force-dynamic'
@@ -13,7 +12,6 @@ export default async function PageHome() {
 
   return (
     <>
-      <RevalidatePage />
       {currentUser ? <Home /> : <HomeNoLogin />}
     </>
   )

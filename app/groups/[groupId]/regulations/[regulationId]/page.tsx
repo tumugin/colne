@@ -1,4 +1,3 @@
-import { RevalidatePage } from 'components/next-utils/RevalidatePage'
 import { GroupRegulationEdit } from 'components/page-components/GroupRegulationEdit'
 import { getAuthCookieNextHeaders } from 'libs/next/nextHeadersHack'
 import { getGroup, getRegulation } from 'api-client/group'
@@ -23,7 +22,6 @@ export default async function Page({
 
   return (
     <>
-      <RevalidatePage />
       <GroupRegulationEdit group={group} regulation={regulation} />
     </>
   )

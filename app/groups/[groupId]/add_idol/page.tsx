@@ -1,11 +1,8 @@
 import { getAuthCookieNextHeaders } from 'libs/next/nextHeadersHack'
 import { getUserCreatedIdols } from 'api-client/idol'
-import { RevalidatePage } from 'components/next-utils/RevalidatePage'
 import { GroupAddIdol } from 'components/page-components/GroupAddIdol'
 import { getGroup } from 'api-client/group'
 import { applicationName } from 'libs/app-const'
-
-export const dynamic = 'force-dynamic'
 
 export default async function Page({
   searchParams,
@@ -24,7 +21,6 @@ export default async function Page({
 
   return (
     <>
-      <RevalidatePage />
       <GroupAddIdol userCreatedIdol={userCreatedIdols} group={group} />
     </>
   )
