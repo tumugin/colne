@@ -4,8 +4,6 @@ import { getCurrentUserChekiIdolCount } from 'api-client/cheki'
 import dayjs from 'dayjs'
 import { applicationName } from 'libs/app-const'
 
-export const dynamic = 'force-dynamic'
-
 export const metadata = {
   title: `チェキ統計 - ${applicationName}`,
 }

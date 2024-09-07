@@ -4,8 +4,6 @@ import { UserProfile } from 'components/page-components/UserProfile'
 import { notFound } from 'next/navigation'
 import { applicationName } from 'libs/app-const'
 
-export const dynamic = 'force-dynamic'
-
 export const metadata = {
   title: `プロフィール - ${applicationName}`,
 }

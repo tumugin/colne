@@ -2,10 +2,7 @@ import { getAuthCookieNextHeaders } from 'libs/next/nextHeadersHack'
 import { getIdol } from 'api-client/idol'
 import { handleColneException } from 'utils/error-aware-page-utils'
 import { IdolEdit } from 'components/page-components/IdolEdit'
-import { RevalidatePage } from 'components/next-utils/RevalidatePage'
 import { applicationName } from 'libs/app-const'
-
-export const dynamic = 'force-dynamic'
 
 export default async function IdolEditPage({
   params,
@@ -19,7 +16,6 @@ export default async function IdolEditPage({
 
     return (
       <>
-        <RevalidatePage />
         <IdolEdit idol={idol} />
       </>
     )

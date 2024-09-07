@@ -2,10 +2,7 @@ import { getAuthCookieNextHeaders } from 'libs/next/nextHeadersHack'
 import { getGroup } from 'api-client/group'
 import { GroupEdit } from 'components/page-components/GroupEdit'
 import { handleColneException } from 'utils/error-aware-page-utils'
-import { RevalidatePage } from 'components/next-utils/RevalidatePage'
 import { applicationName } from 'libs/app-const'
-
-export const dynamic = 'force-dynamic'
 
 export default async function Page({
   params,
@@ -18,7 +15,6 @@ export default async function Page({
 
     return (
       <>
-        <RevalidatePage />
         <GroupEdit group={group} />
       </>
     )
