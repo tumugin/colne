@@ -13,6 +13,7 @@ import { nonNullable } from 'utils/array'
 import { IdolChekiListView } from 'components/idols/idolChekiListView'
 import { ChekiMonthCountByIdolItem, IdolCheki } from 'api-client/cheki'
 import { AnalyticsIdolChekiCountByMonth } from 'components/analytics/AnalyticsIdolChekiCountByMonth'
+import { OnlyClient } from 'components/next-utils/OnlyClient'
 
 export function IdolChekiStats({
   isLoading,
@@ -110,10 +111,12 @@ export function IdolChekiStats({
     <>
       <Box padding={{ bottom: 'xl' }}>
         <Container header={<Header variant="h2">月別チェキ撮影統計</Header>}>
-          <AnalyticsIdolChekiCountByMonth
-            isLoading={chekiCountByMonthIsLoading}
-            stats={chekiCountByMonth}
-          />
+          <OnlyClient>
+            <AnalyticsIdolChekiCountByMonth
+              isLoading={chekiCountByMonthIsLoading}
+              stats={chekiCountByMonth}
+            />
+          </OnlyClient>
         </Container>
       </Box>
       <Box padding={{ bottom: 'l' }}>
