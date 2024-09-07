@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import {
   AppLayout,
   AppLayoutProps,
@@ -35,13 +35,6 @@ export function ColneAppWithLayout({
     useState<AppLayoutProps.SplitPanelPreferences>({
       position: 'side',
     })
-
-  // FIXME: SSRするとナビゲーション周りでhydrationが壊れるのでworkaround
-  // cloudscape-design〜〜〜〜なんとかしてくれ〜〜〜〜〜
-  const [isNavigationInitialized, setIsNavigationInitialized] = useState(false)
-  useEffect(() => {
-    setIsNavigationInitialized(true)
-  }, [])
 
   useConsoleEasterEgg()
 
@@ -100,14 +93,8 @@ export function ColneAppWithLayout({
       />
       <AppLayout
         content={children}
-        navigationHide={!isNavigationInitialized}
         navigation={
-          isNavigationInitialized && (
-            <ColneSideNavigation
-              isLoggedIn={isLoggedIn}
-              csrfToken={csrfToken}
-            />
-          )
+          <ColneSideNavigation isLoggedIn={isLoggedIn} csrfToken={csrfToken} />
         }
         splitPanelOpen={splitPanelState.splitPanelOpen}
         onSplitPanelToggle={(e) =>
