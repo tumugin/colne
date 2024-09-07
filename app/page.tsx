@@ -10,9 +10,5 @@ export default async function PageHome() {
   const header = getAuthCookieNextHeaders()
   const currentUser = await getCurrentUser(header)
 
-  return (
-    <>
-      {currentUser ? <Home /> : <HomeNoLogin />}
-    </>
-  )
+  return <>{currentUser ? <Home /> : <HomeNoLogin />}</>
 }
