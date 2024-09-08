@@ -8,6 +8,7 @@ import { ColneRootStyled } from 'components/styled/ColneRootStyled'
 import NextTopLoader from 'nextjs-toploader'
 import { applicationName } from 'libs/app-const'
 import { RevalidateServerComponentsHack } from 'components/next-utils/RevalidateServerComponents'
+import { ServerColneAppWithLayout } from 'components/app/ServerColneAppWithLayout'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -29,7 +30,7 @@ export default async function RootLayout({
           <ColneRootStyled>
             <NextRecoilRoot>
               <GlobalThemeHandler />
-              {children}
+              <ServerColneAppWithLayout>{children}</ServerColneAppWithLayout>
             </NextRecoilRoot>
           </ColneRootStyled>
         </StyledComponentsRegistry>

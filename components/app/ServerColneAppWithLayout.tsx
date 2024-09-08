@@ -1,10 +1,9 @@
-import React from 'react'
-import { ColneAppWithLayout } from 'components/common/ColneAppWithLayout'
-import { getAuthCookieNextHeaders } from 'libs/next/nextHeadersHack'
-import { getCurrentUser } from 'api-client/user'
 import { getCSRFToken } from 'api-client/common'
+import { getCurrentUser } from 'api-client/user'
+import { getAuthCookieNextHeaders } from 'libs/next/nextHeadersHack'
+import { ColneAppWithLayout } from 'components/common/ColneAppWithLayout'
 
-export default async function Template({
+export async function ServerColneAppWithLayout({
   children,
 }: {
   children: React.ReactNode
