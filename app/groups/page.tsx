@@ -10,11 +10,11 @@ export const metadata = {
 export default async function Page({
   searchParams,
 }: {
-  searchParams: { page: number | undefined }
+  searchParams: { page: string | undefined }
 }) {
   const header = getAuthCookieNextHeaders()
   const userCreatedGroups = await getUserCreatedGroupList(
-    { page: searchParams.page ?? 1 },
+    { page: parseInt(searchParams.page ?? '1') },
     header,
   )
 
