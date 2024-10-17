@@ -1448,8 +1448,8 @@ __metadata:
   linkType: hard
 
 "@cloudscape-design/components@npm:^3.0.337":
-  version: 3.0.783
-  resolution: "@cloudscape-design/components@npm:3.0.783"
+  version: 3.0.792
+  resolution: "@cloudscape-design/components@npm:3.0.792"
   dependencies:
     "@cloudscape-design/collection-hooks": "npm:^1.0.0"
     "@cloudscape-design/component-toolkit": "npm:^1.0.0-beta"
@@ -1473,14 +1473,14 @@ __metadata:
   peerDependencies:
     react: ^16.8 || ^17 || ^18
     react-dom: ^16.8 || ^17 || ^18
-  checksum: 10c0/1831a6f54aa717463df64b1c13c805edfd202b5fd8f2c1f8556444060a34d329b3757740aee552e9b3bb93b79a752cb864798182be67dfb04faf87a85361ed63
+  checksum: 10c0/5ba4244ed6cb3acabe17980f0c70c4a3e3e48c51aa8a6000743a0bae36ebffd1c0b1f47ffb5087f33b546d780806ec9ff13be9c36333de73ef61fe7168622fc8
   languageName: node
   linkType: hard
 
 "@cloudscape-design/design-tokens@npm:^3.0.20":
-  version: 3.0.44
-  resolution: "@cloudscape-design/design-tokens@npm:3.0.44"
-  checksum: 10c0/ede92acfcf92114b3de421b8517da74f0f3eb4c2a37c143c5f1a95979b224031c87f4dc7b0332c4328460ad6d0c176ab1d747642e9feaaeeb109c444a9209d64
+  version: 3.0.45
+  resolution: "@cloudscape-design/design-tokens@npm:3.0.45"
+  checksum: 10c0/7f300235d147c20ca9e1da68a9229c1bf21c250758afafdd0b6923e94dcb3c7f1cb0fd4899a1e6d74d03bca287bad77114bd933cbcbdb19e8ab1a2b7552e3653
   languageName: node
   linkType: hard
 
@@ -4890,12 +4890,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:20.16.11":
-  version: 20.16.11
-  resolution: "@types/node@npm:20.16.11"
+"@types/node@npm:20.16.12":
+  version: 20.16.12
+  resolution: "@types/node@npm:20.16.12"
   dependencies:
     undici-types: "npm:~6.19.2"
-  checksum: 10c0/bba43f447c3c80548513954dae174e18132e9149d572c09df4a282772960d33e229d05680fb5364997c03489c22fe377d1dbcd018a3d4ff1cfbcfcdaa594a9c3
+  checksum: 10c0/f6a3c90c6745881d47f8dae7eb39d0dd6df9a4060c8f1ab7004690f60b9b183d862c9c6b380b9e8d5a17dd670ac7b19d6318f24c170897c85a9729f9804f47cf
   languageName: node
   linkType: hard
 
@@ -6826,7 +6826,7 @@ __metadata:
     "@storybook/react": "npm:^8.0.0"
     "@storybook/test": "npm:^8.0.0"
     "@types/cookie": "npm:^0.6.0"
-    "@types/node": "npm:20.16.11"
+    "@types/node": "npm:20.16.12"
     "@types/react": "npm:18.3.11"
     "@types/react-dom": "npm:18.3.1"
     "@types/styled-components": "npm:^5.1.26"
