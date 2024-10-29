@@ -11,7 +11,7 @@ import toast from 'react-hot-toast'
 import dayjs from 'dayjs'
 import { SplitPanel } from '@cloudscape-design/components'
 import { ChekiAddIdolSelectView } from 'components/chekis/ChekiAddIdolSelectView'
-import { useRecoilState } from 'recoil'
+import { useAtom } from 'jotai'
 import { splitPanelStateAtom } from 'recoil-store/globalPage'
 import { addCheki } from 'api-client/cheki'
 import { getIdolForChekiAdd, IdolForChekiAdd } from 'api-client/idol'
@@ -132,7 +132,7 @@ export function ChekisAdd() {
     [control, onSubmit, regulations, selectedIdolDetails, selectedIdolId],
   )
 
-  const [_, setSplitPanelState] = useRecoilState(splitPanelStateAtom)
+  const [_, setSplitPanelState] = useAtom(splitPanelStateAtom)
   const isSmartphone = useIsSmartphoneScreenSize()
 
   useEffect(() => {

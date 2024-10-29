@@ -11,7 +11,7 @@ import { useRouter } from 'next/navigation'
 import { loginPath, userProfilePage } from 'utils/urls'
 import { useLogoutForm } from 'components/common/LogoutForm'
 import { Toaster } from 'react-hot-toast'
-import { useRecoilState } from 'recoil'
+import { useAtom } from 'jotai'
 import { splitPanelStateAtom } from 'recoil-store/globalPage'
 import { CurrentUser } from 'api-client/user'
 import { useConsoleEasterEgg } from 'utils/easteregg-hooks'
@@ -29,8 +29,7 @@ export function ColneAppWithLayout({
 
   const isLoggedIn = !!user
   const [logoutFormElement, triggerLogout] = useLogoutForm({ csrfToken })
-  const [splitPanelState, setSplitPanelState] =
-    useRecoilState(splitPanelStateAtom)
+  const [splitPanelState, setSplitPanelState] = useAtom(splitPanelStateAtom)
   const [splitPanelPreference, setSplitPanelPreference] =
     useState<AppLayoutProps.SplitPanelPreferences>({
       position: 'side',
