@@ -9,12 +9,11 @@ export const metadata = {
   title: `ログイン - ${applicationName}`,
 }
 
-export default async function Page({
-  searchParams,
-}: {
-  searchParams: { return_to: string | undefined }
+export default async function Page(props: {
+  searchParams: Promise<{ return_to: string | undefined }>
 }) {
-  const header = getAuthCookieNextHeaders()
+  const searchParams = await props.searchParams
+  const header = await getAuthCookieNextHeaders()
   const user = await getCurrentUser(header)
 
   if (user) {

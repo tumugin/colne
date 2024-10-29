@@ -3,12 +3,11 @@ import { getAuthCookieNextHeaders } from 'libs/next/nextHeadersHack'
 import { getGroup } from 'api-client/group'
 import { applicationName } from 'libs/app-const'
 
-export default async function Page({
-  params,
-}: {
-  params: { groupId: string }
+export default async function Page(props: {
+  params: Promise<{ groupId: string }>
 }) {
-  const header = getAuthCookieNextHeaders()
+  const params = await props.params
+  const header = await getAuthCookieNextHeaders()
   const group = await getGroup({ groupId: params.groupId }, header)
 
   return (
@@ -18,12 +17,11 @@ export default async function Page({
   )
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { groupId: string }
+export async function generateMetadata(props: {
+  params: Promise<{ groupId: string }>
 }) {
-  const header = getAuthCookieNextHeaders()
+  const params = await props.params
+  const header = await getAuthCookieNextHeaders()
   const group = await getGroup({ groupId: params.groupId }, header)
 
   return {

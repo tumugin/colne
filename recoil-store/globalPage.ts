@@ -1,4 +1,4 @@
-import { atom } from 'recoil'
+import { atom } from 'jotai'
 import React from 'react'
 
 interface SplitPanelProps {
@@ -8,9 +8,6 @@ interface SplitPanelProps {
 }
 
 export const splitPanelStateAtom = atom<SplitPanelProps>({
-  key: 'splitPanelState',
-  default: {
-    children: null,
-    splitPanelOpen: false,
-  },
+  children: null,
+  splitPanelOpen: false,
 })

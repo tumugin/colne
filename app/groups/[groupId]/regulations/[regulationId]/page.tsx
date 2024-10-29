@@ -4,12 +4,11 @@ import { getGroup, getRegulation } from 'api-client/group'
 import { notFound } from 'next/navigation'
 import { applicationName } from 'libs/app-const'
 
-export default async function Page({
-  params,
-}: {
-  params: { groupId: string; regulationId: string }
+export default async function Page(props: {
+  params: Promise<{ groupId: string; regulationId: string }>
 }) {
-  const header = getAuthCookieNextHeaders()
+  const params = await props.params
+  const header = await getAuthCookieNextHeaders()
   const group = await getGroup({ groupId: params.groupId }, header)
   const regulation = await getRegulation(
     { regulationId: params.regulationId },
@@ -27,12 +26,11 @@ export default async function Page({
   )
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { groupId: string; regulationId: string }
+export async function generateMetadata(props: {
+  params: Promise<{ groupId: string; regulationId: string }>
 }) {
-  const header = getAuthCookieNextHeaders()
+  const params = await props.params
+  const header = await getAuthCookieNextHeaders()
   const group = await getGroup({ groupId: params.groupId }, header)
   const regulation = await getRegulation(
     { regulationId: params.regulationId },

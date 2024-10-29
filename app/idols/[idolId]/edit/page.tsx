@@ -4,12 +4,11 @@ import { handleColneException } from 'utils/error-aware-page-utils'
 import { IdolEdit } from 'components/page-components/IdolEdit'
 import { applicationName } from 'libs/app-const'
 
-export default async function IdolEditPage({
-  params,
-}: {
-  params: { idolId: string }
+export default async function IdolEditPage(props: {
+  params: Promise<{ idolId: string }>
 }) {
-  const header = getAuthCookieNextHeaders()
+  const params = await props.params
+  const header = await getAuthCookieNextHeaders()
 
   try {
     const idol = await getIdol({ idolId: params.idolId }, header)
@@ -24,12 +23,11 @@ export default async function IdolEditPage({
   }
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { idolId: string }
+export async function generateMetadata(props: {
+  params: Promise<{ idolId: string }>
 }) {
-  const header = getAuthCookieNextHeaders()
+  const params = await props.params
+  const header = await getAuthCookieNextHeaders()
   const idol = await getIdol({ idolId: params.idolId }, header)
 
   return {

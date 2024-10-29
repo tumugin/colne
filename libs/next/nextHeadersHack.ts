@@ -1,9 +1,9 @@
-import { cookies, headers } from 'next/headers'
+import { cookies } from 'next/headers'
 import cookie from 'cookie'
 import { NextRequest } from 'next/server'
 
-export function getAuthCookieNextHeaders(): Headers {
-  const rawCookies = cookies()
+export async function getAuthCookieNextHeaders(): Promise<Headers> {
+  const rawCookies = await cookies()
   const result: Headers = new Headers()
 
   // Set cookies
