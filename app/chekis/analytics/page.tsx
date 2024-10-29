@@ -15,7 +15,7 @@ export default async function Page(props: {
   }>
 }) {
   const searchParams = await props.searchParams
-  const header = getAuthCookieNextHeaders()
+  const header = await getAuthCookieNextHeaders()
   const start = searchParams.start
     ? dayjs(searchParams.start)
     : dayjs().subtract(1, 'months')

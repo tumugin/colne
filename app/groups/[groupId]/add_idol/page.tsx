@@ -10,7 +10,7 @@ export default async function Page(props: {
 }) {
   const params = await props.params
   const searchParams = await props.searchParams
-  const header = getAuthCookieNextHeaders()
+  const header = await getAuthCookieNextHeaders()
 
   const userCreatedIdols = await getUserCreatedIdols(
     { page: parseInt(searchParams.page ?? '1') },
@@ -29,7 +29,7 @@ export async function generateMetadata(props: {
   params: Promise<{ groupId: string }>
 }) {
   const params = await props.params
-  const header = getAuthCookieNextHeaders()
+  const header = await getAuthCookieNextHeaders()
   const group = await getGroup({ groupId: params.groupId }, header)
 
   return {

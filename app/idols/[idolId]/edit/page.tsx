@@ -8,7 +8,7 @@ export default async function IdolEditPage(props: {
   params: Promise<{ idolId: string }>
 }) {
   const params = await props.params
-  const header = getAuthCookieNextHeaders()
+  const header = await getAuthCookieNextHeaders()
 
   try {
     const idol = await getIdol({ idolId: params.idolId }, header)
@@ -27,7 +27,7 @@ export async function generateMetadata(props: {
   params: Promise<{ idolId: string }>
 }) {
   const params = await props.params
-  const header = getAuthCookieNextHeaders()
+  const header = await getAuthCookieNextHeaders()
   const idol = await getIdol({ idolId: params.idolId }, header)
 
   return {

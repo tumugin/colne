@@ -7,7 +7,7 @@ export default async function Page(props: {
   params: Promise<{ groupId: string }>
 }) {
   const params = await props.params
-  const header = getAuthCookieNextHeaders()
+  const header = await getAuthCookieNextHeaders()
   const group = await getGroup({ groupId: params.groupId }, header)
 
   return (
@@ -21,7 +21,7 @@ export async function generateMetadata(props: {
   params: Promise<{ groupId: string }>
 }) {
   const params = await props.params
-  const header = getAuthCookieNextHeaders()
+  const header = await getAuthCookieNextHeaders()
   const group = await getGroup({ groupId: params.groupId }, header)
 
   return {

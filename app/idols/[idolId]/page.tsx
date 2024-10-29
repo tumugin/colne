@@ -16,7 +16,7 @@ export default async function Page(props: {
 }) {
   const searchParams = await props.searchParams
   const params = await props.params
-  const header = getAuthCookieNextHeaders()
+  const header = await getAuthCookieNextHeaders()
   const start = searchParams.chekiStart
     ? dayjs(searchParams.chekiStart)
     : dayjs().subtract(1, 'months')
@@ -59,7 +59,7 @@ export async function generateMetadata(props: {
   params: Promise<{ idolId: string }>
 }) {
   const params = await props.params
-  const header = getAuthCookieNextHeaders()
+  const header = await getAuthCookieNextHeaders()
   const idol = await getIdol({ idolId: params.idolId }, header)
 
   return {

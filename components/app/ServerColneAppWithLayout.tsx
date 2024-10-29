@@ -8,7 +8,7 @@ export async function ServerColneAppWithLayout({
 }: {
   children: React.ReactNode
 }) {
-  const header = getAuthCookieNextHeaders()
+  const header = await getAuthCookieNextHeaders()
   const currentUser = await getCurrentUser(header)
   const csrfToken = await getCSRFToken(header)
 

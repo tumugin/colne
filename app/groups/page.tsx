@@ -11,7 +11,7 @@ export default async function Page(props: {
   searchParams: Promise<{ page: string | undefined }>
 }) {
   const searchParams = await props.searchParams
-  const header = getAuthCookieNextHeaders()
+  const header = await getAuthCookieNextHeaders()
   const userCreatedGroups = await getUserCreatedGroupList(
     { page: parseInt(searchParams.page ?? '1') },
     header,

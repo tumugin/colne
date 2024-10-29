@@ -9,7 +9,7 @@ export const metadata = {
 }
 
 export default async function Page() {
-  const header = getAuthCookieNextHeaders()
+  const header = await getAuthCookieNextHeaders()
   const currentUser = await getCurrentUser(header)
 
   if (!currentUser) {

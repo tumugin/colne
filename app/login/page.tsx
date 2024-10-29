@@ -13,7 +13,7 @@ export default async function Page(props: {
   searchParams: Promise<{ return_to: string | undefined }>
 }) {
   const searchParams = await props.searchParams
-  const header = getAuthCookieNextHeaders()
+  const header = await getAuthCookieNextHeaders()
   const user = await getCurrentUser(header)
 
   if (user) {
