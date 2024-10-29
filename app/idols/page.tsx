@@ -7,11 +7,10 @@ export const metadata = {
   title: `アイドル一覧 - ${applicationName}`,
 }
 
-export default async function Page({
-  searchParams,
-}: {
-  searchParams: { page: string | undefined }
+export default async function Page(props: {
+  searchParams: Promise<{ page: string | undefined }>
 }) {
+  const searchParams = await props.searchParams
   const header = getAuthCookieNextHeaders()
 
   const userCreatedIdols = await getUserCreatedIdols(

@@ -5,11 +5,10 @@ import { GroupById } from 'components/page-components/GroupById'
 import { getCurrentUser } from 'api-client/user'
 import { applicationName } from 'libs/app-const'
 
-export default async function Page({
-  params,
-}: {
-  params: { groupId: string }
+export default async function Page(props: {
+  params: Promise<{ groupId: string }>
 }) {
+  const params = await props.params
   const header = getAuthCookieNextHeaders()
 
   try {
@@ -26,11 +25,10 @@ export default async function Page({
   }
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { groupId: string }
+export async function generateMetadata(props: {
+  params: Promise<{ groupId: string }>
 }) {
+  const params = await props.params
   const header = getAuthCookieNextHeaders()
   const group = await getGroup({ groupId: params.groupId }, header)
 

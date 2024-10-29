@@ -8,14 +8,13 @@ export const metadata = {
   title: `チェキ統計 - ${applicationName}`,
 }
 
-export default async function Page({
-  searchParams,
-}: {
-  searchParams: {
+export default async function Page(props: {
+  searchParams: Promise<{
     start: string | undefined
     end: string | undefined
-  }
+  }>
 }) {
+  const searchParams = await props.searchParams
   const header = getAuthCookieNextHeaders()
   const start = searchParams.start
     ? dayjs(searchParams.start)

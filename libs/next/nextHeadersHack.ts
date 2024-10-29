@@ -1,9 +1,9 @@
-import { cookies, headers } from 'next/headers'
+import { cookies, headers, type UnsafeUnwrappedCookies } from 'next/headers'
 import cookie from 'cookie'
 import { NextRequest } from 'next/server'
 
 export function getAuthCookieNextHeaders(): Headers {
-  const rawCookies = cookies()
+  const rawCookies = cookies() as unknown as UnsafeUnwrappedCookies
   const result: Headers = new Headers()
 
   // Set cookies

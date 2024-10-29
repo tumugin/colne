@@ -7,16 +7,15 @@ import dayjs from 'dayjs'
 import { getCurrentUser } from 'api-client/user'
 import { applicationName } from 'libs/app-const'
 
-export default async function Page({
-  params,
-  searchParams,
-}: {
-  params: { idolId: string }
-  searchParams: {
+export default async function Page(props: {
+  params: Promise<{ idolId: string }>
+  searchParams: Promise<{
     chekiStart: string | undefined
     chekiEnd: string | undefined
-  }
+  }>
 }) {
+  const searchParams = await props.searchParams
+  const params = await props.params
   const header = getAuthCookieNextHeaders()
   const start = searchParams.chekiStart
     ? dayjs(searchParams.chekiStart)
@@ -56,11 +55,10 @@ export default async function Page({
   }
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { idolId: string }
+export async function generateMetadata(props: {
+  params: Promise<{ idolId: string }>
 }) {
+  const params = await props.params
   const header = getAuthCookieNextHeaders()
   const idol = await getIdol({ idolId: params.idolId }, header)
 
