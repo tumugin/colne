@@ -33,14 +33,16 @@
     "react-dom": "19.0.0-rc-02c0e824-20241028",
     "react-hook-form": "^7.45.1",
     "react-hot-toast": "^2.4.1",
-    "recharts": "^2.7.3",
+    "react-is": "19.0.0-rc-0bc30748-20241028",
+    "recharts": "^2.13.0",
     "styled-components": "^6.0.4",
     "yup": "^1.2.0"
   },
   "resolutions": {
     "cross-fetch": "^4.0.0",
     "@types/react": "npm:types-react@19.0.0-rc.1",
-    "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1"
+    "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1",
+    "react-is": "19.0.0-rc-0bc30748-20241028"
   },
   "devDependencies": {
     "@babel/core": "^7.22.9",
