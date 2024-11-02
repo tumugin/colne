@@ -1442,8 +1442,8 @@ __metadata:
   linkType: hard
 
 "@cloudscape-design/components@npm:^3.0.337":
-  version: 3.0.818
-  resolution: "@cloudscape-design/components@npm:3.0.818"
+  version: 3.0.820
+  resolution: "@cloudscape-design/components@npm:3.0.820"
   dependencies:
     "@cloudscape-design/collection-hooks": "npm:^1.0.0"
     "@cloudscape-design/component-toolkit": "npm:^1.0.0-beta"
@@ -1467,7 +1467,7 @@ __metadata:
   peerDependencies:
     react: ^16.8 || ^17 || ^18
     react-dom: ^16.8 || ^17 || ^18
-  checksum: 10c0/c709b1be153fb627fe16a598877a30b213044b502aa022bd7d79b8cc7f29902ae842efa1051028e6428d30e1858840c3facbc63391f203ffb7d7233f8bf5e77f
+  checksum: 10c0/726b67074708ffdb2ff86dd6288ec50fe14b230b0e3a5f87887a559cc972f3a71c852b2bf8f37662f8a0bc6e61c63e86bd4d88bb8e749b68aebe16b4212e8684
   languageName: node
   linkType: hard
 
@@ -8985,13 +8985,13 @@ __metadata:
   linkType: hard
 
 "graphql-request@npm:^7.0.0":
-  version: 7.1.1
-  resolution: "graphql-request@npm:7.1.1"
+  version: 7.1.2
+  resolution: "graphql-request@npm:7.1.2"
   dependencies:
     "@graphql-typed-document-node/core": "npm:^3.2.0"
   peerDependencies:
     graphql: 14 - 16
-  checksum: 10c0/4490ca23f69eeab9c80a178106689b21952c52db8605d5ae3edd30603b05920be0fa81b9a30e8df832f2dec5457ecec4d3a14e4e5995f06760ac19228cc10d30
+  checksum: 10c0/d87ae2a5603bf5e69a91ff9e2b7a3902ed285d6ea470daf7df37cfa48e71a674a8b026f3fe76881a450484b52e90eff43f950faa6851cd6c79bd5b4ab9d19451
   languageName: node
   linkType: hard
 
