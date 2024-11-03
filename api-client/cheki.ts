@@ -141,3 +141,9 @@ export async function getChekiMonthCountByIdol(
   })
   return result.currentUserChekis.getChekiMonthCountByIdol
 }
+
+export async function getUserAllChekis(page: number, headers?: Headers) {
+  const sdk = createGraphQLSDK({ headers, cache: 'no-store' })
+  const result = await sdk.GetUserAllChekis({ page }, headers)
+  return result.currentUserChekis.getUserAllChekis
+}

@@ -29,6 +29,7 @@
     "jotai": "^2.10.1",
     "next": "15.0.2",
     "nextjs-toploader": "^3.0.0",
+    "nuqs": "^2.1.1",
     "react": "19.0.0-rc-fb9a90fa48-20240614",
     "react-dom": "19.0.0-rc-fb9a90fa48-20240614",
     "react-hook-form": "^7.45.1",
