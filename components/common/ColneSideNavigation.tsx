@@ -1,5 +1,6 @@
 import { SideNavigation } from '@cloudscape-design/components'
 import {
+  allChekisPath,
   chekiAddPath,
   chekiAnalyticsPath,
   loginPath,
@@ -60,6 +61,11 @@ export function ColneSideNavigation({
                   type: 'link',
                   text: 'チェキを登録する',
                   href: chekiAddPath,
+                },
+                {
+                  type: 'link',
+                  text: 'すべてのチェキを見る',
+                  href: allChekisPath,
                 },
                 { type: 'divider' },
                 {

@@ -186,6 +186,14 @@ export type ChekiMutationServicesUpdateChekiArgs = {
   params: AddOrUpdateChekiParamsInput
 }
 
+export type ChekiPaginationSerializer = PaginationSerializer & {
+  __typename?: 'ChekiPaginationSerializer'
+  chekis: Array<ChekiSerializer>
+  count: Scalars['Int']['output']
+  currentPage: Scalars['Int']['output']
+  pageCount: Scalars['Int']['output']
+}
+
 export type ChekiSerializer = {
   __typename?: 'ChekiSerializer'
   chekiCreatedAt: Scalars['String']['output']
@@ -509,6 +517,7 @@ export type UserChekis = {
   __typename?: 'UserChekis'
   getChekiMonthCountByIdol: Array<ChekiMonthCountSerializer>
   getChekiMonthIdolCount: Array<ChekiMonthIdolCountSerializer>
+  getUserAllChekis: ChekiPaginationSerializer
   getUserChekiIdolCount: Array<ChekiIdolCountSerializer>
   getUserChekis: Array<ChekiSerializer>
 }
@@ -519,6 +528,10 @@ export type UserChekisGetChekiMonthCountByIdolArgs = {
 
 export type UserChekisGetChekiMonthIdolCountArgs = {
   params: GetChekiMonthIdolCountParamsInput
+}
+
+export type UserChekisGetUserAllChekisArgs = {
+  page: Scalars['Int']['input']
 }
 
 export type UserChekisGetUserChekiIdolCountArgs = {
@@ -1060,6 +1073,62 @@ export type GetRegulationQuery = {
     regulationUnitPrice: number
     regulationUpdatedAt: string
     userId?: string | null
+  }
+}
+
+export type GetUserAllChekisQueryVariables = Exact<{
+  page: Scalars['Int']['input']
+}>
+
+export type GetUserAllChekisQuery = {
+  __typename?: 'Query'
+  currentUserChekis: {
+    __typename?: 'UserChekis'
+    getUserAllChekis: {
+      __typename?: 'ChekiPaginationSerializer'
+      count: number
+      currentPage: number
+      pageCount: number
+      chekis: Array<{
+        __typename?: 'ChekiSerializer'
+        chekiCreatedAt: string
+        chekiId: string
+        chekiQuantity: number
+        chekiShotAt: string
+        chekiUpdatedAt: string
+        idolId?: string | null
+        regulationId?: string | null
+        userId: string
+        regulation?: {
+          __typename?: 'RegulationSerializer'
+          groupId: string
+          regulationComment: string
+          regulationCreatedAt: string
+          regulationId: string
+          regulationName: string
+          regulationStatus: RegulationStatus
+          regulationUnitPrice: number
+          regulationUpdatedAt: string
+          userId?: string | null
+          group?: {
+            __typename?: 'GroupSerializer'
+            groupCreatedAt: string
+            groupId: string
+            groupName: string
+            groupStatus: GroupStatus
+            groupUpdatedAt: string
+          } | null
+        } | null
+        idol?: {
+          __typename?: 'IdolSerializer'
+          idolId: string
+          idolName: string
+          idolStatus: IdolStatus
+          idolCreatedAt: string
+          idolUpdatedAt: string
+        } | null
+      }>
+    }
   }
 }
 
@@ -1622,6 +1691,52 @@ export const GetRegulationDocument = gql`
     }
   }
 `
+export const GetUserAllChekisDocument = gql`
+  query GetUserAllChekis($page: Int!) {
+    currentUserChekis {
+      getUserAllChekis(page: $page) {
+        chekis {
+          chekiCreatedAt
+          chekiId
+          chekiQuantity
+          chekiShotAt
+          chekiUpdatedAt
+          idolId
+          regulationId
+          userId
+          regulation {
+            groupId
+            regulationComment
+            regulationCreatedAt
+            regulationId
+            regulationName
+            regulationStatus
+            regulationUnitPrice
+            regulationUpdatedAt
+            userId
+            group {
+              groupCreatedAt
+              groupId
+              groupName
+              groupStatus
+              groupUpdatedAt
+            }
+          }
+          idol {
+            idolId
+            idolName
+            idolStatus
+            idolCreatedAt
+            idolUpdatedAt
+          }
+        }
+        count
+        currentPage
+        pageCount
+      }
+    }
+  }
+`
 export const GetUserChekiIdolCountDocument = gql`
   query GetUserChekiIdolCount(
     $chekiShotAtStart: String!
@@ -2083,6 +2198,22 @@ export function getSdk(
             ...wrappedRequestHeaders,
           }),
         'GetRegulation',
+        'query',
+        variables,
+      )
+    },
+    GetUserAllChekis(
+      variables: GetUserAllChekisQueryVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+    ): Promise<GetUserAllChekisQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<GetUserAllChekisQuery>(
+            GetUserAllChekisDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'GetUserAllChekis',
         'query',
         variables,
       )

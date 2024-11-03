@@ -114,6 +114,13 @@ type ChekiMutationServices {
   ): ChekiSerializer!
 }
 
+type ChekiPaginationSerializer implements PaginationSerializer {
+  chekis: [ChekiSerializer!]!
+  count: Int!
+  currentPage: Int!
+  pageCount: Int!
+}
+
 type ChekiSerializer {
   chekiCreatedAt: String!
   chekiId: ID!
@@ -280,6 +287,7 @@ type UserChekis {
   getChekiMonthIdolCount(
     params: GetChekiMonthIdolCountParamsInput!
   ): [ChekiMonthIdolCountSerializer!]!
+  getUserAllChekis(page: Int!): ChekiPaginationSerializer!
   getUserChekiIdolCount(
     params: GetUserChekiIdolCountParamsInput!
   ): [ChekiIdolCountSerializer!]!

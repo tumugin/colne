@@ -8,6 +8,7 @@ import { ColneRootStyled } from 'components/styled/ColneRootStyled'
 import NextTopLoader from 'nextjs-toploader'
 import { applicationName } from 'libs/app-const'
 import { ServerColneAppWithLayout } from 'components/app/ServerColneAppWithLayout'
+import { NuqsAdapter } from 'nuqs/adapters/next/app'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -27,8 +28,10 @@ export default async function RootLayout({
         <StyledComponentsRegistry>
           <ColneRootStyled>
             <NextJotaiRoot>
-              <GlobalThemeHandler />
-              <ServerColneAppWithLayout>{children}</ServerColneAppWithLayout>
+              <NuqsAdapter>
+                <GlobalThemeHandler />
+                <ServerColneAppWithLayout>{children}</ServerColneAppWithLayout>
+              </NuqsAdapter>
             </NextJotaiRoot>
           </ColneRootStyled>
         </StyledComponentsRegistry>

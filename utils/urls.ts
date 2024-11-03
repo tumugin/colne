@@ -46,3 +46,5 @@ export const logoutPath =
 export const chekiAddPath = '/chekis/add'
 
 export const chekiAnalyticsPath = '/chekis/analytics'
+
+export const allChekisPath = '/chekis/all'

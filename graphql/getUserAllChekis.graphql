@@ -1,0 +1,44 @@
+query GetUserAllChekis($page: Int!) {
+  currentUserChekis {
+    getUserAllChekis(page: $page) {
+      chekis {
+        chekiCreatedAt
+        chekiId
+        chekiQuantity
+        chekiShotAt
+        chekiUpdatedAt
+        idolId
+        regulationId
+        userId
+        regulation {
+          groupId
+          regulationComment
+          regulationCreatedAt
+          regulationId
+          regulationName
+          regulationStatus
+          regulationUnitPrice
+          regulationUpdatedAt
+          userId
+          group {
+            groupCreatedAt
+            groupId
+            groupName
+            groupStatus
+            groupUpdatedAt
+          }
+        }
+        idol {
+          idolId
+          idolName
+          idolStatus
+          idolCreatedAt
+          idolUpdatedAt
+        }
+      }
+      count
+      currentPage
+      pageCount
+    }
+  }
+}
