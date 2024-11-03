@@ -32,7 +32,7 @@ export function AllChekis({
 }) {
   const [_, setPage] = useQueryState(
     'page',
-    parseAsInteger.withOptions({ history: 'push' }),
+    parseAsInteger.withOptions({ history: 'push', shallow: false }),
   )
   const onPageChange = useCallback(
     async (event: NonCancelableCustomEvent<PaginationProps.ChangeDetail>) => {
