@@ -1420,8 +1420,8 @@ __metadata:
   linkType: hard
 
 "@cloudscape-design/components@npm:^3.0.337":
-  version: 3.0.859
-  resolution: "@cloudscape-design/components@npm:3.0.859"
+  version: 3.0.860
+  resolution: "@cloudscape-design/components@npm:3.0.860"
   dependencies:
     "@cloudscape-design/collection-hooks": "npm:^1.0.0"
     "@cloudscape-design/component-toolkit": "npm:^1.0.0-beta"
@@ -1438,14 +1438,14 @@ __metadata:
     date-fns: "npm:^2.25.0"
     intl-messageformat: "npm:^10.3.1"
     mnth: "npm:^2.0.0"
-    react-keyed-flatten-children: "npm:^1.3.0"
+    react-keyed-flatten-children: "npm:^2.2.1"
     react-transition-group: "npm:^4.4.2"
     tslib: "npm:^2.4.0"
     weekstart: "npm:^1.1.0"
   peerDependencies:
     react: ^16.8 || ^17 || ^18
     react-dom: ^16.8 || ^17 || ^18
-  checksum: 10c0/670da65367d4aa5b9411f6dd5eb0cc6e4b1e95dd1c52e75cb3a80da384901e15df8a2ed9ac2b7bfcddff9a14ab56f71a0a04ec918ccf835acef12fabbb28a68e
+  checksum: 10c0/dcc69d2a49d3adf726dbc3049ba9451f9f0da65e680542e13128da7dcd426a3b4dff957349e2fae42765817e24c487fc0393e8b0a177bf829995963a1a513e55
   languageName: node
   linkType: hard
 
@@ -12359,14 +12359,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-keyed-flatten-children@npm:^1.3.0":
-  version: 1.3.0
-  resolution: "react-keyed-flatten-children@npm:1.3.0"
+"react-keyed-flatten-children@npm:^2.2.1":
+  version: 2.2.1
+  resolution: "react-keyed-flatten-children@npm:2.2.1"
   dependencies:
-    react-is: "npm:^16.8.6"
+    react-is: "npm:^18.2.0"
   peerDependencies:
     react: ">=15.0.0"
-  checksum: 10c0/3ac7e9552142fdb98860bfea93b53288d7504c6fa518936b0cdf0c6af5a486cc328ad9d94f835510eaafbca547b3df78c71b946366f611b9a65fc18a5b7b181f
+  checksum: 10c0/ad4cf589d4812bde6d7734465e836e509de975a80039efca4165d59ce9f798a126d6a46296b74e0c552a714ff696c062c25544aaeb0b66dabdc9b866c898c95d
   languageName: node
   linkType: hard
 
