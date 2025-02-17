@@ -10088,8 +10088,8 @@ __metadata:
   linkType: hard
 
 "jotai@npm:^2.10.1":
-  version: 2.12.0
-  resolution: "jotai@npm:2.12.0"
+  version: 2.12.1
+  resolution: "jotai@npm:2.12.1"
   peerDependencies:
     "@types/react": ">=17.0.0"
     react: ">=17.0.0"
@@ -10098,7 +10098,7 @@ __metadata:
       optional: true
     react:
       optional: true
-  checksum: 10c0/8a66bcb15183ed4e8ce35d84fd32f72d239092f0c5226cf652f37757489cd1b635183105c3c23ea7e21eb646074a91a4585a3cdaa12d72dfce79e7397b0ed623
+  checksum: 10c0/8ef622b7d626919d87595d7382467cb81698a14925befdd27abc3b03d441077eca35328d51d10dc6fe3e91ee4d4e9ba7456bacbdf36940161bd2afeba861ac83
   languageName: node
   linkType: hard
 
@@ -11240,8 +11240,8 @@ __metadata:
   linkType: hard
 
 "nuqs@npm:^2.1.1":
-  version: 2.3.2
-  resolution: "nuqs@npm:2.3.2"
+  version: 2.4.0
+  resolution: "nuqs@npm:2.4.0"
   dependencies:
     mitt: "npm:^3.0.1"
   peerDependencies:
@@ -11259,7 +11259,7 @@ __metadata:
       optional: true
     react-router-dom:
       optional: true
-  checksum: 10c0/39cbaf3f0363b3cd3a6de5c87cb7c67a411428aab8deb71c92d21c592b5298eac7acb335b3f6757140fd673921ceff43c95b59cb56b9dd6c26c313bd9260ac07
+  checksum: 10c0/19d6e973a21990f88ba9c01c593991cad1fe4a4ee9a0a7e91fe9b9d23ac5025dd6caf16ecda564e7cc115bfad9a523d7cf8948b60215eac967699391d67e2289
   languageName: node
   linkType: hard
 
