@@ -46,7 +46,7 @@
     "react-is": "19.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.22.9",
+    "@babel/core": "^7.26.10",
     "@graphql-codegen/cli": "5.0.4",
     "@graphql-codegen/client-preset": "4.6.1",
     "@graphql-codegen/typed-document-node": "^5.0.1",
