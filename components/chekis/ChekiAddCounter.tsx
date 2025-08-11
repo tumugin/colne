@@ -27,6 +27,7 @@ const CustomBigButton = styled.button`
 
 const CustomBigNumberInput = styled.input<{ triggerAnimation: boolean }>`
   appearance: none;
+  -moz-appearance: textfield;
   border: none;
   background: transparent;
   font-family: ${awsui.fontFamilyMonospace};
