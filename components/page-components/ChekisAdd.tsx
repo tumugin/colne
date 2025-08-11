@@ -57,6 +57,7 @@ export function ChekisAdd() {
           regulationName: r.regulationName,
           regulationComment: r.regulationComment,
           regulationUnitPrice: r.regulationUnitPrice,
+          regulationStatus: r.regulationStatus,
         })),
       ) ?? [],
     [selectedIdolDetails?.groups],
