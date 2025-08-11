@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Cards,
   DatePicker,
@@ -10,6 +11,7 @@ import { ChekiAddCounter } from 'components/chekis/ChekiAddCounter'
 import styled from 'styled-components'
 import { Control, Controller } from 'react-hook-form'
 import * as awsui from '@cloudscape-design/design-tokens'
+import { RegulationStatus } from '../../graphql/generated/client'
 
 const ChekiAddForm = styled.div`
   display: flex;
@@ -29,6 +31,7 @@ interface ChekiAddRegulation {
   regulationName: string
   regulationComment: string
   regulationUnitPrice: number
+  regulationStatus: RegulationStatus
 }
 
 const emptyItem: ChekiAddRegulation = {
@@ -38,6 +41,7 @@ const emptyItem: ChekiAddRegulation = {
   regulationName: '選択なし',
   regulationComment: '-',
   regulationUnitPrice: 0,
+  regulationStatus: RegulationStatus.Active,
 }
 
 export interface ChekiAddContents {
@@ -58,10 +62,27 @@ export function ChekiAddPanel({
   isRegulationLoading: boolean
   onSubmit: () => void
 }) {
-  const regulationsWithEmptyItem = useMemo(
+  const allRegulations = useMemo(
     () => [emptyItem, ...regulations],
     [regulations],
   )
+  const activeRegulationsWithEmptyItem = useMemo(
+    () => [
+      emptyItem,
+      ...regulations.filter(
+        (v) => v.regulationStatus == RegulationStatus.Active,
+      ),
+    ],
+    [regulations],
+  )
+  const disabledRegulations = useMemo(
+    () =>
+      regulations.filter(
+        (v) => v.regulationStatus == RegulationStatus.NotActive,
+      ),
+    [regulations],
+  )
+
   return (
     <Grid
       gridDefinition={[
@@ -118,7 +139,7 @@ export function ChekiAddPanel({
         <Controller
           rules={{
             validate: (value) =>
-              regulationsWithEmptyItem.some((i) => i.regulationId === value) ||
+              allRegulations.some((i) => i.regulationId === value) ||
               'レギュレーションの選択は必須です',
           }}
           render={({ field, fieldState }) => (
@@ -127,9 +148,9 @@ export function ChekiAddPanel({
               errorText={fieldState.error && fieldState.error.message}
             >
               <Cards
-                items={regulationsWithEmptyItem}
+                items={activeRegulationsWithEmptyItem}
                 selectionType="single"
-                selectedItems={regulationsWithEmptyItem.filter(
+                selectedItems={activeRegulationsWithEmptyItem.filter(
                   (i) => i.regulationId === field.value,
                 )}
                 onSelectionChange={(selectedItems) =>
@@ -162,6 +183,46 @@ export function ChekiAddPanel({
                 ]}
                 loading={isRegulationLoading}
               />
+              {disabledRegulations.length > 0 && (
+                <>
+                  <Box variant="h5">すでに無効なレギュレーション</Box>
+                  <Cards
+                    items={disabledRegulations}
+                    selectionType="single"
+                    selectedItems={disabledRegulations.filter(
+                      (i) => i.regulationId === field.value,
+                    )}
+                    onSelectionChange={(selectedItems) =>
+                      field.onChange(
+                        selectedItems.detail.selectedItems[0].regulationId,
+                      )
+                    }
+                    cardDefinition={{
+                      header: (item) => item.regulationName,
+                      sections: [
+                        {
+                          header: 'グループ',
+                          content: (item) => item.groupName,
+                        },
+                        {
+                          header: '単価',
+                          content: (item) => item.regulationUnitPrice + '円',
+                        },
+                        {
+                          header: '備考',
+                          content: (item) => item.regulationComment,
+                        },
+                      ],
+                    }}
+                    cardsPerRow={[
+                      { cards: 1 },
+                      { minWidth: 500, cards: 2 },
+                      { minWidth: 700, cards: 3 },
+                      { minWidth: 1000, cards: 4 },
+                    ]}
+                  />
+                </>
+              )}
             </FormField>
           )}
           name="regulationId"

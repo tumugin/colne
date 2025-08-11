@@ -5,6 +5,7 @@ import {
   GetIdolQueryVariables,
   GetUserCreatedIdolListQueryVariables,
   IdolStatus,
+  RegulationStatus,
 } from 'graphql/generated/client'
 import { createGraphQLSDK } from 'graphql/client'
 import { mapAisuExceptionToColneExceptionAndThrow } from 'exceptions/graphql-exceptions'
@@ -130,7 +131,7 @@ export interface IdolForChekiAdd {
       regulationCreatedAt: string
       regulationId: string
       regulationName: string
-      regulationStatus: string
+      regulationStatus: RegulationStatus
       regulationUnitPrice: number
       regulationUpdatedAt: string
     }>
