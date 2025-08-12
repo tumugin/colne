@@ -1453,8 +1453,8 @@ __metadata:
   linkType: hard
 
 "@cloudscape-design/components@npm:^3.0.337":
-  version: 3.0.1056
-  resolution: "@cloudscape-design/components@npm:3.0.1056"
+  version: 3.0.1057
+  resolution: "@cloudscape-design/components@npm:3.0.1057"
   dependencies:
     "@cloudscape-design/collection-hooks": "npm:^1.0.0"
     "@cloudscape-design/component-toolkit": "npm:^1.0.0-beta"
@@ -1477,7 +1477,7 @@ __metadata:
     weekstart: "npm:^1.1.0"
   peerDependencies:
     react: ">=16.8.0"
-  checksum: 10c0/abccef2a35a997f22831084910a63fbb849ab816d751e3bfd0a0609edb3362cbf127d92944edda50ade6cec941e07554b63bb1dc443a91f353d16394aeea13a1
+  checksum: 10c0/c861b27c274679617036043709357db7d832d00fcf7e7bababa75cd21b800a3209e27dd34399a5fadcb0f2c5fd20ee2524738af7467c9fbdfd3609326904e014
   languageName: node
   linkType: hard
 
