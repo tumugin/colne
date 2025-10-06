@@ -1,5 +1,5 @@
 import { cookies } from 'next/headers'
-import cookie from 'cookie'
+import * as cookie from 'cookie'
 import { NextRequest } from 'next/server'
 
 export async function getAuthCookieNextHeaders(): Promise<Headers> {
