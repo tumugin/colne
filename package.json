@@ -61,7 +61,7 @@
     "@storybook/nextjs": "^9.0.0",
     "@storybook/react": "^9.0.0",
     "@types/cookie": "^1.0.0",
-    "@types/node": "22.18.8",
+    "@types/node": "24.10.0",
     "@types/react": "npm:types-react@19.0.0-rc.1",
     "@types/react-dom": "npm:types-react-dom@19.0.0",
     "@types/styled-components": "^5.1.26",
