@@ -11,18 +11,20 @@ export default async function Page(props: {
   const params = await props.params
   const header = await getAuthCookieNextHeaders()
 
+  let group
+  let currentUser
   try {
-    const group = await getGroup({ groupId: params.groupId }, header)
-    const currentUser = await getCurrentUser(header)
-
-    return (
-      <>
-        <GroupById group={group} currentUser={currentUser} />
-      </>
-    )
+    group = await getGroup({ groupId: params.groupId }, header)
+    currentUser = await getCurrentUser(header)
   } catch (e) {
     handleColneException(e)
   }
+
+  return (
+    <>
+      <GroupById group={group!} currentUser={currentUser!} />
+    </>
+  )
 }
 
 export async function generateMetadata(props: {

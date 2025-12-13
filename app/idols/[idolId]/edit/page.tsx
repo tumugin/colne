@@ -10,17 +10,18 @@ export default async function IdolEditPage(props: {
   const params = await props.params
   const header = await getAuthCookieNextHeaders()
 
+  let idol
   try {
-    const idol = await getIdol({ idolId: params.idolId }, header)
-
-    return (
-      <>
-        <IdolEdit idol={idol} />
-      </>
-    )
+    idol = await getIdol({ idolId: params.idolId }, header)
   } catch (e) {
     handleColneException(e)
   }
+
+  return (
+    <>
+      <IdolEdit idol={idol!} />
+    </>
+  )
 }
 
 export async function generateMetadata(props: {

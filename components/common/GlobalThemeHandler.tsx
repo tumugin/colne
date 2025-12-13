@@ -27,7 +27,11 @@ export function GlobalThemeHandler() {
   const [appHasHydrated, setAppHasHydrated] = useState(false)
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- Required to track hydration state
     setAppHasHydrated(true)
+  }, [])
+
+  useEffect(() => {
     applyMode(isDarkTheme ? Mode.Dark : Mode.Light)
   }, [isDarkTheme])
 

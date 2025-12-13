@@ -1,5 +1,5 @@
 import { TopHeaderContent } from 'components/top/TopHeaderContent'
-import { Meta, StoryObj } from '@storybook/react'
+import { Meta, StoryObj } from '@storybook/nextjs'
 
 const componentMeta: Meta<typeof TopHeaderContent> = {
   title: 'Top/TopHeaderContent',

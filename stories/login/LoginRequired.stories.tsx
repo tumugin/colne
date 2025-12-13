@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react'
+import { Meta, StoryObj } from '@storybook/nextjs'
 import { LoginRequired } from 'components/login/LoginRequired'
 
 const componentMeta: Meta<typeof LoginRequired> = {

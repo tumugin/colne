@@ -24,9 +24,11 @@ export default async function Page(props: {
 
   const currentUser = await getCurrentUser(header)
 
+  let idol
+  let idolChekis
   try {
-    const idol = await getIdol({ idolId: params.idolId }, header)
-    const idolChekis =
+    idol = await getIdol({ idolId: params.idolId }, header)
+    idolChekis =
       currentUser &&
       (await getIdolChekisWithDateRange(
         params.idolId,
@@ -36,23 +38,23 @@ export default async function Page(props: {
         },
         header,
       ))
-
-    return (
-      <>
-        <IdolById
-          idol={idol}
-          idolChekis={idolChekis}
-          range={{
-            startISOString: start.toISOString(),
-            endISOString: end.toISOString(),
-          }}
-          currentUser={currentUser}
-        />
-      </>
-    )
   } catch (e) {
     handleColneException(e)
   }
+
+  return (
+    <>
+      <IdolById
+        idol={idol!}
+        idolChekis={idolChekis}
+        range={{
+          startISOString: start.toISOString(),
+          endISOString: end.toISOString(),
+        }}
+        currentUser={currentUser}
+      />
+    </>
+  )
 }
 
 export async function generateMetadata(props: {
