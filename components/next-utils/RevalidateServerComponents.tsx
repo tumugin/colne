@@ -13,6 +13,7 @@ export function RevalidateServerComponentsHack() {
   useEffect(() => {
     const push = router.push.bind(router)
 
+    // eslint-disable-next-line react-hooks/immutability -- This is an intentional monkey patch for cache invalidation
     router.push = async (href, options) => {
       await invalidateNextCache()
       push(href, options)

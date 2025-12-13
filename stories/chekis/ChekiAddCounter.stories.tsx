@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react'
+import { Meta, StoryObj } from '@storybook/nextjs'
 import { ChekiAddCounter } from 'components/chekis/ChekiAddCounter'
 import { useState } from 'react'
 

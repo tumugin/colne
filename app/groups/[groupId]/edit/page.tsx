@@ -9,17 +9,19 @@ export default async function Page(props: {
 }) {
   const params = await props.params
   const header = await getAuthCookieNextHeaders()
-  try {
-    const group = await getGroup({ groupId: params.groupId }, header)
 
-    return (
-      <>
-        <GroupEdit group={group} />
-      </>
-    )
+  let group
+  try {
+    group = await getGroup({ groupId: params.groupId }, header)
   } catch (e) {
     handleColneException(e)
   }
+
+  return (
+    <>
+      <GroupEdit group={group!} />
+    </>
+  )
 }
 
 export async function generateMetadata(props: {
