@@ -6,12 +6,9 @@ const config: CodegenConfig = {
   documents: 'graphql/*.graphql',
   generates: {
     'graphql/generated/client.ts': {
-      plugins: [
-        'typescript',
-        'typescript-operations',
-        'typescript-graphql-request',
-      ],
+      plugins: ['typescript-operations', 'typescript-graphql-request'],
       config: {
+        enumType: 'native',
         withHooks: true,
       },
     },

@@ -1,11 +1,6 @@
-module.exports = {
+const config = {
   stories: ['../stories/**/*.mdx', '../stories/**/*.stories.@(js|jsx|ts|tsx)'],
-  addons: [
-    '@storybook/addon-links',
-    '@storybook/addon-essentials',
-    '@storybook/addon-interactions',
-    'storybook-dark-mode',
-  ],
+  addons: ['@storybook/addon-docs', 'storybook-dark-mode'],
   framework: {
     name: '@storybook/nextjs',
     options: {},
@@ -14,3 +9,5 @@ module.exports = {
     autodocs: true,
   },
 }
+
+export default config
