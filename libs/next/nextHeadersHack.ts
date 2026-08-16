@@ -9,8 +9,8 @@ export async function getAuthCookieNextHeaders(): Promise<Headers> {
   // Set cookies
   const encodedCookies = rawCookies
     .getAll()
-    .map((k) => cookie.serialize(k.name, k.value))
-    .join(';')
+    .map((k) => cookie.stringifyCookie({ [k.name]: k.value }))
+    .join('; ')
   result.set('Cookie', encodedCookies)
 
   return result
