@@ -23,7 +23,7 @@
     "cookie": "^2.0.1",
     "dayjs": "^1.11.21",
     "encoding": "^0.1.13",
-    "graphql": "^16.14.2",
+    "graphql": "^17.0.0",
     "graphql-request": "^7.4.0",
     "graphql-tag": "^2.12.7",
     "jotai": "^2.20.2",
