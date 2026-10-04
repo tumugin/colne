@@ -6857,7 +6857,7 @@ __metadata:
     graphql: "npm:^17.0.0"
     graphql-request: "npm:^7.4.0"
     graphql-tag: "npm:^2.12.7"
-    jotai: "npm:^2.20.2"
+    jotai: "npm:^3.0.0"
     next: "npm:16.3.1"
     nextjs-toploader: "npm:^3.9.17"
     nuqs: "npm:^2.9.5"
@@ -10043,24 +10043,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jotai@npm:^2.20.2":
-  version: 2.20.2
-  resolution: "jotai@npm:2.20.2"
+"jotai@npm:^3.0.0":
+  version: 3.0.1
+  resolution: "jotai@npm:3.0.1"
   peerDependencies:
-    "@babel/core": ">=7.0.0"
-    "@babel/template": ">=7.0.0"
-    "@types/react": ">=17.0.0"
-    react: ">=17.0.0"
+    "@types/react": ">=18.0.0"
+    react: ">=18.0.0"
   peerDependenciesMeta:
-    "@babel/core":
-      optional: true
-    "@babel/template":
-      optional: true
     "@types/react":
       optional: true
     react:
       optional: true
-  checksum: 10c0/8c9cbdcc2956cbe9b78f61e8ffe3018f7c7cd7efbb8260e7996dba4ac7cc9ee5e2fc53d5c218d9b5f04052672535be9fa7848293b8a35410d17112f95e6395b0
+  checksum: 10c0/84b6adac2e3c8f7e8fd27c52f3206ceb1b22f9b46dfb81100b3765f652134399e91bfaee49a15e2e25083adf5638b8168aeb338234074e9c80955d51c231b456
   languageName: node
   linkType: hard
 
