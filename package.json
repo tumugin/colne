@@ -19,7 +19,7 @@
     "@cloudscape-design/components": "^3.0.1347",
     "@cloudscape-design/design-tokens": "^3.0.107",
     "@cloudscape-design/global-styles": "^1.0.66",
-    "@sentry/nextjs": "^10.70.0",
+    "@sentry/nextjs": "^11.0.0",
     "cookie": "^2.0.1",
     "dayjs": "^1.11.21",
     "encoding": "^0.1.13",
