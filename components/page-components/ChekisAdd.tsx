@@ -2,7 +2,7 @@
 
 import { useToastTheme } from 'libs/dom/toast-theme-hooks'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
-import { Controller, useForm } from 'react-hook-form'
+import { Controller, useForm, useWatch } from 'react-hook-form'
 import {
   ChekiAddContents,
   ChekiAddPanel,
@@ -21,18 +21,17 @@ import { useIsSmartphoneScreenSize } from 'libs/dom/screen-size'
 export function ChekisAdd() {
   const toastStyles = useToastTheme()
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const { control, watch, trigger, formState, getValues } =
-    useForm<ChekiAddContents>({
-      defaultValues: {
-        idolId: '',
-        chekiQuantity: 1,
-        regulationId: null,
-        chekiShotAt: '',
-      },
-      mode: 'all',
-    })
+  const { control, trigger, formState, getValues } = useForm<ChekiAddContents>({
+    defaultValues: {
+      idolId: '',
+      chekiQuantity: 1,
+      regulationId: null,
+      chekiShotAt: '',
+    },
+    mode: 'all',
+  })
 
-  const selectedIdolId = watch('idolId')
+  const selectedIdolId = useWatch({ control, name: 'idolId' })
 
   const [selectedIdolDetails, setSelectedIdolDetails] =
     useState<IdolForChekiAdd | null>(null)
