@@ -41,7 +41,10 @@
   },
   "resolutions": {
     "cross-fetch": "^4.1.0",
-    "react-is": "19.3.1"
+    "react-is": "19.3.1",
+    "graphql-config/minimatch": "^11.0.9",
+    "fork-ts-checker-webpack-plugin/minimatch": "^11.0.9",
+    "@storybook/builder-webpack5/webpack-dev-middleware": "^8.6.1"
   },
   "devDependencies": {
     "@babel/core": "^8.1.2",
