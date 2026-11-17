@@ -4,7 +4,7 @@ import { redirectToLoginPage } from 'utils/no-login-redirect'
 import { NextResponse } from 'next/server'
 import { getNextHeaderFromRequestOnlyCookie } from 'libs/next/nextHeadersHack'
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const currentUser = await getCurrentUser(
     getNextHeaderFromRequestOnlyCookie(request),
   )
