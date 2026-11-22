@@ -1,3 +1,6 @@
+import { GraphQLClient, type RequestOptions } from 'graphql-request'
+import gql from 'graphql-tag'
+type GraphQLClientRequestHeaders = RequestOptions['requestHeaders']
 /** Internal type. DO NOT USE DIRECTLY. */
 type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] }
 /** Internal type. DO NOT USE DIRECTLY. */
@@ -6,9 +9,6 @@ export type Incremental<T> =
   | {
       [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never
     }
-import { GraphQLClient, type RequestOptions } from 'graphql-request'
-import gql from 'graphql-tag'
-type GraphQLClientRequestHeaders = RequestOptions['requestHeaders']
 export type AddOrUpdateChekiParamsInput = {
   chekiQuantity: number
   chekiShotAt: string
