@@ -1,6 +1,7 @@
 import {
   AddOrUpdateChekiParamsInput,
   GroupStatus,
+  type GetUserChekiIdolGroupCountQuery,
 } from 'graphql/generated/client'
 import { createGraphQLSDK } from 'graphql/client'
 import dayjs from 'dayjs'
@@ -46,6 +47,24 @@ export async function getCurrentUserChekiIdolCount(
     headers,
   )
   return result.currentUserChekis.getUserChekiIdolCount
+}
+
+export type CurrentUserChekiIdolGroupCount =
+  GetUserChekiIdolGroupCountQuery['currentUserChekis']['getUserChekiIdolGroupCount'][number]
+
+export async function getCurrentUserChekiIdolGroupCount(
+  params: { startDate: dayjs.Dayjs; endDate: dayjs.Dayjs },
+  headers?: Headers,
+): Promise<CurrentUserChekiIdolGroupCount[]> {
+  const sdk = createGraphQLSDK({ headers, cache: 'no-store' })
+  const result = await sdk.GetUserChekiIdolGroupCount(
+    {
+      chekiShotAtStart: params.startDate.toISOString(),
+      chekiShotAtEnd: params.endDate.toISOString(),
+    },
+    headers,
+  )
+  return result.currentUserChekis.getUserChekiIdolGroupCount
 }
 
 export function createThisMonthDateRange(today: dayjs.Dayjs) {

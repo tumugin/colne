@@ -1,6 +1,9 @@
 import { ChekisAnalytics } from 'components/page-components/ChekisAnalytics'
 import { getAuthCookieNextHeaders } from 'libs/next/nextHeadersHack'
-import { getCurrentUserChekiIdolCount } from 'api-client/cheki'
+import {
+  getCurrentUserChekiIdolCount,
+  getCurrentUserChekiIdolGroupCount,
+} from 'api-client/cheki'
 import dayjs from 'dayjs'
 import { applicationName } from 'libs/app-const'
 
@@ -20,13 +23,11 @@ export default async function Page(props: {
     ? dayjs(searchParams.start)
     : dayjs().subtract(1, 'months')
   const end = searchParams.end ? dayjs(searchParams.end) : dayjs()
-  const currentUserChekiIdolCountResult = await getCurrentUserChekiIdolCount(
-    {
-      startDate: start,
-      endDate: end,
-    },
-    header,
-  )
+  const dateRange = { startDate: start, endDate: end }
+  const [chekiCounts, groupedChekiCounts] = await Promise.all([
+    getCurrentUserChekiIdolCount(dateRange, header),
+    getCurrentUserChekiIdolGroupCount(dateRange, header),
+  ])
 
   return (
     <ChekisAnalytics
@@ -34,7 +35,8 @@ export default async function Page(props: {
         startISOString: start.toISOString(),
         endISOString: end.toISOString(),
       }}
-      chekiCounts={currentUserChekiIdolCountResult}
+      chekiCounts={chekiCounts}
+      groupedChekiCounts={groupedChekiCounts}
     />
   )
 }

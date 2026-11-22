@@ -8,6 +8,7 @@ import {
   SpaceBetween,
   Toggle,
 } from '@cloudscape-design/components'
+import type { CurrentUserChekiIdolGroupCount } from 'api-client/cheki'
 import {
   ColneDataRangePicker,
   ColneDateRange,
@@ -24,11 +25,13 @@ import { AnalyticsTotalChekiPrice } from 'components/analytics/AnalyticsTotalChe
 export function ChekisAnalytics({
   range,
   chekiCounts,
+  groupedChekiCounts,
 }: {
   range: {
     startISOString: string
     endISOString: string
   }
+  groupedChekiCounts: CurrentUserChekiIdolGroupCount[]
   chekiCounts: {
     chekiCount: number
     totalPrice: number
@@ -138,7 +141,7 @@ export function ChekisAnalytics({
           </Container>
         </Grid>
         <Container header={<Header variant="h2">チェキ統計</Header>}>
-          <ChekiByIdolAnalytics chekiCounts={chekiCounts} />
+          <ChekiByIdolAnalytics chekiCounts={groupedChekiCounts} />
         </Container>
       </SpaceBetween>
     </ContentLayout>
