@@ -13,7 +13,6 @@ import { SVGRenderer } from 'echarts/renderers'
 import ReactECharts from 'echarts-for-react/lib/core'
 import { useDarkTheme } from 'libs/dom/useDarkTheme'
 import React, { useMemo } from 'react'
-import { nonNullable } from 'utils/array'
 
 echarts.use([
   TreemapChart,
@@ -22,15 +21,6 @@ echarts.use([
   LabelLayout,
   SVGRenderer,
 ])
-
-type GroupNode = {
-  id: string
-  name: string
-  idols: Map<
-    string,
-    Pick<CurrentUserChekiIdolGroupCount, 'idol' | 'chekiCount'>
-  >
-}
 
 type ChartOption = echarts.ComposeOption<
   TreemapSeriesOption | TooltipComponentOption | AriaComponentOption
@@ -65,55 +55,23 @@ export function ChekiByIdolAnalytics({
 }) {
   const isDarkTheme = useDarkTheme()
   const data = useMemo(() => {
-    const groups = new Map<string, GroupNode>()
-    for (const {
-      idol,
-      idolId,
-      groupId,
-      group: regulationGroup,
-      chekiCount,
-    } of chekiCounts) {
-      if (chekiCount <= 0) continue
+    const groups = new Map<string | null, CurrentUserChekiIdolGroupCount[]>()
 
-      const memberships = idol?.groups?.filter(nonNullable) ?? []
-      const shotGroup =
-        regulationGroup ??
-        memberships.find((group) => group.groupId === groupId)
-      const shotGroupId = groupId ?? shotGroup?.groupId
-      let id = 'unaffiliated'
-      let name = '所属グループなし'
-      if (shotGroupId != null) {
-        id = `group:${shotGroupId}`
-        name = shotGroup?.groupName ?? 'グループ名不明'
-      } else if (!idol) {
-        id = 'unknown'
-        name = '所属グループ不明'
-      } else if (memberships.length > 1) {
-        id = 'multiple'
-        name = '複数グループ所属'
-      } else if (memberships.length === 1) {
-        id = `group:${memberships[0].groupId}`
-        name = memberships[0].groupName
+    for (const row of chekiCounts) {
+      const group = groups.get(row.groupId)
+
+      if (group) {
+        group.push(row)
+      } else {
+        groups.set(row.groupId, [row])
       }
-
-      let group = groups.get(id)
-      if (!group) {
-        group = { id, name, idols: new Map() }
-        groups.set(id, group)
-      }
-
-      // Shots with and without a regulation can resolve to the same group.
-      group.idols.set(idolId, {
-        idol,
-        chekiCount: (group.idols.get(idolId)?.chekiCount ?? 0) + chekiCount,
-      })
     }
 
-    return [...groups.values()].map(({ id, name, idols }) => ({
-      id,
-      name,
-      children: [...idols].map(([memberId, { idol, chekiCount }]) => ({
-        id: `idol:${JSON.stringify([id, memberId])}`,
+    return [...groups].map(([groupId, rows]) => ({
+      id: groupId === null ? 'unknown' : `group:${groupId}`,
+      name: rows[0].group?.groupName ?? 'グループ不明',
+      children: rows.map(({ idolId, idol, chekiCount }) => ({
+        id: `idol:${JSON.stringify([groupId, idolId])}`,
         name: idol?.idolName ?? '不明',
         value: chekiCount,
         itemStyle: { color: idolTileColor(idol?.idolId, isDarkTheme) },
