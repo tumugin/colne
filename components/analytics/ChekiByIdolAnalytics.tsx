@@ -1,4 +1,4 @@
-import { Box } from '@cloudscape-design/components'
+import { Box, Button, Container, Header } from '@cloudscape-design/components'
 import type { CurrentUserChekiIdolGroupCount } from 'api-client/cheki'
 import { TreemapChart, type TreemapSeriesOption } from 'echarts/charts'
 import {
@@ -12,7 +12,7 @@ import { LabelLayout } from 'echarts/features'
 import { SVGRenderer } from 'echarts/renderers'
 import ReactECharts from 'echarts-for-react/lib/core'
 import { useDarkTheme } from 'libs/dom/useDarkTheme'
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 
 echarts.use([
   TreemapChart,
@@ -83,8 +83,41 @@ function createIdolTile(
 
 export function ChekiByIdolAnalytics({
   chekiCounts,
+  title,
 }: {
   chekiCounts: CurrentUserChekiIdolGroupCount[]
+  title: string
+}) {
+  const [isExpanded, setIsExpanded] = useState(false)
+
+  return (
+    <Container
+      header={
+        <Header
+          variant="h2"
+          actions={
+            chekiCounts.length > 0 && (
+              <Button onClick={() => setIsExpanded((expanded) => !expanded)}>
+                {isExpanded ? '元の高さに戻す' : '縦に拡大'}
+              </Button>
+            )
+          }
+        >
+          {title}
+        </Header>
+      }
+    >
+      <ChekiByIdolChart chekiCounts={chekiCounts} isExpanded={isExpanded} />
+    </Container>
+  )
+}
+
+function ChekiByIdolChart({
+  chekiCounts,
+  isExpanded,
+}: {
+  chekiCounts: CurrentUserChekiIdolGroupCount[]
+  isExpanded: boolean
 }) {
   const isDarkTheme = useDarkTheme()
   const data = useMemo(() => {
@@ -201,7 +234,11 @@ export function ChekiByIdolAnalytics({
       option={option}
       theme={isDarkTheme ? 'dark' : undefined}
       opts={{ renderer: 'svg' }}
-      style={{ height: 'clamp(320px, 48vw, 560px)' }}
+      style={{
+        height: isExpanded
+          ? 'clamp(640px, 96vw, 1120px)'
+          : 'clamp(320px, 48vw, 560px)',
+      }}
     />
   )
 }

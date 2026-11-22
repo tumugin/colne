@@ -112,9 +112,10 @@ export function MonthlyChekiCounts({
           />
         </Container>
       </Grid>
-      <Container header={<Header variant="h2">今月のチェキ統計</Header>}>
-        <ChekiByIdolAnalytics chekiCounts={groupedChekiCounts} />
-      </Container>
+      <ChekiByIdolAnalytics
+        chekiCounts={groupedChekiCounts}
+        title="今月のチェキ統計"
+      />
     </SpaceBetween>
   )
 }
