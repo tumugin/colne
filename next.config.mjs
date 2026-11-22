@@ -13,6 +13,8 @@ const nextConfig = {
     '@cloudscape-design/components',
     '@cloudscape-design/design-tokens',
     '@cloudscape-design/component-toolkit',
+    'echarts',
+    'zrender',
   ],
 }
 

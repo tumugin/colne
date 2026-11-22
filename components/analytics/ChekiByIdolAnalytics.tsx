@@ -1,75 +1,113 @@
-import { ResponsiveContainer, Treemap } from 'recharts'
-import React, { useMemo } from 'react'
-import {
-  colorChartsRed300,
-  colorChartsRed400,
-  colorChartsRed500,
-  colorChartsRed600,
-  colorChartsRed700,
-  colorChartsOrange300,
-  colorChartsOrange400,
-  colorChartsOrange500,
-  colorChartsOrange600,
-  colorChartsOrange700,
-  colorChartsYellow300,
-  colorChartsYellow400,
-  colorChartsYellow500,
-  colorChartsYellow600,
-  colorChartsYellow700,
-  colorChartsGreen300,
-  colorChartsGreen400,
-  colorChartsGreen500,
-  colorChartsGreen600,
-  colorChartsGreen700,
-  colorChartsTeal300,
-  colorChartsTeal400,
-  colorChartsTeal500,
-  colorChartsTeal600,
-  colorChartsTeal700,
-  colorChartsBlue1300,
-  colorChartsBlue1400,
-  colorChartsBlue1500,
-  colorChartsBlue1600,
-  colorChartsBlue1700,
-  colorChartsBlue1800,
-  colorChartsBlue1900,
-  colorChartsPurple300,
-  colorChartsPurple400,
-  colorChartsPurple500,
-  colorChartsPurple600,
-  colorChartsPurple700,
-  colorChartsPink300,
-  colorChartsPink400,
-  colorChartsPink500,
-  colorChartsPink600,
-  colorChartsPink700,
-  colorTextInteractiveActive,
-  colorBorderDividerDefault,
-} from '@cloudscape-design/design-tokens'
 import { Box } from '@cloudscape-design/components'
+import type { CurrentUserChekiIdolGroupCount } from 'api-client/cheki'
+import { TreemapChart, type TreemapSeriesOption } from 'echarts/charts'
+import {
+  AriaComponent,
+  TooltipComponent,
+  type AriaComponentOption,
+  type TooltipComponentOption,
+} from 'echarts/components'
+import * as echarts from 'echarts/core'
+import { LabelLayout } from 'echarts/features'
+import { SVGRenderer } from 'echarts/renderers'
+import ReactECharts from 'echarts-for-react/lib/core'
+import { useDarkTheme } from 'libs/dom/useDarkTheme'
+import React, { useMemo } from 'react'
+
+echarts.use([
+  TreemapChart,
+  TooltipComponent,
+  AriaComponent,
+  LabelLayout,
+  SVGRenderer,
+])
+
+type ChartOption = echarts.ComposeOption<
+  TreemapSeriesOption | TooltipComponentOption | AriaComponentOption
+>
+
+const labelGap = 4
+const amountLabel = {
+  fontSize: 16,
+  fontWeight: 'normal',
+  fontFamily: 'sans-serif',
+  lineHeight: 20 + labelGap,
+} as const
+const amountFont = `${amountLabel.fontWeight} ${amountLabel.fontSize}px ${amountLabel.fontFamily}`
+const labelPadding = 4
+const nameFontSizes = [40, 36, 32, 28, 24, 20, 16, 14, 12]
+const minimumNameFontSize = 10
+
+function tileLabelHeight(nameFontSize: number) {
+  return nameFontSize * 1.2 + amountLabel.lineHeight
+}
+
+function idolTileColor(idolId: string | undefined, isDarkTheme: boolean) {
+  if (!idolId) return isDarkTheme ? '#414853' : '#d9dde4'
+
+  // Give each ID a consistent hue across charts and reporting periods.
+  let hash = 2166136261
+  for (let index = 0; index < idolId.length; index++) {
+    hash = Math.imul(hash ^ idolId.charCodeAt(index), 16777619)
+  }
+
+  const mixedHash = Math.imul(hash, 0x9e3779b1) >>> 0
+  const hue = (mixedHash / 0x100000000) * 360
+  return `hsl(${hue}, ${isDarkTheme ? '55%, 30%' : '56%, 76%'})`
+}
+
+function createIdolTile(
+  { groupId, idolId, idol, chekiCount }: CurrentUserChekiIdolGroupCount,
+  isDarkTheme: boolean,
+) {
+  const countText = `${chekiCount} 枚`
+  const countWidth = echarts.format.getTextRect(countText, amountFont).width
+
+  return {
+    id: `idol:${JSON.stringify([groupId, idolId])}`,
+    name: idol?.idolName ?? '不明',
+    value: chekiCount,
+    itemStyle: { color: idolTileColor(idol?.idolId, isDarkTheme) },
+    label: {
+      rich: {
+        // An explicit token width lets ECharts hide the whole count if it cannot fit.
+        amount: {
+          ...amountLabel,
+          padding: [labelGap, 0, 0, 0],
+          width: Math.ceil(countWidth),
+        },
+      },
+    },
+  }
+}
 
 export function ChekiByIdolAnalytics({
   chekiCounts,
 }: {
-  chekiCounts: {
-    chekiCount: number
-    idol?: {
-      idolId: string
-      idolName: string
-    } | null
-  }[]
+  chekiCounts: CurrentUserChekiIdolGroupCount[]
 }) {
-  const sortedChekiCounts = useMemo(
-    () => [...chekiCounts].sort((a, b) => a.chekiCount - b.chekiCount),
-    [chekiCounts],
-  )
-  const totalChekiCount = useMemo(
-    () =>
-      sortedChekiCounts.reduce((acc, cur) => acc + (cur?.chekiCount ?? 0), 0),
-    [sortedChekiCounts],
-  )
+  const isDarkTheme = useDarkTheme()
+  const data = useMemo(() => {
+    const groups = new Map<string | null, CurrentUserChekiIdolGroupCount[]>()
 
-  if (chekiCounts.length === 0) {
+    for (const row of chekiCounts) {
+      const group = groups.get(row.groupId)
+
+      if (group) {
+        group.push(row)
+      } else {
+        groups.set(row.groupId, [row])
+      }
+    }
+
+    return [...groups].map(([groupId, rows]) => ({
+      id: groupId === null ? 'unknown' : `group:${groupId}`,
+      name: rows[0].group?.groupName ?? 'グループ不明',
+      children: rows.map((row) => createIdolTile(row, isDarkTheme)),
+    }))
+  }, [chekiCounts, isDarkTheme])
+
+  if (data.length === 0) {
     return (
       <Box textAlign="center" color="inherit">
         <b>データなし</b>
@@ -80,125 +118,90 @@ export function ChekiByIdolAnalytics({
     )
   }
 
-  return (
-    <ResponsiveContainer width="100%" height={400}>
-      <Treemap
-        dataKey="size"
-        data={[
-          {
-            name: 'チェキ',
-            children: sortedChekiCounts.map((chekiCount) => ({
-              name: `${chekiCount.idol?.idolName ?? '不明'}(${
-                chekiCount.chekiCount
-              })`,
-              size: (chekiCount.chekiCount / totalChekiCount) * 100,
-            })),
+  const option: ChartOption = {
+    backgroundColor: 'transparent',
+    aria: { enabled: true },
+    tooltip: {
+      trigger: 'item',
+      confine: true,
+      valueFormatter: (value) =>
+        value == null ? '' : `${value.toLocaleString('ja-JP')} 枚`,
+    },
+    series: {
+      type: 'treemap',
+      name: 'チェキ撮影枚数',
+      data,
+      left: 0,
+      top: 0,
+      width: '100%',
+      height: '100%',
+      roam: false,
+      nodeClick: false,
+      breadcrumb: { show: false },
+      visibleMin: 0,
+      itemStyle: {
+        gapWidth: 1,
+        borderColor: isDarkTheme ? '#232833' : '#e8ecf2',
+      },
+      levels: [
+        { itemStyle: { gapWidth: 4 } },
+        {
+          upperLabel: {
+            show: true,
+            height: 18,
+            padding: [0, 5],
+            fontSize: 11,
+            fontWeight: 'bold',
+            color: isDarkTheme ? '#f1f3f5' : '#161d26',
           },
-        ]}
-        isAnimationActive={false}
-        // @ts-ignore
-        content={<CustomTreemap colors={COLORS} />}
-      />
-    </ResponsiveContainer>
-  )
-}
+          itemStyle: {
+            borderWidth: 2,
+            borderColor: isDarkTheme ? '#303744' : '#e8ecf2',
+          },
+        },
+      ],
+      label: {
+        formatter: '{b}\n{amount|{c} 枚}',
+        overflow: 'truncate',
+        position: 'insideTop',
+        align: 'center',
+        verticalAlign: 'top',
+        padding: labelPadding,
+        fontWeight: 'bold',
+        fontFamily: 'sans-serif',
+        color: isDarkTheme ? '#fff' : '#161d26',
+      },
+      labelLayout: ({ rect: { width, height }, text }) => {
+        const [name] = text.split('\n', 1)
+        const availableWidth = width - 2 * labelPadding
+        const availableHeight = height - 2 * labelPadding
+        const fontSize =
+          nameFontSizes.find((size) => {
+            if (tileLabelHeight(size) > availableHeight) {
+              return false
+            }
 
-const COLORS = [
-  colorChartsRed300,
-  colorChartsRed400,
-  colorChartsRed500,
-  colorChartsRed600,
-  colorChartsRed700,
-  colorChartsOrange300,
-  colorChartsOrange400,
-  colorChartsOrange500,
-  colorChartsOrange600,
-  colorChartsOrange700,
-  colorChartsYellow300,
-  colorChartsYellow400,
-  colorChartsYellow500,
-  colorChartsYellow600,
-  colorChartsYellow700,
-  colorChartsGreen300,
-  colorChartsGreen400,
-  colorChartsGreen500,
-  colorChartsGreen600,
-  colorChartsGreen700,
-  colorChartsTeal300,
-  colorChartsTeal400,
-  colorChartsTeal500,
-  colorChartsTeal600,
-  colorChartsTeal700,
-  colorChartsBlue1300,
-  colorChartsBlue1400,
-  colorChartsBlue1500,
-  colorChartsBlue1600,
-  colorChartsBlue1700,
-  colorChartsBlue1800,
-  colorChartsBlue1900,
-  colorChartsPurple300,
-  colorChartsPurple400,
-  colorChartsPurple500,
-  colorChartsPurple600,
-  colorChartsPurple700,
-  colorChartsPink300,
-  colorChartsPink400,
-  colorChartsPink500,
-  colorChartsPink600,
-  colorChartsPink700,
-]
+            const nameWidth = echarts.format.getTextRect(
+              name,
+              `bold ${size}px sans-serif`,
+            ).width
+            return nameWidth <= availableWidth
+          }) ?? minimumNameFontSize
 
-function CustomTreemap({
-  x,
-  y,
-  width,
-  height,
-  index,
-  depth,
-  name,
-  colors,
-  root,
-}: {
-  x: number
-  y: number
-  width: number
-  height: number
-  index: number
-  depth: number
-  name?: string
-  colors: string[]
-  root: {
-    children: unknown[]
+        // ECharts top-aligns rich text, so center the two lines within the tile.
+        const freeHeight = availableHeight - tileLabelHeight(fontSize)
+        return { fontSize, dy: Math.max(0, freeHeight / 2) }
+      },
+    },
   }
-}) {
-  const fontSize = width / (name?.length ?? 1)
 
   return (
-    <g>
-      <rect
-        x={x}
-        y={y}
-        width={width}
-        height={height}
-        style={{
-          fill: colors[
-            Math.floor((index / root.children.length) * colors.length)
-          ],
-          stroke: colorBorderDividerDefault,
-          strokeWidth: 2 / (depth + 1e-10),
-          strokeOpacity: 1 / (depth + 1e-10),
-        }}
-      />
-      <text
-        x={x + width / 2}
-        y={y + height / 2 + fontSize / 2}
-        width={width}
-        textAnchor="middle"
-        fill={colorTextInteractiveActive}
-        fontSize={fontSize}
-      >
-        {name}
-      </text>
-    </g>
+    <ReactECharts
+      echarts={echarts}
+      option={option}
+      theme={isDarkTheme ? 'dark' : undefined}
+      opts={{ renderer: 'svg' }}
+      style={{ height: 'clamp(320px, 48vw, 560px)' }}
+    />
   )
 }

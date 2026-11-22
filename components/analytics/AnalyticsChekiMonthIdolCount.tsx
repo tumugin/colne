@@ -3,8 +3,16 @@ import React, { useMemo } from 'react'
 import dayjs from 'dayjs'
 import { BarChart, Box } from '@cloudscape-design/components'
 import minMax from 'dayjs/plugin/minMax'
+import styled from 'styled-components'
 
 dayjs.extend(minMax)
+
+const MonthIdolCountChart = styled(BarChart<Date>)`
+  [class*='awsui_labels-inline-start--hidden_'] {
+    /* 月の数が多くなると縦幅に変な余白が出てくるので、block-sizeを0にして防ぐ */
+    height: 0;
+  }
+`
 
 export function AnalyticsChekiMonthIdolCount({
   chekiMonthIdolCount,
@@ -88,7 +96,7 @@ export function AnalyticsChekiMonthIdolCount({
   )
 
   return (
-    <BarChart
+    <MonthIdolCountChart
       series={series}
       xTitle="月"
       yTitle="撮影枚数"

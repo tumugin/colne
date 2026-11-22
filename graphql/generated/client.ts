@@ -478,6 +478,27 @@ export type GetUserChekiIdolCountQuery = {
   }
 }
 
+export type GetUserChekiIdolGroupCountQueryVariables = Exact<{
+  chekiShotAtStart: string
+  chekiShotAtEnd: string
+}>
+
+export type GetUserChekiIdolGroupCountQuery = {
+  currentUserChekis: {
+    getUserChekiIdolGroupCount: Array<{
+      chekiCount: number
+      idolId: string
+      groupId: string | null
+      group: { groupId: string; groupName: string } | null
+      idol: {
+        idolId: string
+        idolName: string
+        groups: Array<{ groupId: string; groupName: string } | null>
+      } | null
+    }>
+  }
+}
+
 export type GetUserCreatedGroupListQueryVariables = Exact<{
   page: number
 }>
@@ -1036,6 +1057,37 @@ export const GetUserChekiIdolCountDocument = gql`
     }
   }
 `
+export const GetUserChekiIdolGroupCountDocument = gql`
+  query GetUserChekiIdolGroupCount(
+    $chekiShotAtStart: String!
+    $chekiShotAtEnd: String!
+  ) {
+    currentUserChekis {
+      getUserChekiIdolGroupCount(
+        params: {
+          chekiShotAtStart: $chekiShotAtStart
+          chekiShotAtEnd: $chekiShotAtEnd
+        }
+      ) {
+        chekiCount
+        idolId
+        groupId
+        group {
+          groupId
+          groupName
+        }
+        idol {
+          idolId
+          idolName
+          groups {
+            groupId
+            groupName
+          }
+        }
+      }
+    }
+  }
+`
 export const GetUserCreatedGroupListDocument = gql`
   query GetUserCreatedGroupList($page: Int!) {
     currentUserGroups {
@@ -1563,6 +1615,24 @@ export function getSdk(
             signal,
           }),
         'GetUserChekiIdolCount',
+        'query',
+        variables,
+      )
+    },
+    GetUserChekiIdolGroupCount(
+      variables: GetUserChekiIdolGroupCountQueryVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+      signal?: RequestInit['signal'],
+    ): Promise<GetUserChekiIdolGroupCountQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<GetUserChekiIdolGroupCountQuery>({
+            document: GetUserChekiIdolGroupCountDocument,
+            variables,
+            requestHeaders: { ...requestHeaders, ...wrappedRequestHeaders },
+            signal,
+          }),
+        'GetUserChekiIdolGroupCount',
         'query',
         variables,
       )

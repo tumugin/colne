@@ -6,6 +6,7 @@ import {
   SpaceBetween,
   Toggle,
 } from '@cloudscape-design/components'
+import type { CurrentUserChekiIdolGroupCount } from 'api-client/cheki'
 import React, { useMemo, useState } from 'react'
 import { ChekiByIdolAnalytics } from 'components/analytics/ChekiByIdolAnalytics'
 import { AnalyticsChekiCount } from 'components/analytics/AnalyticsChekiCount'
@@ -18,7 +19,9 @@ import { AnalyticsTotalChekiPrice } from 'components/analytics/AnalyticsTotalChe
 
 export function MonthlyChekiCounts({
   chekiCounts,
+  groupedChekiCounts,
 }: {
+  groupedChekiCounts: CurrentUserChekiIdolGroupCount[]
   chekiCounts: {
     chekiCount: number
     totalPrice: number
@@ -110,7 +113,7 @@ export function MonthlyChekiCounts({
         </Container>
       </Grid>
       <Container header={<Header variant="h2">今月のチェキ統計</Header>}>
-        <ChekiByIdolAnalytics chekiCounts={chekiCounts} />
+        <ChekiByIdolAnalytics chekiCounts={groupedChekiCounts} />
       </Container>
     </SpaceBetween>
   )
