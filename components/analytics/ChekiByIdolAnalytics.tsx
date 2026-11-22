@@ -26,13 +26,21 @@ type ChartOption = echarts.ComposeOption<
   TreemapSeriesOption | TooltipComponentOption | AriaComponentOption
 >
 
+const labelGap = 4
 const amountLabel = {
-  fontSize: 13,
+  fontSize: 16,
   fontWeight: 'normal',
   fontFamily: 'sans-serif',
-  lineHeight: 17,
+  lineHeight: 20 + labelGap,
 } as const
+const amountFont = `${amountLabel.fontWeight} ${amountLabel.fontSize}px ${amountLabel.fontFamily}`
 const labelPadding = 4
+const nameFontSizes = [40, 36, 32, 28, 24, 20, 16, 14, 12]
+const minimumNameFontSize = 10
+
+function tileLabelHeight(nameFontSize: number) {
+  return nameFontSize * 1.2 + amountLabel.lineHeight
+}
 
 function idolTileColor(idolId: string | undefined, isDarkTheme: boolean) {
   if (!idolId) return isDarkTheme ? '#414853' : '#d9dde4'
@@ -46,6 +54,31 @@ function idolTileColor(idolId: string | undefined, isDarkTheme: boolean) {
   const mixedHash = Math.imul(hash, 0x9e3779b1) >>> 0
   const hue = (mixedHash / 0x100000000) * 360
   return `hsl(${hue}, ${isDarkTheme ? '55%, 30%' : '56%, 76%'})`
+}
+
+function createIdolTile(
+  { groupId, idolId, idol, chekiCount }: CurrentUserChekiIdolGroupCount,
+  isDarkTheme: boolean,
+) {
+  const countText = `${chekiCount} 枚`
+  const countWidth = echarts.format.getTextRect(countText, amountFont).width
+
+  return {
+    id: `idol:${JSON.stringify([groupId, idolId])}`,
+    name: idol?.idolName ?? '不明',
+    value: chekiCount,
+    itemStyle: { color: idolTileColor(idol?.idolId, isDarkTheme) },
+    label: {
+      rich: {
+        // An explicit token width lets ECharts hide the whole count if it cannot fit.
+        amount: {
+          ...amountLabel,
+          padding: [labelGap, 0, 0, 0],
+          width: Math.ceil(countWidth),
+        },
+      },
+    },
+  }
 }
 
 export function ChekiByIdolAnalytics({
@@ -70,26 +103,7 @@ export function ChekiByIdolAnalytics({
     return [...groups].map(([groupId, rows]) => ({
       id: groupId === null ? 'unknown' : `group:${groupId}`,
       name: rows[0].group?.groupName ?? 'グループ不明',
-      children: rows.map(({ idolId, idol, chekiCount }) => ({
-        id: `idol:${JSON.stringify([groupId, idolId])}`,
-        name: idol?.idolName ?? '不明',
-        value: chekiCount,
-        itemStyle: { color: idolTileColor(idol?.idolId, isDarkTheme) },
-        label: {
-          rich: {
-            amount: {
-              ...amountLabel,
-              // A fixed rich-text width hides the entire count if it does not fit.
-              width: Math.ceil(
-                echarts.format.getTextRect(
-                  `${chekiCount} 枚`,
-                  `${amountLabel.fontWeight} ${amountLabel.fontSize}px ${amountLabel.fontFamily}`,
-                ).width,
-              ),
-            },
-          },
-        },
-      })),
+      children: rows.map((row) => createIdolTile(row, isDarkTheme)),
     }))
   }, [chekiCounts, isDarkTheme])
 
@@ -154,18 +168,29 @@ export function ChekiByIdolAnalytics({
         verticalAlign: 'top',
         padding: labelPadding,
         fontWeight: 'bold',
+        fontFamily: 'sans-serif',
         color: isDarkTheme ? '#fff' : '#161d26',
       },
-      labelLayout: ({ rect }) => {
-        const fontSize = Math.max(
-          10,
-          Math.min(32, Math.floor(rect.width / 7), Math.floor(rect.height / 3)),
-        )
-        const textHeight = fontSize * 1.2 + amountLabel.lineHeight
-        return {
-          fontSize,
-          dy: Math.max(0, (rect.height - textHeight) / 2 - labelPadding),
-        }
+      labelLayout: ({ rect: { width, height }, text }) => {
+        const [name] = text.split('\n', 1)
+        const availableWidth = width - 2 * labelPadding
+        const availableHeight = height - 2 * labelPadding
+        const fontSize =
+          nameFontSizes.find((size) => {
+            if (tileLabelHeight(size) > availableHeight) {
+              return false
+            }
+
+            const nameWidth = echarts.format.getTextRect(
+              name,
+              `bold ${size}px sans-serif`,
+            ).width
+            return nameWidth <= availableWidth
+          }) ?? minimumNameFontSize
+
+        // ECharts top-aligns rich text, so center the two lines within the tile.
+        const freeHeight = availableHeight - tileLabelHeight(fontSize)
+        return { fontSize, dy: Math.max(0, freeHeight / 2) }
       },
     },
   }
