@@ -125,7 +125,7 @@ export function MonthlyChekiCounts({
             actions={
               <Button
                 iconName={
-                  isChekiByIdolAnalyticsExpanded ? 'angle-down' : 'angle-up'
+                  isChekiByIdolAnalyticsExpanded ? 'angle-up' : 'angle-down'
                 }
                 variant="icon"
                 onClick={toggleChekiByIdolAnalyticsExpanded}
