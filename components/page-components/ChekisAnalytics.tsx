@@ -140,10 +140,9 @@ export function ChekisAnalytics({
             />
           </Container>
         </Grid>
-        <ChekiByIdolAnalytics
-          chekiCounts={groupedChekiCounts}
-          title="チェキ統計"
-        />
+        <Container header={<Header variant="h2">チェキ統計</Header>}>
+          <ChekiByIdolAnalytics chekiCounts={groupedChekiCounts} />
+        </Container>
       </SpaceBetween>
     </ContentLayout>
   )
