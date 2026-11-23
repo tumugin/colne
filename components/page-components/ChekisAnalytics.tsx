@@ -1,6 +1,7 @@
 'use client'
 
 import {
+  Button,
   Container,
   ContentLayout,
   Grid,
@@ -79,6 +80,12 @@ export function ChekisAnalytics({
   )
   const [totalChekiPriceHidden, setTotalChekiPriceHidden] = useState(true)
 
+  const [isChekiByIdolAnalyticsExpanded, setIsChekiByIdolAnalyticsExpanded] =
+    useState(false)
+  const toggleChekiByIdolAnalyticsExpanded = useCallback(() => {
+    setIsChekiByIdolAnalyticsExpanded((prev) => !prev)
+  }, [])
+
   return (
     <ContentLayout>
       <SpaceBetween size="xl">
@@ -140,8 +147,28 @@ export function ChekisAnalytics({
             />
           </Container>
         </Grid>
-        <Container header={<Header variant="h2">チェキ統計</Header>}>
-          <ChekiByIdolAnalytics chekiCounts={groupedChekiCounts} />
+        <Container
+          header={
+            <Header
+              variant="h2"
+              actions={
+                <Button
+                  iconName={
+                    isChekiByIdolAnalyticsExpanded ? 'angle-up' : 'angle-down'
+                  }
+                  variant="icon"
+                  onClick={toggleChekiByIdolAnalyticsExpanded}
+                />
+              }
+            >
+              チェキ統計
+            </Header>
+          }
+        >
+          <ChekiByIdolAnalytics
+            chekiCounts={groupedChekiCounts}
+            isExpanded={isChekiByIdolAnalyticsExpanded}
+          />
         </Container>
       </SpaceBetween>
     </ContentLayout>
