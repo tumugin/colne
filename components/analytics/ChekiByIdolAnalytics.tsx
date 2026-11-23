@@ -83,8 +83,10 @@ function createIdolTile(
 
 export function ChekiByIdolAnalytics({
   chekiCounts,
+  isExpanded,
 }: {
   chekiCounts: CurrentUserChekiIdolGroupCount[]
+  isExpanded: boolean
 }) {
   const isDarkTheme = useDarkTheme()
   const data = useMemo(() => {
@@ -201,7 +203,11 @@ export function ChekiByIdolAnalytics({
       option={option}
       theme={isDarkTheme ? 'dark' : undefined}
       opts={{ renderer: 'svg' }}
-      style={{ height: 'clamp(320px, 48vw, 560px)' }}
+      style={{
+        height: isExpanded
+          ? 'clamp(640px, 96vw, 1120px)'
+          : 'clamp(320px, 48vw, 560px)',
+      }}
     />
   )
 }

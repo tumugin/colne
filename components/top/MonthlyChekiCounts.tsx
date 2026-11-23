@@ -7,7 +7,7 @@ import {
   Toggle,
 } from '@cloudscape-design/components'
 import type { CurrentUserChekiIdolGroupCount } from 'api-client/cheki'
-import React, { useMemo, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import { ChekiByIdolAnalytics } from 'components/analytics/ChekiByIdolAnalytics'
 import { AnalyticsChekiCount } from 'components/analytics/AnalyticsChekiCount'
 import { AnalyticsTotalChekiCount } from 'components/analytics/AnalyticsTotalChekiCount'
@@ -48,6 +48,12 @@ export function MonthlyChekiCounts({
     [chekiCounts],
   )
   const [totalChekiPriceHidden, setTotalChekiPriceHidden] = useState(true)
+
+  const [isChekiByIdolAnalyticsExpanded, setIsChekiByIdolAnalyticsExpanded] =
+    useState(false)
+  const toggleChekiByIdolAnalyticsExpanded = useCallback(() => {
+    setIsChekiByIdolAnalyticsExpanded((prev) => !prev)
+  }, [])
 
   return (
     <SpaceBetween size="xl" direction="vertical">
@@ -112,8 +118,28 @@ export function MonthlyChekiCounts({
           />
         </Container>
       </Grid>
-      <Container header={<Header variant="h2">今月のチェキ統計</Header>}>
-        <ChekiByIdolAnalytics chekiCounts={groupedChekiCounts} />
+      <Container
+        header={
+          <Header
+            variant="h2"
+            actions={
+              <Button
+                iconName={
+                  isChekiByIdolAnalyticsExpanded ? 'angle-down' : 'angle-up'
+                }
+                variant="icon"
+                onClick={toggleChekiByIdolAnalyticsExpanded}
+              />
+            }
+          >
+            今月のチェキ統計
+          </Header>
+        }
+      >
+        <ChekiByIdolAnalytics
+          chekiCounts={groupedChekiCounts}
+          isExpanded={isChekiByIdolAnalyticsExpanded}
+        />
       </Container>
     </SpaceBetween>
   )
